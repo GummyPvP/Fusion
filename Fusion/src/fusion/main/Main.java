@@ -4,9 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import fusion.kits.Archer;
 import fusion.kits.KitManager;
 import fusion.kits.PVP;
 import fusion.utils.command.CommandFramework;
+import fusion.utils.spawn.Spawn;
 
 /**
 	 * 
@@ -33,18 +35,28 @@ public class Main extends JavaPlugin {
 		log ("Listeners loaded");
 		
 		framework.registerCommands(new PVP());
+		framework.registerCommands(new Archer());
 		
 		log ("Commands loaded");
 		
 		KitManager.getInstance().registerKit(new PVP());
+		KitManager.getInstance().registerKit(new Archer());
 		
 		log ("Kits loaded");
+		
+		Spawn.getInstance().load();
+		
+		log ("Spawn loaded");
 		
 	}
 	
 	public void onDisable() {
 		
 		KitManager.getInstance().unloadKits();
+		
+		log ("Kits unloaded");
+		
+		Spawn.getInstance().save();
 		
 	}
 	

@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import fusion.utils.Chat;
 import fusion.utils.ItemUtils;
 
 /**
@@ -25,6 +26,8 @@ public abstract class Kit {
 	public abstract boolean isDefault();
 	
 	public void apply(Player player) {
+		
+		Chat.getInstance().messagePlayer(player, "&aYou've recieved kit " + Chat.IMPORTANT_COLOR + getName() + ".");
 		
 		for (ItemStack items : getItems()) {
 			

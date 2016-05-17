@@ -20,26 +20,27 @@ import klap.utils.mPlayer;
 	 * 
 	 */
 
-public class PVP extends Kit {
+public class Archer extends Kit {
 
 		@Override
 		public String getName() {
-			return "PVP";
+			return "Archer";
 		}
 
 		@Override
 		public List<ItemStack> getItems() {
 			
-			ItemStack sword = new ItemBuilder(Material.DIAMOND_SWORD).name("&aPVP Sword").lore("u wot m8").enchant(Enchantment.DAMAGE_ALL, 1).build();
+			ItemStack sword = new ItemBuilder(Material.STONE_SWORD).name("&aArcher Sword").lore(Arrays.asList("This sword has an EXTREMELY dull blade.", "It'll do little damage, so stick to your bow!")).build();
+			ItemStack bow = new ItemBuilder(Material.BOW).name("&aArcher Bow").lore("Use this bow at a distance!").enchant(Enchantment.ARROW_INFINITE, 1).enchant(Enchantment.ARROW_KNOCKBACK, 2).build();
 			
-			return Arrays.asList(sword);
+			return Arrays.asList(sword, bow, new ItemStack(Material.ARROW));
 			
 		}
 		
 		@Override
 		public List<ItemStack> getArmor() {
 			
-			return Arrays.asList(new ItemStack(Material.IRON_HELMET), new ItemStack(Material.IRON_CHESTPLATE), new ItemStack(Material.IRON_LEGGINGS), new ItemStack(Material.IRON_BOOTS));
+			return Arrays.asList(new ItemStack(Material.LEATHER_HELMET), new ItemStack(Material.CHAINMAIL_CHESTPLATE), new ItemStack(Material.IRON_LEGGINGS), new ItemStack(Material.LEATHER_BOOTS));
 			
 		}
 		
@@ -48,7 +49,7 @@ public class PVP extends Kit {
 			return true;
 		}
 		
-		@Command(name = "pvp", description = "Gives the PVP kit.", usage = "/kit pvp", inGameOnly=true)
+		@Command(name = "archer", description = "Gives the Archer kit.", usage = "/kit archer", inGameOnly=true)
 		public void kitPVPCommand(CommandArgs args) {
 			
 			mPlayer user = mPlayer.getInstance(args.getPlayer());
