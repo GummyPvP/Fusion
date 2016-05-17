@@ -50,13 +50,13 @@ public class Archer extends Kit {
 		}
 		
 		@Command(name = "archer", description = "Gives the Archer kit.", usage = "/kit archer", inGameOnly=true)
-		public void kitPVPCommand(CommandArgs args) {
+		public void kitArcherCommand(CommandArgs args) {
 			
 			mPlayer user = mPlayer.getInstance(args.getPlayer());
 			
 			if (user.hasKit()) {
 				
-				Chat.getInstance().messagePlayer(args.getPlayer(), Chat.ALREADY_USED_KIT);
+				Chat.getInstance().messagePlayer(args.getPlayer(), String.format(Chat.ALREADY_USED_KIT, user.getKit().getName()));
 				
 				return;
 			}

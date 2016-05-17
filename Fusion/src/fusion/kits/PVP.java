@@ -55,7 +55,7 @@ public class PVP extends Kit {
 			
 			if (user.hasKit()) {
 				
-				Chat.getInstance().messagePlayer(args.getPlayer(), Chat.ALREADY_USED_KIT);
+				Chat.getInstance().messagePlayer(args.getPlayer(), String.format(Chat.ALREADY_USED_KIT, user.getKit().getName()));
 				
 				return;
 			}

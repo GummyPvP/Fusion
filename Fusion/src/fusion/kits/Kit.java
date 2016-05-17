@@ -17,12 +17,29 @@ import fusion.utils.ItemUtils;
 
 public abstract class Kit {
 	
+	
+	/**
+	 * 
+	 * @return name of kit
+	 */
 	public abstract String getName();
 	
+	/**
+	 * 
+	 * @return ItemStack list of items
+	 */
 	public abstract List<ItemStack> getItems();
 	
+	/**
+	 * 
+	 * @return ItemStack list of armor. Make sure to put the armor in the right order when adding, helmet, chestplate, leggings, boots
+	 */
 	public abstract List<ItemStack> getArmor();
 	
+	/**
+	 * 
+	 * @return if this kit is unlocked by purchasing in shop or is free by default.
+	 */
 	public abstract boolean isDefault();
 	
 	public void apply(Player player) {
