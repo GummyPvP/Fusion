@@ -4,9 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import fusion.cmds.KitCommand;
 import fusion.kits.Archer;
 import fusion.kits.KitManager;
 import fusion.kits.PVP;
+import fusion.listeners.InventoryClick;
 import fusion.utils.command.CommandFramework;
 import fusion.utils.spawn.Spawn;
 
@@ -30,12 +32,13 @@ public class Main extends JavaPlugin {
 		
 		log ("Instance & framework created");
 		
-		loadListeners();
+		loadListeners(new InventoryClick());
 		
 		log ("Listeners loaded");
 		
 		framework.registerCommands(new PVP());
 		framework.registerCommands(new Archer());
+		framework.registerCommands(new KitCommand());
 		
 		log ("Commands loaded");
 		

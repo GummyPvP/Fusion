@@ -26,8 +26,8 @@ import org.bukkit.help.IndexHelpTopic;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.SimplePluginManager;
 
+import fusion.utils.Chat;
 import klap.utils.mPlayer;
-import mpermissions.utils.Chat;
 import mpermissions.utils.permissions.Rank;
 
 /**

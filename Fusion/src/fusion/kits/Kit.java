@@ -2,11 +2,14 @@ package fusion.kits;
 
 import java.util.List;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
 
 import fusion.utils.Chat;
-import fusion.utils.ItemUtils;
+import fusion.utils.ItemBuilder;
+import klap.utils.mPlayer;
 
 /**
 	 * 
@@ -17,12 +20,17 @@ import fusion.utils.ItemUtils;
 
 public abstract class Kit {
 	
-	
 	/**
 	 * 
 	 * @return name of kit
 	 */
 	public abstract String getName();
+	
+	/**
+	 * 
+	 * @return item for KitGUI
+	 */
+	public abstract ItemStack getInventoryItem();
 	
 	/**
 	 * 
@@ -34,7 +42,13 @@ public abstract class Kit {
 	 * 
 	 * @return ItemStack list of armor. Make sure to put the armor in the right order when adding, helmet, chestplate, leggings, boots
 	 */
-	public abstract List<ItemStack> getArmor();
+	public abstract ItemStack[] getArmor();
+	
+	/**
+	 * 
+	 * @return Potion effects that should be applied.
+	 */
+	public abstract PotionEffect[] getPotionEffects();
 	
 	/**
 	 * 
@@ -44,6 +58,24 @@ public abstract class Kit {
 	
 	public void apply(Player player) {
 		
+		mPlayer user = mPlayer.getInstance(player);
+		
+		if (user.hasKit()) {
+			
+			player.sendMessage(String.format(Chat.BASE_COLOR + "You already have kit " + Chat.IMPORTANT_COLOR + "%s" + Chat.BASE_COLOR + "! Please type /clearkit to choose another kit.", user.getKit().getName()));
+			
+			return;
+		}
+		
+		player.getInventory().clear();
+		player.getInventory().setArmorContents(null);
+		
+		for (PotionEffect effects : player.getActivePotionEffects()) {
+			
+			player.removePotionEffect(effects.getType());
+			
+		}
+		
 		Chat.getInstance().messagePlayer(player, "&aYou've recieved kit " + Chat.IMPORTANT_COLOR + getName() + ".");
 		
 		for (ItemStack items : getItems()) {
@@ -52,38 +84,23 @@ public abstract class Kit {
 			
 		}
 		
-		for (ItemStack armor : getArmor()) {
+		player.getInventory().setArmorContents(getArmor());
+		
+		for (PotionEffect effect : getPotionEffects()) {
 			
-			if (ItemUtils.isHelmet(armor)) {
-				
-				player.getInventory().setHelmet(armor);
-				continue;
-				
-			}
+			if (effect == null) break;
 			
-			if (ItemUtils.isChestplate(armor)) {
-				
-				player.getInventory().setChestplate(armor);
-				continue;
-				
-			}
-			
-			if (ItemUtils.areLeggings(armor)) {
-				
-				player.getInventory().setLeggings(armor);
-				continue;
-				
-			}
-			
-			if (ItemUtils.areBoots(armor)) {
-				
-				player.getInventory().setBoots(armor);
-				
-			}
-			
-			break;
+			player.addPotionEffect(effect);
 			
 		}
+		
+		for (int i = 0; i < player.getInventory().getSize(); i++) {
+			
+			player.getInventory().addItem(new ItemBuilder(Material.MUSHROOM_SOUP).name("&bSoup").lore("Drinking this soup heals you 3.5 hearts").build());
+			
+		}
+		
+		user.setKit(this);
 		
 	}
 

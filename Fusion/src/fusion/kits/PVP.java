@@ -6,6 +6,8 @@ import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import fusion.utils.Chat;
 import fusion.utils.ItemBuilder;
@@ -26,6 +28,18 @@ public class PVP extends Kit {
 		public String getName() {
 			return "PVP";
 		}
+		
+		@Override
+		public ItemStack getInventoryItem() {
+			return new ItemStack(Material.DIAMOND_SWORD);
+		}
+		
+		@Override
+		public PotionEffect[] getPotionEffects() {
+			
+			return new PotionEffect[] { new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0)};
+			
+		}
 
 		@Override
 		public List<ItemStack> getItems() {
@@ -37,9 +51,9 @@ public class PVP extends Kit {
 		}
 		
 		@Override
-		public List<ItemStack> getArmor() {
+		public ItemStack[] getArmor() {
 			
-			return Arrays.asList(new ItemStack(Material.IRON_HELMET), new ItemStack(Material.IRON_CHESTPLATE), new ItemStack(Material.IRON_LEGGINGS), new ItemStack(Material.IRON_BOOTS));
+			return new ItemStack[] { new ItemStack(Material.IRON_HELMET), new ItemStack(Material.IRON_CHESTPLATE), new ItemStack(Material.IRON_LEGGINGS), new ItemStack(Material.IRON_BOOTS) };
 			
 		}
 		

@@ -3,8 +3,6 @@ package fusion.kits;
 import java.util.HashSet;
 import java.util.Set;
 
-import fusion.utils.mKitUser;
-
 /**
 	 * 
 	 * Copyright GummyPvP. Created on May 15, 2016 by Jeremy Gooch.
@@ -38,6 +36,12 @@ public class KitManager {
 		
 	}
 	
+	public Set<Kit> getKits() {
+		
+		return kits;
+		
+	}
+	
 	public Kit valueOf(String name) {
 		
 		for (Kit allKits : kits) {
@@ -49,11 +53,4 @@ public class KitManager {
 		return null;
 		
 	}
-	
-	public void setKit(mKitUser user, Kit kit) {
-		
-		user.setKit(kit);
-		
-	}
-
 }

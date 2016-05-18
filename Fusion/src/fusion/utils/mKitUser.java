@@ -16,5 +16,7 @@ public interface mKitUser {
 	public Kit getKit();
 	
 	public boolean hasKit();
+	
+	public boolean ownsKit(Kit kit);
 
 }

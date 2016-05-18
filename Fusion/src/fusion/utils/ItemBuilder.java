@@ -77,7 +77,7 @@ public class ItemBuilder {
 	public ItemBuilder lore(String lore) {
 		List<String> itemLore = item.getItemMeta().hasLore() ? item.getItemMeta().getLore() : new ArrayList<String>();
 		
-		itemLore.add(lore);
+		itemLore.add(ChatColor.translateAlternateColorCodes('&', lore));
 		
 		lore(itemLore);
 		return this;
@@ -94,7 +94,15 @@ public class ItemBuilder {
 	public ItemBuilder lore(List<String> lore) {
 		ItemMeta im = item.getItemMeta();
 		
-		im.setLore(lore);
+		List<String> clone = new ArrayList<String>();
+		
+		for (String lores : lore) {
+			
+			clone.add(ChatColor.translateAlternateColorCodes('&', lores));
+			
+		}
+		
+		im.setLore(clone);
 		
 		item.setItemMeta(im);
 		return this;
