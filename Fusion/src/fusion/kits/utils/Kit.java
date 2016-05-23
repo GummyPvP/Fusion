@@ -1,5 +1,7 @@
-package fusion.kits;
+package fusion.kits.utils;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Material;
@@ -9,7 +11,7 @@ import org.bukkit.potion.PotionEffect;
 
 import fusion.utils.Chat;
 import fusion.utils.ItemBuilder;
-import klap.utils.mPlayer;
+import fusion.utils.mKitUser;
 
 /**
 	 * 
@@ -40,7 +42,7 @@ public abstract class Kit {
 	
 	/**
 	 * 
-	 * @return ItemStack list of armor. Make sure to put the armor in the right order when adding, helmet, chestplate, leggings, boots
+	 * @return ItemStack list of armor. Make sure to put the armor in the inverse order when adding, boots, leggings, chestplate, helmet
 	 */
 	public abstract ItemStack[] getArmor();
 	
@@ -50,19 +52,30 @@ public abstract class Kit {
 	 */
 	public abstract PotionEffect[] getPotionEffects();
 	
+	public abstract String getSpecialAdvantageString();
+	
 	/**
 	 * 
 	 * @return if this kit is unlocked by purchasing in shop or is free by default.
 	 */
 	public abstract boolean isDefault();
 	
+	public abstract double getCost();
+	
 	public void apply(Player player) {
 		
-		mPlayer user = mPlayer.getInstance(player);
+		mKitUser user = mKitUser.getInstance(player);
 		
 		if (user.hasKit()) {
 			
-			player.sendMessage(String.format(Chat.BASE_COLOR + "You already have kit " + Chat.IMPORTANT_COLOR + "%s" + Chat.BASE_COLOR + "! Please type /clearkit to choose another kit.", user.getKit().getName()));
+			Chat.getInstance().messagePlayer(player, String.format(Chat.BASE_COLOR + "You already have kit " + Chat.IMPORTANT_COLOR + "%s" + Chat.BASE_COLOR + "! Please type /clearkit to choose another kit.", user.getKit().getName()));
+			
+			return;
+		}
+		
+		if (!user.ownsKit(this) && !isDefault()) {
+			
+			Chat.getInstance().messagePlayer(player, String.format(Chat.BASE_COLOR + "You do not own " + Chat.IMPORTANT_COLOR + "%s", getName()));
 			
 			return;
 		}
@@ -84,13 +97,19 @@ public abstract class Kit {
 			
 		}
 		
+		Collections.reverse(Arrays.asList(getArmor()));
+		
 		player.getInventory().setArmorContents(getArmor());
 		
-		for (PotionEffect effect : getPotionEffects()) {
+		if (getPotionEffects() != null) {
 			
-			if (effect == null) break;
-			
-			player.addPotionEffect(effect);
+			for (PotionEffect effect : getPotionEffects()) {
+				
+				if (effect == null) break;
+				
+				player.addPotionEffect(effect);
+				
+			}
 			
 		}
 		
@@ -101,6 +120,7 @@ public abstract class Kit {
 		}
 		
 		user.setKit(this);
+		user.getPlayer().closeInventory();
 		
 	}
 

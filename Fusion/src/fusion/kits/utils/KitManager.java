@@ -1,7 +1,11 @@
-package fusion.kits;
+package fusion.kits.utils;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.entity.Player;
+
+import fusion.utils.mKitUser;
 
 /**
 	 * 
@@ -22,7 +26,7 @@ public class KitManager {
 		
 	}
 	
-	private Set<Kit> kits = new HashSet<Kit>();
+	private List<Kit> kits = new ArrayList<Kit>();
 	
 	public void registerKit(Kit kit) {
 		
@@ -36,7 +40,7 @@ public class KitManager {
 		
 	}
 	
-	public Set<Kit> getKits() {
+	public List<Kit> getKits() {
 		
 		return kits;
 		
@@ -51,6 +55,16 @@ public class KitManager {
 		}
 		
 		return null;
+		
+	}
+	
+	public boolean hasRequiredKit(Player player, Kit required) {
+		
+		if (!mKitUser.getInstance(player).hasKit()) return false;
+		
+		if (mKitUser.getInstance(player).getKit().getName() != required.getName()) return false;
+		
+		return true;
 		
 	}
 }

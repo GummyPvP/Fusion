@@ -1,7 +1,6 @@
 package fusion.utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,13 +23,13 @@ import fusion.kits.utils.KitManager;
  * 
  */
 
-public class KitGUI {
+public class ShopGUI {
 
 	private Inventory inv;
-	public static final String INVENTORY_NAME = Chat.IMPORTANT_COLOR + "GummyPvP - Kits";
+	public static final String INVENTORY_NAME = Chat.IMPORTANT_COLOR + "GummyPvP - Shop";
 	private static Map<Player, Integer> page = new HashMap<Player, Integer>();
 
-	public KitGUI(Player player) {
+	public ShopGUI(Player player) {
 
 		player.closeInventory();
 		this.inv = Bukkit.createInventory(player, ensureSize(KitManager.getInstance().getKits().size()) + 18, INVENTORY_NAME);
@@ -41,7 +40,7 @@ public class KitGUI {
 
 	}
 
-	public KitGUI(Player player, int page) {
+	public ShopGUI(Player player, int page) {
 
 		player.closeInventory();
 		this.inv = Bukkit.createInventory(player, ensureSize(KitManager.getInstance().getKits().size()) + 18, INVENTORY_NAME + " - Page: " + (page + 1));
@@ -49,7 +48,7 @@ public class KitGUI {
 		
 		player.openInventory(inv);
 		
-		KitGUI.page.put(player, page);
+		ShopGUI.page.put(player, page);
 
 	}
 
@@ -72,6 +71,8 @@ public class KitGUI {
 
 		ItemStack glass = new ItemBuilder(Material.THIN_GLASS).name(" ").build();
 
+		// Glass and other stuff
+		
 		for (int i = 0; i < 9; i++) {
 
 			inv.setItem(i, glass);
@@ -90,6 +91,10 @@ public class KitGUI {
 			
 		}
 		
+		// end
+		
+		// future pages check
+		
 		List<Kit> checkedKits = KitManager.getInstance().getKits().subList(page * 36, (page * 36) + ensureKits(KitManager.getInstance().getKits().size() - (page * 36)));
 		
 		try {
@@ -100,24 +105,18 @@ public class KitGUI {
 			
 		} catch (IllegalArgumentException e) { } // intentionally blank
 		
-		// use 36 because that is how many kits should be presented in the inventory (the inventory will hold 54 slots, it allows us to hold 18 other items)
+		// end
 		
-		int ownedKits = 0;
+		// use 36 because that is how many kits should be presented in the inventory (the inventory will hold 54 slots, it allows us to hold 18 other items)
 		
 		for (Kit kits : checkedKits) {
 			
-			if (!user.ownsKit(kits) && !kits.isDefault())
+			if (user.ownsKit(kits) || kits.isDefault())
 				continue;
 			
 			inv.addItem(createKitItem(kits));
 			
-			ownedKits++;
-			
 		}
-		
-		inv.setItem(8, new ItemBuilder(Material.DIAMOND).name("&aKit Shop").lore("Click me to show the ShopGUI!").build());
-		inv.setItem(0, new ItemBuilder(Material.EMERALD).name("&aWelcome to GummyPvP!").build());
-		inv.setItem(4, new ItemBuilder(Material.STAINED_GLASS_PANE).name("&bInformation").lore(Arrays.asList("These are your owned kits.", "Pick one and fight!", "", "&6You own &c" + ownedKits + "/" + KitManager.getInstance().getKits().size() + " &6kits.")).durability(4).build());
 
 	}
 

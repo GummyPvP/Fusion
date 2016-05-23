@@ -9,11 +9,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import fusion.utils.Chat;
+import fusion.kits.utils.Kit;
 import fusion.utils.ItemBuilder;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
-import klap.utils.mPlayer;
 
 /**
  * 
@@ -45,39 +44,44 @@ public class Archer extends Kit {
 	public List<ItemStack> getItems() {
 
 		ItemStack sword = new ItemBuilder(Material.STONE_SWORD).name("&aArcher Sword").lore(Arrays
-				.asList("This sword has an EXTREMELY dull blade.", "It'll do little damage, so stick to your bow!"))
+				.asList("This sword has a dull blade.", "It'll do little damage, so stick to your bow!"))
 				.build();
-		ItemStack bow = new ItemBuilder(Material.BOW).name("&aArcher Bow").lore("Use this bow at a distance!")
+		
+		ItemStack bow = new ItemBuilder(Material.BOW).name("&5Archer Bow").lore("Use this bow at a distance!")
 				.enchant(Enchantment.ARROW_INFINITE, 1).enchant(Enchantment.ARROW_KNOCKBACK, 2).build();
+		
+		ItemStack arrow = new ItemBuilder(Material.ARROW).name("&aArrow").build();
 
-		return Arrays.asList(sword, bow, new ItemStack(Material.ARROW));
+		return Arrays.asList(sword, bow, arrow);
 
 	}
 
 	@Override
 	public ItemStack[] getArmor() {
-
+		
 		return new ItemStack[] { new ItemStack(Material.LEATHER_HELMET), new ItemStack(Material.CHAINMAIL_CHESTPLATE), new ItemStack(Material.LEATHER_LEGGINGS), new ItemStack(Material.IRON_BOOTS)};
-
+		
+	}
+	
+	@Override
+	public String getSpecialAdvantageString() {
+		return "Punch II Bow";
 	}
 
 	@Override
 	public boolean isDefault() {
 		return true;
 	}
-
+	
+	@Override
+	public double getCost() {
+		
+		return 0.0;
+		
+	}
+	
 	@Command(name = "archer", description = "Gives the Archer kit.", usage = "/kit archer", inGameOnly = true)
 	public void kitArcherCommand(CommandArgs args) {
-
-		mPlayer user = mPlayer.getInstance(args.getPlayer());
-
-		if (user.hasKit()) {
-
-			Chat.getInstance().messagePlayer(args.getPlayer(),
-					String.format(Chat.ALREADY_USED_KIT, user.getKit().getName()));
-
-			return;
-		}
 
 		apply(args.getPlayer());
 

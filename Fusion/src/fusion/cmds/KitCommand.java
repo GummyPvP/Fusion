@@ -2,6 +2,8 @@ package fusion.cmds;
 
 import org.bukkit.entity.Player;
 
+import fusion.kits.utils.KitManager;
+import fusion.utils.Chat;
 import fusion.utils.KitGUI;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
@@ -20,8 +22,26 @@ public class KitCommand {
 		
 		Player player = args.getPlayer();
 		
-		new KitGUI(player);
+		if (!(args.length() >= 1)) {
+			
+			new KitGUI(player);
+			
+			return;
+			
+		}
 		
+		String wantedKit = args.getArgs(0);
+		
+		if (KitManager.getInstance().valueOf(wantedKit) == null) {
+			
+			Chat.getInstance().messagePlayer(player, "Could not find the kit you wanted, opening KitGUI.");
+			
+			new KitGUI(player);
+			
+			return;
+		}
+		
+		KitManager.getInstance().valueOf(wantedKit).apply(player);
 		
 	}
 

@@ -4,16 +4,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import fusion.utils.Chat;
+import fusion.kits.utils.Kit;
 import fusion.utils.ItemBuilder;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
-import klap.utils.mPlayer;
 
 /**
 	 * 
@@ -44,7 +42,7 @@ public class PVP extends Kit {
 		@Override
 		public List<ItemStack> getItems() {
 			
-			ItemStack sword = new ItemBuilder(Material.DIAMOND_SWORD).name("&aPVP Sword").lore("u wot m8").enchant(Enchantment.DAMAGE_ALL, 1).build();
+			ItemStack sword = new ItemBuilder(Material.DIAMOND_SWORD).name("&aPVP Sword").lore("u wot m8").build();
 			
 			return Arrays.asList(sword);
 			
@@ -58,21 +56,24 @@ public class PVP extends Kit {
 		}
 		
 		@Override
+		public String getSpecialAdvantageString() {
+			return null;
+		}
+		
+		@Override
 		public boolean isDefault() {
 			return true;
 		}
 		
+		@Override
+		public double getCost() {
+			
+			return 0.0;
+			
+		}
+		
 		@Command(name = "pvp", description = "Gives the PVP kit.", usage = "/kit pvp", inGameOnly=true)
 		public void kitPVPCommand(CommandArgs args) {
-			
-			mPlayer user = mPlayer.getInstance(args.getPlayer());
-			
-			if (user.hasKit()) {
-				
-				Chat.getInstance().messagePlayer(args.getPlayer(), String.format(Chat.ALREADY_USED_KIT, user.getKit().getName()));
-				
-				return;
-			}
 			
 			apply(args.getPlayer());
 			

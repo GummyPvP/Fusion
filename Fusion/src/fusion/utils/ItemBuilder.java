@@ -177,12 +177,19 @@ public class ItemBuilder {
 	 * @param level - Level of enchantment.
 	 * @return current instance of ItemBuilder
 	 */
-	public ItemBuilder enchant(Enchantment enchantment, int level) {
+	public ItemBuilder unsafeEnchant(Enchantment enchantment, int level) {
 		
-		item.addEnchantment(enchantment, level);
+		item.addUnsafeEnchantment(enchantment, level);
 		
 		return this;
 		
+	}
+	
+	public ItemBuilder enchant(Enchantment enchantment, int level) {
+		
+		item.addUnsafeEnchantment(enchantment, level);
+		
+		return this;
 	}
 	
 	/**
