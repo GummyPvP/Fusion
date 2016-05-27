@@ -33,6 +33,7 @@ import fusion.listeners.PlayerRespawn;
 import fusion.utils.mKitUser;
 import fusion.utils.command.CommandFramework;
 import fusion.utils.editing.ToolClick;
+import fusion.utils.editing.editors.RegionEditor;
 import fusion.utils.spawn.Spawn;
 import fusion.utils.warps.WarpCreate;
 import fusion.utils.warps.WarpList;
@@ -59,7 +60,7 @@ public class Main extends JavaPlugin {
 		log ("Instance & framework created");
 		
 		loadListeners(new InventoryClick(), new PlayerInteract(), new FoodChange(), new FishEvent(), new StomperEvent(), new ViperEvent(), new PlayerDeath(), new PlayerJoin(),
-				new PlayerQuit(), new PlayerRespawn(), new EntityDamageByEntity(), new ItemPickup(), new BlockPlace(), new BlockBreak(), new ToolClick());
+				new PlayerQuit(), new PlayerRespawn(), new EntityDamageByEntity(), new ItemPickup(), new BlockPlace(), new BlockBreak(), new ToolClick(), new RegionEditor());
 		
 		log ("Listeners loaded");
 		

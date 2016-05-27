@@ -1,6 +1,5 @@
 package fusion.utils.editing;
 
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
@@ -26,15 +25,15 @@ public class EditorSession {
 		
 	}
 	
-	public void setPosition1(Block block) {
+	public void setPosition1(Vector block) {
 		
-		p1 = block.getLocation().toVector();
+		p1 = block;
 		
 	}
 	
-	public void setPosition2(Block block) {
+	public void setPosition2(Vector block) {
 		
-		p2 = block.getLocation().toVector();
+		p2 = block;
 		
 	}
 	

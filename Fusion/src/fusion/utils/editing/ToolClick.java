@@ -32,15 +32,15 @@ public class ToolClick implements Listener {
 		
 		if (!mPlayer.getInstance(player).getGroup().getRank().hasRequiredRank(Rank.ADMIN)) return;
 		
-		e.setCancelled(true);
-		
 		if (EditorSessions.getInstance().getSession(player) == null) {
 			
 			EditorSessions.getInstance().addSession(player, editor);
 			
 		}
 		
-		Bukkit.getPluginManager().callEvent(new PlayerSelectPointEvent(player, EditorSessions.getInstance().getSession(player), e.getAction()));
+		Bukkit.getPluginManager().callEvent(new PlayerSelectPointEvent(player, EditorSessions.getInstance().getSession(player), e.getClickedBlock().getLocation().toVector(), e.getAction()));
+		
+		e.setCancelled(true);
 		
 	}
 
