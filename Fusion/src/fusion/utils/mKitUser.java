@@ -21,7 +21,7 @@ public class mKitUser {
 	
 	static Set<mKitUser> instances = new HashSet<mKitUser>();
 	Player player;
-	Kit kit;
+	Kit kit, previousKit;
 	Set<Kit> ownedKits = new HashSet<Kit>();
 	double money;
 	
@@ -59,6 +59,18 @@ public class mKitUser {
 	
 	public boolean hasKit() {
 		return kit != null;
+	}
+	
+	public void setPreviousKit(Kit kit) {
+		this.previousKit = kit;
+	}
+	
+	public Kit getPreviousKit() {
+		return previousKit;
+	}
+	
+	public boolean hasPreviousKit() {
+		return previousKit != null;
 	}
 	
 	public boolean ownsKit(Kit kit) {
@@ -122,6 +134,14 @@ public class mKitUser {
 		}
 		
 		ConfigManager.getPlayerFile(player.getName()).set("profile.candies", money);
+		
+	}
+	
+	public void unload() {
+		
+		ownedKits.clear();
+		kit = null;
+		previousKit = null;
 		
 	}
 }

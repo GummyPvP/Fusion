@@ -12,6 +12,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import fusion.utils.ItemBuilder;
+import fusion.utils.mKitUser;
+import fusion.utils.gui.KitGUI;
+import fusion.utils.gui.WarpGUI;
 
 /**
 	 * 
@@ -30,21 +33,73 @@ public class PlayerInteract implements Listener {
 		
 		if (item == null) return;
 		
-		if (item.getType() != Material.MUSHROOM_SOUP) return;
-		
 		if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR) {
 			
 			e.setCancelled(true);
-		
-			player.setHealth(player.getHealth() + 7.0 >= player.getMaxHealth() ? player.getMaxHealth() : player.getHealth() + 7.0);
-			
-			ItemStack bowl = new ItemBuilder(Material.BOWL).name("&bBowl").lore(Arrays.asList("A bowl is most useful when it's empty.", "Hah! Just kidding! You're gonna die.")).build();
-			
-			player.setItemInHand(bowl);
-			
-			player.playSound(player.getLocation(), Sound.BURP, 1, 1);
-			
 			player.updateInventory();
+			
+			switch (item.getType()) {
+			case MUSHROOM_SOUP:
+				
+				if (player.getHealth() >= player.getMaxHealth()) return;
+				
+				player.setHealth(player.getHealth() + 7.0 >= player.getMaxHealth() ? player.getMaxHealth() : player.getHealth() + 7.0);
+				
+				ItemStack bowl = new ItemBuilder(Material.BOWL).name("&bBowl").lore(Arrays.asList("A bowl is most useful when it's empty.", "Hah! Just kidding! You're gonna die.")).build();
+				
+				player.setItemInHand(bowl);
+				
+				player.playSound(player.getLocation(), Sound.BURP, 1, 1);
+				
+				player.updateInventory();
+				
+				break;
+				
+			case NETHER_STAR:
+				
+				if (item.hasItemMeta() && item.getItemMeta().getDisplayName().contains("Kit Selector")) {
+					
+					new KitGUI(player);
+					
+				}
+				
+				break;
+				
+			case CHEST:
+				
+				if (item.hasItemMeta() && item.getItemMeta().getDisplayName().contains("Cosmetic Selector")) {
+					
+					// new CostmeticGUI
+					
+				}
+				
+				break;
+				
+			case COMPASS:
+				
+				if (item.hasItemMeta() && item.getItemMeta().getDisplayName().contains("Warps")) {
+					
+					new WarpGUI(player);
+					
+				}
+				
+				break;
+
+			default:
+				
+				if (mKitUser.getInstance(player).hasPreviousKit()) {
+					
+					if (item.getType() == mKitUser.getInstance(player).getPreviousKit().getInventoryItem().getType()) {
+						
+						mKitUser.getInstance(player).getPreviousKit().apply(player);
+						
+					}
+					
+				}
+				
+				break;
+			}
+			
 		}
 	}
 }

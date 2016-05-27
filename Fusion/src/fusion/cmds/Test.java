@@ -1,8 +1,9 @@
 package fusion.cmds;
 
-import fusion.utils.mKitUser;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
+import fusion.utils.gui.WarpGUI;
+import mpermissions.utils.permissions.Rank;
 
 /**
 	 * 
@@ -13,10 +14,10 @@ import fusion.utils.command.CommandArgs;
 
 public class Test {
 	
-	@Command(name = "test", description = "Test command", usage = "/test", inGameOnly = true)
+	@Command(name = "test", rank=Rank.ADMINPLUS, description = "Test command", usage = "/test", inGameOnly = true)
 	public void testCommand(CommandArgs args) {
 		
-		mKitUser.getInstance(args.getPlayer()).setCandies(1000.0);
+		new WarpGUI(args.getPlayer());
 		
 	}
 

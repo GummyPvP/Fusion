@@ -1,4 +1,4 @@
-package fusion.utils;
+package fusion.utils.gui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +15,9 @@ import org.bukkit.potion.PotionEffect;
 
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
+import fusion.utils.Chat;
+import fusion.utils.ItemBuilder;
+import fusion.utils.mKitUser;
 
 /**
  * 
@@ -175,6 +178,12 @@ public class ShopGUI {
 		if (kit.getSpecialAdvantageString() != null) {
 			
 			items.add(ChatColor.GOLD + kit.getSpecialAdvantageString());
+			
+		}
+		
+		if (kit.getCost() != 0.0) {
+			
+			items.add("&8[&a+&8] " + ChatColor.DARK_AQUA + kit.getCost());
 			
 		}
 		

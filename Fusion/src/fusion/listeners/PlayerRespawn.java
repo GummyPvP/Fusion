@@ -4,27 +4,24 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 import fusion.main.Main;
 import fusion.utils.Utils;
-import fusion.utils.mKitUser;
 
 /**
 	 * 
-	 * Copyright GummyPvP. Created on May 21, 2016 by Jeremy Gooch.
+	 * Copyright GummyPvP. Created on May 24, 2016 by Jeremy Gooch.
 	 * All Rights Reserved.
 	 * 
 	 */
 
-public class PlayerJoin implements Listener {
+public class PlayerRespawn implements Listener {
 	
 	@EventHandler
-	public void onPlayerJoin(PlayerJoinEvent e) {
+	public void onPlayerRespawn(PlayerRespawnEvent e) {
 		
 		final Player player = e.getPlayer();
-		
-		mKitUser.getInstance(player).load();
 		
 		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
 

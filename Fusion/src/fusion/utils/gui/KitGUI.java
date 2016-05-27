@@ -1,4 +1,4 @@
-package fusion.utils;
+package fusion.utils.gui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +16,9 @@ import org.bukkit.potion.PotionEffect;
 
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
+import fusion.utils.Chat;
+import fusion.utils.ItemBuilder;
+import fusion.utils.mKitUser;
 
 /**
  * 

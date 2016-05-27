@@ -8,6 +8,7 @@ import java.util.Set;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.ItemStack;
 
 import fusion.main.Main;
 
@@ -20,7 +21,7 @@ import fusion.main.Main;
 public class ConfigManager {
 
 	private static ConfigManager configuration = new ConfigManager("config", false),
-			spawn = new ConfigManager("spawn", false);
+			spawn = new ConfigManager("spawn", false), warp = new ConfigManager("warps", false);
 
 	public static ConfigManager getSpawnFile() {
 		return spawn;
@@ -28,6 +29,10 @@ public class ConfigManager {
 
 	public static ConfigManager getConfig() {
 		return configuration;
+	}
+	
+	public static ConfigManager getWarpsFile() {
+		return warp;
 	}
 
 	private File file;
@@ -184,5 +189,9 @@ public class ConfigManager {
 		
 		return new ConfigManager(player, true);
 		
+	}
+
+	public ItemStack getItemStack(String string) {
+		return config.getItemStack(string);
 	}
 }

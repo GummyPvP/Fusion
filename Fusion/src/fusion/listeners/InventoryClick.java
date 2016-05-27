@@ -9,9 +9,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
 import fusion.utils.Chat;
-import fusion.utils.KitGUI;
-import fusion.utils.ShopGUI;
 import fusion.utils.mKitUser;
+import fusion.utils.gui.KitGUI;
+import fusion.utils.gui.ShopGUI;
 
 /**
 	 * 

@@ -6,6 +6,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import fusion.cmds.KitCommand;
+import fusion.cmds.SetSpawn;
+import fusion.cmds.SpawnCommand;
 import fusion.cmds.Test;
 import fusion.kits.Archer;
 import fusion.kits.Fisherman;
@@ -17,14 +19,24 @@ import fusion.kits.listeners.FishEvent;
 import fusion.kits.listeners.StomperEvent;
 import fusion.kits.listeners.ViperEvent;
 import fusion.kits.utils.KitManager;
+import fusion.listeners.BlockBreak;
+import fusion.listeners.BlockPlace;
+import fusion.listeners.EntityDamageByEntity;
 import fusion.listeners.FoodChange;
 import fusion.listeners.InventoryClick;
+import fusion.listeners.ItemPickup;
 import fusion.listeners.PlayerDeath;
 import fusion.listeners.PlayerInteract;
 import fusion.listeners.PlayerJoin;
+import fusion.listeners.PlayerQuit;
+import fusion.listeners.PlayerRespawn;
 import fusion.utils.mKitUser;
 import fusion.utils.command.CommandFramework;
+import fusion.utils.editing.ToolClick;
 import fusion.utils.spawn.Spawn;
+import fusion.utils.warps.WarpCreate;
+import fusion.utils.warps.WarpList;
+import fusion.utils.warps.WarpManager;
 
 /**
 	 * 
@@ -46,7 +58,8 @@ public class Main extends JavaPlugin {
 		
 		log ("Instance & framework created");
 		
-		loadListeners(new InventoryClick(), new PlayerInteract(), new FoodChange(), new FishEvent(), new StomperEvent(), new ViperEvent(), new PlayerDeath(), new PlayerJoin());
+		loadListeners(new InventoryClick(), new PlayerInteract(), new FoodChange(), new FishEvent(), new StomperEvent(), new ViperEvent(), new PlayerDeath(), new PlayerJoin(),
+				new PlayerQuit(), new PlayerRespawn(), new EntityDamageByEntity(), new ItemPickup(), new BlockPlace(), new BlockBreak(), new ToolClick());
 		
 		log ("Listeners loaded");
 		
@@ -58,6 +71,10 @@ public class Main extends JavaPlugin {
 		framework.registerCommands(new Stomper());
 		framework.registerCommands(new Viper());
 		framework.registerCommands(new Heavy());
+		framework.registerCommands(new WarpCreate());
+		framework.registerCommands(new WarpList());
+		framework.registerCommands(new SetSpawn());
+		framework.registerCommands(new SpawnCommand());
 		
 		log ("Commands loaded");
 		
@@ -74,6 +91,10 @@ public class Main extends JavaPlugin {
 		
 		log ("Spawn loaded");
 		
+		WarpManager.getInstance().loadWarps();
+		
+		log ("Warps loaded");
+		
 	}
 	
 	public void onDisable() {
@@ -89,6 +110,8 @@ public class Main extends JavaPlugin {
 			mKitUser.getInstance(online).save();
 			
 		}
+		
+		WarpManager.getInstance().saveWarps();
 		
 	}
 	

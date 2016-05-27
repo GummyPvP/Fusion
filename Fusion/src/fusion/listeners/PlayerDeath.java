@@ -36,6 +36,8 @@ public class PlayerDeath implements Listener {
 		
 		Kit oldKit = user.getKit();
 		
+		user.setPreviousKit(oldKit);
+		
 		user.setKit(null);
 		
 		if (!(player.getKiller() instanceof Player)) {
