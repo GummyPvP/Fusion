@@ -35,13 +35,12 @@ public class PlayerInteract implements Listener {
 		
 		if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR) {
 			
-			e.setCancelled(true);
-			player.updateInventory();
-			
 			switch (item.getType()) {
 			case MUSHROOM_SOUP:
 				
 				if (player.getHealth() >= player.getMaxHealth()) return;
+				
+				e.setCancelled(true);
 				
 				player.setHealth(player.getHealth() + 7.0 >= player.getMaxHealth() ? player.getMaxHealth() : player.getHealth() + 7.0);
 				
@@ -69,6 +68,10 @@ public class PlayerInteract implements Listener {
 				
 				if (item.hasItemMeta() && item.getItemMeta().getDisplayName().contains("Cosmetic Selector")) {
 					
+					e.setCancelled(true);
+					
+					player.updateInventory();
+					
 					// new CostmeticGUI
 					
 				}
@@ -87,7 +90,7 @@ public class PlayerInteract implements Listener {
 
 			default:
 				
-				if (mKitUser.getInstance(player).hasPreviousKit()) {
+				if (mKitUser.getInstance(player).hasPreviousKit() && !mKitUser.getInstance(player).hasKit()) {
 					
 					if (item.getType() == mKitUser.getInstance(player).getPreviousKit().getInventoryItem().getType()) {
 						

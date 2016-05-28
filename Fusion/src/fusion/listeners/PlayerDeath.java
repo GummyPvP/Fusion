@@ -26,6 +26,8 @@ public class PlayerDeath implements Listener {
 		Player player = e.getEntity();
 		mKitUser user = mKitUser.getInstance(player);
 		
+		player.getWorld().strikeLightning(player.getLocation());
+		
 		e.getDrops().clear();
 		
 		for (int i = 0; i < 10; i++) {

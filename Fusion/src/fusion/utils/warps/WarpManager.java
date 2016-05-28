@@ -77,6 +77,18 @@ public class WarpManager {
 		
 	}
 	
+	public boolean deleteWarp(String name) {
+		
+		if (getWarp(name) == null) return false;
+		
+		warps.remove(getWarp(name));
+		
+		ConfigManager.getWarpsFile().set("warps." + name, null);
+		
+		return true;
+		
+	}
+	
 	private void loadWarp(String name) {
 		
 		if (!ConfigManager.getWarpsFile().contains("warps." + name)) return;

@@ -1,6 +1,5 @@
 package fusion.utils.editing.event;
 
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.block.Action;
@@ -12,22 +11,16 @@ public final class PlayerSelectPointEvent extends Event {
 	
 	private static final HandlerList handlers = new HandlerList();
 	
-	Player player;
-	
 	EditorSession session;
 	
 	Action action;
 	
 	Vector point;
 	
-	public PlayerSelectPointEvent(Player player, EditorSession session, Vector point, Action action) {
-		this.player = player;
+	public PlayerSelectPointEvent(EditorSession session, Vector point, Action action) {
 		this.session = session;
 		this.action = action;
-	}
-
-	public Player getPlayer() {
-		return player;
+		this.point = point;
 	}
 	
 	public EditorSession getSession() {

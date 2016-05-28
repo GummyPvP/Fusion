@@ -1,7 +1,6 @@
 package fusion.utils.editing;
 
 import org.bukkit.entity.Player;
-import org.bukkit.util.Vector;
 
 /**
 	 * 
@@ -12,9 +11,6 @@ import org.bukkit.util.Vector;
 
 public class EditorSession {
 	
-	Vector p1;
-	Vector p2;
-	
 	Editor editor;
 	Player player;
 	
@@ -22,30 +18,6 @@ public class EditorSession {
 		
 		this.player = player;
 		this.editor = editor;
-		
-	}
-	
-	public void setPosition1(Vector block) {
-		
-		p1 = block;
-		
-	}
-	
-	public void setPosition2(Vector block) {
-		
-		p2 = block;
-		
-	}
-	
-	public Vector getPosition1() {
-		
-		return p1;
-		
-	}
-	
-	public Vector getPosition2() {
-		
-		return p2;
 		
 	}
 	

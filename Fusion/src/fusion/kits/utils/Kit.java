@@ -12,6 +12,10 @@ import org.bukkit.potion.PotionEffect;
 import fusion.utils.Chat;
 import fusion.utils.ItemBuilder;
 import fusion.utils.mKitUser;
+import fusion.utils.protection.ProtectedRegion;
+import fusion.utils.protection.ProtectedRegion.HealingItem;
+import fusion.utils.protection.Region;
+import fusion.utils.protection.RegionManager;
 
 /**
 	 * 
@@ -108,6 +112,30 @@ public abstract class Kit {
 				if (effect == null) break;
 				
 				player.addPotionEffect(effect);
+				
+			}
+			
+		}
+		
+		if (RegionManager.getInstance().getRegion(player.getLocation().toVector()) != null) {
+			
+			Region region = RegionManager.getInstance().getRegion(player.getLocation().toVector());
+			
+			if (region instanceof ProtectedRegion) {
+				
+				ProtectedRegion protectedRegion = (ProtectedRegion) region;
+				
+				if (protectedRegion.getHealingItem() != HealingItem.ANY) {
+					
+					for (int i = 0; i < (protectedRegion.areRefillsAllowed() ? player.getInventory().getSize() : 8); i++) {
+						
+						player.getInventory().addItem(protectedRegion.getHealingItem().getItem());
+						
+					}
+					
+					return;
+					
+				}
 				
 			}
 			

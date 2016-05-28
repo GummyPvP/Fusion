@@ -6,7 +6,6 @@ import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import fusion.kits.utils.Kit;
 import fusion.utils.ItemBuilder;
@@ -35,7 +34,7 @@ public class PVP extends Kit {
 		@Override
 		public PotionEffect[] getPotionEffects() {
 			
-			return new PotionEffect[] { new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0)};
+			return null;
 			
 		}
 

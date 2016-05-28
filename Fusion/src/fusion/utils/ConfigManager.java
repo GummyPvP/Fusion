@@ -9,6 +9,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
 import fusion.main.Main;
 
@@ -21,7 +22,7 @@ import fusion.main.Main;
 public class ConfigManager {
 
 	private static ConfigManager configuration = new ConfigManager("config", false),
-			spawn = new ConfigManager("spawn", false), warp = new ConfigManager("warps", false);
+			spawn = new ConfigManager("spawn", false), warp = new ConfigManager("warps", false), regions = new ConfigManager("regions", false);
 
 	public static ConfigManager getSpawnFile() {
 		return spawn;
@@ -35,6 +36,10 @@ public class ConfigManager {
 		return warp;
 	}
 
+	public static ConfigManager getRegionsFile() {
+		return regions;
+	}
+	
 	private File file;
 	private FileConfiguration config;
 
@@ -193,5 +198,9 @@ public class ConfigManager {
 
 	public ItemStack getItemStack(String string) {
 		return config.getItemStack(string);
+	}
+	
+	public Vector getVector(String string) {
+		return config.getVector(string);
 	}
 }

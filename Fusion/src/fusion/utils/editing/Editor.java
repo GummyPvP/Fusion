@@ -14,5 +14,7 @@ public abstract class Editor {
 	public abstract String getName();
 	
 	public abstract Material getTool();
+	
+	public abstract Editor clone();
 
 }

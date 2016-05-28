@@ -32,7 +32,7 @@ public class PlayerRespawn implements Listener {
 				
 			}
 			
-		}, 25L);
+		}, 15L);
 		
 	}
 

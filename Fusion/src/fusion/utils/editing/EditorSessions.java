@@ -32,11 +32,11 @@ public class EditorSessions {
 		
 	}
 	
-	public EditorSession getSession(Player player) {
+	public EditorSession getSession(Player player, Editor editor) {
 		
 		for (EditorSession session : sessions) {
 			
-			if (session.getPlayer().getName().equalsIgnoreCase(player.getName())) return session;
+			if (session.getPlayer().getName().equalsIgnoreCase(player.getName()) && session.getEditor().getName() == editor.getName()) return session;
 			
 		}
 		

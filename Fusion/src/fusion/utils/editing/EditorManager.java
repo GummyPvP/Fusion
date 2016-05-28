@@ -5,6 +5,8 @@ import java.util.Set;
 
 import org.bukkit.Material;
 
+import fusion.utils.editing.editors.RegionEditor;
+
 /**
 	 * 
 	 * Copyright GummyPvP. Created on May 26, 2016 by Jeremy Gooch.
@@ -29,6 +31,12 @@ public class EditorManager {
 	public void registerEditor(Editor editor) {
 		
 		editors.add(editor);
+		
+	}
+	
+	public void loadEditors() {
+		
+		registerEditor(new RegionEditor());
 		
 	}
 	

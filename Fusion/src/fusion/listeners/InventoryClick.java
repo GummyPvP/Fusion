@@ -12,6 +12,9 @@ import fusion.utils.Chat;
 import fusion.utils.mKitUser;
 import fusion.utils.gui.KitGUI;
 import fusion.utils.gui.ShopGUI;
+import fusion.utils.gui.WarpGUI;
+import fusion.utils.warps.Warp;
+import fusion.utils.warps.WarpManager;
 
 /**
 	 * 
@@ -88,6 +91,17 @@ public class InventoryClick implements Listener {
 			Chat.getInstance().messagePlayer(player, Chat.SECONDARY_BASE + "You now own " + Chat.IMPORTANT_COLOR + kit.getName());
 			
 			player.closeInventory();
+			
+			return;
+		}
+		
+		if (e.getInventory().getName().contains(WarpGUI.INVENTORY_NAME)) {
+			
+			Warp warp = WarpManager.getInstance().getWarp(ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()));
+			
+			if (warp == null) return;
+			
+			WarpManager.getInstance().sendPlayer(player, warp);
 			
 			return;
 		}

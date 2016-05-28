@@ -35,7 +35,7 @@ public class PlayerJoin implements Listener {
 				
 			}
 			
-		}, 25L);
+		}, 15L);
 		
 	}
 

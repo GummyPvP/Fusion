@@ -21,8 +21,6 @@ public class ItemPickup implements Listener {
 		
 		Player player = e.getPlayer();
 		
-		if (e.isCancelled()) return;
-		
 		if (mKitUser.getInstance(player).hasKit()) return;
 		
 		e.setCancelled(true);

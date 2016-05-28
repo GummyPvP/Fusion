@@ -6,6 +6,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
+import fusion.utils.protection.ProtectedRegion;
+import fusion.utils.protection.Region;
+import fusion.utils.protection.RegionManager;
+
 /**
 	 * 
 	 * Copyright GummyPvP. Created on May 26, 2016 by Jeremy Gooch.
@@ -22,7 +26,21 @@ public class BlockPlace implements Listener {
 		
 		if (player.getGameMode() == GameMode.CREATIVE) return;
 		
-		e.setCancelled(true);
+		for (Region regions : RegionManager.getInstance().getRegions()) {
+			
+			if (regions instanceof ProtectedRegion) {
+				
+				ProtectedRegion region = (ProtectedRegion) regions;
+				
+				if (region.getBounds().inBounds(e.getBlock().getLocation())) {
+					
+					e.setCancelled(true);
+					
+				}
+				
+			}
+			
+		}
 		
 	}
 
