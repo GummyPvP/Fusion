@@ -7,6 +7,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
+import fusion.utils.chat.Chat;
+import fusion.utils.protection.ProtectedRegion;
+import fusion.utils.protection.Region;
+import fusion.utils.protection.RegionManager;
+
 /**
 	 * 
 	 * Copyright GummyPvP. Created on May 26, 2016 by Jeremy Gooch.
@@ -45,6 +50,33 @@ public class EntityDamageByEntity implements Listener {
 			
 		}
 		
+		Region hitterRegion = RegionManager.getInstance().getSmallestRegion(RegionManager.getInstance().getRegions(hitter.getLocation().toVector()));
+		Region recieverRegion = RegionManager.getInstance().getSmallestRegion(RegionManager.getInstance().getRegions(reciever.getLocation().toVector()));
+		
+		if (hitterRegion instanceof ProtectedRegion && recieverRegion instanceof ProtectedRegion) {
+			
+			if (!((ProtectedRegion) hitterRegion).isPVPEnabled() && !((ProtectedRegion) recieverRegion).isPVPEnabled()) return;
+			
+		}
+		
+		if (!CombatLog.getInstance().isInCombat(hitter)) {
+			
+			Chat.getInstance().messagePlayer(hitter, Chat.IMPORTANT_COLOR + "You are now in combat! Do not log out!");
+			
+			CombatLog.getInstance().startTimer(hitter);
+			
+		}
+		
+		if (!CombatLog.getInstance().isInCombat(reciever)) {
+			
+			Chat.getInstance().messagePlayer(reciever, Chat.IMPORTANT_COLOR + "You are now in combat! Do not log out!");
+			
+			CombatLog.getInstance().startTimer(reciever);
+			
+		}
+		
+		CombatLog.getInstance().resetTimer(hitter);
+		CombatLog.getInstance().resetTimer(reciever);
 	}
 
 }

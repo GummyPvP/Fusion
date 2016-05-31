@@ -2,7 +2,7 @@ package fusion.utils.editing.cmds;
 
 import org.bukkit.entity.Player;
 
-import fusion.utils.Chat;
+import fusion.utils.chat.Chat;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
 import fusion.utils.editing.EditorSession;
@@ -21,7 +21,7 @@ import mpermissions.utils.permissions.Rank;
 
 public class RegionCreate {
 	
-	@Command(name = "createregion", aliases = { "cr", "region.create" }, description = "Creates a protected region.", usage = "/createregion (name)", rank = Rank.ADMIN, inGameOnly = true)
+	@Command(name = "createregion", aliases = { "rg.create", "cr", "region.create" }, description = "Creates a protected region.", usage = "/createregion (name)", rank = Rank.ADMIN, inGameOnly = true)
 	public void regionCreate(CommandArgs args) {
 		
 		Player player = args.getPlayer();
@@ -53,7 +53,16 @@ public class RegionCreate {
 			return;
 		}
 		
+		if (RegionManager.getInstance().regionExists(args.getArgs(0))) {
+			
+			Chat.getInstance().messagePlayer(player, Chat.IMPORTANT_COLOR + "That region already exists!");
+			
+			return;
+		}
+		
 		ProtectedRegion region = new ProtectedRegion(args.getArgs(0), player.getWorld(), editor.getPosition1(), editor.getPosition2());
+		
+		region.register();
 		
 		RegionManager.getInstance().registerRegion(region);
 		

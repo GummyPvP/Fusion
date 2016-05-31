@@ -8,7 +8,8 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import fusion.kits.utils.KitManager;
-import fusion.utils.Chat;
+import fusion.utils.chat.Chat;
+import fusion.utils.protection.RegionManager;
 
 /**
  * 
@@ -31,9 +32,15 @@ public class StomperEvent implements Listener {
 
 		Player player = (Player) e.getEntity();
 
-		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Stomper")))
+		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Stomper"))) return;
+		
+		if (RegionManager.getInstance().isInProtectedRegion(player)) {
+			
+			e.setCancelled(true);
+			
 			return;
-
+		}
+		
 		double damage = e.getDamage();
 
 		e.setCancelled(true);

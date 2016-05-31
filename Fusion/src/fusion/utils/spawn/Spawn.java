@@ -5,8 +5,8 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-import fusion.utils.Chat;
 import fusion.utils.ConfigManager;
+import fusion.utils.chat.Chat;
 
 /**
 	 * 
@@ -28,11 +28,12 @@ public class Spawn {
 	}
 	
 	Location location;
-	int radius;
 	
 	public void setLocation(Location location) {
 		
 		this.location = location;
+		
+		location.getWorld().setSpawnLocation(location.getBlockX(), location.getBlockY(), location.getBlockZ());
 		
 	}
 	
@@ -59,14 +60,6 @@ public class Spawn {
 		
 	}
 	
-	public boolean inBounds(Location location) {
-		
-		if (location.distance(location) <= radius) return true;
-		
-		return false;
-		
-	}
-	
 	public void save() {
 		
 		if (location == null) {
@@ -76,12 +69,11 @@ public class Spawn {
 		}
 		
 		ConfigManager.getSpawnFile().set("spawn.world", location.getWorld().getName());
-		ConfigManager.getSpawnFile().set("spawn.x", location.getBlockX());
-		ConfigManager.getSpawnFile().set("spawn.y", location.getBlockY());
-		ConfigManager.getSpawnFile().set("spawn.z", location.getBlockZ());
+		ConfigManager.getSpawnFile().set("spawn.x", location.getX());
+		ConfigManager.getSpawnFile().set("spawn.y", location.getY());
+		ConfigManager.getSpawnFile().set("spawn.z", location.getZ());
 		ConfigManager.getSpawnFile().set("spawn.yaw", location.getYaw());
 		ConfigManager.getSpawnFile().set("spawn.pitch", location.getPitch());
-		ConfigManager.getSpawnFile().set("spawn.radius", radius);
 		
 		System.out.println("Spawn saved successfully.");
 		
@@ -92,18 +84,16 @@ public class Spawn {
 		if (ConfigManager.getSpawnFile().getSection("spawn") == null) return;
 		
 		World world;
-		int x, y, z, radius;
+		double x, y, z;
 		float yaw, pitch;
 		
 		world = Bukkit.getWorld(ConfigManager.getSpawnFile().getString("spawn.world"));
-		x = ConfigManager.getSpawnFile().getInt("spawn.x");
-		y = ConfigManager.getSpawnFile().getInt("spawn.y");
-		z = ConfigManager.getSpawnFile().getInt("spawn.z");
+		x = ConfigManager.getSpawnFile().getDouble("spawn.x");
+		y = ConfigManager.getSpawnFile().getDouble("spawn.y");
+		z = ConfigManager.getSpawnFile().getDouble("spawn.z");
 		yaw = ConfigManager.getSpawnFile().getInt("spawn.yaw");
 		pitch = ConfigManager.getSpawnFile().getInt("spawn.pitch");
-		radius = ConfigManager.getSpawnFile().getInt("spawn.radius");
 		
 		this.location = new Location(world, x, y, z, yaw, pitch);
-		this.radius = radius;
 	}
 }

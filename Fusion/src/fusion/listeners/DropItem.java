@@ -1,5 +1,7 @@
 package fusion.listeners;
 
+import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -13,10 +15,18 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 
 public class DropItem implements Listener {
 	
+	Material[] allowedMaterials = new Material[] { Material.BOWL };
+	
 	@EventHandler
 	public void onDropItem(PlayerDropItemEvent e) {
 		
-		e.setCancelled(true);
+		if (e.getPlayer().getGameMode() == GameMode.CREATIVE) return;
+		
+		for (Material material : allowedMaterials) {
+			
+			if (e.getItemDrop().getItemStack().getType() != material) e.setCancelled(true);
+			
+		}
 		
 	}
 

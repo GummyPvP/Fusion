@@ -1,6 +1,7 @@
 package fusion.utils.editing.cmds;
 
-import fusion.utils.Chat;
+import fusion.kits.utils.KitManager;
+import fusion.utils.chat.Chat;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
 import fusion.utils.protection.ProtectedRegion;
@@ -16,14 +17,14 @@ import mpermissions.utils.permissions.Rank;
 	 * 
 	 */
 
-public class AddFlag {
+public class SetFlag {
 	
-	@Command(name = "addflag", description = "Adds flags to a region.", usage = "/addflag (region) (flag) (modifier)", rank = Rank.ADMIN)
+	@Command(name = "setflag", description = "Sets flags to a region.", usage = "/setflag (region) (flag) (modifier)", rank = Rank.ADMIN)
 	public void addFlag(CommandArgs args) {
 		
 		if (args.length() < 3) {
 			
-			Chat.getInstance().messagePlayer(args.getSender(), Chat.IMPORTANT_COLOR + "Usage: /addflag (region) (flag) (modifier)");
+			Chat.getInstance().messagePlayer(args.getSender(), Chat.IMPORTANT_COLOR + "Usage: /setflag (region) (flag) (modifier)");
 			
 			return;
 		}
@@ -55,41 +56,15 @@ public class AddFlag {
 		case "pvpenable":
 		case "enablepvp":
 			
-			if (modifier.equalsIgnoreCase("yes") || modifier.equalsIgnoreCase("true") || modifier.equalsIgnoreCase("on")) {
-				
-				protectedRegion.togglePVP(true);
-				Chat.getInstance().messagePlayer(args.getSender(), Chat.STAFF_NOTIFICATION + "Sucessfully enabled PVP!");
-				break;
-			}
-			
-			if (modifier.equalsIgnoreCase("no") || modifier.equalsIgnoreCase("false") || modifier.equalsIgnoreCase("off")) {
-				
-				protectedRegion.togglePVP(false);
-				Chat.getInstance().messagePlayer(args.getSender(), Chat.STAFF_NOTIFICATION + "Sucessfully disabled PVP!");
-				break;
-			}
-
-		default:
-			
-			Chat.getInstance().messagePlayer(args.getSender(), Chat.IMPORTANT_COLOR + "Flags: pvp, refills, item");
+			protectedRegion.togglePVP(checkOption(modifier));
+			Chat.getInstance().messagePlayer(args.getSender(), Chat.STAFF_NOTIFICATION + "Flag: PVP - " + (protectedRegion.isPVPEnabled() ? "enabled" : "disabled"));
 			
 			break;
-			
+
 		case "refills":
 
-			if (modifier.equalsIgnoreCase("yes") || modifier.equalsIgnoreCase("true") || modifier.equalsIgnoreCase("on")) {
-				
-				protectedRegion.toggleRefills(true);
-				Chat.getInstance().messagePlayer(args.getSender(), Chat.STAFF_NOTIFICATION + "Sucessfully enabled refills!");
-				break;
-			}
-			
-			if (modifier.equalsIgnoreCase("no") || modifier.equalsIgnoreCase("false") || modifier.equalsIgnoreCase("off")) {
-				
-				protectedRegion.toggleRefills(false);
-				Chat.getInstance().messagePlayer(args.getSender(), Chat.STAFF_NOTIFICATION + "Sucessfully disabled refills!");
-				break;
-			}
+			protectedRegion.toggleRefills(checkOption(modifier));
+			Chat.getInstance().messagePlayer(args.getSender(), Chat.STAFF_NOTIFICATION + "Flag: Refills - " + (protectedRegion.areRefillsAllowed() ? "enabled" : "disabled"));
 			
 			break;
 			
@@ -115,6 +90,51 @@ public class AddFlag {
 			Chat.getInstance().messagePlayer(args.getSender(), Chat.STAFF_NOTIFICATION + "Successfully changed healing item to " + (item == null ? HealingItem.SOUP : item).toString());
 			
 			break;
+			
+		case "blockkit":
+			
+			if (KitManager.getInstance().valueOf(modifier) == null) {
+				
+				Chat.getInstance().messagePlayer(args.getSender(), Chat.IMPORTANT_COLOR + "That kit does not exist!");
+				
+				return;
+			}
+			
+			protectedRegion.addBlockedKit(KitManager.getInstance().valueOf(modifier));
+			
+			Chat.getInstance().messagePlayer(args.getSender(), Chat.STAFF_NOTIFICATION + "Successfully added blocked kit: " + modifier);
+			
+			break;
+			
+		default:
+			
+			Chat.getInstance().messagePlayer(args.getSender(), Chat.IMPORTANT_COLOR + "Flags: PVP, Refills, HealthItem, BlockKit");
+			
+			break;
+		}
+		
+	}
+	
+	private boolean checkOption(String input) {
+		
+		switch (input.toLowerCase()) {
+		case "yes":
+		case "enable":
+		case "on":
+		case "true":
+			
+			return true;
+		
+		case "no":
+		case "disable":
+		case "off":
+		case "false":
+
+			return false;
+			
+		default:
+			return false;
+			
 		}
 		
 	}

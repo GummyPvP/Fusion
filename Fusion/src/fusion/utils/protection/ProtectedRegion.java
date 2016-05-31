@@ -1,12 +1,20 @@
 package fusion.utils.protection;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
+import fusion.kits.utils.Kit;
+import fusion.main.Main;
 import fusion.utils.ConfigManager;
 import fusion.utils.ItemBuilder;
 
@@ -19,17 +27,21 @@ import fusion.utils.ItemBuilder;
 
 public class ProtectedRegion extends Region {
 
-	Bounds bounds;
-	String name;
+	private Bounds bounds;
+	private String name;
 	
-	boolean pvpEnabled = true;
-	HealingItem item = HealingItem.SOUP;
-	boolean refills = false;
+	private boolean pvpEnabled = true;
+	private HealingItem item = HealingItem.SOUP;
+	private boolean refills = false;
+	private Set<Kit> blockedKits = new HashSet<Kit>();
+	private final RegionTracker tracker;
 	
 	public ProtectedRegion(String name, World world, Vector min, Vector max) {
 		
 		this.bounds = new Bounds(world, min, max);
 		this.name = name;
+		
+		tracker = new RegionTracker(this);
 	}
 	
 	public Bounds getBounds() {
@@ -73,6 +85,18 @@ public class ProtectedRegion extends Region {
 		return item;
 	}
 	
+	public void addBlockedKit(Kit kit) {
+		blockedKits.add(kit);
+	}
+	
+	public void removeBlockedKit(Kit kit) {
+		blockedKits.remove(kit);
+	}
+	
+	public Set<Kit> getBlockedKits() {
+		return blockedKits;
+	}
+	
 	@Override
 	public void save() {
 		
@@ -83,6 +107,26 @@ public class ProtectedRegion extends Region {
 		ConfigManager.getRegionsFile().set("regions." + getName() + ".refills", refills);
 		ConfigManager.getRegionsFile().set("regions." + getName() + ".healthItem", item.toString());
 		
+		if (blockedKits.isEmpty()) return;
+		
+		List<String> blockedList = new ArrayList<String>();
+		
+		for (Kit kit : blockedKits) {
+			
+			blockedList.add(kit.getName());
+			
+		}
+		
+		ConfigManager.getRegionsFile().set("regions." + getName() + ".blockedKits", blockedList);
+		
+	}
+	
+	public void register() {
+		Bukkit.getPluginManager().registerEvents(this.tracker, Main.getInstance());
+	}
+	
+	public void unregister() {
+		HandlerList.unregisterAll(this.tracker);
 	}
 	
 	public enum HealingItem {

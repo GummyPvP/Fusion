@@ -1,7 +1,5 @@
 package fusion.kits.utils;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Material;
@@ -9,9 +7,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
-import fusion.utils.Chat;
 import fusion.utils.ItemBuilder;
 import fusion.utils.mKitUser;
+import fusion.utils.chat.Chat;
 import fusion.utils.protection.ProtectedRegion;
 import fusion.utils.protection.ProtectedRegion.HealingItem;
 import fusion.utils.protection.Region;
@@ -70,11 +68,23 @@ public abstract class Kit {
 		
 		mKitUser user = mKitUser.getInstance(player);
 		
+		Region region = RegionManager.getInstance().getSmallestRegion(RegionManager.getInstance().getRegions(player.getLocation().toVector()));
+		
 		if (user.hasKit()) {
 			
 			Chat.getInstance().messagePlayer(player, String.format(Chat.BASE_COLOR + "You already have kit " + Chat.IMPORTANT_COLOR + "%s" + Chat.BASE_COLOR + "! Please type /clearkit to choose another kit.", user.getKit().getName()));
 			
 			return;
+		}
+		
+		if (region != null && region instanceof ProtectedRegion) {
+			
+			if (((ProtectedRegion) region).getBlockedKits().contains(this)) {
+				
+				Chat.getInstance().messagePlayer(player, String.format(Chat.BASE_COLOR + getName() + " is blocked in this area!"));
+				return;
+			}
+			
 		}
 		
 		if (!user.ownsKit(this) && !isDefault()) {
@@ -83,6 +93,9 @@ public abstract class Kit {
 			
 			return;
 		}
+		
+		user.setKit(this);
+		user.getPlayer().closeInventory();
 		
 		player.getInventory().clear();
 		player.getInventory().setArmorContents(null);
@@ -101,8 +114,6 @@ public abstract class Kit {
 			
 		}
 		
-		Collections.reverse(Arrays.asList(getArmor()));
-		
 		player.getInventory().setArmorContents(getArmor());
 		
 		if (getPotionEffects() != null) {
@@ -116,12 +127,8 @@ public abstract class Kit {
 			}
 			
 		}
-		
-		if (RegionManager.getInstance().getRegion(player.getLocation().toVector()) != null) {
 			
-			Region region = RegionManager.getInstance().getRegion(player.getLocation().toVector());
-			
-			if (region instanceof ProtectedRegion) {
+			if (region != null && region instanceof ProtectedRegion) {
 				
 				ProtectedRegion protectedRegion = (ProtectedRegion) region;
 				
@@ -139,17 +146,11 @@ public abstract class Kit {
 				
 			}
 			
-		}
-		
 		for (int i = 0; i < player.getInventory().getSize(); i++) {
 			
 			player.getInventory().addItem(new ItemBuilder(Material.MUSHROOM_SOUP).name("&bSoup").lore("Drinking this soup heals you 3.5 hearts").build());
 			
 		}
-		
-		user.setKit(this);
-		user.getPlayer().closeInventory();
-		
 	}
 
 }

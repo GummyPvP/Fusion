@@ -9,8 +9,8 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import fusion.utils.Chat;
 import fusion.utils.ConfigManager;
+import fusion.utils.chat.Chat;
 
 /**
 	 * 
@@ -94,14 +94,14 @@ public class WarpManager {
 		if (!ConfigManager.getWarpsFile().contains("warps." + name)) return;
 		
 		World world;
-		int x, y, z;
+		double x, y, z;
 		float yaw, pitch;
 		ItemStack item;
 		
 		world = Bukkit.getWorld(ConfigManager.getWarpsFile().getString("warps." + name + ".world"));
-		x = ConfigManager.getWarpsFile().getInt("warps." + name + ".x");
-		y = ConfigManager.getWarpsFile().getInt("warps." + name + ".y");
-		z = ConfigManager.getWarpsFile().getInt("warps." + name + ".z");
+		x = ConfigManager.getWarpsFile().getDouble("warps." + name + ".x");
+		y = ConfigManager.getWarpsFile().getDouble("warps." + name + ".y");
+		z = ConfigManager.getWarpsFile().getDouble("warps." + name + ".z");
 		yaw = ConfigManager.getWarpsFile().getFloat("warps." + name + ".yaw");
 		pitch = ConfigManager.getWarpsFile().getFloat("warps." + name + ".pitch");
 		item = ConfigManager.getWarpsFile().getItemStack("warps." + name + ".item");
@@ -130,9 +130,9 @@ public class WarpManager {
 		Location location = warp.getLocation();
 		
 		ConfigManager.getWarpsFile().set("warps." + name + ".world", location.getWorld().getName());
-		ConfigManager.getWarpsFile().set("warps." + name + ".x", location.getBlockX());
-		ConfigManager.getWarpsFile().set("warps." + name + ".y", location.getBlockY());
-		ConfigManager.getWarpsFile().set("warps." + name + ".z", location.getBlockZ());
+		ConfigManager.getWarpsFile().set("warps." + name + ".x", location.getX());
+		ConfigManager.getWarpsFile().set("warps." + name + ".y", location.getY());
+		ConfigManager.getWarpsFile().set("warps." + name + ".z", location.getZ());
 		ConfigManager.getWarpsFile().set("warps." + name + ".yaw", location.getYaw());
 		ConfigManager.getWarpsFile().set("warps." + name + ".pitch", location.getPitch());
 		ConfigManager.getWarpsFile().set("warps." + name + ".item", warp.getInventoryItem());

@@ -1,15 +1,13 @@
 package fusion.listeners;
 
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import fusion.kits.utils.Kit;
-import fusion.utils.Chat;
-import fusion.utils.ItemBuilder;
 import fusion.utils.mKitUser;
+import fusion.utils.chat.Chat;
 
 /**
 	 * 
@@ -26,15 +24,13 @@ public class PlayerDeath implements Listener {
 		Player player = e.getEntity();
 		mKitUser user = mKitUser.getInstance(player);
 		
-		player.getWorld().strikeLightning(player.getLocation());
+		CombatLog.getInstance().remove(player);
+		
+		player.getWorld().strikeLightningEffect(player.getLocation());
 		
 		e.getDrops().clear();
 		
-		for (int i = 0; i < 10; i++) {
-			
-			e.getDrops().add(new ItemBuilder(Material.MUSHROOM_SOUP).name("&bSoup").lore("Drinking this soup heals you 3.5 hearts").build());
-			
-		}
+		// make it so they don't drop anything, but the killer gets their own specialized healing item (depending on their /settings)
 		
 		Kit oldKit = user.getKit();
 		
@@ -51,9 +47,19 @@ public class PlayerDeath implements Listener {
 		
 		mKitUser killer = mKitUser.getInstance(player.getKiller());
 		
-		e.setDeathMessage(Chat.IMPORTANT_COLOR + player.getName() + " (" + (oldKit == null ? "Nothing" : oldKit.getName()) + ") "
+		double playerCandies = user.getCandies();
+		
+		double rewardAmount = playerCandies * .25;
+		
+		rewardAmount = Math.round(rewardAmount);
+		
+		killer.addCandies(rewardAmount <= 10.0 ? 10.0 : rewardAmount);
+		
+		Chat.getInstance().messagePlayer(player.getKiller(), Chat.SECONDARY_BASE + "You received " + Chat.IMPORTANT_COLOR + rewardAmount + Chat.SECONDARY_BASE + " candies for killing " + player.getName());
+		
+		e.setDeathMessage(Chat.SECONDARY_BASE + player.getName() + Chat.IMPORTANT_COLOR + " (" + (oldKit == null ? "Nothing" : oldKit.getName()) + ") "
 		+ Chat.BASE_COLOR + "was slain by "
-		+ Chat.IMPORTANT_COLOR + player.getKiller().getName() + 
+		+ Chat.SECONDARY_BASE + player.getKiller().getName() + Chat.IMPORTANT_COLOR +
 		" (" + (killer.hasKit() ? killer.getKit().getName() : "Nothing") + ")");
 		
 	}

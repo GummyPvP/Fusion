@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
 
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
@@ -95,6 +96,23 @@ public class mKitUser {
 	
 	public void removeCandies(double candies) {
 		this.money -= candies;
+	}
+	
+	public void clearKit() {
+		
+		Player player = getPlayer();
+		
+		setKit(null);
+		
+		player.getInventory().clear();
+		player.getInventory().setArmorContents(null);
+		
+		for (PotionEffect effect : player.getActivePotionEffects()) {
+			
+			player.removePotionEffect(effect.getType());
+			
+		}
+		
 	}
 	
 	public void load() {

@@ -8,8 +8,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
-import fusion.utils.Chat;
 import fusion.utils.mKitUser;
+import fusion.utils.chat.Chat;
 import fusion.utils.gui.KitGUI;
 import fusion.utils.gui.ShopGUI;
 import fusion.utils.gui.WarpGUI;

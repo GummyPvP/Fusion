@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.util.Vector;
 
-import fusion.utils.Chat;
+import fusion.utils.chat.Chat;
 import fusion.utils.editing.Editor;
 import fusion.utils.editing.event.PlayerSelectPointEvent;
 

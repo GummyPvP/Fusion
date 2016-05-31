@@ -3,7 +3,7 @@ package fusion.cmds;
 import org.bukkit.entity.Player;
 
 import fusion.kits.utils.KitManager;
-import fusion.utils.Chat;
+import fusion.utils.chat.Chat;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
 import fusion.utils.gui.KitGUI;

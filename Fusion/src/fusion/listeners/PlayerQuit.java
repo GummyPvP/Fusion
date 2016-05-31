@@ -1,11 +1,13 @@
 package fusion.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import fusion.utils.mKitUser;
+import fusion.utils.chat.Chat;
 
 /**
 	 * 
@@ -22,6 +24,14 @@ public class PlayerQuit implements Listener {
 		Player player = e.getPlayer();
 		
 		mKitUser.getInstance(player).unload();
+		
+		if (CombatLog.getInstance().isInCombat(player)) {
+			
+			player.setHealth(0.0);
+			
+			Bukkit.broadcastMessage(Chat.IMPORTANT_COLOR + player.getName() + Chat.BASE_COLOR + " logged out during a fight!");
+			
+		}
 		
 	}
 

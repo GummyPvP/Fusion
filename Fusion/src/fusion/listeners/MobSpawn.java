@@ -19,9 +19,9 @@ public class MobSpawn implements Listener {
 	@EventHandler
 	public void onMobSpawn(CreatureSpawnEvent e) {
 		
-		if (e.getSpawnReason() == SpawnReason.DISPENSE_EGG) return;
+		if (e.getSpawnReason() == SpawnReason.SPAWNER_EGG) return;
 		
-		if (RegionManager.getInstance().getRegion(e.getLocation().toVector()) != null) e.setCancelled(true);
+		if (!RegionManager.getInstance().getRegions(e.getLocation().toVector()).isEmpty()) e.setCancelled(true);
 		
 	}
 

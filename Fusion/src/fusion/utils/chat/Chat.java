@@ -1,4 +1,4 @@
-package fusion.utils;
+package fusion.utils.chat;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;

@@ -2,7 +2,7 @@ package fusion.utils.warps;
 
 import org.bukkit.entity.Player;
 
-import fusion.utils.Chat;
+import fusion.utils.chat.Chat;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
 import mpermissions.utils.permissions.Rank;

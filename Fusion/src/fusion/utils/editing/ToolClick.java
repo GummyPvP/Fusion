@@ -8,7 +8,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-import fusion.utils.Chat;
+import fusion.utils.chat.Chat;
 import fusion.utils.editing.event.PlayerSelectPointEvent;
 import klap.utils.mPlayer;
 import mpermissions.utils.permissions.Rank;

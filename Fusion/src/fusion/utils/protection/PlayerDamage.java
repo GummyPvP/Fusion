@@ -1,5 +1,7 @@
 package fusion.utils.protection;
 
+import java.util.List;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,13 +23,17 @@ public class PlayerDamage implements Listener {
 		
 		Player player = (Player) e.getEntity();
 		
-		Region region = RegionManager.getInstance().getRegion(player.getLocation().toVector());
+		if (e.isCancelled()) return;
 		
-		if (region == null) return;
+		List<Region> region = RegionManager.getInstance().getRegions(player.getLocation().toVector());
 		
-		if (!(region instanceof ProtectedRegion)) return;
+		if (region.isEmpty()) return;
 		
-		e.setCancelled(!((ProtectedRegion) region).isPVPEnabled());
+		ProtectedRegion protectedRegion;
+		
+		protectedRegion = (ProtectedRegion) RegionManager.getInstance().getSmallestRegion(region);
+		
+		e.setCancelled(!protectedRegion.isPVPEnabled());
 	}
 
 }

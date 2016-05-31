@@ -1,6 +1,8 @@
 package fusion.listeners;
 
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -13,8 +15,13 @@ import org.bukkit.inventory.ItemStack;
 
 import fusion.utils.ItemBuilder;
 import fusion.utils.mKitUser;
+import fusion.utils.chat.Chat;
 import fusion.utils.gui.KitGUI;
 import fusion.utils.gui.WarpGUI;
+import fusion.utils.protection.Region;
+import fusion.utils.protection.RegionManager;
+import klap.utils.mPlayer;
+import mpermissions.utils.permissions.Rank;
 
 /**
 	 * 
@@ -42,7 +49,7 @@ public class PlayerInteract implements Listener {
 				
 				e.setCancelled(true);
 				
-				player.setHealth(player.getHealth() + 7.0 >= player.getMaxHealth() ? player.getMaxHealth() : player.getHealth() + 7.0);
+				player.setHealth(player.getHealth() + 7 >= player.getMaxHealth() ? player.getMaxHealth() : player.getHealth() + 7);
 				
 				ItemStack bowl = new ItemBuilder(Material.BOWL).name("&bBowl").lore(Arrays.asList("A bowl is most useful when it's empty.", "Hah! Just kidding! You're gonna die.")).build();
 				
@@ -83,6 +90,40 @@ public class PlayerInteract implements Listener {
 				if (item.hasItemMeta() && item.getItemMeta().getDisplayName().contains("Warps")) {
 					
 					new WarpGUI(player);
+					
+				}
+				
+				break;
+				
+			case LEATHER:
+				
+				if (mPlayer.getInstance(player).getGroup().getRank().hasRequiredRank(Rank.MODPLUS)) {
+					
+					if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+					
+					if (RegionManager.getInstance().getRegions(e.getClickedBlock().getLocation().toVector()).isEmpty()) {
+						
+						Chat.getInstance().messagePlayer(player, Chat.STAFF_NOTIFICATION + "No regions are defined here!");
+						
+						return;
+					}
+					
+					StringBuilder sb = new StringBuilder();
+					
+					for (Region region : RegionManager.getInstance().getRegions(e.getClickedBlock().getLocation().toVector())) {
+						
+						sb.append(region.getName() + ", ");
+						
+					}
+					
+					String regionList = sb.toString();
+					
+					Pattern pattern = Pattern.compile(", $");
+					Matcher matcher = pattern.matcher(regionList);
+					
+					regionList = matcher.replaceAll("");
+					
+					Chat.getInstance().messagePlayer(player, Chat.STAFF_NOTIFICATION + "Regions defined here: " + Chat.SECONDARY_BASE + regionList);
 					
 				}
 				

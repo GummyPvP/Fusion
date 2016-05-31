@@ -54,6 +54,21 @@ public class Bounds {
 		
 	}
 	
+	public boolean inBounds(Vector vector) {
+		
+		return vector.isInAABB(min, max);
+		
+	}
+	
+	public boolean isInRegion(Region region) {
+		
+		Bounds thisRegion = this;
+		Bounds otherRegion = region.getBounds();
+		
+		return (otherRegion.inBounds(thisRegion.getCenter()));
+		
+	}
+	
 	public Vector getCenter() {
 		
 		return (min.clone().add(max.clone())).multiply(0.5);
