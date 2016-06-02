@@ -20,7 +20,7 @@ import fusion.utils.protection.RegionManager;
 
 public class StomperEvent implements Listener {
 	
-	double maxDamage = 4.0;
+	int maxDamage = 4;
 
 	@EventHandler
 	public void onStomp(EntityDamageEvent e) {
@@ -41,7 +41,7 @@ public class StomperEvent implements Listener {
 			return;
 		}
 		
-		double damage = e.getDamage();
+		int damage = e.getDamage();
 
 		e.setCancelled(true);
 		player.damage(damage > maxDamage ? maxDamage : damage);

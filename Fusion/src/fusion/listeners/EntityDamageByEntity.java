@@ -59,6 +59,12 @@ public class EntityDamageByEntity implements Listener {
 			
 		}
 		
+		if (hitter.isFlying() || reciever.isFlying()) {
+			
+			e.setCancelled(true);
+			return;
+		}
+		
 		if (!CombatLog.getInstance().isInCombat(hitter)) {
 			
 			Chat.getInstance().messagePlayer(hitter, Chat.IMPORTANT_COLOR + "You are now in combat! Do not log out!");

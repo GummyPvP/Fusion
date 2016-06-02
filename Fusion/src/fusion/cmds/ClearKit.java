@@ -54,7 +54,7 @@ public class ClearKit {
 			return;
 		}
 		
-		if (mPlayer.getInstance(args.getPlayer()).getGroup().getRank().hasRequiredRank(Rank.ADMIN)) {
+		if (mPlayer.getInstance(args.getPlayer()).getGroup().getRank().hasRequiredRank(Rank.MODPLUS)) {
 			
 			Player target = Bukkit.getPlayer(args.getArgs(0));
 			

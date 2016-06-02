@@ -32,6 +32,7 @@ import mpermissions.utils.permissions.Rank;
 
 public class PlayerInteract implements Listener {
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		

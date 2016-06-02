@@ -1,5 +1,6 @@
 package fusion.main;
 
+import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
@@ -8,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import fusion.cmds.Balance;
+import fusion.cmds.CandyManCommands;
 import fusion.cmds.ClearKit;
 import fusion.cmds.CombatLogCommand;
 import fusion.cmds.KitCommand;
@@ -39,6 +41,7 @@ import fusion.listeners.PlayerJoin;
 import fusion.listeners.PlayerQuit;
 import fusion.listeners.PlayerRespawn;
 import fusion.listeners.TabComplete;
+import fusion.utils.CandyMan;
 import fusion.utils.mKitUser;
 import fusion.utils.command.CommandFramework;
 import fusion.utils.editing.EditorManager;
@@ -91,7 +94,7 @@ public class Main extends JavaPlugin {
 		log ("Listeners loaded");
 		
 		loadCommands(new KitCommand(), new Test(), new WarpCreate(), new WarpList(), new SetSpawn(), new SpawnCommand(), new RegionCreate(), new RegionList(), 
-				new SetFlag(), new WarpDelete(), new RegionDelete(), new Balance(), new CombatLogCommand(), new ClearKit());
+				new SetFlag(), new WarpDelete(), new RegionDelete(), new Balance(), new CombatLogCommand(), new ClearKit(), new CandyManCommands());
 		
 		log ("Commands loaded");
 		
@@ -111,7 +114,7 @@ public class Main extends JavaPlugin {
 		
 		RegionManager.getInstance().loadRegions();
 		
-		if (!Bukkit.getOnlinePlayers().isEmpty()) {
+		if (Bukkit.getOnlinePlayers().length != 0) {
 			
 			for (Player online : Bukkit.getOnlinePlayers()) {
 				
@@ -121,9 +124,11 @@ public class Main extends JavaPlugin {
 			
 		}
 		
+		patch();
+		
 		long finishTime = System.currentTimeMillis();
 		
-		log ("Finished in: " + TimeUnit.MICROSECONDS.toSeconds(finishTime - startTime) + " seconds"); 
+		log ("Finished in: " + TimeUnit.MILLISECONDS.toSeconds(finishTime - startTime) + " seconds"); 
 		
 	}
 	
@@ -181,6 +186,17 @@ public class Main extends JavaPlugin {
 		
 		return instance;
 		
+	}
+	
+	public static void patch() {
+		
+		   try {
+		      Method a = net.minecraft.server.v1_7_R4.EntityTypes.class.getDeclaredMethod("a", Class.class, String.class, int.class);
+		      a.setAccessible(true);
+		      a.invoke(a, CandyMan.class, "CandyMan", 12);
+		   } catch (Exception ignored) {
+		      // Do some cleanup and error-handling here.
+		   }
 	}
 	
 	private void log(String s) {

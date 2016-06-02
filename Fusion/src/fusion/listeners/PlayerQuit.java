@@ -27,7 +27,7 @@ public class PlayerQuit implements Listener {
 		
 		if (CombatLog.getInstance().isInCombat(player)) {
 			
-			player.setHealth(0.0);
+			player.setHealth(0);
 			
 			Bukkit.broadcastMessage(Chat.IMPORTANT_COLOR + player.getName() + Chat.BASE_COLOR + " logged out during a fight!");
 			
