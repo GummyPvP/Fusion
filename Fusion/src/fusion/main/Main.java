@@ -1,6 +1,8 @@
 package fusion.main;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
@@ -29,6 +31,8 @@ import fusion.kits.listeners.ThorEvent;
 import fusion.kits.listeners.ViperEvent;
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
+import fusion.listeners.ChunkLoad;
+import fusion.listeners.ChunkUnload;
 import fusion.listeners.DropItem;
 import fusion.listeners.EntityDamageByEntity;
 import fusion.listeners.FoodChange;
@@ -63,6 +67,8 @@ import fusion.utils.warps.WarpCreate;
 import fusion.utils.warps.WarpDelete;
 import fusion.utils.warps.WarpList;
 import fusion.utils.warps.WarpManager;
+import net.minecraft.server.v1_7_R4.EntityInsentient;
+import net.minecraft.server.v1_7_R4.EntityTypes;
 
 /**
 	 * 
@@ -84,12 +90,14 @@ public class Main extends JavaPlugin {
 		instance = this;
 		framework = new CommandFramework(this);
 		
+		registerEntity(CandyMan.class, "Candyman", 120);
+		
 		log ("Instance & framework created");
 		
 		loadListeners(new InventoryClick(), new PlayerInteract(), new FoodChange(), new FishEvent(), new StomperEvent(), new ViperEvent(), new PlayerDeath(), new PlayerJoin(),
 				new PlayerQuit(), new PlayerRespawn(), new EntityDamageByEntity(), new ItemPickup(), new BlockPlace(), new BlockBreak(), 
 				new ToolClick(), new RegionEditor(), new PlayerDamage(), new DropItem(), new MobSpawn(), new BlockIgnite(),
-				new BlockDecay(), new BlockBurn(), new ThorEvent(), new TabComplete());
+				new BlockDecay(), new BlockBurn(), new ThorEvent(), new TabComplete(), new ChunkUnload(), new ChunkLoad());
 		
 		log ("Listeners loaded");
 		
@@ -123,8 +131,6 @@ public class Main extends JavaPlugin {
 			}
 			
 		}
-		
-		patch();
 		
 		long finishTime = System.currentTimeMillis();
 		
@@ -188,21 +194,80 @@ public class Main extends JavaPlugin {
 		
 	}
 	
-	public static void patch() {
-		
-		   try {
-		      Method a = net.minecraft.server.v1_7_R4.EntityTypes.class.getDeclaredMethod("a", Class.class, String.class, int.class);
-		      a.setAccessible(true);
-		      a.invoke(a, CandyMan.class, "CandyMan", 12);
-		   } catch (Exception ignored) {
-		      // Do some cleanup and error-handling here.
-		   }
-	}
-	
 	private void log(String s) {
 		
 		System.out.println(s);
 		
+	}
+	
+	/**
+	 * 
+	 * Copyright EchoPet - Not our code!!!
+	 * 
+	 * @param clazz - Class that holds our custom entity
+	 * @param name - User friendly name? I don't exactly know what it's for
+	 * @param id - The network ID for the client to use
+	 */
+	
+	@SuppressWarnings("unchecked")
+	public static void registerEntity(Class<? extends EntityInsentient> clazz, String name, int id) {
+		try {
+			Field field_c = EntityTypes.class.getDeclaredField("c");
+			Field field_d = EntityTypes.class.getDeclaredField("d");
+			Field field_f = EntityTypes.class.getDeclaredField("f");
+			Field field_g = EntityTypes.class.getDeclaredField("g");
+			field_c.setAccessible(true);
+			field_d.setAccessible(true);
+			field_f.setAccessible(true);
+			field_g.setAccessible(true);
+
+			Map<String, Class<?>> c = (Map<String, Class<?>>) field_c.get(field_c);
+			Map<Class<?>, String> d = (Map<Class<?>, String>) field_d.get(field_d);
+			Map<Class<?>, Integer> f = (Map<Class<?>, Integer>) field_f.get(field_f);
+			Map<String, Integer> g = (Map<String, Integer>) field_g.get(field_g);
+
+			Iterator<String> i = c.keySet().iterator();
+			while (i.hasNext()) {
+				String s = i.next();
+				if (s.equals(name)) {
+					i.remove();
+				}
+			}
+
+			Iterator<Class<?>> i2 = d.keySet().iterator();
+			while (i2.hasNext()) {
+				Class<?> cl = i2.next();
+				if (cl.getCanonicalName().equals(clazz.getCanonicalName())) {
+					i2.remove();
+				}
+			}
+
+			Iterator<Class<?>> i3 = f.keySet().iterator();
+			while (i2.hasNext()) {
+				Class<?> cl = i3.next();
+				if (cl.getCanonicalName().equals(clazz.getCanonicalName())) {
+					i3.remove();
+				}
+			}
+
+			Iterator<String> i4 = g.keySet().iterator();
+			while (i4.hasNext()) {
+				String s = i4.next();
+				if (s.equals(name)) {
+					i4.remove();
+				}
+			}
+
+			c.put(name, clazz);
+			d.put(clazz, name);
+			f.put(clazz, id);
+			g.put(name, id);
+		} catch (Exception e) {
+			
+			System.out.println("Couldn't register " + name + " ID: " + id + "!");
+			
+			e.printStackTrace();
+		}
 	}
 
 }
