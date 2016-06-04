@@ -1,10 +1,10 @@
 package fusion.cmds;
 
 import org.bukkit.craftbukkit.v1_7_R4.CraftWorld;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
+import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
 import fusion.utils.CandyMan;
 import fusion.utils.chat.Chat;
@@ -40,14 +40,23 @@ public class CandyManCommands {
 		
 		candyMan.setPositionRotation(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), player.getLocation().getYaw(), player.getLocation().getPitch());
 		
-		handle.getHandle().addEntity(candyMan);
-		
-		candyMan.setCustomName(Chat.SECONDARY_BASE + "Candy Man");
-		
-		Villager villager = (Villager) candyMan.getBukkitEntity();
-		
-		villager.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 1, true));
+		handle.getHandle().addEntity(candyMan, SpawnReason.SPAWNER_EGG);
 		
 	}
 
+	@Command(name = "candyman.remove", description = "Remove all candymen.", usage = "/candyman remove", rank = Rank.ADMIN, inGameOnly = true)
+	public void candyManRemove(CommandArgs args) {
+		
+		for (Entity ents : args.getPlayer().getLocation().getChunk().getEntities()) {
+			
+			if (ents instanceof Villager && ((Villager) ents).getCustomName() != null && ((Villager) ents).getCustomName().contains("Candy Man")) {
+				
+				ents.remove();
+				
+			}
+			
+		}
+		
+	}
+	
 }

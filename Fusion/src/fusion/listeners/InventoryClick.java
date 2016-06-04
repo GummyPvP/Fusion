@@ -5,16 +5,20 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
+import fusion.utils.gui.CandyGUI;
 import fusion.utils.gui.KitGUI;
 import fusion.utils.gui.ShopGUI;
 import fusion.utils.gui.WarpGUI;
 import fusion.utils.warps.Warp;
 import fusion.utils.warps.WarpManager;
+import klap.utils.mPlayer;
+import mpermissions.utils.permissions.Rank;
 
 /**
 	 * 
@@ -72,6 +76,12 @@ public class InventoryClick implements Listener {
 			return;
 		}
 		
+		/**
+		 * 
+		 * Shop
+		 * 
+		 */
+		
 		if (e.getInventory().getName().contains(ShopGUI.INVENTORY_NAME)) {
 			
 			if (KitManager.getInstance().valueOf(ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName())) == null) return;
@@ -88,12 +98,18 @@ public class InventoryClick implements Listener {
 			mKitUser.getInstance(player).addOwnedKit(kit);
 			mKitUser.getInstance(player).removeCandies(kit.getCost());
 			
-			Chat.getInstance().messagePlayer(player, Chat.SECONDARY_BASE + "You now own " + Chat.IMPORTANT_COLOR + kit.getName());
+			Chat.getInstance().messagePlayer(player, Chat.SECONDARY_BASE + "You now own kit " + Chat.IMPORTANT_COLOR + kit.getName());
 			
 			player.closeInventory();
 			
 			return;
 		}
+		
+		/**
+		 * 
+		 * Warps
+		 * 
+		 */
 		
 		if (e.getInventory().getName().contains(WarpGUI.INVENTORY_NAME)) {
 			
@@ -102,6 +118,73 @@ public class InventoryClick implements Listener {
 			if (warp == null) return;
 			
 			WarpManager.getInstance().sendPlayer(player, warp);
+			
+			return;
+		}
+		
+		/**
+		 * 
+		 * Candyman
+		 * 
+		 */
+		
+		if (e.getInventory().getName().contains(CandyGUI.INVENTORY_NAME)) {
+			
+			ItemStack item = e.getCurrentItem();
+			mPlayer user = mPlayer.getInstance(player);
+			
+			switch (item.getType()) {
+			case IRON_INGOT:
+				
+				player.sendMessage("you got 250 candies from default prize");
+				
+				break;
+				
+			case GOLD_INGOT:
+				
+				if (user.getGroup().getRank().hasRequiredRank(Rank.SLIME)) {
+					
+					player.sendMessage("you got 250 candies from slime prize");
+					
+					break;
+				}
+				
+				player.sendMessage("no perms");
+				
+				break;
+				
+			case DIAMOND:
+				
+				if (user.getGroup().getRank().hasRequiredRank(Rank.HARIBO)) {
+					
+					player.sendMessage("you got 250 candies from haribo prize");
+					
+					break;
+				}
+				
+				player.sendMessage("no perms");
+				
+				break;
+				
+			case EMERALD:
+				
+				if (user.getGroup().getRank().hasRequiredRank(Rank.GUMMY)) {
+					
+					player.sendMessage("you got 250 candies from gummy prize");
+					
+					break;
+				}
+				
+				player.sendMessage("no perms");
+				
+				break;
+
+			default:
+				
+				player.sendMessage("random item");
+				
+				break;
+			}
 			
 			return;
 		}

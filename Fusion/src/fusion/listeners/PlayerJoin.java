@@ -7,6 +7,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import fusion.utils.Utils;
 import fusion.utils.mKitUser;
+import fusion.utils.spawn.Spawn;
 
 /**
 	 * 
@@ -25,6 +26,8 @@ public class PlayerJoin implements Listener {
 		mKitUser.getInstance(player).load();
 		
 		Utils.giveDefaultItems(player);
+		
+		Spawn.getInstance().teleport(player);
 		
 	}
 

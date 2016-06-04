@@ -2,6 +2,11 @@ package fusion.utils;
 
 import java.lang.reflect.Field;
 
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Villager;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
 import net.minecraft.server.v1_7_R4.EntityVillager;
 import net.minecraft.server.v1_7_R4.World;
 
@@ -20,6 +25,12 @@ public class CandyMan extends EntityVillager {
 		setCustomNameVisible(true);
 		
 		setProfession(2);
+		
+		setCustomName(ChatColor.GREEN + "Charlie The Candy Man");
+		
+		((Villager) getBukkitEntity()).addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 1, true));
+		
+		//setEquipment(3, CraftItemStack.asNMSCopy(new ItemStack(Material.LEATHER_CHESTPLATE)));
 	}
 	
 	@Override

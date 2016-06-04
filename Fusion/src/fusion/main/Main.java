@@ -41,6 +41,7 @@ import fusion.listeners.ItemPickup;
 import fusion.listeners.MobSpawn;
 import fusion.listeners.PlayerDeath;
 import fusion.listeners.PlayerInteract;
+import fusion.listeners.PlayerInteractEntity;
 import fusion.listeners.PlayerJoin;
 import fusion.listeners.PlayerQuit;
 import fusion.listeners.PlayerRespawn;
@@ -97,7 +98,7 @@ public class Main extends JavaPlugin {
 		loadListeners(new InventoryClick(), new PlayerInteract(), new FoodChange(), new FishEvent(), new StomperEvent(), new ViperEvent(), new PlayerDeath(), new PlayerJoin(),
 				new PlayerQuit(), new PlayerRespawn(), new EntityDamageByEntity(), new ItemPickup(), new BlockPlace(), new BlockBreak(), 
 				new ToolClick(), new RegionEditor(), new PlayerDamage(), new DropItem(), new MobSpawn(), new BlockIgnite(),
-				new BlockDecay(), new BlockBurn(), new ThorEvent(), new TabComplete(), new ChunkUnload(), new ChunkLoad());
+				new BlockDecay(), new BlockBurn(), new ThorEvent(), new TabComplete(), new ChunkUnload(), new ChunkLoad(), new PlayerInteractEntity());
 		
 		log ("Listeners loaded");
 		
