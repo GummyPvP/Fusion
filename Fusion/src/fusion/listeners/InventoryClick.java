@@ -34,7 +34,7 @@ public class InventoryClick implements Listener {
 		
 		if (!(e.getWhoClicked() instanceof Player)) return;
 		if (e.getInventory().getName() == null) return;
-		if (!e.getInventory().getName().contains("GummyPvP - ")) return;
+		if (!e.getInventory().getName().contains("GummyPvP")) return;
 		if (e.getCurrentItem() == null) return;
 		if (!e.getCurrentItem().hasItemMeta()) return;
 		if (e.getCurrentItem().getItemMeta() == null) return;
@@ -176,6 +176,13 @@ public class InventoryClick implements Listener {
 				}
 				
 				player.sendMessage("no perms");
+				
+				break;
+				
+			case WATCH:
+				
+				player.closeInventory();
+				new ShopGUI(player);
 				
 				break;
 

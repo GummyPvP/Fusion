@@ -134,9 +134,11 @@ public class PlayerInteract implements Listener {
 				
 				if (mKitUser.getInstance(player).hasPreviousKit() && !mKitUser.getInstance(player).hasKit()) {
 					
-					if (item.getType() == mKitUser.getInstance(player).getPreviousKit().getInventoryItem().getType()) {
+					if (item.getType() == Material.WATCH) {
 						
 						mKitUser.getInstance(player).getPreviousKit().apply(player);
+						
+						player.updateInventory();
 						
 					}
 					

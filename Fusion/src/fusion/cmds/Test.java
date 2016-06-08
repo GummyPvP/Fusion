@@ -1,5 +1,7 @@
 package fusion.cmds;
 
+import fusion.events.lms.LMS;
+import fusion.events.lms.LMSState;
 import fusion.utils.mKitUser;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
@@ -17,7 +19,11 @@ public class Test {
 	@Command(name = "test", rank=Rank.ADMINPLUS, description = "Test command", usage = "/test", inGameOnly = true)
 	public void testCommand(CommandArgs args) {
 		
-		mKitUser.getInstance(args.getPlayer()).setCandies(1000.0);
+		mKitUser.getInstance(args.getPlayer()).addCandies(500);
+		
+		LMS.getInstance().start(args.getPlayer().getName());
+		
+		LMS.getInstance().setState(LMSState.GRACE);
 		
 	}
 

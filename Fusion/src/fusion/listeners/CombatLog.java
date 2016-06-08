@@ -4,7 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
+import org.bukkit.scoreboard.Scoreboard;
 
 import fusion.main.Main;
 import fusion.utils.chat.Chat;
@@ -43,9 +48,16 @@ public class CombatLog {
 				if (isInCombat(player) && getRemainingTime(player) <= 1) {
 					
 					remove(player);
-					Bukkit.getScheduler().cancelTask(combatScheduler.get(player.getName()));
 					
-				} else combatHandler.replace(player.getName(), getRemainingTime(player), getRemainingTime(player) - 1);
+					player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
+					
+				} else {
+					
+					combatHandler.replace(player.getName(), getRemainingTime(player), getRemainingTime(player) - 1);
+					
+					refreshScoreboard(player);
+					
+				}
 				
 			}
 			
@@ -72,6 +84,37 @@ public class CombatLog {
 
 	public void remove(Player player) {
 		combatHandler.remove(player.getName());
+		
+		if (combatScheduler.get(player.getName()) != null) Bukkit.getScheduler().cancelTask(combatScheduler.get(player.getName()));
+		
+		combatScheduler.remove(player.getName());
+		
+		if (player.getScoreboard().getObjective(DisplaySlot.SIDEBAR) != null && player.getScoreboard().getObjective(DisplaySlot.SIDEBAR).getName().equalsIgnoreCase("combatlog")) {
+			
+			player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
+			
+		}
+		
 		Chat.getInstance().messagePlayer(player, Chat.SECONDARY_BASE + "You are no longer in combat!");
 	}
+	
+	private void refreshScoreboard(Player player) {
+		
+		String correctSecond = getRemainingTime(player) == 1 ? "second" : "seconds";
+		
+		Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
+		Objective o = board.registerNewObjective("combatlog", "dummy");
+		o.setDisplayName(Chat.SECONDARY_BASE + "Combat Timer");
+		o.setDisplaySlot(DisplaySlot.SIDEBAR);
+		
+		Score timerString = o.getScore(Bukkit.getOfflinePlayer(ChatColor.YELLOW + "Time Remaining:"));
+		Score realTime = o.getScore(Bukkit.getOfflinePlayer("  " + ChatColor.GOLD + CombatLog.getInstance().getRemainingTime(player) + " " + correctSecond));
+		
+		timerString.setScore(15);
+		realTime.setScore(14);
+		
+		player.setScoreboard(board);
+		
+	}
+	
 }

@@ -100,6 +100,15 @@ public class SetFlag {
 				return;
 			}
 			
+			if (protectedRegion.getBlockedKits().contains(KitManager.getInstance().valueOf(modifier))) {
+				
+				protectedRegion.removeBlockedKit(KitManager.getInstance().valueOf(modifier));
+				
+				Chat.getInstance().messagePlayer(args.getSender(), Chat.STAFF_NOTIFICATION + "Successfully removed blocked kit: " + modifier);
+				
+				return;
+			}
+			
 			protectedRegion.addBlockedKit(KitManager.getInstance().valueOf(modifier));
 			
 			Chat.getInstance().messagePlayer(args.getSender(), Chat.STAFF_NOTIFICATION + "Successfully added blocked kit: " + modifier);

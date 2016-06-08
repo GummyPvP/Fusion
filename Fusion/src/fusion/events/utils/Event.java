@@ -22,6 +22,8 @@ public abstract class Event {
 	
 	public abstract Rank getRankRequired();
 	
+	public abstract int getNeededSize();
+	
 	public void start(String userStarting) {
 		
 		Bukkit.broadcastMessage(String.format(Chat.SECONDARY_BASE + "Event %s is being hosted by %s", getName(), userStarting));

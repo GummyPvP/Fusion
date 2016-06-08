@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 
 import fusion.utils.mKitUser;
+import fusion.utils.protection.RegionManager;
 
 /**
 	 * 
@@ -22,6 +23,8 @@ public class FishEvent implements Listener {
 		if (!(e.getCaught() instanceof Player)) return;
 		if (!mKitUser.getInstance(e.getPlayer()).hasKit()) return;
 		if (!mKitUser.getInstance(e.getPlayer()).getKit().getName().equalsIgnoreCase("Fisherman")) return;
+		
+		if (RegionManager.getInstance().isInProtectedRegion(e.getPlayer())) return;
 		
 		Player player = e.getPlayer();
 		Player caught = (Player) e.getCaught();

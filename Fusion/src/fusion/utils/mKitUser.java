@@ -10,6 +10,7 @@ import org.bukkit.potion.PotionEffect;
 
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
+import fusion.utils.protection.ProtectedRegion.HealingItem;
 
 /**
 	 * 
@@ -21,10 +22,12 @@ import fusion.kits.utils.KitManager;
 public class mKitUser {
 	
 	static Set<mKitUser> instances = new HashSet<mKitUser>();
+	
 	Player player;
 	Kit kit, previousKit;
 	Set<Kit> ownedKits = new HashSet<Kit>();
 	double money;
+	HealingItem item;
 	
 	private mKitUser(Player player) {
 		
@@ -98,6 +101,14 @@ public class mKitUser {
 		this.money -= candies;
 	}
 	
+	public HealingItem getHealingItem() {
+		return item;
+	}
+	
+	public void setHealingItem(HealingItem item) {
+		this.item = item;
+	}
+	
 	public void clearKit() {
 		
 		Player player = getPlayer();
@@ -117,6 +128,18 @@ public class mKitUser {
 	
 	public void load() {
 		
+		if (ConfigManager.getPlayerFile(player.getName()).contains("profile.candies")) {
+			
+			setCandies(ConfigManager.getPlayerFile(player.getName()).getDouble("profile.candies"));
+			
+		}
+		
+		if (ConfigManager.getPlayerFile(player.getName()).contains("settings.healingItem")) {
+			
+			setHealingItem(HealingItem.valueOf(ConfigManager.getPlayerFile(player.getName()).getString("settings.healingItem").toUpperCase()));
+			
+		} else setHealingItem(HealingItem.SOUP);
+		
 		if (ConfigManager.getPlayerFile(player.getName()).getList("kits") == null) return;
 		
 		for (String kits : ConfigManager.getPlayerFile(player.getName()).getStringList("kits")) {
@@ -124,12 +147,6 @@ public class mKitUser {
 			String kitNames = kits;
 			
 			ownedKits.add(KitManager.getInstance().valueOf(kitNames));
-			
-		}
-		
-		if (ConfigManager.getPlayerFile(player.getName()).contains("profile.candies")) {
-			
-			setCandies(ConfigManager.getPlayerFile(player.getName()).getDouble("profile.candies"));
 			
 		}
 		
@@ -151,7 +168,9 @@ public class mKitUser {
 			
 		}
 		
-		ConfigManager.getPlayerFile(player.getName()).set("profile.candies", money);
+		ConfigManager.getPlayerFile(player.getName()).set("profile.candies", getCandies());
+		
+		ConfigManager.getPlayerFile(player.getName()).set("settings.healingItem", item.toString());
 		
 	}
 	

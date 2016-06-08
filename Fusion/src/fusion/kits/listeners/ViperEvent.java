@@ -10,6 +10,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import fusion.kits.utils.KitManager;
+import fusion.utils.protection.RegionManager;
 
 /**
  * 
@@ -31,11 +32,13 @@ public class ViperEvent implements Listener {
 
 		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Viper")))
 			return;
+		
+		if (RegionManager.getInstance().isInProtectedRegion(player)) return;
 
 		Random r = new Random();
 
 		if (r.nextInt(3) == 1)
-			hit.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 4, 0));
+			hit.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 2));
 
 	}
 

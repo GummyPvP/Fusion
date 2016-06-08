@@ -183,7 +183,7 @@ public class ShopGUI {
 		
 		if (kit.getCost() != 0.0) {
 			
-			items.add("&8[&a+&8] " + ChatColor.DARK_AQUA + kit.getCost());
+			items.add("&8[&a+&8] " + ChatColor.DARK_AQUA + "Cost: " + kit.getCost() + " candies");
 			
 		}
 		

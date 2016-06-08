@@ -181,7 +181,10 @@ public class RegionManager {
 		
 		if (region == null) return false;
 		
-		if (region instanceof ProtectedRegion && ((ProtectedRegion) region).isPVPEnabled()) return true;
+		if (region instanceof ProtectedRegion) {
+			
+			return !((ProtectedRegion) region).isPVPEnabled();
+		}
 		
 		return false;
 		

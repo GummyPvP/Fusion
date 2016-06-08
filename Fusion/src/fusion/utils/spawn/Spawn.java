@@ -7,6 +7,8 @@ import org.bukkit.entity.Player;
 
 import fusion.utils.ConfigManager;
 import fusion.utils.chat.Chat;
+import fusion.utils.protection.ProtectedRegion;
+import fusion.utils.protection.RegionManager;
 
 /**
 	 * 
@@ -28,6 +30,7 @@ public class Spawn {
 	}
 	
 	Location location;
+	ProtectedRegion region;
 	
 	public void setLocation(Location location) {
 		
@@ -41,6 +44,10 @@ public class Spawn {
 		
 		return location;
 		
+	}
+	
+	public ProtectedRegion getRegion() {
+		return region;
 	}
 	
 	public void teleport(Player p) {
@@ -65,6 +72,13 @@ public class Spawn {
 		if (location == null) {
 			
 			System.out.println("Spawn wasn't set, wasn't successfully saved.");
+			return;
+		}
+		
+		if (region == null) {
+			
+			System.out.println("Spawn - No region!");
+			
 			return;
 		}
 		
@@ -95,5 +109,7 @@ public class Spawn {
 		pitch = ConfigManager.getSpawnFile().getInt("spawn.pitch");
 		
 		this.location = new Location(world, x, y, z, yaw, pitch);
+		
+		this.region = (ProtectedRegion) RegionManager.getInstance().getSmallestRegion(RegionManager.getInstance().getRegions(location.toVector()));
 	}
 }

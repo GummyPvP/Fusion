@@ -8,6 +8,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import fusion.kits.utils.KitManager;
+import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
 import fusion.utils.protection.RegionManager;
 
@@ -34,15 +35,8 @@ public class StomperEvent implements Listener {
 
 		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Stomper"))) return;
 		
-		if (RegionManager.getInstance().isInProtectedRegion(player)) {
-			
-			e.setCancelled(true);
-			
-			return;
-		}
-		
 		int damage = e.getDamage();
-
+		
 		e.setCancelled(true);
 		player.damage(damage > maxDamage ? maxDamage : damage);
 
@@ -52,11 +46,25 @@ public class StomperEvent implements Listener {
 				continue;
 
 			Player target = (Player) entities;
+			
+			if (RegionManager.getInstance().isInProtectedRegion(target)) return;
 
 			if (target.isSneaking()) target.damage(damage > maxDamage ? maxDamage : damage);
 			else target.damage(damage);
 			
 			if (!target.isDead()) return;
+			
+			double targetCandies = mKitUser.getInstance(target).getCandies();
+			
+			double reward = targetCandies * .10; // only 10%
+			
+			reward = Math.round(reward);
+			
+			reward = reward <= 10.0 ? 10.0 : reward;
+			
+			mKitUser.getInstance(player).addCandies(reward);
+			
+			Chat.getInstance().messagePlayer(player, Chat.SECONDARY_BASE + "You received " + Chat.IMPORTANT_COLOR + reward + Chat.SECONDARY_BASE + " candies for killing " + target.getName());
 			
 			Chat.getInstance().messagePlayer(target, "You were squished by a stomper!");
 

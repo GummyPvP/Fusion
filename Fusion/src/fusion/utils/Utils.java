@@ -40,7 +40,7 @@ public class Utils {
 				
 				if (user.hasPreviousKit()) {
 					
-					ItemStack previousKit = new ItemBuilder(user.getPreviousKit().getInventoryItem()).name("&5Previous Kit: &a" + user.getPreviousKit().getName()).lore("Click to use your previous kit!").build();
+					ItemStack previousKit = new ItemBuilder(Material.WATCH).name("&5Previous Kit: &a" + user.getPreviousKit().getName()).lore("Click to use your previous kit!").build();
 					player.getInventory().addItem(previousKit);
 					
 				}

@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import fusion.kits.utils.KitManager;
 import fusion.main.Main;
 import fusion.utils.chat.Chat;
+import fusion.utils.protection.RegionManager;
 
 /**
 	 * 
@@ -39,6 +40,8 @@ public class ThorEvent implements Listener {
 		if (e.getItem().getType() != Material.WOOD_AXE) return;
 		
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+		
+		if (RegionManager.getInstance().isInProtectedRegion(player)) return;
 		
 		if (!isInThorTimer(player)) {
 			
