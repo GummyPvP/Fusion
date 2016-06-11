@@ -52,6 +52,7 @@ import fusion.listeners.PlayerQuit;
 import fusion.listeners.PlayerRespawn;
 import fusion.listeners.TabComplete;
 import fusion.utils.CandyMan;
+import fusion.utils.ConfigManager;
 import fusion.utils.mKitUser;
 import fusion.utils.command.CommandFramework;
 import fusion.utils.editing.EditorManager;
@@ -83,11 +84,13 @@ import net.minecraft.server.v1_7_R4.EntityTypes;
  * 
  */
 
-public class Main extends JavaPlugin {
+public class Fusion extends JavaPlugin {
 
-	private static Main instance;
+	private static Fusion instance;
 
 	private CommandFramework framework;
+	
+	private ConfigManager spawn, warps, regions, config;
 
 	public void onEnable() {
 
@@ -95,7 +98,12 @@ public class Main extends JavaPlugin {
 
 		instance = this;
 		framework = new CommandFramework(this);
-
+		
+		spawn = new ConfigManager("spawn", false);
+		warps = new ConfigManager("warps", false);
+		regions = new ConfigManager("regions", false);
+		config = new ConfigManager("config", false);
+		
 		registerEntity(CandyMan.class, "Candyman", 120);
 
 		log("Instance & framework created");
@@ -149,7 +157,7 @@ public class Main extends JavaPlugin {
 		log("Finished in: " + TimeUnit.MILLISECONDS.toSeconds(finishTime - startTime) + " seconds");
 
 	}
-
+	
 	public void onDisable() {
 
 		KitManager.getInstance().unloadKits();
@@ -169,7 +177,27 @@ public class Main extends JavaPlugin {
 		RegionManager.getInstance().saveRegions();
 
 	}
-
+	
+	public ConfigManager getConfiguration() {
+		return config;
+	}
+	
+	public ConfigManager getSpawnFile() {
+		return spawn;
+	}
+	
+	public ConfigManager getRegionsFile() {
+		return regions;
+	}
+	
+	public ConfigManager getWarpsFile() {
+		return warps;
+	}
+	
+	public ConfigManager getPlayerFile(String player) {
+		return ConfigManager.getPlayerFile(player);
+	}
+	
 	private void loadListeners(Listener... listeners) {
 
 		for (Listener l : listeners) {
@@ -200,7 +228,7 @@ public class Main extends JavaPlugin {
 
 	}
 
-	public static Main getInstance() {
+	public static Fusion getInstance() {
 
 		return instance;
 

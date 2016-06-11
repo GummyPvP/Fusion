@@ -9,7 +9,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import fusion.utils.ConfigManager;
+import fusion.main.Fusion;
 import fusion.utils.chat.Chat;
 
 /**
@@ -83,7 +83,7 @@ public class WarpManager {
 		
 		warps.remove(getWarp(name));
 		
-		ConfigManager.getWarpsFile().set("warps." + name, null);
+		Fusion.getInstance().getWarpsFile().set("warps." + name, null);
 		
 		return true;
 		
@@ -91,20 +91,20 @@ public class WarpManager {
 	
 	private void loadWarp(String name) {
 		
-		if (!ConfigManager.getWarpsFile().contains("warps." + name)) return;
+		if (!Fusion.getInstance().getWarpsFile().contains("warps." + name)) return;
 		
 		World world;
 		double x, y, z;
 		float yaw, pitch;
 		ItemStack item;
 		
-		world = Bukkit.getWorld(ConfigManager.getWarpsFile().getString("warps." + name + ".world"));
-		x = ConfigManager.getWarpsFile().getDouble("warps." + name + ".x");
-		y = ConfigManager.getWarpsFile().getDouble("warps." + name + ".y");
-		z = ConfigManager.getWarpsFile().getDouble("warps." + name + ".z");
-		yaw = ConfigManager.getWarpsFile().getFloat("warps." + name + ".yaw");
-		pitch = ConfigManager.getWarpsFile().getFloat("warps." + name + ".pitch");
-		item = ConfigManager.getWarpsFile().getItemStack("warps." + name + ".item");
+		world = Bukkit.getWorld(Fusion.getInstance().getWarpsFile().getString("warps." + name + ".world"));
+		x = Fusion.getInstance().getWarpsFile().getDouble("warps." + name + ".x");
+		y = Fusion.getInstance().getWarpsFile().getDouble("warps." + name + ".y");
+		z = Fusion.getInstance().getWarpsFile().getDouble("warps." + name + ".z");
+		yaw = Fusion.getInstance().getWarpsFile().getFloat("warps." + name + ".yaw");
+		pitch = Fusion.getInstance().getWarpsFile().getFloat("warps." + name + ".pitch");
+		item = Fusion.getInstance().getWarpsFile().getItemStack("warps." + name + ".item");
 		
 		Location location = new Location(world, x, y, z, yaw, pitch);
 		
@@ -114,9 +114,9 @@ public class WarpManager {
 	
 	public void loadWarps() {
 		
-		if (ConfigManager.getWarpsFile().getSection("warps") == null) return;
+		if (Fusion.getInstance().getWarpsFile().getSection("warps") == null) return;
 		
-		for (String warpNames : ConfigManager.getWarpsFile().getSection("warps").getKeys(false)) {
+		for (String warpNames : Fusion.getInstance().getWarpsFile().getSection("warps").getKeys(false)) {
 			
 			loadWarp(warpNames);
 			
@@ -129,13 +129,13 @@ public class WarpManager {
 		String name = warp.getName();
 		Location location = warp.getLocation();
 		
-		ConfigManager.getWarpsFile().set("warps." + name + ".world", location.getWorld().getName());
-		ConfigManager.getWarpsFile().set("warps." + name + ".x", location.getX());
-		ConfigManager.getWarpsFile().set("warps." + name + ".y", location.getY());
-		ConfigManager.getWarpsFile().set("warps." + name + ".z", location.getZ());
-		ConfigManager.getWarpsFile().set("warps." + name + ".yaw", location.getYaw());
-		ConfigManager.getWarpsFile().set("warps." + name + ".pitch", location.getPitch());
-		ConfigManager.getWarpsFile().set("warps." + name + ".item", warp.getInventoryItem());
+		Fusion.getInstance().getWarpsFile().set("warps." + name + ".world", location.getWorld().getName());
+		Fusion.getInstance().getWarpsFile().set("warps." + name + ".x", location.getX());
+		Fusion.getInstance().getWarpsFile().set("warps." + name + ".y", location.getY());
+		Fusion.getInstance().getWarpsFile().set("warps." + name + ".z", location.getZ());
+		Fusion.getInstance().getWarpsFile().set("warps." + name + ".yaw", location.getYaw());
+		Fusion.getInstance().getWarpsFile().set("warps." + name + ".pitch", location.getPitch());
+		Fusion.getInstance().getWarpsFile().set("warps." + name + ".item", warp.getInventoryItem());
 		
 	}
 	

@@ -8,7 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import fusion.main.Main;
+import fusion.main.Fusion;
 
 /**
 	 * 
@@ -21,7 +21,7 @@ public class Utils {
 	
 	public static void giveDefaultItems(Player player) {
 		
-		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
+		Bukkit.getScheduler().scheduleSyncDelayedTask(Fusion.getInstance(), new Runnable() {
 
 			@Override
 			public void run() {

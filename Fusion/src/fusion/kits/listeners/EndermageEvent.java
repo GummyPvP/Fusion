@@ -14,7 +14,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 import fusion.kits.utils.KitManager;
-import fusion.main.Main;
+import fusion.main.Fusion;
 import fusion.utils.chat.Chat;
 import fusion.utils.protection.RegionManager;
 
@@ -112,7 +112,7 @@ public class EndermageEvent implements Listener {
 		
 		cooldownHandler.put(p.getName(), COOLDOWN_TIME);
 
-		cooldownScheduler.put(p.getName(), Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), new Runnable() {
+		cooldownScheduler.put(p.getName(), Bukkit.getScheduler().scheduleSyncRepeatingTask(Fusion.getInstance(), new Runnable() {
 
 			public void run() {
 				
@@ -147,7 +147,7 @@ public class EndermageEvent implements Listener {
 		
 		invincibleHandler.put(p.getName(), INVINCIBLE_TIME);
 
-		invincibleScheduler.put(p.getName(), Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), new Runnable() {
+		invincibleScheduler.put(p.getName(), Bukkit.getScheduler().scheduleSyncRepeatingTask(Fusion.getInstance(), new Runnable() {
 
 			public void run() {
 				

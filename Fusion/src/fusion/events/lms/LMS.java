@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import fusion.events.utils.Countdown;
 import fusion.events.utils.Event;
-import fusion.main.Main;
+import fusion.main.Fusion;
 import fusion.utils.chat.Chat;
 import mpermissions.utils.permissions.Rank;
 
@@ -104,7 +104,7 @@ public class LMS extends Event implements Listener {
 
 	@Override
 	public void register() {
-		Bukkit.getPluginManager().registerEvents(this, Main.getInstance());
+		Bukkit.getPluginManager().registerEvents(this, Fusion.getInstance());
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class LMS extends Event implements Listener {
 		
 		// start game loop (for broadcasts and stuff)
 
-		new LMSTimer("LMS", 10, ChatColor.GOLD + "[Event] " + Chat.SECONDARY_BASE + "LMS will start in %d second(s)!").runTaskTimer(Main.getInstance(), 0, 20);
+		new LMSTimer("LMS", 10, ChatColor.GOLD + "[Event] " + Chat.SECONDARY_BASE + "LMS will start in %d second(s)!").runTaskTimer(Fusion.getInstance(), 0, 20);
 		
 //		new Countdown("LMS", 10, ChatColor.GOLD + "[Event] " + Chat.SECONDARY_BASE + "LMS will start in %d second(s)!")
 //				.runTaskTimer(Main.getInstance(), 0, 20);

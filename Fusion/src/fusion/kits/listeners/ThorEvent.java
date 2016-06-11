@@ -12,7 +12,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import fusion.kits.utils.KitManager;
-import fusion.main.Main;
+import fusion.main.Fusion;
 import fusion.utils.chat.Chat;
 import fusion.utils.protection.RegionManager;
 
@@ -72,7 +72,7 @@ public class ThorEvent implements Listener {
 		
 		cooldownHandler.put(p.getName(), COOLDOWN_TIME);
 
-		cooldownScheduler.put(p.getName(), Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), new Runnable() {
+		cooldownScheduler.put(p.getName(), Bukkit.getScheduler().scheduleSyncRepeatingTask(Fusion.getInstance(), new Runnable() {
 
 			public void run() {
 				

@@ -11,7 +11,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
-import fusion.main.Main;
+import fusion.main.Fusion;
 import fusion.utils.chat.Chat;
 
 /**
@@ -40,7 +40,7 @@ public class CombatLog {
 		
 		combatHandler.put(player.getName(), COMBAT_TIME);
 		
-		combatScheduler.put(player.getName(), Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), new Runnable() {
+		combatScheduler.put(player.getName(), Bukkit.getScheduler().scheduleSyncRepeatingTask(Fusion.getInstance(), new Runnable() {
 
 			@Override
 			public void run() {

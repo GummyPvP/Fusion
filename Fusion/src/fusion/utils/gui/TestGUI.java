@@ -3,7 +3,7 @@ package fusion.utils.gui;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-import fusion.main.Main;
+import fusion.main.Fusion;
 
 /**
  * 
@@ -16,10 +16,10 @@ public class TestGUI extends MenuGUI {
 	
 	public TestGUI(Player player) {
 		
-		super (player, "TestGUI", 9, Main.getInstance(), false);
+		super (player, "TestGUI", 9, Fusion.getInstance(), false);
 		
 	}
-
+	
 	@Override
 	public void onClick(InventoryClickEvent e) {
 		
