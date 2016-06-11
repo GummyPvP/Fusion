@@ -24,8 +24,8 @@ public class mKitUser {
 	static Set<mKitUser> instances = new HashSet<mKitUser>();
 	
 	Player player;
-	Kit kit, previousKit;
 	Set<Kit> ownedKits = new HashSet<Kit>();
+	Kit kit, previousKit;
 	double money;
 	HealingItem item;
 	

@@ -1,10 +1,9 @@
 package fusion.utils.gui;
 
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
+import org.bukkit.event.inventory.InventoryClickEvent;
 
-import fusion.utils.ItemBuilder;
+import fusion.main.Main;
 
 /**
  * 
@@ -13,22 +12,19 @@ import fusion.utils.ItemBuilder;
  * 
  */
 
-public class TestGUI extends GUI {
-
+public class TestGUI extends MenuGUI {
+	
 	public TestGUI(Player player) {
-
-		super(9, "Test GUI", player);
-
-		player.openInventory(getInventory());
-
+		
+		super (player, "TestGUI", 9, Main.getInstance(), false);
+		
 	}
 
 	@Override
-	public void populateInventory() {
-
-		Inventory inv = getInventory();
-
-		inv.addItem(new ItemBuilder(Material.DIAMOND).name("Test Diamond!").build());
-
+	public void onClick(InventoryClickEvent e) {
+		
+		
+		
 	}
+	
 }
