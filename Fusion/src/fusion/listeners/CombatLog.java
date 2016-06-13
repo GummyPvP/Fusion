@@ -81,11 +81,11 @@ public class CombatLog {
 		return combatHandler.get(player.getName());
 		
 	}
-
+	
 	public void remove(Player player) {
 		combatHandler.remove(player.getName());
 		
-		if (combatScheduler.get(player.getName()) != null) Bukkit.getScheduler().cancelTask(combatScheduler.get(player.getName()));
+		if (combatScheduler.containsKey(player.getName())) Bukkit.getScheduler().cancelTask(combatScheduler.get(player.getName()));
 		
 		combatScheduler.remove(player.getName());
 		
@@ -98,6 +98,13 @@ public class CombatLog {
 		Chat.getInstance().messagePlayer(player, Chat.SECONDARY_BASE + "You are no longer in combat!");
 	}
 	
+	public void debug() {
+		
+		Bukkit.broadcastMessage(combatHandler.toString());
+		Bukkit.broadcastMessage(combatScheduler.toString());
+		
+	}
+	
 	private void refreshScoreboard(Player player) {
 		
 		String correctSecond = getRemainingTime(player) == 1 ? "second" : "seconds";
@@ -107,8 +114,8 @@ public class CombatLog {
 		o.setDisplayName(Chat.SECONDARY_BASE + "Combat Timer");
 		o.setDisplaySlot(DisplaySlot.SIDEBAR);
 		
-		Score timerString = o.getScore(Bukkit.getOfflinePlayer(ChatColor.YELLOW + "Time Remaining:"));
-		Score realTime = o.getScore(Bukkit.getOfflinePlayer("  " + ChatColor.GOLD + CombatLog.getInstance().getRemainingTime(player) + " " + correctSecond));
+		Score timerString = o.getScore(ChatColor.YELLOW + "Time Left:");
+		Score realTime = o.getScore("  " + ChatColor.GOLD + CombatLog.getInstance().getRemainingTime(player) + " " + correctSecond);
 		
 		timerString.setScore(15);
 		realTime.setScore(14);

@@ -38,6 +38,7 @@ import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
 import fusion.listeners.ChunkLoad;
 import fusion.listeners.ChunkUnload;
+import fusion.listeners.CombatLog;
 import fusion.listeners.DropItem;
 import fusion.listeners.EntityDamageByEntity;
 import fusion.listeners.FoodChange;
@@ -94,7 +95,7 @@ public class Fusion extends JavaPlugin {
 
 	public void onEnable() {
 
-		long startTime = System.currentTimeMillis();
+		long startTime = System.nanoTime();
 
 		instance = this;
 		framework = new CommandFramework(this);
@@ -142,7 +143,7 @@ public class Fusion extends JavaPlugin {
 
 		RegionManager.getInstance().loadRegions();
 
-		if (Bukkit.getOnlinePlayers().length != 0) {
+		if (Bukkit.getOnlinePlayers().size() != 0) {
 
 			for (Player online : Bukkit.getOnlinePlayers()) {
 
@@ -152,16 +153,16 @@ public class Fusion extends JavaPlugin {
 
 		}
 
-		long finishTime = System.currentTimeMillis();
+		long finishTime = System.nanoTime();
 
-		log("Finished in: " + TimeUnit.MILLISECONDS.toSeconds(finishTime - startTime) + " seconds");
+		log("Finished in: " + TimeUnit.NANOSECONDS.toMillis(finishTime - startTime) + " ms");
 
 	}
 	
 	public void onDisable() {
-
+		
 		KitManager.getInstance().unloadKits();
-
+		
 		log("Kits unloaded");
 
 		Spawn.getInstance().save();
@@ -169,7 +170,11 @@ public class Fusion extends JavaPlugin {
 		for (Player online : Bukkit.getOnlinePlayers()) {
 
 			mKitUser.getInstance(online).save();
-
+			
+			if (CombatLog.getInstance().isInCombat(online)) {
+				CombatLog.getInstance().remove(online);
+			}
+			
 		}
 
 		WarpManager.getInstance().saveWarps();
@@ -236,7 +241,7 @@ public class Fusion extends JavaPlugin {
 
 	private void log(String s) {
 
-		System.out.println(s);
+		System.out.println("[Fusion] " + s);
 
 	}
 

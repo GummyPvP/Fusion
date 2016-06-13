@@ -261,6 +261,7 @@ public abstract class MenuGUI implements Listener {
 	 *            The page which the position is in
 	 */
 
+	@SuppressWarnings("deprecation")
 	public MenuGUI removeOption(int position, int page) {
 		try {
 			this.inv.get(page).remove(position);

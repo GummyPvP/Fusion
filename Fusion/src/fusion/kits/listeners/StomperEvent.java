@@ -35,7 +35,7 @@ public class StomperEvent implements Listener {
 
 		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Stomper"))) return;
 		
-		int damage = e.getDamage();
+		double damage = e.getDamage();
 		
 		e.setCancelled(true);
 		player.damage(damage > maxDamage ? maxDamage : damage);

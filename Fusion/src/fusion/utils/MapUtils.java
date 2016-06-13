@@ -32,7 +32,8 @@ import net.minecraft.server.v1_7_R4.RegionFile;
 import net.minecraft.server.v1_7_R4.RegionFileCache;
 
 public class MapUtils {
-    public static void ReplaceOreInChunk(org.bukkit.Chunk chunk, Material replacee, Material replacer) {
+    @SuppressWarnings("deprecation")
+	public static void ReplaceOreInChunk(org.bukkit.Chunk chunk, Material replacee, Material replacer) {
         net.minecraft.server.v1_7_R4.Chunk c = ((CraftChunk) chunk).getHandle();
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
@@ -61,7 +62,8 @@ public class MapUtils {
         QuickChangeBlockAt(world, x, y, z, setTo, 0);
     }
 
-    public static void QuickChangeBlockAt(org.bukkit.World world, int x, int y, int z, Material setTo, int data) {
+    @SuppressWarnings("deprecation")
+	public static void QuickChangeBlockAt(org.bukkit.World world, int x, int y, int z, Material setTo, int data) {
         QuickChangeBlockAt(world, x, y, z, setTo.getId(), data);
     }
 
@@ -115,7 +117,7 @@ public class MapUtils {
         for (Iterator<Chunk> localIterator = chunks.iterator(); localIterator.hasNext();) {
             net.minecraft.server.v1_7_R4.Chunk c = (net.minecraft.server.v1_7_R4.Chunk) localIterator.next();
             Player[] arrayOfPlayer;
-            j = (arrayOfPlayer = Bukkit.getOnlinePlayers()).length;
+            j = (arrayOfPlayer = (Player[]) Bukkit.getOnlinePlayers().toArray()).length;
             i = 0;
             Player player = arrayOfPlayer[i];
 

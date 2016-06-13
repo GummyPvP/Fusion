@@ -68,6 +68,7 @@ public class LMS extends Event implements Listener {
 		messagePlayers(Chat.SECONDARY_BASE + player.getName() + " left.");
 	}
 
+	@SuppressWarnings("deprecation")
 	public void messagePlayers(String message) {
 
 		for (String string : players) {

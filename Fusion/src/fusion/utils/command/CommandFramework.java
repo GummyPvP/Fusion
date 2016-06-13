@@ -26,8 +26,8 @@ import org.bukkit.help.IndexHelpTopic;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.SimplePluginManager;
 
-import fusion.utils.chat.Chat;
 import klap.utils.mPlayer;
+import mpermissions.utils.Chat;
 import mpermissions.utils.permissions.Rank;
 
 /**
@@ -70,15 +70,19 @@ public class CommandFramework implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, org.bukkit.command.Command cmd, String label, String[] args) {
 		return handleCommand(sender, cmd, label, args);
 	}
-	
+
 	/**
 	 * Handles commands. Used in the onCommand method in your JavaPlugin class
 	 * 
-	 * @param sender The {@link org.bukkit.command.CommandSender} parsed from
+	 * @param sender
+	 *            The {@link org.bukkit.command.CommandSender} parsed from
 	 *            onCommand
-	 * @param cmd The {@link org.bukkit.command.Command} parsed from onCommand
-	 * @param label The label parsed from onCommand
-	 * @param args The arguments parsed from onCommand
+	 * @param cmd
+	 *            The {@link org.bukkit.command.Command} parsed from onCommand
+	 * @param label
+	 *            The label parsed from onCommand
+	 * @param args
+	 *            The arguments parsed from onCommand
 	 * @return Always returns true for simplicity's sake in onCommand
 	 */
 	public boolean handleCommand(CommandSender sender, org.bukkit.command.Command cmd, String label, String[] args) {
@@ -93,12 +97,15 @@ public class CommandFramework implements CommandExecutor {
 				Method method = commandMap.get(cmdLabel).getKey();
 				Object methodObject = commandMap.get(cmdLabel).getValue();
 				Command command = method.getAnnotation(Command.class);
-				if (!command.permission().equals("") && command.rank() != Rank.MEMBER && !sender.hasPermission(command.permission())) {
+				if (!command.permission().equals("") && command.rank() != Rank.MEMBER
+						&& !sender.hasPermission(command.permission())) {
 					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', command.noPerm()));
 					return true;
 				}
-				if ((sender instanceof Player) && !mPlayer.getInstance((Player) sender).getGroup().getRank().hasRequiredRank(command.rank())) {
-					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', String.format(command.noPerm(), command.rank().getColor() + command.rank().getName())));
+				if ((sender instanceof Player)
+						&& !mPlayer.getInstance((Player) sender).getGroup().getRank().hasRequiredRank(command.rank())) {
+					sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
+							String.format(command.noRankPerm(), command.rank().getColor() + command.rank().getName())));
 					return true;
 				}
 				if (command.inGameOnly() && !(sender instanceof Player)) {
@@ -106,8 +113,8 @@ public class CommandFramework implements CommandExecutor {
 					return true;
 				}
 				try {
-					method.invoke(methodObject, new CommandArgs(sender, cmd, label, args,
-							cmdLabel.split("\\.").length - 1));
+					method.invoke(methodObject,
+							new CommandArgs(sender, cmd, label, args, cmdLabel.split("\\.").length - 1));
 				} catch (IllegalArgumentException e) {
 					e.printStackTrace();
 				} catch (IllegalAccessException e) {
@@ -126,7 +133,8 @@ public class CommandFramework implements CommandExecutor {
 	 * Registers all command and completer methods inside of the object. Similar
 	 * to Bukkit's registerEvents method.
 	 * 
-	 * @param obj The object to register the commands of
+	 * @param obj
+	 *            The object to register the commands of
 	 */
 	public void registerCommands(Object obj) {
 		for (Method m : obj.getClass().getMethods()) {
@@ -144,8 +152,8 @@ public class CommandFramework implements CommandExecutor {
 				Completer comp = m.getAnnotation(Completer.class);
 				if (m.getParameterTypes().length > 1 || m.getParameterTypes().length == 0
 						|| m.getParameterTypes()[0] != CommandArgs.class) {
-					System.out.println("Unable to register tab completer " + m.getName()
-							+ ". Unexpected method arguments");
+					System.out.println(
+							"Unable to register tab completer " + m.getName() + ". Unexpected method arguments");
 					continue;
 				}
 				if (m.getReturnType() != List.class) {
@@ -179,7 +187,8 @@ public class CommandFramework implements CommandExecutor {
 
 	public void registerCommand(Command command, String label, Method m, Object obj) {
 		commandMap.put(label.toLowerCase(), new AbstractMap.SimpleEntry<Method, Object>(m, obj));
-		commandMap.put(this.plugin.getName() + ':' + label.toLowerCase(), new AbstractMap.SimpleEntry<Method, Object>(m, obj));
+		commandMap.put(this.plugin.getName() + ':' + label.toLowerCase(),
+				new AbstractMap.SimpleEntry<Method, Object>(m, obj));
 		String cmdLabel = label.replace(".", ",").split(",")[0].toLowerCase();
 		if (map.getCommand(cmdLabel) == null) {
 			org.bukkit.command.Command cmd = new BukkitCommand(cmdLabel, this, plugin);
@@ -230,32 +239,33 @@ public class CommandFramework implements CommandExecutor {
 	private void defaultCommand(CommandArgs args) {
 		args.getSender().sendMessage(args.getLabel() + " is disabled on this server.");
 	}
-	
+
 	public void messageCommandInformation(CommandSender sender) {
-		
+
 		Set<String> commands = new HashSet<String>();
 		String tempString = "";
-		
+
 		for (String commandList : commandMap.keySet()) {
-			
+
 			if (!commandList.contains(".")) {
-				
+
 				org.bukkit.command.Command command = map.getCommand(commandList);
-				
-				tempString = Chat.IMPORTANT_COLOR + command.getUsage() + Chat.BASE_COLOR + " - " + Chat.IMPORTANT_COLOR + command.getDescription();
+
+				tempString = Chat.IMPORTANT_COLOR + command.getUsage() + Chat.BASE_COLOR + " - " + Chat.IMPORTANT_COLOR
+						+ command.getDescription();
 				commands.add(tempString);
 				tempString = "";
-				
+
 			}
-			
+
 		}
-		
+
 		for (String message : commands) {
-			
+
 			Chat.getInstance().messagePlayer(sender, message);
 			sender.sendMessage("");
-			
+
 		}
-		
+
 	}
 }

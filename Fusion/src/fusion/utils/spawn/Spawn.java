@@ -75,13 +75,6 @@ public class Spawn {
 			return;
 		}
 		
-		if (region == null) {
-			
-			System.out.println("Spawn - No region!");
-			
-			return;
-		}
-		
 		Fusion.getInstance().getSpawnFile().set("spawn.world", location.getWorld().getName());
 		Fusion.getInstance().getSpawnFile().set("spawn.x", location.getX());
 		Fusion.getInstance().getSpawnFile().set("spawn.y", location.getY());

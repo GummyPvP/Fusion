@@ -1,9 +1,8 @@
 package fusion.cmds;
 
-import org.bukkit.block.BlockFace;
+import org.bukkit.Bukkit;
 
-import fusion.utils.TextUtils;
-import fusion.utils.TextUtils.TextAlign;
+import fusion.listeners.CombatLog;
 import fusion.utils.mKitUser;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
@@ -23,7 +22,9 @@ public class Test {
 		
 		mKitUser.getInstance(args.getPlayer()).addCandies(500);
 		
-		TextUtils.MakeText("Elijah Burgess", args.getPlayer().getLocation(), BlockFace.NORTH, 35, (byte) 9, TextAlign.CENTER);
+		CombatLog.getInstance().debug();
+		
+		Bukkit.broadcastMessage(Bukkit.getScheduler().getPendingTasks().toString());
 		
 	}
 
