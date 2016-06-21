@@ -1,0 +1,7 @@
+name: Fusion
+version: 1.1
+main: fusion.main.Fusion
+website: "http://www.GummyPvP.com"
+description: Creates the functions for KitPVP, including cosmetic features.
+author: [Googlelover1234]
+authors: [xXkguyXx, Emperor_Koala]
