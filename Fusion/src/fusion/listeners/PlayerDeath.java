@@ -49,11 +49,13 @@ public class PlayerDeath implements Listener {
 		
 		double playerCandies = user.getCandies();
 		
-		double rewardAmount = playerCandies * .25;
+		double rewardAmount = playerCandies * .25; // 25% of whatever their balance is
 		
 		rewardAmount = Math.round(rewardAmount);
 		
-		killer.addCandies(rewardAmount <= 10.0 ? 10.0 : rewardAmount);
+		rewardAmount = rewardAmount <= 10.0 ? 10.0 : rewardAmount; // ensuring that the minimum is 10.0 candies
+		
+		killer.addCandies(rewardAmount);
 		
 		Chat.getInstance().messagePlayer(player.getKiller(), Chat.SECONDARY_BASE + "You received " + Chat.IMPORTANT_COLOR + rewardAmount + Chat.SECONDARY_BASE + " candies for killing " + player.getName());
 		

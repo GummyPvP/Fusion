@@ -35,6 +35,7 @@ public class Balance {
 			return;
 		}
 		
+		@SuppressWarnings("deprecation")
 		Player target = Bukkit.getPlayer(args.getArgs(0));
 		
 		if (target == null) {

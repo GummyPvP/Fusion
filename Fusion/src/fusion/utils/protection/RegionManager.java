@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import fusion.kits.utils.KitManager;
-import fusion.utils.ConfigManager;
+import fusion.main.Fusion;
 import fusion.utils.protection.ProtectedRegion.HealingItem;
 
 /**
@@ -59,7 +59,7 @@ public class RegionManager {
 	
 	private void loadRegion(String name) {
 		
-		if (!ConfigManager.getRegionsFile().contains("regions." + name)) return;
+		if (!Fusion.getInstance().getRegionsFile().contains("regions." + name)) return;
 		
 		Vector min, max;
 		World world;
@@ -67,19 +67,19 @@ public class RegionManager {
 		boolean pvpEnabled, refills;
 		HealingItem item;
 		
-		min = ConfigManager.getRegionsFile().getVector("regions." + name + ".minPoint");
-		max = ConfigManager.getRegionsFile().getVector("regions." + name + ".maxPoint");
-		world = Bukkit.getWorld(ConfigManager.getRegionsFile().getString("regions." + name + ".world"));
+		min = Fusion.getInstance().getRegionsFile().getVector("regions." + name + ".minPoint");
+		max = Fusion.getInstance().getRegionsFile().getVector("regions." + name + ".maxPoint");
+		world = Bukkit.getWorld(Fusion.getInstance().getRegionsFile().getString("regions." + name + ".world"));
 		
-		pvpEnabled = ConfigManager.getRegionsFile().getBoolean("regions." + name + ".pvpEnabled");
-		refills = ConfigManager.getRegionsFile().getBoolean("regions." + name + ".refills");
-		item = HealingItem.valueOf(ConfigManager.getRegionsFile().getString("regions." + name + ".healthItem"));
+		pvpEnabled = Fusion.getInstance().getRegionsFile().getBoolean("regions." + name + ".pvpEnabled");
+		refills = Fusion.getInstance().getRegionsFile().getBoolean("regions." + name + ".refills");
+		item = HealingItem.valueOf(Fusion.getInstance().getRegionsFile().getString("regions." + name + ".healthItem"));
 		
 		ProtectedRegion region = new ProtectedRegion(name, world, min, max);
 		
-		if (ConfigManager.getRegionsFile().getStringList("regions." + name + ".refills") != null) {
+		if (Fusion.getInstance().getRegionsFile().getStringList("regions." + name + ".refills") != null) {
 			
-			for (String kitName : ConfigManager.getRegionsFile().getStringList("regions." + name + ".blockedKits")) {
+			for (String kitName : Fusion.getInstance().getRegionsFile().getStringList("regions." + name + ".blockedKits")) {
 				
 				region.addBlockedKit(KitManager.getInstance().valueOf(kitName));
 				
@@ -98,9 +98,9 @@ public class RegionManager {
 	
 	public void loadRegions() {
 		
-		if (!ConfigManager.getRegionsFile().contains("regions")) return;
+		if (!Fusion.getInstance().getRegionsFile().contains("regions")) return;
 		
-		for (String section : ConfigManager.getRegionsFile().getSection("regions").getKeys(false)) {
+		for (String section : Fusion.getInstance().getRegionsFile().getSection("regions").getKeys(false)) {
 			
 			loadRegion(section);
 			
@@ -181,7 +181,10 @@ public class RegionManager {
 		
 		if (region == null) return false;
 		
-		if (region instanceof ProtectedRegion && ((ProtectedRegion) region).isPVPEnabled()) return true;
+		if (region instanceof ProtectedRegion) {
+			
+			return !((ProtectedRegion) region).isPVPEnabled();
+		}
 		
 		return false;
 		
@@ -197,9 +200,9 @@ public class RegionManager {
 			
 		}
 		
-		if (!ConfigManager.getRegionsFile().contains("regions." + region.getName())) return;
+		if (!Fusion.getInstance().getRegionsFile().contains("regions." + region.getName())) return;
 		
-		ConfigManager.getRegionsFile().set("regions." + region.getName(), null);
+		Fusion.getInstance().getRegionsFile().set("regions." + region.getName(), null);
 	}
 
 }

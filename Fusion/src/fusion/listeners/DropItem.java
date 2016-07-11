@@ -24,7 +24,7 @@ public class DropItem implements Listener {
 		
 		for (Material material : allowedMaterials) {
 			
-			if (e.getItemDrop().getItemStack().getType() != material) e.setCancelled(true);
+			if (e.getItemDrop().getItemStack().getType() != material) e.getItemDrop().remove();
 			
 		}
 		

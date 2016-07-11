@@ -41,7 +41,15 @@ public @interface Command {
 	 * 
 	 * @return
 	 */
-	public String noPerm() default "&8» &aYou need the rank of %s &aor higher to perform this command.";
+	public String noPerm() default "&8» &cYou do not have permission to do this command.";
+	
+	/**
+	 * The message sent to the player when they do not have the required
+	 * rank to execute it
+	 * 
+	 * @return
+	 */
+	public String noRankPerm() default "&8» &7You need the rank of %s &7or higher to perform this command.";
 
 	/**
 	 * A list of alternate names that the command is executed under. See

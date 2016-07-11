@@ -22,6 +22,7 @@ import mpermissions.utils.permissions.Rank;
 
 public class ClearKit {
 	
+	@SuppressWarnings("deprecation")
 	@Command(name = "clearkit", aliases = "kitclear", description = "Clears your kit.", usage = "/clearkit", inGameOnly = true)
 	public void clearKit(CommandArgs args) {
 		

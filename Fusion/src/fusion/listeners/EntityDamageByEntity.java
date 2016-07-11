@@ -83,6 +83,6 @@ public class EntityDamageByEntity implements Listener {
 		
 		CombatLog.getInstance().resetTimer(hitter);
 		CombatLog.getInstance().resetTimer(reciever);
+		
 	}
-
 }

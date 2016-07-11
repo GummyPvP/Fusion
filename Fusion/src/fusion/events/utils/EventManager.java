@@ -14,6 +14,14 @@ import fusion.events.lms.LMS;
 
 public class EventManager {
 	
+	private EventManager() { }
+	
+	private static EventManager instance = new EventManager();
+	
+	public static EventManager getInstance() {
+		return instance;
+	}
+	
 	private Set<Event> events = new HashSet<Event>();
 	
 	public void registerEvent(Event event) {

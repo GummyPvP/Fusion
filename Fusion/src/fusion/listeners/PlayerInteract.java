@@ -17,6 +17,7 @@ import fusion.utils.ItemBuilder;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
 import fusion.utils.gui.KitGUI;
+import fusion.utils.gui.ShopGUI;
 import fusion.utils.gui.WarpGUI;
 import fusion.utils.protection.Region;
 import fusion.utils.protection.RegionManager;
@@ -86,6 +87,20 @@ public class PlayerInteract implements Listener {
 				
 				break;
 				
+			case ENDER_CHEST:
+				
+				if (item.hasItemMeta() && item.getItemMeta().getDisplayName().contains("Kit Shop")) {
+					
+					e.setCancelled(true);
+					
+					player.updateInventory();
+					
+					new ShopGUI(player);
+					
+				}
+				
+				break;
+				
 			case COMPASS:
 				
 				if (item.hasItemMeta() && item.getItemMeta().getDisplayName().contains("Warps")) {
@@ -134,9 +149,11 @@ public class PlayerInteract implements Listener {
 				
 				if (mKitUser.getInstance(player).hasPreviousKit() && !mKitUser.getInstance(player).hasKit()) {
 					
-					if (item.getType() == mKitUser.getInstance(player).getPreviousKit().getInventoryItem().getType()) {
+					if (item.getType() == Material.WATCH) {
 						
 						mKitUser.getInstance(player).getPreviousKit().apply(player);
+						
+						player.updateInventory();
 						
 					}
 					

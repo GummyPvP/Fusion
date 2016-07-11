@@ -8,7 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import fusion.main.Main;
+import fusion.main.Fusion;
 
 /**
 	 * 
@@ -21,7 +21,7 @@ public class Utils {
 	
 	public static void giveDefaultItems(Player player) {
 		
-		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
+		Bukkit.getScheduler().scheduleSyncDelayedTask(Fusion.getInstance(), new Runnable() {
 
 			@Override
 			public void run() {
@@ -33,15 +33,17 @@ public class Utils {
 				ItemStack kitSelector = new ItemBuilder(Material.NETHER_STAR).name("&aKit Selector").lore("Click me to show your owned kits!").build();
 				ItemStack cosmeticSelector = new ItemBuilder(Material.CHEST).name("&aCosmetic Selector").lore("Click me to change cosmetic settings!").build();
 				ItemStack warpSelector = new ItemBuilder(Material.COMPASS).name("&aWarps").lore("Click me to show cool warps!").build();
+				ItemStack shopSelector = new ItemBuilder(Material.ENDER_CHEST).name("&aKit Shop").lore("Click me to buy kits!").build();
 				
 				player.getInventory().setItem(0, kitSelector);
 				player.getInventory().setItem(4, cosmeticSelector);
+				player.getInventory().setItem(6, shopSelector);
 				player.getInventory().setItem(8, warpSelector);
 				
 				if (user.hasPreviousKit()) {
 					
-					ItemStack previousKit = new ItemBuilder(user.getPreviousKit().getInventoryItem()).name("&5Previous Kit: &a" + user.getPreviousKit().getName()).lore("Click to use your previous kit!").build();
-					player.getInventory().addItem(previousKit);
+					ItemStack previousKit = new ItemBuilder(Material.WATCH).name("&5Previous Kit: &a" + user.getPreviousKit().getName()).lore("Click to use your previous kit!").build();
+					player.getInventory().setItem(2, previousKit);
 					
 				}
 				

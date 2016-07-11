@@ -18,21 +18,27 @@ import fusion.cmds.KitCommand;
 import fusion.cmds.SetSpawn;
 import fusion.cmds.SpawnCommand;
 import fusion.cmds.Test;
+import fusion.events.utils.EventManager;
 import fusion.kits.Archer;
+import fusion.kits.Endermage;
 import fusion.kits.Fisherman;
 import fusion.kits.Heavy;
 import fusion.kits.PVP;
 import fusion.kits.Stomper;
+import fusion.kits.Switcher;
 import fusion.kits.Thor;
 import fusion.kits.Viper;
+import fusion.kits.listeners.EndermageEvent;
 import fusion.kits.listeners.FishEvent;
 import fusion.kits.listeners.StomperEvent;
+import fusion.kits.listeners.SwitchEvent;
 import fusion.kits.listeners.ThorEvent;
 import fusion.kits.listeners.ViperEvent;
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
 import fusion.listeners.ChunkLoad;
 import fusion.listeners.ChunkUnload;
+import fusion.listeners.CombatLog;
 import fusion.listeners.DropItem;
 import fusion.listeners.EntityDamageByEntity;
 import fusion.listeners.FoodChange;
@@ -47,6 +53,7 @@ import fusion.listeners.PlayerQuit;
 import fusion.listeners.PlayerRespawn;
 import fusion.listeners.TabComplete;
 import fusion.utils.CandyMan;
+import fusion.utils.ConfigManager;
 import fusion.utils.mKitUser;
 import fusion.utils.command.CommandFramework;
 import fusion.utils.editing.EditorManager;
@@ -72,144 +79,184 @@ import net.minecraft.server.v1_7_R4.EntityInsentient;
 import net.minecraft.server.v1_7_R4.EntityTypes;
 
 /**
-	 * 
-	 * Copyright GummyPvP. Created on May 15, 2016 by Jeremy Gooch.
-	 * All Rights Reserved.
-	 * 
-	 */
+ * 
+ * Copyright GummyPvP. Created on May 15, 2016 by Jeremy Gooch. All Rights
+ * Reserved.
+ * 
+ */
 
-public class Main extends JavaPlugin {
-	
-	private static Main instance;
-	
+public class Fusion extends JavaPlugin {
+
+	private static Fusion instance;
+
 	private CommandFramework framework;
 	
+	private ConfigManager spawn, warps, regions, config;
+
 	public void onEnable() {
-		
-		long startTime = System.currentTimeMillis();
-		
+
+		long startTime = System.nanoTime();
+
 		instance = this;
 		framework = new CommandFramework(this);
 		
+		spawn = new ConfigManager("spawn", false);
+		warps = new ConfigManager("warps", false);
+		regions = new ConfigManager("regions", false);
+		config = new ConfigManager("config", false);
+		
 		registerEntity(CandyMan.class, "Candyman", 120);
-		
-		log ("Instance & framework created");
-		
-		loadListeners(new InventoryClick(), new PlayerInteract(), new FoodChange(), new FishEvent(), new StomperEvent(), new ViperEvent(), new PlayerDeath(), new PlayerJoin(),
-				new PlayerQuit(), new PlayerRespawn(), new EntityDamageByEntity(), new ItemPickup(), new BlockPlace(), new BlockBreak(), 
-				new ToolClick(), new RegionEditor(), new PlayerDamage(), new DropItem(), new MobSpawn(), new BlockIgnite(),
-				new BlockDecay(), new BlockBurn(), new ThorEvent(), new TabComplete(), new ChunkUnload(), new ChunkLoad(), new PlayerInteractEntity());
-		
-		log ("Listeners loaded");
-		
-		loadCommands(new KitCommand(), new Test(), new WarpCreate(), new WarpList(), new SetSpawn(), new SpawnCommand(), new RegionCreate(), new RegionList(), 
-				new SetFlag(), new WarpDelete(), new RegionDelete(), new Balance(), new CombatLogCommand(), new ClearKit(), new CandyManCommands());
-		
-		log ("Commands loaded");
-		
-		loadKits(new PVP(), new Archer(), new Fisherman(), new Stomper(), new Viper(), new Heavy(), new Thor());
-		
-		log ("Kits loaded");
-		
+
+		log("Instance & framework created");
+
+		loadListeners(new InventoryClick(), new PlayerInteract(), new FoodChange(), new FishEvent(), new StomperEvent(),
+				new ViperEvent(), new PlayerDeath(), new PlayerJoin(), new PlayerQuit(), new PlayerRespawn(),
+				new EntityDamageByEntity(), new ItemPickup(), new BlockPlace(), new BlockBreak(), new ToolClick(),
+				new RegionEditor(), new PlayerDamage(), new DropItem(), new MobSpawn(), new BlockIgnite(),
+				new BlockDecay(), new BlockBurn(), new ThorEvent(), new TabComplete(), new ChunkUnload(),
+				new ChunkLoad(), new PlayerInteractEntity(), new SwitchEvent(), new EndermageEvent());
+
+		log("Listeners loaded");
+
+		loadCommands(new KitCommand(), new Test(), new WarpCreate(), new WarpList(), new SetSpawn(), new SpawnCommand(),
+				new RegionCreate(), new RegionList(), new SetFlag(), new WarpDelete(), new RegionDelete(),
+				new Balance(), new CombatLogCommand(), new ClearKit(), new CandyManCommands());
+
+		log("Commands loaded");
+
+		loadKits(new PVP(), new Archer(), new Fisherman(), new Stomper(), new Viper(), new Heavy(), new Thor(),
+				new Switcher(), new Endermage());
+
+		log("Kits loaded");
+
 		Spawn.getInstance().load();
-		
-		log ("Spawn loaded");
-		
+
+		log("Spawn loaded");
+
 		WarpManager.getInstance().loadWarps();
-		
-		log ("Warps loaded");
-		
+
+		log("Warps loaded");
+
+		EventManager.getInstance().registerEvents();
+
 		EditorManager.getInstance().loadEditors();
-		
+
 		RegionManager.getInstance().loadRegions();
-		
-		if (Bukkit.getOnlinePlayers().length != 0) {
-			
+
+		if (Bukkit.getOnlinePlayers().size() != 0) {
+
 			for (Player online : Bukkit.getOnlinePlayers()) {
-				
+
 				mKitUser.getInstance(online).load();
-				
+
 			}
-			
+
 		}
-		
-		long finishTime = System.currentTimeMillis();
-		
-		log ("Finished in: " + TimeUnit.MILLISECONDS.toSeconds(finishTime - startTime) + " seconds"); 
-		
+
+		long finishTime = System.nanoTime();
+
+		log("Finished in: " + TimeUnit.NANOSECONDS.toMillis(finishTime - startTime) + " ms");
+
 	}
 	
 	public void onDisable() {
 		
 		KitManager.getInstance().unloadKits();
 		
-		log ("Kits unloaded");
-		
+		log("Kits unloaded");
+
 		Spawn.getInstance().save();
-		
+
 		for (Player online : Bukkit.getOnlinePlayers()) {
-			
+
 			mKitUser.getInstance(online).save();
 			
+			if (CombatLog.getInstance().isInCombat(online)) {
+				CombatLog.getInstance().remove(online);
+			}
+			
 		}
-		
+
 		WarpManager.getInstance().saveWarps();
-		
+
 		RegionManager.getInstance().saveRegions();
-		
+
+	}
+	
+	public ConfigManager getConfiguration() {
+		return config;
+	}
+	
+	public ConfigManager getSpawnFile() {
+		return spawn;
+	}
+	
+	public ConfigManager getRegionsFile() {
+		return regions;
+	}
+	
+	public ConfigManager getWarpsFile() {
+		return warps;
+	}
+	
+	public ConfigManager getPlayerFile(String player) {
+		return ConfigManager.getPlayerFile(player);
 	}
 	
 	private void loadListeners(Listener... listeners) {
-		
+
 		for (Listener l : listeners) {
-			
+
 			Bukkit.getPluginManager().registerEvents(l, this);
-			
+
 		}
-		
+
 	}
-	
-	private void loadCommands(Object...objects) {
-		
+
+	private void loadCommands(Object... objects) {
+
 		for (Object object : objects) {
-			
+
 			framework.registerCommands(object);
-			
+
 		}
-		
+
 	}
-	
+
 	private void loadKits(Kit... kits) {
-		
+
 		for (Kit kit : kits) {
-			
+
 			KitManager.getInstance().registerKit(kit);
-			
+
 		}
-		
+
 	}
-	
-	public static Main getInstance() {
-		
+
+	public static Fusion getInstance() {
+
 		return instance;
-		
+
 	}
-	
+
 	private void log(String s) {
-		
-		System.out.println(s);
-		
+
+		System.out.println("[Fusion] " + s);
+
 	}
-	
+
 	/**
 	 * 
 	 * Copyright EchoPet - Not our code!!!
 	 * 
-	 * @param clazz - Class that holds our custom entity
-	 * @param name - User friendly name? I don't exactly know what it's for
-	 * @param id - The network ID for the client to use
+	 * @param clazz
+	 *            - Class that holds our custom entity
+	 * @param name
+	 *            - User friendly name? I don't exactly know what it's for
+	 * @param id
+	 *            - The network ID for the client to use
 	 */
-	
+
 	@SuppressWarnings("unchecked")
 	public static void registerEntity(Class<? extends EntityInsentient> clazz, String name, int id) {
 		try {
@@ -264,9 +311,9 @@ public class Main extends JavaPlugin {
 			f.put(clazz, id);
 			g.put(name, id);
 		} catch (Exception e) {
-			
+
 			System.out.println("Couldn't register " + name + " ID: " + id + "!");
-			
+
 			e.printStackTrace();
 		}
 	}

@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
-import fusion.main.Main;
+import fusion.main.Fusion;
 import fusion.utils.Utils;
 import fusion.utils.spawn.Spawn;
 
@@ -26,7 +26,7 @@ public class PlayerRespawn implements Listener {
 		
 		Utils.giveDefaultItems(player);
 		
-		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
+		Bukkit.getScheduler().scheduleSyncDelayedTask(Fusion.getInstance(), new Runnable() {
 
 			@Override
 			public void run() {
@@ -35,6 +35,6 @@ public class PlayerRespawn implements Listener {
 				
 			}
 			
-		}, 20L);	
+		}, 3L);	
 	}
 }

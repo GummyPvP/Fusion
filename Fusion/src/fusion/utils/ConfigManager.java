@@ -11,7 +11,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-import fusion.main.Main;
+import fusion.main.Fusion;
 
 /**
  * 
@@ -20,40 +20,21 @@ import fusion.main.Main;
  */
 
 public class ConfigManager {
-
-	private static ConfigManager configuration = new ConfigManager("config", false),
-			spawn = new ConfigManager("spawn", false), warp = new ConfigManager("warps", false), regions = new ConfigManager("regions", false);
-
-	public static ConfigManager getSpawnFile() {
-		return spawn;
-	}
-
-	public static ConfigManager getConfig() {
-		return configuration;
-	}
-	
-	public static ConfigManager getWarpsFile() {
-		return warp;
-	}
-
-	public static ConfigManager getRegionsFile() {
-		return regions;
-	}
 	
 	private File file;
 	private FileConfiguration config;
 
 	public ConfigManager(String fileName, boolean isPlayerFile) {
 
-		if (!Main.getInstance().getDataFolder().exists()) {
+		if (!Fusion.getInstance().getDataFolder().exists()) {
 
-			Main.getInstance().getDataFolder().mkdir();
+			Fusion.getInstance().getDataFolder().mkdir();
 
 		}
 
 		if (!isPlayerFile) {
 			
-			file = new File(Main.getInstance().getDataFolder(), fileName + ".yml");
+			file = new File(Fusion.getInstance().getDataFolder(), fileName + ".yml");
 
 			if (!file.exists()) {
 				try {
@@ -67,7 +48,7 @@ public class ConfigManager {
 			
 		} else {
 			
-			file = new File(Main.getInstance().getDataFolder(), "/players/" + fileName + ".yml");
+			file = new File(Fusion.getInstance().getDataFolder(), "/players/" + fileName + ".yml");
 
 			if (!file.exists()) {
 				try {
@@ -186,7 +167,7 @@ public class ConfigManager {
 
 	public void addDefaults(String defaults) {
 
-		Main.getInstance().saveResource(defaults, false);
+		Fusion.getInstance().saveResource(defaults, false);
 
 	}
 	

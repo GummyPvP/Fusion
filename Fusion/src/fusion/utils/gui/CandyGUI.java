@@ -28,11 +28,14 @@ public class CandyGUI extends GUI {
 	@Override
 	public void populateInventory() {
 		
+		ItemStack buyKits = new ItemBuilder(Material.WATCH).name("&6Purchase Kits (in-game currency)").build();
+		
 		ItemStack playerGemReward = new ItemBuilder(Material.IRON_INGOT).name("&aDaily: 250 Gems").build();
 		ItemStack slimeGemReward = new ItemBuilder(Material.GOLD_INGOT).name("&aDaily: 250 Gems (Slime Rank)").build();
 		ItemStack hariboGemReward = new ItemBuilder(Material.DIAMOND).name("&aDaily: 250 Gems (Haribo Rank)").build();
 		ItemStack gummyGemReward = new ItemBuilder(Material.EMERALD).name("&aDaily: 250 Gems (Gummy Rank)").build();
 		
+		getInventory().setItem(8, buyKits);
 		getInventory().setItem(10, playerGemReward);
 		getInventory().setItem(12, slimeGemReward);
 		getInventory().setItem(14, hariboGemReward);

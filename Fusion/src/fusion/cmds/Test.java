@@ -1,5 +1,8 @@
 package fusion.cmds;
 
+import org.bukkit.Bukkit;
+
+import fusion.listeners.CombatLog;
 import fusion.utils.mKitUser;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
@@ -17,7 +20,11 @@ public class Test {
 	@Command(name = "test", rank=Rank.ADMINPLUS, description = "Test command", usage = "/test", inGameOnly = true)
 	public void testCommand(CommandArgs args) {
 		
-		mKitUser.getInstance(args.getPlayer()).setCandies(1000.0);
+		mKitUser.getInstance(args.getPlayer()).addCandies(500);
+		
+		CombatLog.getInstance().debug();
+		
+		Bukkit.broadcastMessage(Bukkit.getScheduler().getPendingTasks().toString());
 		
 	}
 

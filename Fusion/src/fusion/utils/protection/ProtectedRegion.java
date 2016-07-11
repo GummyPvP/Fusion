@@ -14,8 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import fusion.kits.utils.Kit;
-import fusion.main.Main;
-import fusion.utils.ConfigManager;
+import fusion.main.Fusion;
 import fusion.utils.ItemBuilder;
 
 /**
@@ -100,12 +99,12 @@ public class ProtectedRegion extends Region {
 	@Override
 	public void save() {
 		
-		ConfigManager.getRegionsFile().set("regions." + getName() + ".world", getBounds().getWorld().getName());
-		ConfigManager.getRegionsFile().set("regions." + getName() + ".minPoint", getBounds().getMin());
-		ConfigManager.getRegionsFile().set("regions." + getName() + ".maxPoint", getBounds().getMax());
-		ConfigManager.getRegionsFile().set("regions." + getName() + ".pvpEnabled", pvpEnabled);
-		ConfigManager.getRegionsFile().set("regions." + getName() + ".refills", refills);
-		ConfigManager.getRegionsFile().set("regions." + getName() + ".healthItem", item.toString());
+		Fusion.getInstance().getRegionsFile().set("regions." + getName() + ".world", getBounds().getWorld().getName());
+		Fusion.getInstance().getRegionsFile().set("regions." + getName() + ".minPoint", getBounds().getMin());
+		Fusion.getInstance().getRegionsFile().set("regions." + getName() + ".maxPoint", getBounds().getMax());
+		Fusion.getInstance().getRegionsFile().set("regions." + getName() + ".pvpEnabled", pvpEnabled);
+		Fusion.getInstance().getRegionsFile().set("regions." + getName() + ".refills", refills);
+		Fusion.getInstance().getRegionsFile().set("regions." + getName() + ".healthItem", item.toString());
 		
 		if (blockedKits.isEmpty()) return;
 		
@@ -117,12 +116,12 @@ public class ProtectedRegion extends Region {
 			
 		}
 		
-		ConfigManager.getRegionsFile().set("regions." + getName() + ".blockedKits", blockedList);
+		Fusion.getInstance().getRegionsFile().set("regions." + getName() + ".blockedKits", blockedList);
 		
 	}
 	
 	public void register() {
-		Bukkit.getPluginManager().registerEvents(this.tracker, Main.getInstance());
+		Bukkit.getPluginManager().registerEvents(this.tracker, Fusion.getInstance());
 	}
 	
 	public void unregister() {
