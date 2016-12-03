@@ -93,6 +93,7 @@ public class Fusion extends JavaPlugin {
 	
 	private ConfigManager spawn, warps, regions, config;
 
+	
 	public void onEnable() {
 
 		long startTime = System.nanoTime();
