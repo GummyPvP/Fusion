@@ -154,6 +154,8 @@ public class RegionManager {
 		
 		for (Region region : regions) {
 			
+			// default check just in case there is only one region
+			
 			if (smallest == null) {
 				
 				smallest = region;
@@ -162,7 +164,7 @@ public class RegionManager {
 			
 			// checks if region is smaller than "smallest"
 			
-			if (region.getBounds().isInRegion(smallest)) {
+			if (region.getBounds().getVolume() < smallest.getBounds().getVolume()) {
 				
 				smallest = region;
 				continue;

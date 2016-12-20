@@ -15,18 +15,16 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 
 public class DropItem implements Listener {
 	
-	Material[] allowedMaterials = new Material[] { Material.BOWL };
-	
 	@EventHandler
 	public void onDropItem(PlayerDropItemEvent e) {
 		
 		if (e.getPlayer().getGameMode() == GameMode.CREATIVE) return;
 		
-		for (Material material : allowedMaterials) {
+		if (e.getItemDrop().getItemStack().getType() == Material.BOWL) {
 			
-			if (e.getItemDrop().getItemStack().getType() != material) e.getItemDrop().remove();
+			e.getItemDrop().remove();
 			
-		}
+		} else e.setCancelled(true);
 		
 	}
 

@@ -1,10 +1,7 @@
 package fusion.utils.crates;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import fusion.utils.chat.Chat;
 
 /**
 	 * 
@@ -19,10 +16,6 @@ public abstract class Reward {
 	
 	public abstract ItemStack getItem();
 	
-	public void apply(Player player) {
-		
-		Bukkit.broadcastMessage(Chat.SECONDARY_BASE + player.getName() + " won " + getName() + " from a crate! You can open a crate too with /vote!");
-		
-	}
-
+	public abstract void apply(Player player);
+	
 }

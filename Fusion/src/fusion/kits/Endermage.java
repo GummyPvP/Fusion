@@ -49,8 +49,8 @@ public class Endermage extends Kit {
 	}
 
 	@Override
-	public String getSpecialAdvantageString() {
-		return "Teleport people above and below you directly to anywhere you want!";
+	public String[] getSpecialAdvantageStrings() {
+		return new String[] { "Teleport people above and below you", "directly to anywhere you want!" };
 	}
 
 	@Override

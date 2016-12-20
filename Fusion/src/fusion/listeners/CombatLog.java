@@ -4,14 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
-import org.bukkit.scoreboard.Scoreboard;
 
 import fusion.main.Fusion;
+import fusion.utils.StatsManager;
 import fusion.utils.chat.Chat;
 
 /**
@@ -49,13 +46,15 @@ public class CombatLog {
 					
 					remove(player);
 					
-					player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
+					//player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
+					
+					//StatsManager.getInstance().refreshScoreBoard(player, false);
 					
 				} else {
 					
 					combatHandler.replace(player.getName(), getRemainingTime(player), getRemainingTime(player) - 1);
 					
-					refreshScoreboard(player);
+					//StatsManager.getInstance().refreshScoreBoard(player, true);
 					
 				}
 				
@@ -105,22 +104,24 @@ public class CombatLog {
 		
 	}
 	
-	private void refreshScoreboard(Player player) {
+	public void refreshScoreboard(Player player) {
 		
-		String correctSecond = getRemainingTime(player) == 1 ? "second" : "seconds";
+//		String correctSecond = getRemainingTime(player) == 1 ? "second" : "seconds";
+//		
+//		Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
+//		Objective o = board.registerNewObjective("combatlog", "dummy");
+//		o.setDisplayName(Chat.SECONDARY_BASE + "Combat Timer");
+//		o.setDisplaySlot(DisplaySlot.SIDEBAR);
+//		
+//		Score timerString = o.getScore(ChatColor.YELLOW + "Time Left:");
+//		Score realTime = o.getScore("  " + ChatColor.GOLD + CombatLog.getInstance().getRemainingTime(player) + " " + correctSecond);
+//		
+//		timerString.setScore(15);
+//		realTime.setScore(14);
+//		
+//		player.setScoreboard(board);
 		
-		Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
-		Objective o = board.registerNewObjective("combatlog", "dummy");
-		o.setDisplayName(Chat.SECONDARY_BASE + "Combat Timer");
-		o.setDisplaySlot(DisplaySlot.SIDEBAR);
-		
-		Score timerString = o.getScore(ChatColor.YELLOW + "Time Left:");
-		Score realTime = o.getScore("  " + ChatColor.GOLD + CombatLog.getInstance().getRemainingTime(player) + " " + correctSecond);
-		
-		timerString.setScore(15);
-		realTime.setScore(14);
-		
-		player.setScoreboard(board);
+		StatsManager.getInstance().refreshScoreBoard(player, isInCombat(player));
 		
 	}
 	

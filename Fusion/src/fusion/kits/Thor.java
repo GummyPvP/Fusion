@@ -49,8 +49,8 @@ public class Thor extends Kit {
 	}
 
 	@Override
-	public String getSpecialAdvantageString() {
-		return "Call lightning from the sky!";
+	public String[] getSpecialAdvantageStrings() {
+		return new String[] { "Call lightning from the sky!" };
 	}
 
 	@Override
@@ -60,6 +60,6 @@ public class Thor extends Kit {
 
 	@Override
 	public double getCost() {
-		return 500.0;
+		return 750.0;
 	}
 }

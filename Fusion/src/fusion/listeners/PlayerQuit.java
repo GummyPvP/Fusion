@@ -1,13 +1,17 @@
 package fusion.listeners;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import fusion.main.Fusion;
+import fusion.utils.Utils;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
+import klap.utils.mPlayer;
 
 /**
 	 * 
@@ -23,6 +27,14 @@ public class PlayerQuit implements Listener {
 		
 		Player player = e.getPlayer();
 		
+		if (player.hasMetadata("noFall")) {
+			
+			player.removeMetadata("noFall", Fusion.getInstance());
+			
+		}
+		
+		mKitUser.getInstance(player).save();
+		
 		mKitUser.getInstance(player).unload();
 		
 		if (CombatLog.getInstance().isInCombat(player)) {
@@ -33,6 +45,17 @@ public class PlayerQuit implements Listener {
 			
 			CombatLog.getInstance().remove(player);
 			
+		}
+		if (mKitUser.getInstance(player).getTeam() != null) {
+
+			for (Player teammembers : mKitUser.getInstance(player).getTeam().getOnlineMemebers(player)) {
+
+					Utils.sendActionBar(teammembers, ChatColor.translateAlternateColorCodes('&',
+							mPlayer.getInstance(player).getGroup().getPrefix() + player.getName() + " &cjust logged out!"), 20 * 5);
+
+
+			}
+
 		}
 		
 	}

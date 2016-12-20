@@ -33,7 +33,7 @@ public class Switcher extends Kit {
 	public List<ItemStack> getItems() {
 		
 		ItemStack sword = new ItemBuilder(Material.IRON_SWORD).name("&aSwitcher Sword").lore("Swip swop swippity swop").build();
-		ItemStack hairyBalls = new ItemBuilder(Material.SNOW_BALL).name("&5Switcher Device").lore("Throw me to switch positions with people!").amount(64).build();
+		ItemStack hairyBalls = new ItemBuilder(Material.SNOW_BALL).name("&5Switcher Device").lore("Throw me to switch positions with people!").amount(16).build();
 		
 		return Arrays.asList(sword, hairyBalls);
 	}
@@ -49,8 +49,8 @@ public class Switcher extends Kit {
 	}
 
 	@Override
-	public String getSpecialAdvantageString() {
-		return "Throw snowballs to switch positions with others!";
+	public String[] getSpecialAdvantageStrings() {
+		return new String[] { "Throw snowballs to switch positions with others!" };
 	}
 
 	@Override

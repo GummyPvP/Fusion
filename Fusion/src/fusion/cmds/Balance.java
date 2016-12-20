@@ -3,7 +3,7 @@ package fusion.cmds;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import fusion.utils.ConfigManager;
+import fusion.main.Fusion;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
 import fusion.utils.command.Command;
@@ -42,9 +42,9 @@ public class Balance {
 			
 			String check = args.getArgs(0);
 			
-			if (ConfigManager.getPlayerFile(check).getDouble("profile.candies") != null) {
+			if (Fusion.getInstance().getPlayerFile(check).getDouble("profile.candies") != null) {
 				
-				Chat.getInstance().messagePlayer(args.getSender(), Chat.SECONDARY_BASE + "Candy amount of " + check + ": " + Chat.IMPORTANT_COLOR + ConfigManager.getPlayerFile(check).getDouble("profile.candies"));
+				Chat.getInstance().messagePlayer(args.getSender(), Chat.SECONDARY_BASE + "Candy amount of " + check + ": " + Chat.IMPORTANT_COLOR + Fusion.getInstance().getPlayerFile(check).getDouble("profile.candies"));
 				return;
 			}
 			

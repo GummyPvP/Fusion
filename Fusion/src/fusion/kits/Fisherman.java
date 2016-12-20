@@ -53,9 +53,9 @@ public class Fisherman extends Kit {
 	}
 	
 	@Override
-	public String getSpecialAdvantageString() {
+	public String[] getSpecialAdvantageStrings() {
 		
-		return "Teleporting Fishing Rod";
+		return new String[] { "Get a magical teleporting fishing rod!" };
 		
 	}
 

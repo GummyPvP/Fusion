@@ -175,9 +175,13 @@ public class ShopGUI {
 			
 		}
 		
-		if (kit.getSpecialAdvantageString() != null) {
+		if (kit.getSpecialAdvantageStrings() != null) {
 			
-			items.add(ChatColor.GOLD + kit.getSpecialAdvantageString());
+			for (String strings : kit.getSpecialAdvantageStrings()) {
+				
+				items.add(ChatColor.GOLD + strings);
+				
+			}
 			
 		}
 		

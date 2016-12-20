@@ -31,7 +31,8 @@ public class SwitchEvent implements Listener {
 		Player shooter = (Player) ((Snowball) e.getDamager()).getShooter();
 		
 		if (mKitUser.getInstance(shooter).getKit() != KitManager.getInstance().valueOf("Switcher")) return;
-		
+		if (mKitUser.getInstance(shooter).isGlad())
+			return;
 		if (RegionManager.getInstance().isInProtectedRegion(shooter)) return;
 		if (RegionManager.getInstance().isInProtectedRegion((Player) e.getEntity())) return;
 		

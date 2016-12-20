@@ -1,20 +1,27 @@
 package fusion.main;
 
-import java.lang.reflect.Field;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import be.maximvdw.placeholderapi.PlaceholderAPI;
+import be.maximvdw.placeholderapi.PlaceholderReplaceEvent;
+import be.maximvdw.placeholderapi.PlaceholderReplacer;
 import fusion.cmds.Balance;
 import fusion.cmds.CandyManCommands;
 import fusion.cmds.ClearKit;
 import fusion.cmds.CombatLogCommand;
+import fusion.cmds.EcoGive;
+import fusion.cmds.EcoSet;
+import fusion.cmds.FreeKitFriday;
 import fusion.cmds.KitCommand;
+import fusion.cmds.Pay;
+import fusion.cmds.SetGladiator;
 import fusion.cmds.SetSpawn;
 import fusion.cmds.SpawnCommand;
 import fusion.cmds.Test;
@@ -22,23 +29,45 @@ import fusion.events.utils.EventManager;
 import fusion.kits.Archer;
 import fusion.kits.Endermage;
 import fusion.kits.Fisherman;
+import fusion.kits.Gladiator;
 import fusion.kits.Heavy;
+import fusion.kits.Ninja;
 import fusion.kits.PVP;
+import fusion.kits.Sanic;
+import fusion.kits.Santa;
+import fusion.kits.Shark;
+import fusion.kits.Snail;
+import fusion.kits.SpellCaster;
 import fusion.kits.Stomper;
 import fusion.kits.Switcher;
 import fusion.kits.Thor;
+import fusion.kits.Turtle;
+import fusion.kits.Vampire;
+import fusion.kits.Vigilante;
 import fusion.kits.Viper;
+import fusion.kits.Wimp;
 import fusion.kits.listeners.EndermageEvent;
 import fusion.kits.listeners.FishEvent;
+import fusion.kits.listeners.GladiatorEvent;
+import fusion.kits.listeners.NinjaEvent;
+import fusion.kits.listeners.SharkEvent;
+import fusion.kits.listeners.SnailEvent;
+import fusion.kits.listeners.SpellCasterEvent;
 import fusion.kits.listeners.StomperEvent;
 import fusion.kits.listeners.SwitchEvent;
 import fusion.kits.listeners.ThorEvent;
+import fusion.kits.listeners.TurtleEvent;
+import fusion.kits.listeners.VampireEvent;
+import fusion.kits.listeners.VigilanteEvent;
 import fusion.kits.listeners.ViperEvent;
+import fusion.kits.listeners.WimpEvent;
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
+import fusion.listeners.AsyncPlayerChat;
 import fusion.listeners.ChunkLoad;
 import fusion.listeners.ChunkUnload;
 import fusion.listeners.CombatLog;
+import fusion.listeners.CommandPreprocess;
 import fusion.listeners.DropItem;
 import fusion.listeners.EntityDamageByEntity;
 import fusion.listeners.FoodChange;
@@ -49,14 +78,21 @@ import fusion.listeners.PlayerDeath;
 import fusion.listeners.PlayerInteract;
 import fusion.listeners.PlayerInteractEntity;
 import fusion.listeners.PlayerJoin;
+import fusion.listeners.PlayerMove;
 import fusion.listeners.PlayerQuit;
 import fusion.listeners.PlayerRespawn;
+import fusion.listeners.PlayerUpdateRankEvent;
 import fusion.listeners.TabComplete;
-import fusion.utils.CandyMan;
+import fusion.teams.cmds.TeamCommand;
+import fusion.teams.utils.TeamManager;
 import fusion.utils.ConfigManager;
+import fusion.utils.StatsManager;
+import fusion.utils.Utils;
 import fusion.utils.mKitUser;
 import fusion.utils.command.CommandFramework;
+import fusion.utils.crates.CrateManager;
 import fusion.utils.editing.EditorManager;
+import fusion.utils.editing.TeleportListener;
 import fusion.utils.editing.ToolClick;
 import fusion.utils.editing.cmds.RegionCreate;
 import fusion.utils.editing.cmds.RegionDelete;
@@ -75,8 +111,6 @@ import fusion.utils.warps.WarpCreate;
 import fusion.utils.warps.WarpDelete;
 import fusion.utils.warps.WarpList;
 import fusion.utils.warps.WarpManager;
-import net.minecraft.server.v1_7_R4.EntityInsentient;
-import net.minecraft.server.v1_7_R4.EntityTypes;
 
 /**
  * 
@@ -90,43 +124,49 @@ public class Fusion extends JavaPlugin {
 	private static Fusion instance;
 
 	private CommandFramework framework;
-	
-	private ConfigManager spawn, warps, regions, config;
+	public boolean freekitfriday = false;
+	private ConfigManager spawn, warps, regions, config, kitInfo, teams;
 
-	
 	public void onEnable() {
 
 		long startTime = System.nanoTime();
 
 		instance = this;
 		framework = new CommandFramework(this);
-		
+
 		spawn = new ConfigManager("spawn", false);
 		warps = new ConfigManager("warps", false);
 		regions = new ConfigManager("regions", false);
 		config = new ConfigManager("config", false);
-		
-		registerEntity(CandyMan.class, "Candyman", 120);
+		kitInfo = new ConfigManager("kit_info", false);
+		teams = new ConfigManager("teams", false);
+
+		// registerEntity(CandyMan.class, "Candyman", 120);
 
 		log("Instance & framework created");
 
-		loadListeners(new InventoryClick(), new PlayerInteract(), new FoodChange(), new FishEvent(), new StomperEvent(),
-				new ViperEvent(), new PlayerDeath(), new PlayerJoin(), new PlayerQuit(), new PlayerRespawn(),
-				new EntityDamageByEntity(), new ItemPickup(), new BlockPlace(), new BlockBreak(), new ToolClick(),
-				new RegionEditor(), new PlayerDamage(), new DropItem(), new MobSpawn(), new BlockIgnite(),
-				new BlockDecay(), new BlockBurn(), new ThorEvent(), new TabComplete(), new ChunkUnload(),
-				new ChunkLoad(), new PlayerInteractEntity(), new SwitchEvent(), new EndermageEvent());
+		loadListeners(new AsyncPlayerChat(), new InventoryClick(), new TeleportListener(), new PlayerInteract(),
+				new FoodChange(), new FishEvent(), new StomperEvent(), new ViperEvent(), new PlayerDeath(),
+				new PlayerJoin(), new PlayerQuit(), new PlayerRespawn(), new EntityDamageByEntity(), new ItemPickup(),
+				new BlockPlace(), new BlockBreak(), new ToolClick(), new RegionEditor(), new PlayerDamage(),
+				new DropItem(), new MobSpawn(), new BlockIgnite(), new BlockDecay(), new BlockBurn(), new ThorEvent(),
+				new TabComplete(), new ChunkUnload(), new ChunkLoad(), new PlayerInteractEntity(), new SwitchEvent(),
+				new EndermageEvent(), new CommandPreprocess(), new SnailEvent(), new NinjaEvent(), new SharkEvent(),
+				new GladiatorEvent(), new PlayerUpdateRankEvent(), new PlayerMove(), new WimpEvent(),
+				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent());
 
-		log("Listeners loaded");
+		log("Listeners loaded(kit listeners included)");
 
 		loadCommands(new KitCommand(), new Test(), new WarpCreate(), new WarpList(), new SetSpawn(), new SpawnCommand(),
 				new RegionCreate(), new RegionList(), new SetFlag(), new WarpDelete(), new RegionDelete(),
-				new Balance(), new CombatLogCommand(), new ClearKit(), new CandyManCommands());
+				new Balance(), new CombatLogCommand(), new ClearKit(), new CandyManCommands(), new EcoSet(),
+				new SetGladiator(), new EcoGive(), new FreeKitFriday(), new Pay(), new TeamCommand());
 
 		log("Commands loaded");
 
 		loadKits(new PVP(), new Archer(), new Fisherman(), new Stomper(), new Viper(), new Heavy(), new Thor(),
-				new Switcher(), new Endermage());
+				new Switcher(), new Endermage(), new Sanic(), new Shark(), new Ninja(), new Snail(), new Gladiator(),
+				new Wimp(), new SpellCaster(), new Vampire(), new Turtle(), new Vigilante(), new Santa());
 
 		log("Kits loaded");
 
@@ -138,11 +178,23 @@ public class Fusion extends JavaPlugin {
 
 		log("Warps loaded");
 
+		TeamManager.get().loadTeams();
+
+		log("Teams loaded");
+
+		regiserPlaceHolders();
+
+		StatsManager.getInstance().setup(this);
+
 		EventManager.getInstance().registerEvents();
 
 		EditorManager.getInstance().loadEditors();
 
 		RegionManager.getInstance().loadRegions();
+
+		CrateManager.getInstance().loadCrates();
+
+		StatsManager.getInstance().startScoreboard(this);
 
 		if (Bukkit.getOnlinePlayers().size() != 0) {
 
@@ -153,17 +205,23 @@ public class Fusion extends JavaPlugin {
 			}
 
 		}
+		
+		Utils.get().load();
 
 		long finishTime = System.nanoTime();
 
 		log("Finished in: " + TimeUnit.NANOSECONDS.toMillis(finishTime - startTime) + " ms");
 
 	}
-	
+
 	public void onDisable() {
-		
+
+		TeamManager.get().saveTeams();
+
+		log("Teams saved");
+
 		KitManager.getInstance().unloadKits();
-		
+
 		log("Kits unloaded");
 
 		Spawn.getInstance().save();
@@ -171,11 +229,11 @@ public class Fusion extends JavaPlugin {
 		for (Player online : Bukkit.getOnlinePlayers()) {
 
 			mKitUser.getInstance(online).save();
-			
+
 			if (CombatLog.getInstance().isInCombat(online)) {
 				CombatLog.getInstance().remove(online);
 			}
-			
+
 		}
 
 		WarpManager.getInstance().saveWarps();
@@ -183,27 +241,219 @@ public class Fusion extends JavaPlugin {
 		RegionManager.getInstance().saveRegions();
 
 	}
-	
+
+	public void regiserPlaceHolders() {
+
+		if (Bukkit.getPluginManager().isPluginEnabled("MVdWPlaceholderAPI")) {
+
+			// kills
+			PlaceholderAPI.registerPlaceholder(this, "fusion_kills", new PlaceholderReplacer() {
+
+				@Override
+				public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
+
+					if (event.getPlayer() == null) {
+						return "0";
+					}
+
+					Player player = event.getPlayer();
+
+					mKitUser user = mKitUser.getInstance(player);
+
+					return String.valueOf(user.getKills());
+
+				}
+			});
+
+			// deaths
+			PlaceholderAPI.registerPlaceholder(this, "fusion_deaths", new PlaceholderReplacer() {
+
+				@Override
+				public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
+
+					if (event.getPlayer() == null) {
+						return "0";
+					}
+
+					Player player = event.getPlayer();
+
+					mKitUser user = mKitUser.getInstance(player);
+
+					return String.valueOf(user.getDeaths());
+
+				}
+			});
+
+			// candies
+			PlaceholderAPI.registerPlaceholder(this, "fusion_candies", new PlaceholderReplacer() {
+
+				@Override
+				public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
+
+					if (event.getPlayer() == null) {
+						return "0";
+					}
+
+					Player player = event.getPlayer();
+
+					mKitUser user = mKitUser.getInstance(player);
+
+					return String.valueOf(user.getCandies());
+
+				}
+			});
+
+			// currentkit
+			PlaceholderAPI.registerPlaceholder(this, "fusion_currentkit", new PlaceholderReplacer() {
+
+				@Override
+				public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
+
+					if (event.getPlayer() == null) {
+						return "none";
+					}
+
+					Player player = event.getPlayer();
+
+					mKitUser user = mKitUser.getInstance(player);
+
+					if (user.getKit() == null) {
+						return "none";
+					}
+
+					return String.valueOf(user.getKit().getName());
+
+				}
+			});
+
+			// current team
+			PlaceholderAPI.registerPlaceholder(this, "fusion_team", new PlaceholderReplacer() {
+
+				@Override
+				public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
+
+					if (event.getPlayer() == null) {
+						return "none";
+					}
+
+					Player player = event.getPlayer();
+
+					mKitUser user = mKitUser.getInstance(player);
+
+					if (user.getTeam() == null) {
+						return "none";
+					}
+
+					return String.valueOf(user.getTeam().getName());
+
+				}
+			});
+
+			// current teammembers online
+			PlaceholderAPI.registerPlaceholder(this, "fusion_team_online", new PlaceholderReplacer() {
+
+				@Override
+				public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
+
+					if (event.getPlayer() == null) {
+						return ChatColor.GREEN + "Online Team Members: &fnone";
+					}
+
+					Player player = event.getPlayer();
+
+					mKitUser user = mKitUser.getInstance(player);
+
+					if (user.getTeam() == null) {
+						return ChatColor.GREEN + "Online Team Members: &fYou are not in a team!";
+					}
+
+					StringBuilder sb = new StringBuilder();
+
+					sb.append(ChatColor.GREEN + "Online Team Members: ");
+
+					int ontm = 0;
+
+					for (UUID on : user.getTeam().getMembers().keySet()) {
+
+						Player tplayer = Bukkit.getPlayer(on);
+
+						if (tplayer != event.getPlayer()) {
+
+							if (tplayer != null) {
+
+								sb.append(ChatColor.WHITE + tplayer.getName() + ", ");
+
+								ontm++;
+
+							}
+						}
+
+					}
+					
+					if (ontm == 0) {
+						sb.append(ChatColor.WHITE + "none");
+					}
+					
+					return Utils.removeLast(sb);
+
+				}
+			});
+
+			// combattag
+			PlaceholderAPI.registerPlaceholder(this, "fusion_ct", new PlaceholderReplacer() {
+
+				@Override
+				public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
+
+					if (event.getPlayer() == null) {
+						return ChatColor.GREEN + "Not in combat";
+					}
+
+					Player player = event.getPlayer();
+
+					if (!CombatLog.getInstance().isInCombat(player)) {
+						return ChatColor.GREEN + "Not in combat";
+					}
+
+					return ChatColor.RED + String.valueOf(CombatLog.getInstance().getRemainingTime(player));
+
+				}
+			});
+
+			log("Place Holders have been registered!");
+
+		}
+
+	}
+
 	public ConfigManager getConfiguration() {
 		return config;
 	}
-	
+
 	public ConfigManager getSpawnFile() {
 		return spawn;
 	}
-	
+
 	public ConfigManager getRegionsFile() {
 		return regions;
 	}
-	
+
 	public ConfigManager getWarpsFile() {
 		return warps;
 	}
-	
+
+	public ConfigManager getKitInfoFile() {
+		return kitInfo;
+	}
+
+	public ConfigManager getTeamsFile() {
+		return teams;
+	}
+
 	public ConfigManager getPlayerFile(String player) {
 		return ConfigManager.getPlayerFile(player);
 	}
-	
+
 	private void loadListeners(Listener... listeners) {
 
 		for (Listener l : listeners) {
@@ -258,65 +508,66 @@ public class Fusion extends JavaPlugin {
 	 *            - The network ID for the client to use
 	 */
 
-	@SuppressWarnings("unchecked")
-	public static void registerEntity(Class<? extends EntityInsentient> clazz, String name, int id) {
-		try {
-			Field field_c = EntityTypes.class.getDeclaredField("c");
-			Field field_d = EntityTypes.class.getDeclaredField("d");
-			Field field_f = EntityTypes.class.getDeclaredField("f");
-			Field field_g = EntityTypes.class.getDeclaredField("g");
-			field_c.setAccessible(true);
-			field_d.setAccessible(true);
-			field_f.setAccessible(true);
-			field_g.setAccessible(true);
-
-			Map<String, Class<?>> c = (Map<String, Class<?>>) field_c.get(field_c);
-			Map<Class<?>, String> d = (Map<Class<?>, String>) field_d.get(field_d);
-			Map<Class<?>, Integer> f = (Map<Class<?>, Integer>) field_f.get(field_f);
-			Map<String, Integer> g = (Map<String, Integer>) field_g.get(field_g);
-
-			Iterator<String> i = c.keySet().iterator();
-			while (i.hasNext()) {
-				String s = i.next();
-				if (s.equals(name)) {
-					i.remove();
-				}
-			}
-
-			Iterator<Class<?>> i2 = d.keySet().iterator();
-			while (i2.hasNext()) {
-				Class<?> cl = i2.next();
-				if (cl.getCanonicalName().equals(clazz.getCanonicalName())) {
-					i2.remove();
-				}
-			}
-
-			Iterator<Class<?>> i3 = f.keySet().iterator();
-			while (i2.hasNext()) {
-				Class<?> cl = i3.next();
-				if (cl.getCanonicalName().equals(clazz.getCanonicalName())) {
-					i3.remove();
-				}
-			}
-
-			Iterator<String> i4 = g.keySet().iterator();
-			while (i4.hasNext()) {
-				String s = i4.next();
-				if (s.equals(name)) {
-					i4.remove();
-				}
-			}
-
-			c.put(name, clazz);
-			d.put(clazz, name);
-			f.put(clazz, id);
-			g.put(name, id);
-		} catch (Exception e) {
-
-			System.out.println("Couldn't register " + name + " ID: " + id + "!");
-
-			e.printStackTrace();
-		}
-	}
+	// @SuppressWarnings("unchecked")
+	// public static void registerEntity(Class<? extends EntityInsentient>
+	// clazz, String name, int id) {
+	// try {
+	// Field field_c = EntityTypes.class.getDeclaredField("c");
+	// Field field_d = EntityTypes.class.getDeclaredField("d");
+	// Field field_f = EntityTypes.class.getDeclaredField("f");
+	// Field field_g = EntityTypes.class.getDeclaredField("g");
+	// field_c.setAccessible(true);
+	// field_d.setAccessible(true);
+	// field_f.setAccessible(true);
+	// field_g.setAccessible(true);
+	//
+	// Map<String, Class<?>> c = (Map<String, Class<?>>) field_c.get(field_c);
+	// Map<Class<?>, String> d = (Map<Class<?>, String>) field_d.get(field_d);
+	// Map<Class<?>, Integer> f = (Map<Class<?>, Integer>) field_f.get(field_f);
+	// Map<String, Integer> g = (Map<String, Integer>) field_g.get(field_g);
+	//
+	// Iterator<String> i = c.keySet().iterator();
+	// while (i.hasNext()) {
+	// String s = i.next();
+	// if (s.equals(name)) {
+	// i.remove();
+	// }
+	// }
+	//
+	// Iterator<Class<?>> i2 = d.keySet().iterator();
+	// while (i2.hasNext()) {
+	// Class<?> cl = i2.next();
+	// if (cl.getCanonicalName().equals(clazz.getCanonicalName())) {
+	// i2.remove();
+	// }
+	// }
+	//
+	// Iterator<Class<?>> i3 = f.keySet().iterator();
+	// while (i2.hasNext()) {
+	// Class<?> cl = i3.next();
+	// if (cl.getCanonicalName().equals(clazz.getCanonicalName())) {
+	// i3.remove();
+	// }
+	// }
+	//
+	// Iterator<String> i4 = g.keySet().iterator();
+	// while (i4.hasNext()) {
+	// String s = i4.next();
+	// if (s.equals(name)) {
+	// i4.remove();
+	// }
+	// }
+	//
+	// c.put(name, clazz);
+	// d.put(clazz, name);
+	// f.put(clazz, id);
+	// g.put(name, id);
+	// } catch (Exception e) {
+	//
+	// System.out.println("Couldn't register " + name + " ID: " + id + "!");
+	//
+	// e.printStackTrace();
+	// }
+	// }
 
 }

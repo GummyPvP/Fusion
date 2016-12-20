@@ -64,8 +64,8 @@ public class Archer extends Kit {
 	}
 	
 	@Override
-	public String getSpecialAdvantageString() {
-		return "Punch II Bow";
+	public String[] getSpecialAdvantageStrings() {
+		return new String[] { "Get a Punch II bow!" };
 	}
 
 	@Override

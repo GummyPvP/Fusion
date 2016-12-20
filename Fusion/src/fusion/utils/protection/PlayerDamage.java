@@ -2,10 +2,15 @@ package fusion.utils.protection;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+
+import fusion.main.Fusion;
 
 /**
 	 * 
@@ -33,7 +38,25 @@ public class PlayerDamage implements Listener {
 		
 		protectedRegion = (ProtectedRegion) RegionManager.getInstance().getSmallestRegion(region);
 		
+		if (e.getCause() == DamageCause.FALL && protectedRegion.isPVPEnabled()) {
+			
+			if (player.hasMetadata("noFall")) {
+				e.setCancelled(true);
+				player.removeMetadata("noFall", Fusion.getInstance());
+				return;
+			}
+			
+		}
+		
 		e.setCancelled(!protectedRegion.isPVPEnabled());
+		
 	}
 
+	@EventHandler
+	public void onProjectileHit(EntityDamageByEntityEvent e) {
+		
+		
+		
+	}
+	
 }

@@ -1,11 +1,13 @@
 package fusion.utils.crates;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
-import org.bukkit.Location;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
-import fusion.utils.crates.rewards.CandyReward;
+import fusion.utils.chat.Chat;
 
 /**
 	 * 
@@ -14,43 +16,22 @@ import fusion.utils.crates.rewards.CandyReward;
 	 * 
 	 */
 
-public class Crate {
+public abstract class Crate {
 	
-	CrateTier tier;
-	Location location;
+	public abstract String getName();
 	
-	public Crate(Location location, CrateTier tier) {
-		
-		this.tier = tier;
-		this.location = location;
-		
-	}
+	public abstract List<Reward> getRewards();
 	
-	public CrateTier getTier() {
-		return tier;
-	}
-	
-	public enum CrateTier {
+	public void apply(Player player) {
 		
-		COMMON("Common", Arrays.asList(new CandyReward(250, 1))), UNCOMMON("Uncommon", Arrays.asList(new CandyReward(250, 2))), RARE("Rare", Arrays.asList(new CandyReward(250, 3))),
-		LEGENDARY("Legendary", Arrays.asList(new CandyReward(250, 4)));
+		Random r = new Random();
 		
-		String name;
-		List<Reward> rewards;
+		getRewards().get(r.nextInt(getRewards().size())).apply(player);
 		
-		CrateTier(String name, List<Reward> rewards) {
+		for (Player online : Bukkit.getOnlinePlayers()) {
 			
-			this.name = name;
-			this.rewards = rewards;
+			Chat.getInstance().messagePlayer(online, ChatColor.GOLD + player.getName() + " opened a " + getName() + " crate! Type /vote to win something too!");
 			
-		}
-		
-		public String getName() {
-			return name;
-		}
-		
-		public List<Reward> getRewards() {
-			return rewards;
 		}
 		
 	}

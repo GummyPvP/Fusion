@@ -52,8 +52,8 @@ public class Stomper extends Kit {
 	}
 	
 	@Override
-	public String getSpecialAdvantageString() {
-		return "Jump from the sky and squish your foes!";
+	public String[] getSpecialAdvantageStrings() {
+		return new String[] { "Jump from the sky and squish your foes!" };
 	}
 
 	@Override
@@ -63,8 +63,7 @@ public class Stomper extends Kit {
 	
 	@Override
 	public double getCost() {
-		
-		return 500.0;
+		return 750.0;
 		
 	}
 

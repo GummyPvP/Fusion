@@ -58,11 +58,35 @@ public class KitManager {
 		
 	}
 	
+	public Kit valueOf(Kit kit) {
+		
+		for (Kit allKits : kits) {
+			
+			if (kit.getName() == allKits.getName()) return allKits;
+			
+		}
+		
+		return null;
+		
+	}
+	
 	public boolean hasRequiredKit(Player player, Kit required) {
 		
 		if (!mKitUser.getInstance(player).hasKit()) return false;
 		
 		if (mKitUser.getInstance(player).getKit().getName() != required.getName()) return false;
+		
+		return true;
+		
+	}
+	
+	public boolean hasRequiredKit(Player player, String required) {
+		
+		if (!mKitUser.getInstance(player).hasKit()) return false;
+		
+		if (valueOf(required) == null) return false;
+		
+		if (mKitUser.getInstance(player).getKit().getName() != valueOf(required).getName()) return false;
 		
 		return true;
 		

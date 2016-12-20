@@ -74,5 +74,26 @@ public class Bounds {
 		return (min.clone().add(max.clone())).multiply(0.5);
 		
 	}
+	
+	public int getVolume() {
+		
+		int minX = min.getBlockX();
+		int maxX = max.getBlockX();
+		
+		int minY = min.getBlockY();
+		int maxY = max.getBlockY();
+		
+		int minZ = min.getBlockZ();
+		int maxZ = max.getBlockZ();
+		
+		int length = Math.abs(maxX - minX);
+		int width = Math.abs(maxZ - minZ);
+		int height = Math.abs(maxY - minY);
+		
+		int volume = length * width * height;
+		
+		return volume;
+		
+	}
 
 }

@@ -16,6 +16,7 @@ import org.bukkit.potion.PotionEffect;
 
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
+import fusion.main.Fusion;
 import fusion.utils.ItemBuilder;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
@@ -36,8 +37,7 @@ public class KitGUI {
 	public KitGUI(Player player) {
 
 		player.closeInventory();
-		this.inv = Bukkit.createInventory(player, 	
-				ensureSize(KitManager.getInstance().getKits().size()) + 18,
+		this.inv = Bukkit.createInventory(player, ensureSize(KitManager.getInstance().getKits().size()) + 18,
 				INVENTORY_NAME);
 		populateInventory(player, 0);
 		player.openInventory(inv);
@@ -118,15 +118,28 @@ public class KitGUI {
 
 		int ownedKits = 0;
 
-		for (Kit kits : checkedKits) {
+		if (Fusion.getInstance().freekitfriday) {
 
-			if (!user.ownsKit(kits) && !kits.isDefault())
-				continue;
+			for (Kit kits : KitManager.getInstance().getKits()) {
 
-			inv.addItem(createKitItem(kits));
+				ownedKits++;
 
-			ownedKits++;
+				inv.addItem(createKitItem(kits));
 
+			}
+
+		} else {
+
+			for (Kit kits : checkedKits) {
+
+				if (!user.ownsKit(kits) && !kits.isDefault())
+					continue;
+
+				inv.addItem(createKitItem(kits));
+
+				ownedKits++;
+
+			}
 		}
 
 		inv.setItem(8,
@@ -191,9 +204,13 @@ public class KitGUI {
 
 		}
 
-		if (kit.getSpecialAdvantageString() != null) {
+		if (kit.getSpecialAdvantageStrings() != null) {
 
-			items.add(ChatColor.GOLD + kit.getSpecialAdvantageString());
+			for (String strings : kit.getSpecialAdvantageStrings()) {
+
+				items.add(ChatColor.GOLD + strings);
+
+			}
 
 		}
 

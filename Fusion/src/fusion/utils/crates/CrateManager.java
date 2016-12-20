@@ -3,9 +3,8 @@ package fusion.utils.crates;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Location;
-
-import fusion.utils.crates.Crate.CrateTier;
+import fusion.utils.crates.crates.Common;
+import fusion.utils.crates.crates.Unusual;
 
 /**
 	 * 
@@ -26,11 +25,28 @@ public class CrateManager {
 	
 	private List<Crate> crates = new ArrayList<Crate>();
 	
-	public void registerCrate(Location location, CrateTier tier) {
-		
-		Crate crate = new Crate(location, tier);
+	public void registerCrate(Crate crate) {
 		
 		crates.add(crate);
+		
+	}
+	
+	public Crate getCrate(String name) {
+		
+		for (Crate allCrates : crates) {
+			
+			if (allCrates.getName().equalsIgnoreCase(name)) return allCrates;
+			
+		}
+		
+		return null;
+		
+	}
+	
+	public void loadCrates() {
+		
+		registerCrate(new Common());
+		registerCrate(new Unusual());
 		
 	}
 	

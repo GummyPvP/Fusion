@@ -43,7 +43,7 @@ public class Viper extends Kit {
 
 	@Override
 	public ItemStack[] getArmor() {
-		return new ItemStack[] { new ItemStack(Material.IRON_CHESTPLATE), new ItemStack(Material.CHAINMAIL_LEGGINGS), new ItemStack(Material.CHAINMAIL_BOOTS)};
+		return new ItemStack[] { new ItemStack(Material.AIR), new ItemStack(Material.IRON_CHESTPLATE), new ItemStack(Material.CHAINMAIL_LEGGINGS), new ItemStack(Material.CHAINMAIL_BOOTS)};
 	}
 
 	@Override
@@ -52,8 +52,8 @@ public class Viper extends Kit {
 	}
 	
 	@Override
-	public String getSpecialAdvantageString() {
-		return "1/3 chance of poisoning someone with every hit!";
+	public String[] getSpecialAdvantageStrings() {
+		return new String[] { "1/3 chance of poisoning someone with every hit!" };
 	}
 
 	@Override
@@ -63,7 +63,6 @@ public class Viper extends Kit {
 	
 	@Override
 	public double getCost() {
-		
 		return 0.0;
 		
 	}
