@@ -1,9 +1,16 @@
 package fusion.events.events;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 
 import fusion.events.Event;
 import fusion.events.events.arenas.LMSArena;
+import fusion.events.utils.EventLeaveReason;
 import fusion.events.utils.EventState;
 import fusion.events.utils.EventType;
 import mpermissions.utils.permissions.Rank;
@@ -14,11 +21,13 @@ import mpermissions.utils.permissions.Rank;
 	 * 
 	 */
 
-public class LMS extends Event {
+public class LMS extends Event implements Listener {
 	
 	private LMSArena arena;
 	private String hostName;
 	private EventState state = EventState.WAITING_FOR_PLAYERS;
+	
+	private List<String> players = new ArrayList<String>();
 	
 	public LMS(LMSArena arena, String hostName) {
 		
@@ -34,9 +43,9 @@ public class LMS extends Event {
 
 	@Override
 	public List<String> getPlayers() {
-		return null;
+		return players;
 	}
-
+	
 	@Override
 	public String getHostPlayerName() {
 		return hostName;
@@ -85,6 +94,17 @@ public class LMS extends Event {
 			
 			
 		}
+	}
+	
+	@EventHandler
+	public void onPlayerDeath(PlayerDeathEvent e) {
+		
+		Player player = e.getEntity();
+		
+		if (!getPlayers().contains(player.getName())) return;
+		
+		removePlayer(player, EventLeaveReason.DEATH);
+		
 	}
 
 }

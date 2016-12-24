@@ -2,9 +2,16 @@ package fusion.events;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
 import fusion.events.utils.Arena;
+import fusion.events.utils.EventLeaveReason;
 import fusion.events.utils.EventState;
 import fusion.events.utils.EventType;
+import fusion.events.utils.PlayerJoinGameEvent;
+import fusion.events.utils.PlayerLeaveGameEvent;
+import fusion.utils.chat.Chat;
 import mpermissions.utils.permissions.Rank;
 
 /**
@@ -36,5 +43,33 @@ public abstract class Event {
 	public abstract Arena getArena();
 	
 	public abstract void update();
+	
+	public int getAmountOfPlayers() {
+		return getPlayers().size();
+	}
+	
+	public void addPlayer(Player player){
+		getPlayers().add(player.getName());
+		Bukkit.getPluginManager().callEvent(new PlayerJoinGameEvent(player, this));
+	}
+	
+	public void removePlayer(Player player, EventLeaveReason reason) {
+		getPlayers().remove(player.getName());
+		Bukkit.getPluginManager().callEvent(new PlayerLeaveGameEvent(player, this, reason));
+	}
+	
+	public void messagePlayers(String message) {
+		
+		for (String name : getPlayers()) {
+			
+			Player player = Bukkit.getPlayer(name);
+			
+			if (player == null) continue;
+			
+			Chat.getInstance().messagePlayer(player, "&6[&a" + getName() + "&6] &e" + message);
+			
+		}
+		
+	}
 	
 }

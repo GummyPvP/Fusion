@@ -46,7 +46,5 @@ public class ArenaManager {
 	public List<Arena> getArenas(EventType type) {
 		return arenas.get(type);
 	}
-	
-	
 
 }
