@@ -1,5 +1,7 @@
 package fusion.listeners;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,7 +32,6 @@ public class PlayerDeath implements Listener {
 		if (player.hasMetadata("noFall")) {
 
 			player.removeMetadata("noFall", Fusion.getInstance());
-		
 
 		}
 
@@ -56,44 +57,72 @@ public class PlayerDeath implements Listener {
 			return;
 		}
 
-
 		mKitUser killer = mKitUser.getInstance(player.getKiller());
 
 		MultiplierManager.getInstance().updateMultiplier(killer.getPlayer());
 
 		double rewardAmount = MultiplierManager.getInstance().executeMultiplier(killer.getPlayer(), 15);
-		
+
 		killer.addCandies(rewardAmount);
-		
+
+		killer.addKillStreak();
 		killer.addKill();
 		user.addDeath();
-		
-		StatsManager.getInstance().refreshScoreBoard(killer.getPlayer(), CombatLog.getInstance().isInCombat(killer.getPlayer()));
-		StatsManager.getInstance().refreshScoreBoard(user.getPlayer(), CombatLog.getInstance().isInCombat(user.getPlayer()));
 
+		StatsManager.getInstance().refreshScoreBoard(killer.getPlayer(),
+				CombatLog.getInstance().isInCombat(killer.getPlayer()));
+		StatsManager.getInstance().refreshScoreBoard(user.getPlayer(),
+				CombatLog.getInstance().isInCombat(user.getPlayer()));
+
+		int killerKS = killer.getKillStreak();
+		int ks = killerKS % 5;
+
+		if (ks == 0) {
+
+			Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', Chat.CHAT_PREFIX + "&aWOAH! &b"
+					+ killer.getPlayer().getName() + " &ais on a killstreak of &e" + killerKS + "&a!"));
+
+		}
 		
-//
-//			rewardAmount = Math.round(rewardAmount);
-//
-//			rewardAmount = rewardAmount <= 10.0 ? 10.0 : rewardAmount; // ensuring
-//																		// that
-//																		// the
-//																		// minimum
-//																		// is
-//																		// 10.0
-//																		// candies
-//
-//			killer.addCandies(rewardAmount);
-//			user.removeCandies(rewardAmount);
-//
-//		}
+		int userKS = user.getKillStreak();
+
+		if ((userKS >= 5) && (userKS != 0)) {
+
+			Bukkit.broadcastMessage(
+					ChatColor.translateAlternateColorCodes('&',
+							Chat.CHAT_PREFIX + "&aWOAH! &b" + user.getPlayer().getName()
+									+ " &alost there killstreak of &e" + userKS + " &ato &b"
+									+ killer.getPlayer().getName() + "&a!"));
+
+		}
+		
+		user.reesetKillStreak();
+
+		//
+		// rewardAmount = Math.round(rewardAmount);
+		//
+		// rewardAmount = rewardAmount <= 10.0 ? 10.0 : rewardAmount; //
+		// ensuring
+		// // that
+		// // the
+		// // minimum
+		// // is
+		// // 10.0
+		// // candies
+		//
+		// killer.addCandies(rewardAmount);
+		// user.removeCandies(rewardAmount);
+		//
+		// }
 
 		Chat.getInstance().messagePlayer(player.getKiller(),
-				Chat.SECONDARY_BASE + "You received " + Chat.IMPORTANT_COLOR + rewardAmount
-						+ " &c(x" + MultiplierManager.getInstance().getMultiplier(player.getKiller()).i + " Multiplier)"
+				Chat.SECONDARY_BASE + "You received " + Chat.IMPORTANT_COLOR + rewardAmount + " &c(x"
+						+ MultiplierManager.getInstance().getMultiplier(player.getKiller()).i + " Multiplier)"
 						+ Chat.SECONDARY_BASE + " candies for killing " + player.getName());
-//		Chat.getInstance().messagePlayer(player, Chat.SECONDARY_BASE + "You lost " + Chat.IMPORTANT_COLOR + rewardAmount
-//				+ Chat.SECONDARY_BASE + " candies for getting killed by " + player.getName());
+		// Chat.getInstance().messagePlayer(player, Chat.SECONDARY_BASE + "You
+		// lost " + Chat.IMPORTANT_COLOR + rewardAmount
+		// + Chat.SECONDARY_BASE + " candies for getting killed by " +
+		// player.getName());
 
 		e.setDeathMessage(Chat.SECONDARY_BASE + player.getName() + Chat.IMPORTANT_COLOR + " ("
 				+ (oldKit == null ? "Nothing" : oldKit.getName()) + ") " + Chat.BASE_COLOR + "was slain by "

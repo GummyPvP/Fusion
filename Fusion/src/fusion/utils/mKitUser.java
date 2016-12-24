@@ -40,6 +40,7 @@ public class mKitUser {
 
 	private int kills;
 	private int deaths;
+	private int killstreak;
 
 	private mKitUser(Player player) {
 
@@ -196,21 +197,30 @@ public class mKitUser {
 
 		}
 		if (Fusion.getInstance().getPlayerFile(player.getName()).contains("kills")) {
-			
-			kills = Fusion.getInstance().getPlayerFile(player.getName()).getInt("kills");
-			
+
+			setKills(Fusion.getInstance().getPlayerFile(player.getName()).getInt("kills"));
+
 		} else {
-			
-			kills = 0;
-			
+
+			setKills(0);
+
 		}
 		if (Fusion.getInstance().getPlayerFile(player.getName()).contains("deaths")) {
+
+			setDeaths(Fusion.getInstance().getPlayerFile(player.getName()).getInt("deaths"));
+
+		} else {
+
+			setDeaths(0);
+
+		}
+		if (Fusion.getInstance().getPlayerFile(player.getName()).contains("killstreak")) {
 			
-			deaths = Fusion.getInstance().getPlayerFile(player.getName()).getInt("deaths");
+			setKillStreak(Fusion.getInstance().getPlayerFile(player.getName()).getInt("killstreak"));
 			
 		} else {
 			
-			deaths = 0;
+			setKillStreak(0);
 			
 		}
 
@@ -235,10 +245,11 @@ public class mKitUser {
 		Fusion.getInstance().getPlayerFile(player.getName()).set("profile.candies", getCandies());
 
 		Fusion.getInstance().getPlayerFile(player.getName()).set("settings.healingItem", item.toString());
-		
+
 		Fusion.getInstance().getPlayerFile(player.getName()).set("kills", getKills());
 		Fusion.getInstance().getPlayerFile(player.getName()).set("deaths", getDeaths());
-
+		Fusion.getInstance().getPlayerFile(player.getName()).set("killstreak", getKillStreak());
+		
 	}
 
 	public void unload() {
@@ -282,6 +293,26 @@ public class mKitUser {
 	public void addKill() {
 
 		kills = getKills() + 1;
+
+	}
+
+	public int getKillStreak() {
+		return killstreak;
+	}
+
+	public void setKillStreak(int killstreak) {
+		this.killstreak = killstreak;
+	}
+
+	public void addKillStreak() {
+
+		killstreak = getKillStreak() + 1;
+
+	}
+
+	public void reesetKillStreak() {
+
+		killstreak = 0;
 
 	}
 }

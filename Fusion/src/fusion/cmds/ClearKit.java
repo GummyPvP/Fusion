@@ -2,6 +2,7 @@ package fusion.cmds;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
 
 import fusion.listeners.CombatLog;
 import fusion.main.Fusion;
@@ -53,7 +54,12 @@ public class ClearKit {
 				Utils.giveDefaultItems(args.getPlayer());
 
 				Spawn.getInstance().teleport(args.getPlayer());
-
+				
+				for (PotionEffect pt : args.getPlayer().getActivePotionEffects()) {
+					
+					args.getPlayer().removePotionEffect(pt.getType());
+					
+				}
 				Chat.getInstance().messagePlayer(args.getPlayer(),
 						" &4&4BYPASS: " + Chat.SECONDARY_BASE + "Your kit has been cleared!");
 
@@ -79,6 +85,12 @@ public class ClearKit {
 
 					Spawn.getInstance().teleport(args.getPlayer());
 
+					for (PotionEffect pt : args.getPlayer().getActivePotionEffects()) {
+						
+						args.getPlayer().removePotionEffect(pt.getType());
+						
+					}
+					
 					Chat.getInstance().messagePlayer(args.getPlayer(),
 							Chat.SECONDARY_BASE + "Your kit has been cleared!");
 
@@ -115,6 +127,12 @@ public class ClearKit {
 
 			Spawn.getInstance().teleport(target);
 
+			for (PotionEffect pt : args.getPlayer().getActivePotionEffects()) {
+				
+				args.getPlayer().removePotionEffect(pt.getType());
+				
+			}
+			
 			Chat.getInstance().messagePlayer(target,
 					Chat.SECONDARY_BASE + "Your kit has been cleared by a staff member!");
 

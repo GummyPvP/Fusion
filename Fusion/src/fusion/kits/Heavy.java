@@ -33,7 +33,7 @@ public class Heavy extends Kit {
 
 	public List<ItemStack> getItems() {
 		ItemStack sword = new ItemBuilder(Material.IRON_SWORD).name("&aHeavy Sword").lore("Bash 'em in!")
-				.enchant(Enchantment.DAMAGE_ALL, 2).build();
+				.enchant(Enchantment.DAMAGE_ALL, 1).build();
 		ItemStack axe = new ItemBuilder(Material.IRON_AXE).name("&aHeavy Axe").lore("Bash 'em in!")
 				.enchant(Enchantment.DAMAGE_ALL, 2).enchant(Enchantment.KNOCKBACK, 1).build();
 

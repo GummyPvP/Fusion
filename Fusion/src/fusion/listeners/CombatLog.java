@@ -31,7 +31,7 @@ public class CombatLog {
 	private Map<String, Integer> combatScheduler = new HashMap<String, Integer>();
 	private Map<String, Integer> combatHandler = new HashMap<String, Integer>();
 	
-	private static final int COMBAT_TIME = 15;
+	private static final int COMBAT_TIME = 30;
 	
 	public void startTimer(final Player player) {
 		

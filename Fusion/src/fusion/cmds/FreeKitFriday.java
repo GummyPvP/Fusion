@@ -1,6 +1,7 @@
 package fusion.cmds;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import fusion.main.Fusion;
 import fusion.utils.command.Command;
@@ -10,7 +11,7 @@ import mpermissions.utils.permissions.Rank;
 
 public class FreeKitFriday {
 
-	int taskid = 0;
+	int taskid = -1;
 	
 	@Command(name = "freekitfriday", description = "FREE KITS HELL YEAH!.", usage = "/freekitfriday", aliases = {
 			"fff" }, rank = Rank.ADMIN)
@@ -22,7 +23,7 @@ public class FreeKitFriday {
 			Chat.getInstance().messagePlayer(args.getSender(), "&cFree Kit Friday disabled.");
 
 			Bukkit.getServer().getScheduler().cancelTask(taskid);
-			taskid = 0;
+			taskid = -1;
 
 		} else {
 
@@ -31,9 +32,14 @@ public class FreeKitFriday {
 
 			int id = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Fusion.getInstance(), new Runnable() {
 				public void run() {
-
-					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "broadcast It's Friday! All kits are free for today!");
-
+					
+					for (Player online : Bukkit.getOnlinePlayers()) {
+						
+						Chat.getInstance().messagePlayer(online, "&6It's Friday - all kits can be used for free today!");
+						
+						
+					}
+					
 				}
 			}, 0L, 20 * 60);
 

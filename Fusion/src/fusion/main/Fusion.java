@@ -1,5 +1,7 @@
 package fusion.main;
 
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -24,8 +26,8 @@ import fusion.cmds.Pay;
 import fusion.cmds.SetGladiator;
 import fusion.cmds.SetSpawn;
 import fusion.cmds.SpawnCommand;
+import fusion.cmds.Stats;
 import fusion.cmds.Test;
-import fusion.events.utils.EventManager;
 import fusion.kits.Archer;
 import fusion.kits.Endermage;
 import fusion.kits.Fisherman;
@@ -81,6 +83,7 @@ import fusion.listeners.PlayerJoin;
 import fusion.listeners.PlayerMove;
 import fusion.listeners.PlayerQuit;
 import fusion.listeners.PlayerRespawn;
+import fusion.listeners.PlayerTeleport;
 import fusion.listeners.PlayerUpdateRankEvent;
 import fusion.listeners.TabComplete;
 import fusion.teams.cmds.TeamCommand;
@@ -127,6 +130,8 @@ public class Fusion extends JavaPlugin {
 	public boolean freekitfriday = false;
 	private ConfigManager spawn, warps, regions, config, kitInfo, teams;
 
+	private int day;
+	
 	public void onEnable() {
 
 		long startTime = System.nanoTime();
@@ -145,7 +150,7 @@ public class Fusion extends JavaPlugin {
 
 		log("Instance & framework created");
 
-		loadListeners(new AsyncPlayerChat(), new InventoryClick(), new TeleportListener(), new PlayerInteract(),
+		loadListeners(new AsyncPlayerChat(), new InventoryClick(), new PlayerTeleport(), new TeleportListener(), new PlayerInteract(),
 				new FoodChange(), new FishEvent(), new StomperEvent(), new ViperEvent(), new PlayerDeath(),
 				new PlayerJoin(), new PlayerQuit(), new PlayerRespawn(), new EntityDamageByEntity(), new ItemPickup(),
 				new BlockPlace(), new BlockBreak(), new ToolClick(), new RegionEditor(), new PlayerDamage(),
@@ -160,7 +165,7 @@ public class Fusion extends JavaPlugin {
 		loadCommands(new KitCommand(), new Test(), new WarpCreate(), new WarpList(), new SetSpawn(), new SpawnCommand(),
 				new RegionCreate(), new RegionList(), new SetFlag(), new WarpDelete(), new RegionDelete(),
 				new Balance(), new CombatLogCommand(), new ClearKit(), new CandyManCommands(), new EcoSet(),
-				new SetGladiator(), new EcoGive(), new FreeKitFriday(), new Pay(), new TeamCommand());
+				new SetGladiator(), new EcoGive(), new FreeKitFriday(), new Pay(), new TeamCommand(), new Stats());
 
 		log("Commands loaded");
 
@@ -182,11 +187,9 @@ public class Fusion extends JavaPlugin {
 
 		log("Teams loaded");
 
-		regiserPlaceHolders();
+		registerPlaceHolders();
 
 		StatsManager.getInstance().setup(this);
-
-		EventManager.getInstance().registerEvents();
 
 		EditorManager.getInstance().loadEditors();
 
@@ -207,6 +210,8 @@ public class Fusion extends JavaPlugin {
 		}
 		
 		Utils.get().load();
+		
+		freeKitFriday();
 
 		long finishTime = System.nanoTime();
 
@@ -242,187 +247,236 @@ public class Fusion extends JavaPlugin {
 
 	}
 
-	public void regiserPlaceHolders() {
-
-		if (Bukkit.getPluginManager().isPluginEnabled("MVdWPlaceholderAPI")) {
-
-			// kills
-			PlaceholderAPI.registerPlaceholder(this, "fusion_kills", new PlaceholderReplacer() {
-
-				@Override
-				public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
-
-					if (event.getPlayer() == null) {
-						return "0";
-					}
-
-					Player player = event.getPlayer();
-
-					mKitUser user = mKitUser.getInstance(player);
-
-					return String.valueOf(user.getKills());
-
-				}
-			});
-
-			// deaths
-			PlaceholderAPI.registerPlaceholder(this, "fusion_deaths", new PlaceholderReplacer() {
-
-				@Override
-				public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
-
-					if (event.getPlayer() == null) {
-						return "0";
-					}
-
-					Player player = event.getPlayer();
-
-					mKitUser user = mKitUser.getInstance(player);
-
-					return String.valueOf(user.getDeaths());
-
-				}
-			});
-
-			// candies
-			PlaceholderAPI.registerPlaceholder(this, "fusion_candies", new PlaceholderReplacer() {
-
-				@Override
-				public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
-
-					if (event.getPlayer() == null) {
-						return "0";
-					}
-
-					Player player = event.getPlayer();
-
-					mKitUser user = mKitUser.getInstance(player);
-
-					return String.valueOf(user.getCandies());
-
-				}
-			});
-
-			// currentkit
-			PlaceholderAPI.registerPlaceholder(this, "fusion_currentkit", new PlaceholderReplacer() {
-
-				@Override
-				public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
-
-					if (event.getPlayer() == null) {
-						return "none";
-					}
-
-					Player player = event.getPlayer();
-
-					mKitUser user = mKitUser.getInstance(player);
-
-					if (user.getKit() == null) {
-						return "none";
-					}
-
-					return String.valueOf(user.getKit().getName());
-
-				}
-			});
-
-			// current team
-			PlaceholderAPI.registerPlaceholder(this, "fusion_team", new PlaceholderReplacer() {
-
-				@Override
-				public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
-
-					if (event.getPlayer() == null) {
-						return "none";
-					}
-
-					Player player = event.getPlayer();
-
-					mKitUser user = mKitUser.getInstance(player);
-
-					if (user.getTeam() == null) {
-						return "none";
-					}
-
-					return String.valueOf(user.getTeam().getName());
-
-				}
-			});
-
-			// current teammembers online
-			PlaceholderAPI.registerPlaceholder(this, "fusion_team_online", new PlaceholderReplacer() {
-
-				@Override
-				public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
-
-					if (event.getPlayer() == null) {
-						return ChatColor.GREEN + "Online Team Members: &fnone";
-					}
-
-					Player player = event.getPlayer();
-
-					mKitUser user = mKitUser.getInstance(player);
-
-					if (user.getTeam() == null) {
-						return ChatColor.GREEN + "Online Team Members: &fYou are not in a team!";
-					}
-
-					StringBuilder sb = new StringBuilder();
-
-					sb.append(ChatColor.GREEN + "Online Team Members: ");
-
-					int ontm = 0;
-
-					for (UUID on : user.getTeam().getMembers().keySet()) {
-
-						Player tplayer = Bukkit.getPlayer(on);
-
-						if (tplayer != event.getPlayer()) {
-
-							if (tplayer != null) {
-
-								sb.append(ChatColor.WHITE + tplayer.getName() + ", ");
-
-								ontm++;
-
-							}
-						}
-
-					}
-					
-					if (ontm == 0) {
-						sb.append(ChatColor.WHITE + "none");
-					}
-					
-					return Utils.removeLast(sb);
-
-				}
-			});
-
-			// combattag
-			PlaceholderAPI.registerPlaceholder(this, "fusion_ct", new PlaceholderReplacer() {
-
-				@Override
-				public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
-
-					if (event.getPlayer() == null) {
-						return ChatColor.GREEN + "Not in combat";
-					}
-
-					Player player = event.getPlayer();
-
-					if (!CombatLog.getInstance().isInCombat(player)) {
-						return ChatColor.GREEN + "Not in combat";
-					}
-
-					return ChatColor.RED + String.valueOf(CombatLog.getInstance().getRemainingTime(player));
-
-				}
-			});
-
-			log("Place Holders have been registered!");
-
+	public void registerPlaceHolders() {
+
+		if (!Bukkit.getPluginManager().isPluginEnabled("MVdWPlaceholderAPI")) {
+			
+			System.out.println("PlaceholderAPI is not enabled, placeholders will not be registered!");
+			
+			return;
 		}
+		
+		// kills
+		PlaceholderAPI.registerPlaceholder(this, "fusion_kills", new PlaceholderReplacer() {
+
+			@Override
+			public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
+
+				if (event.getPlayer() == null) {
+					return "0";
+				}
+
+				Player player = event.getPlayer();
+				
+				mKitUser user = mKitUser.getInstance(player);
+				
+				return String.valueOf(user.getKills());
+
+			}
+		});
+
+		// deaths
+		PlaceholderAPI.registerPlaceholder(this, "fusion_deaths", new PlaceholderReplacer() {
+			
+			@Override
+			public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
+
+				if (event.getPlayer() == null) {
+					return "0";
+				}
+
+				Player player = event.getPlayer();
+
+				mKitUser user = mKitUser.getInstance(player);
+
+				return String.valueOf(user.getDeaths());
+
+			}
+		});
+
+		// candies
+		PlaceholderAPI.registerPlaceholder(this, "fusion_candies", new PlaceholderReplacer() {
+
+			@Override
+			public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
+
+				if (event.getPlayer() == null) {
+					return "0";
+				}
+
+				Player player = event.getPlayer();
+
+				mKitUser user = mKitUser.getInstance(player);
+
+				return String.valueOf(user.getCandies());
+
+			}
+		});
+
+		// currentkit
+		PlaceholderAPI.registerPlaceholder(this, "fusion_currentkit", new PlaceholderReplacer() {
+
+			@Override
+			public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
+
+				if (event.getPlayer() == null) {
+					return "none";
+				}
+
+				Player player = event.getPlayer();
+
+				mKitUser user = mKitUser.getInstance(player);
+
+				if (user.getKit() == null) {
+					return "none";
+				}
+
+				return String.valueOf(user.getKit().getName());
+
+			}
+		});
+
+		// current team
+		PlaceholderAPI.registerPlaceholder(this, "fusion_team", new PlaceholderReplacer() {
+
+			@Override
+			public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
+
+				if (event.getPlayer() == null) {
+					return "none";
+				}
+
+				Player player = event.getPlayer();
+
+				mKitUser user = mKitUser.getInstance(player);
+
+				if (user.getTeam() == null) {
+					return "none";
+				}
+
+				return String.valueOf(user.getTeam().getName());
+
+			}
+		});
+
+		// current teammembers online
+		PlaceholderAPI.registerPlaceholder(this, "fusion_team_online", new PlaceholderReplacer() {
+
+			@Override
+			public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
+
+				if (event.getPlayer() == null) {
+					return ChatColor.GREEN + "Online Team Members: &fnone";
+				}
+
+				Player player = event.getPlayer();
+
+				mKitUser user = mKitUser.getInstance(player);
+
+				if (user.getTeam() == null) {
+					return ChatColor.GREEN + "Online Team Members: &fYou are not in a team!";
+				}
+
+				StringBuilder sb = new StringBuilder();
+
+				sb.append(ChatColor.GREEN + "Online Team Members: ");
+
+				int ontm = 0;
+
+				for (UUID on : user.getTeam().getMembers().keySet()) {
+
+					Player tplayer = Bukkit.getPlayer(on);
+
+					if (tplayer != event.getPlayer()) {
+
+						if (tplayer != null) {
+
+							sb.append(ChatColor.WHITE + tplayer.getName() + ", ");
+
+							ontm++;
+
+						}
+					}
+
+				}
+				
+				if (ontm == 0) {
+					sb.append(ChatColor.WHITE + "none");
+				}
+				
+				return Utils.removeLast(sb);
+
+			}
+		});
+
+		// combattag
+		PlaceholderAPI.registerPlaceholder(this, "fusion_ct", new PlaceholderReplacer() {
+
+			@Override
+			public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
+				
+				if (event.getPlayer() == null) {
+					return ChatColor.GREEN + "Not in combat";
+				}
+				
+				Player player = event.getPlayer();
+
+				if (!CombatLog.getInstance().isInCombat(player)) {
+					return ChatColor.GREEN + "Not in combat";
+				}
+
+				return ChatColor.RED + String.valueOf(CombatLog.getInstance().getRemainingTime(player));
+
+			}
+		});
+		
+		// kd
+		PlaceholderAPI.registerPlaceholder(this, "fkd", new PlaceholderReplacer() {
+
+			@Override
+			public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
+				
+				if (event.getPlayer() == null) {
+					return ChatColor.WHITE + "0";
+				}
+				
+				Player player = event.getPlayer();
+
+				mKitUser user = mKitUser.getInstance(player);
+				
+				DecimalFormat dm = new DecimalFormat("#.##");
+				double kd = user.getKills() / user.getDeaths();
+				String kdr = dm.format(kd);
+				
+				if (user.getKills() < 0) {
+					return "0";
+				}
+				
+				return kdr;
+
+			}
+		});
+		
+		// killstreak
+		PlaceholderAPI.registerPlaceholder(this, "fusion_killstreak", new PlaceholderReplacer() {
+
+			@Override
+			public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
+				
+				if (event.getPlayer() == null) {
+					return ChatColor.WHITE + "0";
+				}
+				
+				Player player = event.getPlayer();
+
+				mKitUser user = mKitUser.getInstance(player);
+				
+				return String.valueOf(user.getKillStreak());
+
+			}
+		});
+
+		log("Place Holders have been registered!");
 
 	}
 
@@ -494,6 +548,29 @@ public class Fusion extends JavaPlugin {
 
 		System.out.println("[Fusion] " + s);
 
+	}
+	public void freeKitFriday() {
+		
+		
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			public void run() {
+				
+				day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+				
+				if (day == 6 && !freekitfriday) {
+					
+					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "freekitfriday");
+					
+				}
+				if (day != 6 && freekitfriday) {
+					
+					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "freekitfriday");
+					
+				}
+				
+			}
+		}, 20L, 20 * 5L);
+		
 	}
 
 	/**

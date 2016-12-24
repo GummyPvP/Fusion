@@ -158,7 +158,7 @@ public class PlayerInteract implements Listener {
 
 					new KitGUI(player);
 
-					player.playSound(player.getLocation(), Sound.ANVIL_LAND, 1, 1);
+					player.playSound(player.getLocation(), Sound.ANVIL_LAND, 0.25F, 1);
 
 				}
 
@@ -188,7 +188,7 @@ public class PlayerInteract implements Listener {
 
 					new ShopGUI(player);
 
-					player.playSound(player.getLocation(), Sound.BAT_DEATH, 1, 1);
+					player.playSound(player.getLocation(), Sound.BAT_DEATH, 0.5F, 1);
 
 				}
 
@@ -200,7 +200,7 @@ public class PlayerInteract implements Listener {
 
 					new WarpGUI(player);
 
-					player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1, 1);
+					player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 0.5F, 1);
 
 				}
 

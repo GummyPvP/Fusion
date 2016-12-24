@@ -1,7 +1,9 @@
 package fusion.utils.chat;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class Chat {
 
@@ -25,6 +27,16 @@ public class Chat {
 	public void messagePlayer(CommandSender sender, String message) {
 		
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', CHAT_PREFIX + BASE_COLOR + message));
+		
+	}
+	
+	public void broadcastMessage(String message) {
+		
+		for (Player online : Bukkit.getOnlinePlayers()) {
+			
+			online.sendMessage(ChatColor.translateAlternateColorCodes('&', CHAT_PREFIX + BASE_COLOR + message));
+			
+		}
 		
 	}
 }
