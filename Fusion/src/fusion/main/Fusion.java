@@ -28,6 +28,7 @@ import fusion.cmds.SetSpawn;
 import fusion.cmds.SpawnCommand;
 import fusion.cmds.Stats;
 import fusion.cmds.Test;
+import fusion.events.EventManager;
 import fusion.kits.Archer;
 import fusion.kits.Endermage;
 import fusion.kits.Fisherman;
@@ -186,7 +187,7 @@ public class Fusion extends JavaPlugin {
 		TeamManager.get().loadTeams();
 
 		log("Teams loaded");
-
+		
 		registerPlaceHolders();
 
 		StatsManager.getInstance().setup(this);
@@ -198,7 +199,9 @@ public class Fusion extends JavaPlugin {
 		CrateManager.getInstance().loadCrates();
 
 		StatsManager.getInstance().startScoreboard(this);
-
+		
+		EventManager.get().start();
+		
 		if (Bukkit.getOnlinePlayers().size() != 0) {
 
 			for (Player online : Bukkit.getOnlinePlayers()) {
