@@ -14,7 +14,6 @@ import fusion.events.events.arenas.LMSArena;
 import fusion.events.utils.EventLeaveReason;
 import fusion.events.utils.EventState;
 import fusion.events.utils.EventType;
-import fusion.kits.PVP;
 import fusion.kits.utils.KitManager;
 import fusion.listeners.CombatLog;
 import fusion.utils.mKitUser;
@@ -59,7 +58,7 @@ public class LMS extends Event implements Listener {
 
 	@Override
 	public int getNeededPlayers() {
-		return 4;
+		return 2;
 	}
 
 	@Override
@@ -114,7 +113,7 @@ public class LMS extends Event implements Listener {
 				
 				if (player == null) {
 					
-					removePlayer(player, EventLeaveReason.LEAVE);
+					players.remove(name);
 					
 					continue;
 				}
@@ -123,7 +122,7 @@ public class LMS extends Event implements Listener {
 					
 					removePlayer(player, EventLeaveReason.LEAVE);
 					
-					Chat.getInstance().messagePlayer(player, "&cYou are disqualified from the event because you are in combat!");
+					Chat.getInstance().messagePlayer(player, "&cYou are disqualified from the event because you are in combat!"); // should just teleport them to a lobby or something
 					
 					continue;
 				}
@@ -153,11 +152,13 @@ public class LMS extends Event implements Listener {
 		Player host = Bukkit.getPlayer(getHostPlayerName());
 		setState(EventState.FINISHED);
 		
-		if (host == null) return;
-		
-		mKitUser.getInstance(host).addCandies(200.0);
-		
-		Chat.getInstance().messagePlayer(host, "&aYou have been rewarded 200 candies for hosting the LMS event!");
+		if (host != null) {
+			
+			mKitUser.getInstance(host).addCandies(200.0);
+			
+			Chat.getInstance().messagePlayer(host, "&aYou have been rewarded 200 candies for hosting the LMS event!");
+			
+		}
 		
 		if (winner == null) return; // somehow he's gone? just don't do anything
 		

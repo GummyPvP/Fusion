@@ -37,9 +37,9 @@ public class Stats {
 
 				double kd = 0;
 
-				if (kills > 0) {
+				if (kills != 0) {
 
-					kd = kills / deaths;
+					kd = (double) kills / (double) deaths;
 
 				}
 				String kdr = dm.format(kd);
@@ -84,9 +84,9 @@ public class Stats {
 
 					double kd = 0;
 
-					if (kills > 0) {
+					if (kills != 0) {
 
-						kd = kills / deaths;
+						kd = (double) kills / (double) deaths;
 
 					}
 					String kdr = dm.format(kd);
@@ -125,9 +125,9 @@ public class Stats {
 			double candies = user.getCandies();
 			double kd = 0;
 
-			if (kills > 0) {
+			if (kills != 0) {
 
-				kd = kills / deaths;
+				kd = (double) kills / (double) deaths;
 
 			}
 			String kdr = dm.format(kd);

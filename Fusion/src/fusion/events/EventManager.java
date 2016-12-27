@@ -40,7 +40,7 @@ public class EventManager implements Listener {
 	private List<Event> queue = new ArrayList<Event>();
 	
 	private void update() {
-
+		
 		if (activeEvents.size() < MAX_EVENTS) {
 			
 			if (queue.isEmpty())
@@ -78,7 +78,7 @@ public class EventManager implements Listener {
 	}
 	
 	@EventHandler
-	public void onPlayerJoin(PlayerJoinGameEvent e) {
+	public void onPlayerJoinEvent(PlayerJoinGameEvent e) {
 		
 		if (!activeEvents.contains(e.getEvent()))
 			return;
@@ -111,7 +111,7 @@ public class EventManager implements Listener {
 	}
 	
 	@EventHandler
-	public void onPlayerLeave(PlayerLeaveGameEvent e) {
+	public void onPlayerLeaveEvent(PlayerLeaveGameEvent e) {
 		
 		Player player = e.getPlayer();
 		Event event = e.getEvent();

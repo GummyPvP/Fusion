@@ -448,12 +448,15 @@ public class Fusion extends JavaPlugin {
 				mKitUser user = mKitUser.getInstance(player);
 				
 				DecimalFormat dm = new DecimalFormat("#.##");
-				double kd = user.getKills() / user.getDeaths();
-				String kdr = dm.format(kd);
+				double kd = 0.0;
 				
-				if (user.getKills() < 0) {
-					return "0";
+				if (user.getKills() != 0) {
+
+					kd = (double) user.getKills() / (double) user.getDeaths();
+					
 				}
+				
+				String kdr = dm.format(kd);
 				
 				return kdr;
 
