@@ -1,5 +1,7 @@
 package fusion.events.events.arenas;
 
+import java.util.Set;
+
 import org.bukkit.Location;
 
 import fusion.events.utils.Arena;
@@ -38,6 +40,12 @@ public class LMSArena extends Arena {
 	@Override
 	public Location getMainSpawn() {
 		return mainSpawn;
+	}
+	
+	@Override
+	public Set<Location> getAlternateSpawns() {
+		return null;
+		
 	}
 
 }

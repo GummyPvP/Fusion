@@ -1,5 +1,7 @@
 package fusion.events.utils;
 
+import java.util.Set;
+
 import org.bukkit.Location;
 
 import fusion.utils.protection.Bounds;
@@ -17,5 +19,7 @@ public abstract class Arena {
 	public abstract Bounds getBounds();
 	
 	public abstract Location getMainSpawn();
+	
+	public abstract Set<Location> getAlternateSpawns();
 
 }
