@@ -39,8 +39,6 @@ public class ArenaManager {
 	
 	public void registerMaps() {
 		
-		
-		
 	}
 	
 	public List<Arena> getArenas(EventType type) {
