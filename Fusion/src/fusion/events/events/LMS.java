@@ -14,7 +14,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
 import fusion.events.Event;
-import fusion.events.EventManager;
 import fusion.events.events.arenas.LMSArena;
 import fusion.events.utils.EventLeaveReason;
 import fusion.events.utils.EventState;
@@ -63,7 +62,7 @@ public class LMS extends Event implements Listener {
 
 	@Override
 	public int getNeededPlayers() {
-		return 0;
+		return 2;
 	}
 
 	@Override
@@ -114,7 +113,7 @@ public class LMS extends Event implements Listener {
 				
 				numberOfSeconds++; // Since this method is only going to be called once every second, this should work out fine. Further testing will be needed to ensure this doesn't fail
 				
-				messagePlayers("&3The event will start in " + ((timeToCountdown + 1) - numberOfSeconds) + " seconds");
+				messagePlayers("&3The event will start in " + ((timeToCountdown + 1) - numberOfSeconds) + (((timeToCountdown + 1) - numberOfSeconds) == 1 ? " second" : " seconds"));
 				
 				return;
 			}
@@ -182,7 +181,7 @@ public class LMS extends Event implements Listener {
 		
 		if (!getPlayers().contains(e.getPlayer().getName())) return;
 		
-		removePlayer(e.getPlayer(), EventLeaveReason.DISCONNECT);
+		removePlayer(e.getPlayer(), EventLeaveReason.KICK);
 		
 		handleEvent();
 		

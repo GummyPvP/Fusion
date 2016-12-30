@@ -61,6 +61,10 @@ public abstract class Event {
 		Bukkit.getPluginManager().callEvent(new PlayerLeaveGameEvent(player, this, reason));
 	}
 	
+	public boolean isJoinable() {
+		return getAmountOfPlayers() < getMaxPlayers() || getState() == EventState.WAITING_FOR_PLAYERS || getState() == EventState.STARTING;
+	}
+	
 	public void messagePlayers(String message) {
 		
 		for (String name : getPlayers()) {
@@ -74,5 +78,4 @@ public abstract class Event {
 		}
 		
 	}
-	
 }

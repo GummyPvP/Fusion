@@ -6,14 +6,17 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitTask;
 
+import fusion.events.utils.EventLeaveReason;
 import fusion.events.utils.EventState;
 import fusion.events.utils.PlayerJoinGameEvent;
 import fusion.events.utils.PlayerLeaveGameEvent;
 import fusion.main.Fusion;
 import fusion.utils.chat.Chat;
+import fusion.utils.gui.EventJoinGUI;
 import fusion.utils.spawn.Spawn;
 
 /**
@@ -47,15 +50,41 @@ public class EventManager implements Listener {
 		return queue;
 	}
 	
+	public void addEventToQueue(Event event) {
+		queue.add(event);
+	}
+	
+	public void addActiveEvent(Event event) {
+		
+		activeEvents.add(event);
+		
+		Bukkit.getPluginManager().registerEvents((Listener) event, Fusion.getInstance());
+		
+	}
+	
+	public void removeEventFromQueue(Event event) {
+		queue.remove(event);
+	}
+	
+	public void removeActiveEvent(Event event) {
+		
+		activeEvents.remove(event);
+		
+		HandlerList.unregisterAll((Listener) event);
+		
+	}
+	
 	private void update() {
+		
+		EventJoinGUI.get().populateInventory(); // constantly update the inventory so if someone is looking in, it'll show the correct data
 		
 		if (activeEvents.size() < MAX_EVENTS) {
 			
 			if (!queue.isEmpty()) {
 			
-				activeEvents.add(queue.get(0));
+				addActiveEvent(queue.get(0));
 			
-				queue.remove(0);
+				removeEventFromQueue(queue.get(0));
 			}
 			
 		}
@@ -79,7 +108,7 @@ public class EventManager implements Listener {
 				
 			}
 			
-			activeEvents.remove(event);
+			removeActiveEvent(event);
 			
 		}
 		
@@ -93,7 +122,7 @@ public class EventManager implements Listener {
 		
 		Event event = e.getEvent();
 		
-		if (event.getAmountOfPlayers() >= event.getMaxPlayers()) {
+		if (!event.isJoinable()) {
 			
 			e.setCancelled(true);
 			
@@ -103,13 +132,15 @@ public class EventManager implements Listener {
 			
 			Chat.getInstance().messagePlayer(e.getPlayer(), "&cSorry, you are not able to join this event right now");
 			
+			event.removePlayer(e.getPlayer(), EventLeaveReason.KICK);
+			
 			return;
 		}
 		
 		Chat.getInstance().broadcastMessage("&a" + e.getPlayer().getName() + " joined the " + event.getName() + " event! &7(&b" + event.getAmountOfPlayers() + "&7/&b" + event.getMaxPlayers() + "&7)");
 		Chat.getInstance().broadcastMessage("&6Type /event join to play too!");
 		
-		if (event.getAmountOfPlayers() >= event.getNeededPlayers()) {
+		if (event.getAmountOfPlayers() >= event.getNeededPlayers() && event.getState() != EventState.STARTING) {
 			
 			event.setState(EventState.STARTING);
 			

@@ -9,7 +9,6 @@ import fusion.events.events.arenas.LMSArena;
 import fusion.utils.chat.Chat;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
-import fusion.utils.editing.EditorManager;
 import fusion.utils.editing.EditorSession;
 import fusion.utils.editing.EditorSessions;
 import fusion.utils.editing.editors.RegionEditor;
@@ -62,7 +61,7 @@ public class Test {
 		
 		LMS event = new LMS(arena, args.getSender().getName());
 		
-		EventManager.get().getActiveEvents().add(event);
+		EventManager.get().addActiveEvent(event);
 		
 		event.addPlayer(player);
 		

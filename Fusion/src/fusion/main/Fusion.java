@@ -31,6 +31,7 @@ import fusion.cmds.Test;
 import fusion.events.EventManager;
 import fusion.events.cmds.EventCommand;
 import fusion.events.cmds.EventJoin;
+import fusion.events.listeners.EventInventoryClick;
 import fusion.kits.Archer;
 import fusion.kits.Endermage;
 import fusion.kits.Fisherman;
@@ -105,6 +106,7 @@ import fusion.utils.editing.cmds.RegionDelete;
 import fusion.utils.editing.cmds.RegionList;
 import fusion.utils.editing.cmds.SetFlag;
 import fusion.utils.editing.editors.RegionEditor;
+import fusion.utils.gui.EventJoinGUI;
 import fusion.utils.protection.BlockBreak;
 import fusion.utils.protection.BlockBurn;
 import fusion.utils.protection.BlockDecay;
@@ -161,7 +163,7 @@ public class Fusion extends JavaPlugin {
 				new TabComplete(), new ChunkUnload(), new ChunkLoad(), new PlayerInteractEntity(), new SwitchEvent(),
 				new EndermageEvent(), new CommandPreprocess(), new SnailEvent(), new NinjaEvent(), new SharkEvent(),
 				new GladiatorEvent(), new PlayerUpdateRankEvent(), new PlayerMove(), new WimpEvent(),
-				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent(), EventManager.get());
+				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent(), EventManager.get(), new EventInventoryClick());
 
 		log("Listeners loaded");
 
@@ -203,6 +205,8 @@ public class Fusion extends JavaPlugin {
 		StatsManager.getInstance().startScoreboard(this);
 		
 		EventManager.get().start();
+		
+		EventJoinGUI.get().populateInventory();
 		
 		if (Bukkit.getOnlinePlayers().size() != 0) {
 
