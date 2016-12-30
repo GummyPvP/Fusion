@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerKickEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
 
 import fusion.events.Event;
+import fusion.events.EventManager;
 import fusion.events.events.arenas.LMSArena;
 import fusion.events.utils.EventLeaveReason;
 import fusion.events.utils.EventState;
@@ -58,7 +63,7 @@ public class LMS extends Event implements Listener {
 
 	@Override
 	public int getNeededPlayers() {
-		return 2;
+		return 0;
 	}
 
 	@Override
@@ -91,15 +96,26 @@ public class LMS extends Event implements Listener {
 		return arena;
 	}
 	
+	@Override
+	public ItemStack getItemGUI() {
+		return new ItemStack(Material.DIAMOND_SWORD);
+	}
+	
 	int numberOfSeconds = 0; // We'll use this to count how many seconds the event has been in the STARTING state
+	
+	int timeToCountdown = 10;
 	
 	@Override
 	public void update() {
 		
 		if (getState() == EventState.STARTING) {
 			
-			if (!(numberOfSeconds >= 10)) {
+			if (numberOfSeconds < timeToCountdown) {
+				
 				numberOfSeconds++; // Since this method is only going to be called once every second, this should work out fine. Further testing will be needed to ensure this doesn't fail
+				
+				messagePlayers("&3The event will start in " + ((timeToCountdown + 1) - numberOfSeconds) + " seconds");
+				
 				return;
 			}
 			
@@ -145,6 +161,34 @@ public class LMS extends Event implements Listener {
 		if (!getPlayers().contains(player.getName())) return;
 		
 		removePlayer(player, EventLeaveReason.DEATH);
+		
+		handleEvent();
+		
+	}
+	
+	@EventHandler
+	public void onPlayerQuit(PlayerQuitEvent e) {
+		
+		if (!getPlayers().contains(e.getPlayer().getName())) return;
+		
+		removePlayer(e.getPlayer(), EventLeaveReason.DISCONNECT);
+		
+		handleEvent();
+		
+	}
+	
+	@EventHandler
+	public void onPlayerKick(PlayerKickEvent e) {
+		
+		if (!getPlayers().contains(e.getPlayer().getName())) return;
+		
+		removePlayer(e.getPlayer(), EventLeaveReason.DISCONNECT);
+		
+		handleEvent();
+		
+	}
+	
+	private void handleEvent() {
 		
 		if (getAmountOfPlayers() != 1) return;
 		

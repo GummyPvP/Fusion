@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import fusion.events.utils.Arena;
 import fusion.events.utils.EventLeaveReason;
@@ -41,6 +42,8 @@ public abstract class Event {
 	public abstract void setState(EventState state);
 	
 	public abstract Arena getArena();
+	
+	public abstract ItemStack getItemGUI();
 	
 	public abstract void update();
 	

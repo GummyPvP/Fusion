@@ -36,19 +36,27 @@ public class EventManager implements Listener {
 
 	private static int MAX_EVENTS = 2;
 
-	private List<Event> activeEvents = new ArrayList<Event>();
+	private List<Event> activeEvents = new ArrayList<Event>(MAX_EVENTS);
 	private List<Event> queue = new ArrayList<Event>();
+	
+	public List<Event> getActiveEvents() {
+		return activeEvents;
+	}
+	
+	public List<Event> getEventQueue() {
+		return queue;
+	}
 	
 	private void update() {
 		
 		if (activeEvents.size() < MAX_EVENTS) {
 			
-			if (queue.isEmpty())
-				return;
+			if (!queue.isEmpty()) {
 			
-			activeEvents.add(queue.get(0));
+				activeEvents.add(queue.get(0));
 			
-			queue.remove(0);
+				queue.remove(0);
+			}
 			
 		}
 		
@@ -98,7 +106,7 @@ public class EventManager implements Listener {
 			return;
 		}
 		
-		Chat.getInstance().broadcastMessage("&6" + e.getPlayer().getName() + " &ajoined the &6" + event.getName() + " event&a! (&b" + event.getAmountOfPlayers() + "&6/&b" + event.getMaxPlayers() + ")");
+		Chat.getInstance().broadcastMessage("&a" + e.getPlayer().getName() + " joined the " + event.getName() + " event! &7(&b" + event.getAmountOfPlayers() + "&7/&b" + event.getMaxPlayers() + "&7)");
 		Chat.getInstance().broadcastMessage("&6Type /event join to play too!");
 		
 		if (event.getAmountOfPlayers() >= event.getNeededPlayers()) {

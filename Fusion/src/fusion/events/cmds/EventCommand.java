@@ -33,7 +33,7 @@ public class EventCommand {
 		sendInformation(sender, mPlayer.getInstance(((Player) sender)).getGroup().getRank());
 		
 	}
-
+	
 	private void sendInformation(CommandSender sender, Rank rank) {
 		
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m-----&r &5Event Commands &7&m-----"));

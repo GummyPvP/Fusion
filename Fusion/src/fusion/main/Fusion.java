@@ -30,6 +30,7 @@ import fusion.cmds.Stats;
 import fusion.cmds.Test;
 import fusion.events.EventManager;
 import fusion.events.cmds.EventCommand;
+import fusion.events.cmds.EventJoin;
 import fusion.kits.Archer;
 import fusion.kits.Endermage;
 import fusion.kits.Fisherman;
@@ -160,14 +161,14 @@ public class Fusion extends JavaPlugin {
 				new TabComplete(), new ChunkUnload(), new ChunkLoad(), new PlayerInteractEntity(), new SwitchEvent(),
 				new EndermageEvent(), new CommandPreprocess(), new SnailEvent(), new NinjaEvent(), new SharkEvent(),
 				new GladiatorEvent(), new PlayerUpdateRankEvent(), new PlayerMove(), new WimpEvent(),
-				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent());
+				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent(), EventManager.get());
 
 		log("Listeners loaded");
 
 		loadCommands(new KitCommand(), new Test(), new WarpCreate(), new WarpList(), new SetSpawn(), new SpawnCommand(),
 				new RegionCreate(), new RegionList(), new SetFlag(), new WarpDelete(), new RegionDelete(),
 				new Balance(), new CombatLogCommand(), new ClearKit(), new CandyManCommands(), new EcoSet(),
-				new SetGladiator(), new EcoGive(), new FreeKitFriday(), new Pay(), new TeamCommand(), new Stats(), new EventCommand());
+				new SetGladiator(), new EcoGive(), new FreeKitFriday(), new Pay(), new TeamCommand(), new Stats(), new EventCommand(), new EventJoin());
 
 		log("Commands loaded");
 
