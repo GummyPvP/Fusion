@@ -21,5 +21,7 @@ public abstract class Arena {
 	public abstract Location getMainSpawn();
 	
 	public abstract Set<Location> getAlternateSpawns();
+	
+	public abstract void save();
 
 }

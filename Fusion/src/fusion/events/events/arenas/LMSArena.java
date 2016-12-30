@@ -5,6 +5,8 @@ import java.util.Set;
 import org.bukkit.Location;
 
 import fusion.events.utils.Arena;
+import fusion.main.Fusion;
+import fusion.utils.ConfigManager;
 import fusion.utils.protection.Bounds;
 
 /**
@@ -45,6 +47,19 @@ public class LMSArena extends Arena {
 	@Override
 	public Set<Location> getAlternateSpawns() {
 		return null;
+		
+	}
+	
+	@Override
+	public void save() {
+		
+		ConfigManager file = Fusion.getInstance().getArenaFile();
+		
+		String arenaPath = "arenas.LMS." + getName();
+		
+		//file.set(arenaPath + ".bounds", );
+		
+		file.set(arenaPath + ".mainSpawn", getMainSpawn());
 		
 	}
 

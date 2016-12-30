@@ -133,7 +133,7 @@ public class Fusion extends JavaPlugin {
 
 	private CommandFramework framework;
 	public boolean freekitfriday = false;
-	private ConfigManager spawn, warps, regions, config, kitInfo, teams;
+	private ConfigManager spawn, warps, regions, config, kitInfo, teams, arena;
 
 	private int day;
 	
@@ -150,7 +150,8 @@ public class Fusion extends JavaPlugin {
 		config = new ConfigManager("config", false);
 		kitInfo = new ConfigManager("kit_info", false);
 		teams = new ConfigManager("teams", false);
-
+		arena = new ConfigManager("arena", false);
+		
 		// registerEntity(CandyMan.class, "Candyman", 120);
 
 		log("Instance & framework created");
@@ -516,6 +517,10 @@ public class Fusion extends JavaPlugin {
 		return teams;
 	}
 
+	public ConfigManager getArenaFile() {
+		return arena;
+	}
+	
 	public ConfigManager getPlayerFile(String player) {
 		return ConfigManager.getPlayerFile(player);
 	}

@@ -6,6 +6,8 @@ import java.util.Map;
 
 import fusion.events.utils.Arena;
 import fusion.events.utils.EventType;
+import fusion.main.Fusion;
+import fusion.utils.ConfigManager;
 
 /**
 	 * 
@@ -25,24 +27,22 @@ public class ArenaManager {
 	
 	private Map<EventType, List<Arena>> arenas = new HashMap<EventType, List<Arena>>();
 	
-	public void registerMap(EventType type, Arena arena) {
-		
-		List<Arena> tempList = arenas.get(type);
-		
-		if (tempList == null || tempList.isEmpty()) return;
-		
-		tempList.add(arena);
-		
-		arenas.put(type, tempList);
-		
-	}
-	
-	public void registerMaps() {
-		
-	}
-	
 	public List<Arena> getArenas(EventType type) {
 		return arenas.get(type);
 	}
+	
+	public void registerArena(EventType type, Arena arena) {
+		arenas.get(type).add(arena);
+	}
+	
+	public void registerArena() {
+		
+	}
+	
+	public void saveArenas() {
+		
 
+		
+	}
+	
 }
