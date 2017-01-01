@@ -3,6 +3,7 @@ package fusion.events.events.arenas;
 import java.util.Set;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 
 import fusion.events.utils.Arena;
 import fusion.main.Fusion;
@@ -16,16 +17,18 @@ import fusion.utils.protection.Bounds;
 	 */
 
 public class LMSArena extends Arena {
-
+	
 	private String name;
 	private Bounds bounds;
 	private Location mainSpawn;
+	private Material item;
 	
-	public LMSArena(String name, Bounds bounds, Location mainSpawn) {
+	public LMSArena(String name, Bounds bounds, Location mainSpawn, Material item) {
 		
 		this.name = name;
 		this.bounds = bounds;
 		this.mainSpawn = mainSpawn;
+		this.item = item;
 		
 	}
 	
@@ -33,12 +36,12 @@ public class LMSArena extends Arena {
 	public String getName() {
 		return name;
 	}
-
+	
 	@Override
 	public Bounds getBounds() {
 		return bounds;
 	}
-
+	
 	@Override
 	public Location getMainSpawn() {
 		return mainSpawn;
@@ -47,7 +50,11 @@ public class LMSArena extends Arena {
 	@Override
 	public Set<Location> getAlternateSpawns() {
 		return null;
-		
+	}
+	
+	@Override
+	public Material getItemGUI() {
+		return item;
 	}
 	
 	@Override
@@ -57,9 +64,11 @@ public class LMSArena extends Arena {
 		
 		String arenaPath = "arenas.LMS." + getName();
 		
-		//file.set(arenaPath + ".bounds", );
+		file.set(arenaPath + ".mainSpawn", getMainSpawn().serialize());
 		
-		file.set(arenaPath + ".mainSpawn", getMainSpawn());
+		file.set(arenaPath + ".bounds", bounds.serialize());
+		
+		file.set(arenaPath + ".item", getItemGUI().toString());
 		
 	}
 

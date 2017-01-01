@@ -67,7 +67,7 @@ public class LMS extends Event implements Listener {
 
 	@Override
 	public int getMaxPlayers() {
-		return 16;
+		return 4;
 	}
 
 	@Override

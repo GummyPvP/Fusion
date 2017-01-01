@@ -1,6 +1,7 @@
 package fusion.cmds;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import fusion.events.EventManager;
@@ -57,7 +58,7 @@ public class Test {
 		
 		Bounds bounds = new Bounds(player.getWorld(), editor.getPosition1(), editor.getPosition2());
 		
-		LMSArena arena = new LMSArena("Test", bounds, bounds.getCenter().toLocation(bounds.getWorld()));
+		LMSArena arena = new LMSArena("Test", bounds, bounds.getCenter().toLocation(bounds.getWorld()), Material.ANVIL);
 		
 		LMS event = new LMS(arena, args.getSender().getName());
 		

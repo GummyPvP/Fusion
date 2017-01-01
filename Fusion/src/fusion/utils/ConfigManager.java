@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -154,17 +155,17 @@ public class ConfigManager {
 	public int getInt(String string) {
 		return config.getInt(string);
 	}
-
+	
 	public void addDefault(String path, Object value) {
-
+		
 		config.addDefault(path, value);
-
+		
 		config.options().copyDefaults(true);
-
+		
 		save();
-
+		
 	}
-
+	
 	public void addDefaults(String defaults) {
 
 		Fusion.getInstance().saveResource(defaults, false);
@@ -183,5 +184,10 @@ public class ConfigManager {
 	
 	public Vector getVector(String string) {
 		return config.getVector(string);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Location getLocation(String path) {
+		return Location.deserialize((Map<String, Object>) config.get(path));
 	}
 }

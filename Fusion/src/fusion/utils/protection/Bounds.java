@@ -1,7 +1,12 @@
 package fusion.utils.protection;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.util.Vector;
 
 /**
@@ -11,7 +16,7 @@ import org.bukkit.util.Vector;
 	 * 
 	 */
 
-public class Bounds {
+public class Bounds implements ConfigurationSerializable {
 	
 	World world;
 	Vector min, max;
@@ -94,6 +99,30 @@ public class Bounds {
 		
 		return volume;
 		
+	}
+
+	@Override
+	public Map<String, Object> serialize() {
+		
+		Map<String, Object> data = new HashMap<String, Object>();
+		
+		data.put("world", world.getName());
+		
+		data.put("minVector", min.serialize());
+		data.put("maxVector", max.serialize());
+		
+		return data;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static Bounds deserialize(Map<String, Object> data) {
+		
+		World world = Bukkit.getWorld((String) data.get("world"));
+		
+		Vector minVector = Vector.deserialize((Map<String, Object>) data.get("minVector"));
+		Vector maxVector = Vector.deserialize((Map<String, Object>) data.get("maxVector"));
+		
+		return new Bounds(world, minVector, maxVector);
 	}
 
 }

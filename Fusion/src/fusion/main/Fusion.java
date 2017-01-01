@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,6 +29,7 @@ import fusion.cmds.SetSpawn;
 import fusion.cmds.SpawnCommand;
 import fusion.cmds.Stats;
 import fusion.cmds.Test;
+import fusion.events.ArenaManager;
 import fusion.events.EventManager;
 import fusion.events.cmds.EventCommand;
 import fusion.events.cmds.EventJoin;
@@ -112,6 +114,7 @@ import fusion.utils.protection.BlockBurn;
 import fusion.utils.protection.BlockDecay;
 import fusion.utils.protection.BlockIgnite;
 import fusion.utils.protection.BlockPlace;
+import fusion.utils.protection.Bounds;
 import fusion.utils.protection.PlayerDamage;
 import fusion.utils.protection.RegionManager;
 import fusion.utils.spawn.Spawn;
@@ -205,6 +208,10 @@ public class Fusion extends JavaPlugin {
 
 		StatsManager.getInstance().startScoreboard(this);
 		
+		ConfigurationSerialization.registerClass(Bounds.class);
+		
+		ArenaManager.get().loadArenas();
+		
 		EventManager.get().start();
 		
 		EventJoinGUI.get().populateInventory();
@@ -237,9 +244,9 @@ public class Fusion extends JavaPlugin {
 
 		KitManager.getInstance().unloadKits();
 
-		log("Kits unloaded");
-
 		Spawn.getInstance().save();
+		
+		ArenaManager.get().saveArenas();
 
 		for (Player online : Bukkit.getOnlinePlayers()) {
 

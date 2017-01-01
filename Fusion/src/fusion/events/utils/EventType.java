@@ -8,6 +8,6 @@ package fusion.events.utils;
 
 public enum EventType {
 	
-	LMS, KOTH, REDROVER;
+	LMS, REDROVER;
 
 }

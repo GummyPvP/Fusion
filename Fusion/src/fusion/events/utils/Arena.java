@@ -3,6 +3,7 @@ package fusion.events.utils;
 import java.util.Set;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 
 import fusion.utils.protection.Bounds;
 
@@ -21,6 +22,8 @@ public abstract class Arena {
 	public abstract Location getMainSpawn();
 	
 	public abstract Set<Location> getAlternateSpawns();
+	
+	public abstract Material getItemGUI();
 	
 	public abstract void save();
 
