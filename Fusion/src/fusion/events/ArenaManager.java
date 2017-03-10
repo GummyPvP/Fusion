@@ -37,6 +37,18 @@ public class ArenaManager {
 		return arenas.get(type);
 	}
 	
+	public Arena getArena(EventType type, String name) {
+		
+		for (Arena arena : arenas.get(type)) {
+			
+			if (arena.getName().equalsIgnoreCase(name)) return arena;
+			
+		}
+		
+		return null;
+		
+	}
+	
 	public void registerArena(EventType type, Arena arena) {
 		
 		if (arenas.get(type) == null) {

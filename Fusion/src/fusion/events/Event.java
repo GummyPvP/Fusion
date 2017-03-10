@@ -43,8 +43,6 @@ public abstract class Event {
 	
 	public abstract Arena getArena();
 	
-	public abstract ItemStack getItemGUI();
-	
 	public abstract void update();
 	
 	public int getAmountOfPlayers() {

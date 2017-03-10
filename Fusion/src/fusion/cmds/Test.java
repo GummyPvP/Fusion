@@ -62,9 +62,9 @@ public class Test {
 		
 		LMS event = new LMS(arena, args.getSender().getName());
 		
-		EventManager.get().addActiveEvent(event);
-		
-		event.addPlayer(player);
+		EventManager.get().addEventToQueue(event);
+
+		// test comment
 		
 	}
 }

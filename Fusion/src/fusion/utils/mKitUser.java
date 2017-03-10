@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import fusion.events.Event;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 
@@ -37,6 +38,7 @@ public class mKitUser {
 	private HealingItem item;
 	private Multiplier multiplier;
 	private boolean glad;
+	private Event event;
 
 	private int kills;
 	private int deaths;
@@ -153,6 +155,32 @@ public class mKitUser {
 		multiplier = type;
 	}
 
+	public boolean isGlad() {
+		return glad;
+	}
+
+	public void setGlad(boolean glad) {
+		this.glad = glad;
+	}
+
+	public int getKills() {
+		return kills;
+	}
+
+	public void setKills(int kills) {
+		this.kills = kills;
+	}
+
+	public int getDeaths() {
+		return deaths;
+	}
+
+	public void setDeaths(int deaths) {
+		this.deaths = deaths;
+	}
+
+	public Event getEvent() { return event; }
+
 	public void clearKit() {
 
 		Player player = getPlayer();
@@ -258,30 +286,6 @@ public class mKitUser {
 		kit = null;
 		previousKit = null;
 
-	}
-
-	public boolean isGlad() {
-		return glad;
-	}
-
-	public void setGlad(boolean glad) {
-		this.glad = glad;
-	}
-
-	public int getKills() {
-		return kills;
-	}
-
-	public void setKills(int kills) {
-		this.kills = kills;
-	}
-
-	public int getDeaths() {
-		return deaths;
-	}
-
-	public void setDeaths(int deaths) {
-		this.deaths = deaths;
 	}
 
 	public void addDeath() {

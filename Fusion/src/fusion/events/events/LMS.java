@@ -49,7 +49,7 @@ public class LMS extends Event implements Listener {
 	public String getName() {
 		return "LMS";
 	}
-
+	
 	@Override
 	public List<String> getPlayers() {
 		return players;
@@ -95,8 +95,7 @@ public class LMS extends Event implements Listener {
 		return arena;
 	}
 	
-	@Override
-	public ItemStack getItemGUI() {
+	public static ItemStack getItemGUI() {
 		return new ItemStack(Material.DIAMOND_SWORD);
 	}
 	

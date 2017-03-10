@@ -40,7 +40,7 @@ public class EventJoinGUI {
 		Event eventTwo = get(EventManager.get().getActiveEvents(), 1);
 		
 		ItemStack eventOneItem = (eventOne == null ? noEventItem.clone() : 
-			new ItemBuilder(eventOne.getItemGUI())
+			new ItemBuilder(Material.DIAMOND_SWORD)
 			.name("&eEvent #1 &7(" + getTitleAccessString(eventOne) + "&7)")
 			.lore("&aType: &b" + eventOne.getType().toString())
 			.lore("&aMap: &b" + eventOne.getArena().getName())
@@ -49,7 +49,7 @@ public class EventJoinGUI {
 			.build());
 		
 		ItemStack eventTwoItem = (eventTwo == null ? noEventItem.clone() : 
-			new ItemBuilder(eventTwo.getItemGUI())
+			new ItemBuilder(Material.DIAMOND_SWORD)
 			.name("&eEvent #2 &7(" + getTitleAccessString(eventTwo) + "&7)")
 			.lore("&aType: &b" + eventTwo.getType().toString())
 			.lore("&aMap: &b" + eventTwo.getArena().getName())
