@@ -1,6 +1,7 @@
 package fusion.kits;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Material;
@@ -38,7 +39,7 @@ public class Viper extends Kit {
 		
 		ItemStack sword = new ItemBuilder(Material.IRON_SWORD).name("&aViper Sword").lore(Arrays.asList("Ricin is covering the", "blade of this sword!")).build();
 		
-		return Arrays.asList(sword);
+		return Collections.singletonList(sword);
 	}
 
 	@Override

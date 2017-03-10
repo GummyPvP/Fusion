@@ -1,6 +1,7 @@
 package fusion.kits;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Color;
@@ -48,7 +49,7 @@ public class Shark extends Kit {
 		ItemStack sword = new ItemBuilder(Material.GHAST_TEAR).name("&9Shark Tooth")
 				.unsafeEnchant(Enchantment.DAMAGE_ALL, 5).lore("*Crunch*").build();
 
-		return Arrays.asList(sword);
+		return Collections.singletonList(sword);
 
 	}
 

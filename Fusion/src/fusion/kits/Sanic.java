@@ -1,6 +1,7 @@
 package fusion.kits;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Material;
@@ -48,7 +49,7 @@ public class Sanic extends Kit {
 		ItemStack sword = new ItemBuilder(Material.DIAMOND_SWORD).name("&aSanic Beating Stick")
 				.lore("Hit em' with the sharp end.").enchant(Enchantment.DAMAGE_ALL, 2).build();
 
-		return Arrays.asList(sword);
+		return Collections.singletonList(sword);
 
 	}
 

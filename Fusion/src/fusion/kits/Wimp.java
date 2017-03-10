@@ -1,6 +1,7 @@
 package fusion.kits;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Material;
@@ -45,7 +46,7 @@ public class Wimp extends Kit {
 		ItemStack sword = new ItemBuilder(Material.WATER_LILY).name("&1&lBoney Fist")
 				.unsafeEnchant(Enchantment.DAMAGE_ALL, 7).lore("Don't break a bone ;)").build();
 
-		return Arrays.asList(sword);
+		return Collections.singletonList(sword);
 
 	}
 

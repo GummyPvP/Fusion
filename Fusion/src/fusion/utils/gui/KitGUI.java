@@ -109,7 +109,7 @@ public class KitGUI {
 				inv.setItem(inv.getSize() - 1,
 						new ItemBuilder(Material.GOLD_INGOT).name("&a-->").lore("Next page").build());
 
-		} catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException ignored) {
 		} // intentionally blank
 
 		// use 36 because that is how many kits should be presented in the

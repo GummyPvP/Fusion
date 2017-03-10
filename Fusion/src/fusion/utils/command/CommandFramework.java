@@ -90,7 +90,7 @@ public class CommandFramework implements CommandExecutor {
 			StringBuffer buffer = new StringBuffer();
 			buffer.append(label.toLowerCase());
 			for (int x = 0; x < i; x++) {
-				buffer.append("." + args[x].toLowerCase());
+				buffer.append(".").append(args[x].toLowerCase());
 			}
 			String cmdLabel = buffer.toString();
 			if (commandMap.containsKey(cmdLabel)) {

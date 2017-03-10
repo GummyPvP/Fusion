@@ -1,6 +1,7 @@
 package fusion.kits;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Color;
@@ -34,7 +35,7 @@ public class Turtle extends Kit {
 		
 		ItemStack sword = new ItemBuilder(Material.WOOD_SWORD).name("&aTurtle Sword").build();
 		
-		return Arrays.asList(sword);
+		return Collections.singletonList(sword);
 	}
 
 	@Override

@@ -106,7 +106,7 @@ public class ShopGUI {
 			
 			if (!futureCheck.isEmpty()) inv.setItem(inv.getSize() - 1, new ItemBuilder(Material.GOLD_INGOT).name("&a-->").lore("Next page").build());
 			
-		} catch (IllegalArgumentException e) { } // intentionally blank
+		} catch (IllegalArgumentException ignored) { } // intentionally blank
 		
 		// end
 		

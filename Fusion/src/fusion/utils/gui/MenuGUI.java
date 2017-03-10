@@ -1,6 +1,6 @@
 package fusion.utils.gui;
 
-/**
+/*
  * 
  * Copyright GummyPvP. Created on Jun 11, 2016 by Jeremy Gooch.
  * All Rights Reserved.

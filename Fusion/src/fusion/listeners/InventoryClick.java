@@ -20,7 +20,7 @@ import fusion.utils.warps.WarpManager;
 import klap.utils.mPlayer;
 import mpermissions.utils.permissions.Rank;
 
-/**
+/*
  * 
  * Copyright GummyPvP. Created on May 17, 2016 by Jeremy Gooch. All Rights
  * Reserved.

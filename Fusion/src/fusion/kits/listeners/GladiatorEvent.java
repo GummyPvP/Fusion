@@ -27,7 +27,7 @@ import fusion.utils.chat.Chat;
 import fusion.utils.protection.RegionManager;
 import klap.utils.mPlayer;
 
-/**
+/*
  * 
  * Created on Dec 4, 2016 by Jeremy Gooch.
  * 
@@ -108,9 +108,9 @@ public class GladiatorEvent implements Listener {
 														// duel!
 
 		/**
-		 * 
+		 *
 		 * Reset player inventory and armor contents, teleport the player back
-		 * 
+		 *
 		 */
 
 		winner.getInventory().clear();
@@ -139,9 +139,9 @@ public class GladiatorEvent implements Listener {
 		winner.teleport(locations.get(winner.getName()).add(0, 1, 0));
 
 		/**
-		 * 
+		 *
 		 * Correct visibility of players
-		 * 
+		 *
 		 */
 
 		for (Player online : Bukkit.getOnlinePlayers()) {
@@ -164,9 +164,9 @@ public class GladiatorEvent implements Listener {
 		mKitUser.getInstance(loser).setGlad(false);
 		
 		/**
-		 * 
+		 *
 		 * Cleanup maps
-		 * 
+		 *
 		 */
 
 		armorContents.remove(winner.getName());

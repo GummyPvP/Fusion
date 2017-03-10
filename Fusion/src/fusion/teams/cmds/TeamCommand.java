@@ -106,7 +106,7 @@ public class TeamCommand {
 
 				for (Team t : TeamManager.get().getTeams()) {
 
-					sb.append(ChatColor.GREEN + t.getName() + ChatColor.WHITE + ", ");
+					sb.append(ChatColor.GREEN).append(t.getName()).append(ChatColor.WHITE).append(", ");
 
 				}
 
@@ -246,12 +246,12 @@ public class TeamCommand {
 
 						if (op.getName() != null) {
 
-							members.append(ChatColor.YELLOW + op.getName() + ChatColor.WHITE + ", ");
+							members.append(ChatColor.YELLOW).append(op.getName()).append(ChatColor.WHITE).append(", ");
 
 						}
 
 					} else {
-						members.append(ChatColor.YELLOW + p.getName() + ChatColor.WHITE + ", ");
+						members.append(ChatColor.YELLOW).append(p.getName()).append(ChatColor.WHITE).append(", ");
 
 					}
 				}
@@ -264,7 +264,7 @@ public class TeamCommand {
 
 						if (onlinee.getUniqueId().equals(uuid)) {
 
-							online.append(ChatColor.YELLOW + onlinee.getName() + ChatColor.WHITE + ", ");
+							online.append(ChatColor.YELLOW).append(onlinee.getName()).append(ChatColor.WHITE).append(", ");
 
 						}
 
@@ -607,12 +607,12 @@ public class TeamCommand {
 
 								if (pop.getName() != null) {
 
-									members.append(ChatColor.YELLOW + op.getName() + ChatColor.WHITE + ", ");
+									members.append(ChatColor.YELLOW).append(op.getName()).append(ChatColor.WHITE).append(", ");
 
 								}
 
 							} else {
-								members.append(ChatColor.YELLOW + p.getName() + ChatColor.WHITE + ", ");
+								members.append(ChatColor.YELLOW).append(p.getName()).append(ChatColor.WHITE).append(", ");
 
 							}
 						}
@@ -625,7 +625,7 @@ public class TeamCommand {
 
 								if (onlinee.getUniqueId().equals(uuid)) {
 
-									online.append(ChatColor.YELLOW + onlinee.getName() + ChatColor.WHITE + ", ");
+									online.append(ChatColor.YELLOW).append(onlinee.getName()).append(ChatColor.WHITE).append(", ");
 
 								}
 
@@ -697,12 +697,12 @@ public class TeamCommand {
 
 							if (op.getName() != null) {
 
-								members.append(ChatColor.YELLOW + op.getName() + ChatColor.WHITE + ", ");
+								members.append(ChatColor.YELLOW).append(op.getName()).append(ChatColor.WHITE).append(", ");
 
 							}
 
 						} else {
-							members.append(ChatColor.YELLOW + p.getName() + ChatColor.WHITE + ", ");
+							members.append(ChatColor.YELLOW).append(p.getName()).append(ChatColor.WHITE).append(", ");
 
 						}
 					}
@@ -715,7 +715,7 @@ public class TeamCommand {
 
 							if (onlinee.getUniqueId().equals(uuid)) {
 
-								online.append(ChatColor.YELLOW + onlinee.getName() + ChatColor.WHITE + ", ");
+								online.append(ChatColor.YELLOW).append(onlinee.getName()).append(ChatColor.WHITE).append(", ");
 
 							}
 
@@ -777,12 +777,12 @@ public class TeamCommand {
 
 						if (op.getName() != null) {
 
-							members.append(ChatColor.YELLOW + op.getName() + ChatColor.WHITE + ", ");
+							members.append(ChatColor.YELLOW).append(op.getName()).append(ChatColor.WHITE).append(", ");
 
 						}
 
 					} else {
-						members.append(ChatColor.YELLOW + p.getName() + ChatColor.WHITE + ", ");
+						members.append(ChatColor.YELLOW).append(p.getName()).append(ChatColor.WHITE).append(", ");
 
 					}
 				}
@@ -795,7 +795,7 @@ public class TeamCommand {
 
 						if (onlinee.getUniqueId().equals(uuid)) {
 
-							online.append(ChatColor.YELLOW + onlinee.getName() + ChatColor.WHITE + ", ");
+							online.append(ChatColor.YELLOW).append(onlinee.getName()).append(ChatColor.WHITE).append(", ");
 
 						}
 

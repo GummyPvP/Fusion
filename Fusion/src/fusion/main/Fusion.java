@@ -408,7 +408,7 @@ public class Fusion extends JavaPlugin {
 
 						if (tplayer != null) {
 
-							sb.append(ChatColor.WHITE + tplayer.getName() + ", ");
+							sb.append(ChatColor.WHITE).append(tplayer.getName()).append(", ");
 
 							ontm++;
 
@@ -597,10 +597,10 @@ public class Fusion extends JavaPlugin {
 		
 	}
 
-	/**
-	 * 
+	/*
+	 *
 	 * Copyright EchoPet - Not our code!!!
-	 * 
+	 *
 	 * @param clazz
 	 *            - Class that holds our custom entity
 	 * @param name

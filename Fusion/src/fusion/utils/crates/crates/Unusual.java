@@ -1,6 +1,7 @@
 package fusion.utils.crates.crates;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import fusion.utils.crates.Crate;
@@ -23,7 +24,7 @@ public class Unusual extends Crate {
 
 	@Override
 	public List<Reward> getRewards() {
-		return Arrays.asList(new CandyReward(500));
+		return Collections.singletonList(new CandyReward(500));
 	}
 
 }

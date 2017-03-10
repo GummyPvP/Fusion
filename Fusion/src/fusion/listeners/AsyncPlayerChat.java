@@ -35,7 +35,7 @@ public class AsyncPlayerChat implements Listener {
 		
 		String currentformat = event.getFormat();
 
-		String newformat = ChatColor.translateAlternateColorCodes('&', "&8«&a" + team.getName() + "&8» ")
+		String newformat = ChatColor.translateAlternateColorCodes('&', "&8Â»&a" + team.getName() + "&8Â» ")
 				+ currentformat;
 
 		event.setFormat(newformat);

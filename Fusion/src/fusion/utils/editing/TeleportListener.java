@@ -41,7 +41,7 @@ public class TeleportListener implements Listener {
 			if (reg.getBlockedKits().contains(currentkit)) {
 
 				Chat.getInstance().messagePlayer(player,
-						String.format(Chat.BASE_COLOR + currentkit.getName() + " is blocked in this area!"));
+                        Chat.BASE_COLOR + currentkit.getName() + " is blocked in this area!");
 
 				Bukkit.getServer().getScheduler().runTaskLater(Fusion.getInstance(), new Runnable() {
 					public void run() {

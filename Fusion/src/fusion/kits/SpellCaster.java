@@ -1,6 +1,7 @@
 package fusion.kits;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Material;
@@ -29,7 +30,7 @@ public class SpellCaster extends Kit {
 		ItemStack sword = new ItemBuilder(Material.IRON_SWORD).name("&1&lCAST SPELLS UPON EM!")
 				.unsafeEnchant(Enchantment.DURABILITY, 1).lore("GIVE EM HELL!").build();
 		
-		return Arrays.asList(sword);
+		return Collections.singletonList(sword);
 	}
 
 	@Override

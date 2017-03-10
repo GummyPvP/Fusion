@@ -178,18 +178,13 @@ public class RegionManager {
 	}
 	
 	public boolean isInProtectedRegion(Player player) {
-		
+
 		Region region = getSmallestRegion(getRegions(player.getLocation().toVector()));
-		
+
 		if (region == null) return false;
-		
-		if (region instanceof ProtectedRegion) {
-			
-			return !((ProtectedRegion) region).isPVPEnabled();
-		}
-		
-		return false;
-		
+
+		return region instanceof ProtectedRegion && !((ProtectedRegion) region).isPVPEnabled();
+
 	}
 	
 	public void removeRegion(Region region) {

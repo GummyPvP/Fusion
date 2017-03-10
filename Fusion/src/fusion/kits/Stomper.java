@@ -1,6 +1,7 @@
 package fusion.kits;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Material;
@@ -36,9 +37,9 @@ public class Stomper extends Kit {
 	public List<ItemStack> getItems() {
 
 		ItemStack sword = new ItemBuilder(Material.STONE_SWORD).name("&aStomper Sword")
-				.lore(Arrays.asList("Squishy squishy")).enchant(Enchantment.DAMAGE_ALL, 1).build();
+				.lore(Collections.singletonList("Squishy squishy")).enchant(Enchantment.DAMAGE_ALL, 1).build();
 
-		return Arrays.asList(sword);
+		return Collections.singletonList(sword);
 
 	}
 

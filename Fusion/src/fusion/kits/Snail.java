@@ -1,6 +1,7 @@
 package fusion.kits;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Color;
@@ -38,9 +39,9 @@ public class Snail extends Kit {
 	@Override
 	public List<ItemStack> getItems() {
 		
-		ItemStack sword = new ItemBuilder(Material.IRON_AXE).name("&aGhetto Axe").lore(Arrays.asList("Made from ye' own shell!")).enchant(Enchantment.DAMAGE_ALL, 1).build();
+		ItemStack sword = new ItemBuilder(Material.IRON_AXE).name("&aGhetto Axe").lore(Collections.singletonList("Made from ye' own shell!")).enchant(Enchantment.DAMAGE_ALL, 1).build();
 		
-		return Arrays.asList(sword);
+		return Collections.singletonList(sword);
 	}
 
 	@Override

@@ -227,7 +227,7 @@ public class PlayerInteract implements Listener {
 					for (Region region : RegionManager.getInstance()
 							.getRegions(e.getClickedBlock().getLocation().toVector())) {
 
-						sb.append(region.getName() + ", ");
+						sb.append(region.getName()).append(", ");
 
 					}
 

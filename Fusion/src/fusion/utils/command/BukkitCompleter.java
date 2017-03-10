@@ -36,7 +36,7 @@ public class BukkitCompleter implements TabCompleter {
 			buffer.append(label.toLowerCase());
 			for (int x = 0; x < i; x++) {
 				if (!args[x].equals("") && !args[x].equals(" ")) {
-					buffer.append("." + args[x].toLowerCase());
+					buffer.append(".").append(args[x].toLowerCase());
 				}
 			}
 			String cmdLabel = buffer.toString();

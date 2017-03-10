@@ -30,8 +30,8 @@ public class EventJoinGUI {
 		return instance;
 	}
 	
-	private Inventory inv = Bukkit.createInventory(null, InventoryType.HOPPER, ChatColor.YELLOW + "Join an event");;
-	
+	private Inventory inv = Bukkit.createInventory(null, InventoryType.HOPPER, ChatColor.YELLOW + "Join an event");
+
 	public void populateInventory() {
 		
 		ItemStack noEventItem = new ItemBuilder(Material.BARRIER).name("&cWaiting for event...").lore("&bNo event is currently running").build();

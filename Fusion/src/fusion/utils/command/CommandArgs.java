@@ -28,7 +28,7 @@ public class CommandArgs {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(label);
 		for (int x = 0; x < subCommand; x++) {
-			buffer.append("." + args[x]);
+			buffer.append(".").append(args[x]);
 		}
 		String cmdLabel = buffer.toString();
 		this.sender = sender;

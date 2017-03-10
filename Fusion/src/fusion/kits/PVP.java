@@ -1,6 +1,7 @@
 package fusion.kits;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Material;
@@ -43,7 +44,7 @@ public class PVP extends Kit {
 
 		ItemStack sword = new ItemBuilder(Material.DIAMOND_SWORD).name("&aPVP Sword").lore("u wot m8").build();
 
-		return Arrays.asList(sword);
+		return Collections.singletonList(sword);
 
 	}
 

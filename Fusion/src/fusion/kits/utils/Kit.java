@@ -91,7 +91,7 @@ public abstract class Kit {
 			if (((ProtectedRegion) region).getBlockedKits().contains(this)) {
 
 				Chat.getInstance().messagePlayer(player,
-						String.format(Chat.BASE_COLOR + getName() + " is blocked in this area!"));
+                        Chat.BASE_COLOR + getName() + " is blocked in this area!");
 				return;
 			}
 

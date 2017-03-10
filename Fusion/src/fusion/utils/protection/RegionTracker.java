@@ -85,7 +85,7 @@ public class RegionTracker implements Listener {
 
 				for (Kit kit : protectedRegion.getBlockedKits()) {
 
-					kits.append(kit.getName() + ", ");
+					kits.append(kit.getName()).append(", ");
 
 				}
 
