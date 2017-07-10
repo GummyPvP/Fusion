@@ -1,6 +1,7 @@
 package fusion.cmds;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import fusion.utils.ConfigManager;
@@ -18,6 +19,7 @@ import fusion.utils.command.CommandArgs;
 
 public class Balance {
 	
+	@SuppressWarnings("deprecation")
 	@Command(name = "balance", aliases = { "bal", "candies", "money", "coins", "candy" }, description = "Shows your candy balance.", usage = "/balance")
 	public void balanceCommand(CommandArgs args) {
 		
@@ -41,7 +43,16 @@ public class Balance {
 			
 			String check = args.getArgs(0);
 			
-			ConfigManager file = new ConfigManager(target.getUniqueId().toString(), "players");
+			OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args.getArgs(0));
+			
+			if (!offlinePlayer.hasPlayedBefore()) {
+				
+				Chat.getInstance().messagePlayer(args.getSender(), "&c" + args.getArgs(0) + " has never played before");
+				
+				return;
+			}
+			
+			ConfigManager file = new ConfigManager(offlinePlayer.getUniqueId().toString(), "players");
 			
 			if (file.getDouble("profile.candies") != null) {
 				

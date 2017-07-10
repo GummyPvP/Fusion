@@ -6,7 +6,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-import fusion.main.Fusion;
 import fusion.teams.utils.Team;
 import fusion.teams.utils.TeamManager;
 import fusion.utils.ConfigManager;
