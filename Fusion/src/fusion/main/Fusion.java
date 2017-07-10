@@ -86,6 +86,7 @@ import fusion.listeners.TabComplete;
 import fusion.teams.cmds.TeamCommand;
 import fusion.teams.utils.TeamManager;
 import fusion.utils.ConfigManager;
+import fusion.utils.Settings;
 import fusion.utils.StatsManager;
 import fusion.utils.Utils;
 import fusion.utils.mKitUser;
@@ -126,14 +127,14 @@ public class Fusion extends JavaPlugin {
 
 	private CommandFramework framework;
 	private ConfigManager spawn, warps, regions, config, kitInfo, teams, arena;
-
+	
 	public void onEnable() {
 
 		long startTime = System.nanoTime();
 
 		instance = this;
 		framework = new CommandFramework(this);
-
+		
 		spawn = new ConfigManager("spawn", null);
 		warps = new ConfigManager("warps", null);
 		regions = new ConfigManager("regions", null);
@@ -143,7 +144,9 @@ public class Fusion extends JavaPlugin {
 		arena = new ConfigManager("arena", null);
 		
 		// registerEntity(CandyMan.class, "Candyman", 120);
-
+		
+		Settings.getSettings().initSettings();
+		
 		log("Instance & framework created");
 
 		loadListeners(new AsyncPlayerChat(), new InventoryClick(), new PlayerTeleport(), new TeleportListener(), new PlayerInteract(),

@@ -16,6 +16,7 @@ import org.bukkit.potion.PotionEffect;
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
 import fusion.utils.ItemBuilder;
+import fusion.utils.Settings;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
 
@@ -29,7 +30,7 @@ import fusion.utils.chat.Chat;
 public class ShopGUI {
 
 	private Inventory inv;
-	public static final String INVENTORY_NAME = Chat.IMPORTANT_COLOR + "GummyPvP - Shop";
+	public static String INVENTORY_NAME = ChatColor.translateAlternateColorCodes('&', Settings.getSettings().SHOP_GUI_NAME);
 	private static Map<Player, Integer> page = new HashMap<Player, Integer>();
 
 	public ShopGUI(Player player) {

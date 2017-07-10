@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import fusion.utils.ItemBuilder;
+import fusion.utils.Settings;
 import fusion.utils.warps.Warp;
 import fusion.utils.warps.WarpManager;
 
@@ -18,7 +19,7 @@ import fusion.utils.warps.WarpManager;
 
 public class WarpGUI extends GUI {
 	
-	public static final String INVENTORY_NAME = ChatColor.DARK_PURPLE + "GummyPvP - Warps";
+	public static final String INVENTORY_NAME = ChatColor.translateAlternateColorCodes('&', Settings.getSettings().WARP_GUI_NAME);
 	
 	public WarpGUI(Player player) {
 		

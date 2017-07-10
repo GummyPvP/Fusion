@@ -147,26 +147,36 @@ public abstract class Kit {
 		if (region != null && region instanceof ProtectedRegion) {
 
 			ProtectedRegion protectedRegion = (ProtectedRegion) region;
-
-			if (protectedRegion.getHealingItem() != HealingItem.ANY) {
-
-				for (int i = 0; i < (protectedRegion.areRefillsAllowed() ? player.getInventory().getSize() : 8); i++) {
-
-					player.getInventory().addItem(protectedRegion.getHealingItem().getItem());
-
+			
+			int amount = (protectedRegion.areRefillsAllowed() ? player.getInventory().getSize() : 8);
+			
+			if (protectedRegion.getHealingItem() == HealingItem.ANY) {
+				
+				for (int i = 0; i < amount; i++) {
+					
+					player.getInventory().addItem(user.getHealingItem().getItem());
+					
 				}
-
-				return;
-
+				
+			} else {
+				
+				for (int i = 0; i < amount; i++) {
+					
+					player.getInventory().addItem(protectedRegion.getHealingItem().getItem());
+					
+				}
+				
 			}
-
+		} else {
+			
+			for (int i = 0; i < player.getInventory().getSize(); i++) {
+				
+				player.getInventory().addItem(user.getHealingItem().getItem());
+				
+			}
+			
 		}
 
-		for (int i = 0; i < player.getInventory().getSize(); i++) {
-
-			player.getInventory().addItem(user.getHealingItem().getItem());
-
-		}
 
 		player.setMetadata("noFall", new FixedMetadataValue(Fusion.getInstance(), true));
 
