@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -14,54 +13,49 @@ import org.bukkit.util.Vector;
 
 import fusion.main.Fusion;
 
+
 /**
  * 
- * Copyright GummyPvP. Created on Apr 12, 2016 All Rights Reserved.
+ * Created on Apr 30, 2017 by Jeremy Gooch.
  * 
  */
 
 public class ConfigManager {
-	
+
 	private File file;
 	private FileConfiguration config;
 
-	public ConfigManager(String fileName, boolean isPlayerFile) {
-		
+	public ConfigManager(String fileName, String dir) {
+
 		if (!Fusion.getInstance().getDataFolder().exists()) {
-			
+
 			Fusion.getInstance().getDataFolder().mkdir();
-			
+
 		}
 
-		if (!isPlayerFile) {
-			
-			file = new File(Fusion.getInstance().getDataFolder(), fileName + ".yml");
-
-			if (!file.exists()) {
-				try {
-					file.createNewFile();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		if (dir != null && !dir.isEmpty()) {
+			File dirFolder = new File("plugins" + File.separator + "Fusion" + File.separator + dir);
+			if (!dirFolder.exists()) {
+				dirFolder.mkdir();
 			}
-
-			config = YamlConfiguration.loadConfiguration(file);
-			
-		} else {
-			
-			file = new File(Fusion.getInstance().getDataFolder(), "/players/" + fileName + ".yml");
-
-			if (!file.exists()) {
-				try {
-					file.createNewFile();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-
-			config = YamlConfiguration.loadConfiguration(file);
-			
 		}
+
+		file = new File(Fusion.getInstance().getDataFolder(),
+				(dir == null ? fileName + ".yml" : File.separator + dir + File.separator + fileName + ".yml"));
+
+		if (!file.exists()) {
+			try {
+				if (dir != null) {
+					file.createNewFile();
+				} else
+					Fusion.getInstance().saveResource(fileName + ".yml", false);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		config = YamlConfiguration.loadConfiguration(file);
 
 	}
 
@@ -155,39 +149,33 @@ public class ConfigManager {
 	public int getInt(String string) {
 		return config.getInt(string);
 	}
-	
+
 	public void addDefault(String path, Object value) {
-		
+
 		config.addDefault(path, value);
-		
+
 		config.options().copyDefaults(true);
-		
+
 		save();
-		
+
 	}
-	
+
 	public void addDefaults(String defaults) {
 
 		Fusion.getInstance().saveResource(defaults, false);
 
 	}
-	
-	public static ConfigManager getPlayerFile(String player) {
-		
-		return new ConfigManager(player, true);
-		
-	}
 
 	public ItemStack getItemStack(String string) {
 		return config.getItemStack(string);
 	}
-	
+
 	public Vector getVector(String string) {
 		return config.getVector(string);
 	}
-	
-	@SuppressWarnings("unchecked")
-	public Location getLocation(String path) {
-		return Location.deserialize((Map<String, Object>) config.get(path));
+
+	public Long getLong(String s) {
+		return config.getLong(s);
 	}
+
 }

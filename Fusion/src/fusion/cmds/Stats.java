@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import fusion.main.Fusion;
 import fusion.teams.utils.Team;
 import fusion.teams.utils.TeamManager;
+import fusion.utils.ConfigManager;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
 import fusion.utils.command.Command;
@@ -71,10 +72,12 @@ public class Stats {
 					
 					DecimalFormat dm = new DecimalFormat("#.##");
 					
-					int kills = Fusion.getInstance().getPlayerFile(op.getName()).getInt("kills");
-					int deaths = Fusion.getInstance().getPlayerFile(op.getName()).getInt("deaths");
-					int killstreak = Fusion.getInstance().getPlayerFile(op.getName()).getInt("killstreak");
-					int candies = Fusion.getInstance().getPlayerFile(op.getName()).getInt("profile.candies");
+					ConfigManager file = new ConfigManager(op.getUniqueId().toString(), "players");
+					
+					int kills = file.getInt("kills");
+					int deaths = file.getInt("deaths");
+					int killstreak = file.getInt("killstreak");
+					int candies = file.getInt("profile.candies");
 					
 					double kd = 0;
 

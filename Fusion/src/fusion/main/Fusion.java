@@ -134,13 +134,13 @@ public class Fusion extends JavaPlugin {
 		instance = this;
 		framework = new CommandFramework(this);
 
-		spawn = new ConfigManager("spawn", false);
-		warps = new ConfigManager("warps", false);
-		regions = new ConfigManager("regions", false);
-		config = new ConfigManager("config", false);
-		kitInfo = new ConfigManager("kit_info", false);
-		teams = new ConfigManager("teams", false);
-		arena = new ConfigManager("arena", false);
+		spawn = new ConfigManager("spawn", null);
+		warps = new ConfigManager("warps", null);
+		regions = new ConfigManager("regions", null);
+		config = new ConfigManager("config", null);
+		kitInfo = new ConfigManager("kit_info", null);
+		teams = new ConfigManager("teams", null);
+		arena = new ConfigManager("arena", null);
 		
 		// registerEntity(CandyMan.class, "Candyman", 120);
 
@@ -505,10 +505,6 @@ public class Fusion extends JavaPlugin {
 		return arena;
 	}
 	
-	public ConfigManager getPlayerFile(String player) {
-		return ConfigManager.getPlayerFile(player);
-	}
-
 	private void loadListeners(Listener... listeners) {
 
 		for (Listener l : listeners) {

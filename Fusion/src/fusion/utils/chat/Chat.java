@@ -17,7 +17,7 @@ public class Chat {
 		
 	}
 	
-	public static final String CHAT_PREFIX = "&8Â» ";
+	public static final String CHAT_PREFIX = "&8» ";
 	
 	public static final ChatColor BASE_COLOR = ChatColor.GRAY, IMPORTANT_COLOR = ChatColor.RED, 
 			DEBUG = ChatColor.DARK_RED, SECONDARY_BASE = ChatColor.GREEN, STAFF_NOTIFICATION = ChatColor.YELLOW;

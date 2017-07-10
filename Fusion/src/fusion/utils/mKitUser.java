@@ -10,7 +10,6 @@ import org.bukkit.potion.PotionEffect;
 
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
-import fusion.main.Fusion;
 import fusion.teams.utils.Team;
 import fusion.teams.utils.TeamManager;
 import fusion.utils.protection.ProtectedRegion.HealingItem;
@@ -29,6 +28,7 @@ public class mKitUser {
 	// add setters and getters here - do not make the variables public!
 
 	private Player player;
+	private ConfigManager file;
 	private Set<Kit> ownedKits = new HashSet<Kit>();
 	private Kit kit, previousKit;
 	private double money;
@@ -44,6 +44,8 @@ public class mKitUser {
 		this.player = player;
 		this.kit = null;
 		setGlad(false);
+		
+		this.file = new ConfigManager(player.getUniqueId().toString(), "players");
 		
 		instances.add(this);
 
@@ -80,6 +82,10 @@ public class mKitUser {
 
 	public Player getPlayer() {
 		return player;
+	}
+	
+	public ConfigManager getPlayerFile() {
+		return file;
 	}
 
 	public void setKit(Kit kit) {
@@ -181,51 +187,54 @@ public class mKitUser {
 
 	public void load() {
 
-		if (Fusion.getInstance().getPlayerFile(player.getName()).contains("profile.candies")) {
+		if (file.contains("profile.candies")) {
 
-			setCandies(Fusion.getInstance().getPlayerFile(player.getName()).getDouble("profile.candies"));
+			setCandies(file.getDouble("profile.candies"));
 
 		}
 
-		if (Fusion.getInstance().getPlayerFile(player.getName()).contains("settings.healingItem")) {
+		if (file.contains("settings.healingItem")) {
 
-			setHealingItem(HealingItem.valueOf(Fusion.getInstance().getPlayerFile(player.getName())
+			setHealingItem(HealingItem.valueOf(file
 					.getString("settings.healingItem").toUpperCase()));
 
 		} else
 			setHealingItem(HealingItem.SOUP);
 
-		if (Fusion.getInstance().getPlayerFile(player.getName()).getList("kits") == null)
+		if (file.getList("kits") == null)
 			return;
 
-		for (String kits : Fusion.getInstance().getPlayerFile(player.getName()).getStringList("kits")) {
+		for (String kits : file.getStringList("kits")) {
 
 			String kitNames = kits;
 
 			ownedKits.add(KitManager.getInstance().valueOf(kitNames));
 
 		}
-		if (Fusion.getInstance().getPlayerFile(player.getName()).contains("kills")) {
+		
+		if (file.contains("kills")) {
 
-			setKills(Fusion.getInstance().getPlayerFile(player.getName()).getInt("kills"));
+			setKills(file.getInt("kills"));
 
 		} else {
 
 			setKills(0);
 
 		}
-		if (Fusion.getInstance().getPlayerFile(player.getName()).contains("deaths")) {
+		
+		if (file.contains("deaths")) {
 
-			setDeaths(Fusion.getInstance().getPlayerFile(player.getName()).getInt("deaths"));
+			setDeaths(file.getInt("deaths"));
 
 		} else {
 
 			setDeaths(0);
 
 		}
-		if (Fusion.getInstance().getPlayerFile(player.getName()).contains("killstreak")) {
+		
+		if (file.contains("killstreak")) {
 			
-			setKillStreak(Fusion.getInstance().getPlayerFile(player.getName()).getInt("killstreak"));
+			setKillStreak(file.getInt("killstreak"));
 			
 		} else {
 			
@@ -247,17 +256,17 @@ public class mKitUser {
 
 			}
 
-			Fusion.getInstance().getPlayerFile(player.getName()).set("kits", kitList);
+			file.set("kits", kitList);
 
 		}
 
-		Fusion.getInstance().getPlayerFile(player.getName()).set("profile.candies", getCandies());
+		file.set("profile.candies", getCandies());
 
-		Fusion.getInstance().getPlayerFile(player.getName()).set("settings.healingItem", item.toString());
+		file.set("settings.healingItem", item.toString());
 
-		Fusion.getInstance().getPlayerFile(player.getName()).set("kills", getKills());
-		Fusion.getInstance().getPlayerFile(player.getName()).set("deaths", getDeaths());
-		Fusion.getInstance().getPlayerFile(player.getName()).set("killstreak", getKillStreak());
+		file.set("kills", getKills());
+		file.set("deaths", getDeaths());
+		file.set("killstreak", getKillStreak());
 		
 	}
 

@@ -1,7 +1,7 @@
 name: Fusion
-version: 1.5
+version: 1.5-LeviathanMC
 main: fusion.main.Fusion
 description: Creates the functions for KitPVP, including cosmetic features.
-author: [Lemonbus]
+author: Lemonbus
 authors: [xXkguyXx, Emperor_Koala]
 softdepends: [MVdWPlaceholderAPI]
