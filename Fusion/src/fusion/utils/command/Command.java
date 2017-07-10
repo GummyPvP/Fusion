@@ -5,8 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import mpermissions.utils.permissions.Rank;
-
 /**
  * Command Framework - Command <br>
  * The command annotation used to designate methods as commands. All methods
@@ -80,5 +78,4 @@ public @interface Command {
 	 */
 	public boolean inGameOnly() default false;
 	
-	public Rank rank() default Rank.MEMBER;
 }

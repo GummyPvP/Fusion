@@ -8,8 +8,6 @@ import fusion.utils.ItemBuilder;
 import fusion.utils.chat.Chat;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
-import fusion.utils.warps.WarpManager;
-import mpermissions.utils.permissions.Rank;
 
 /**
  * 
@@ -20,7 +18,7 @@ import mpermissions.utils.permissions.Rank;
 
 public class WarpCreate {
 
-	@Command(name = "setwarp", usage = "/setwarp (name)", description = "Sets a warp", rank = Rank.ADMIN, inGameOnly = true)
+	@Command(name = "setwarp", usage = "/setwarp (name)", description = "Sets a warp", permission = "warp.create", inGameOnly = true)
 	public void warpCreate(CommandArgs args) {
 
 		Player player = args.getPlayer();

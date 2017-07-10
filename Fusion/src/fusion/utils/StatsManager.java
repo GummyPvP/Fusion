@@ -40,7 +40,7 @@ public class StatsManager {
 
 
 	public void startScoreboard(Plugin plugin) {
-
+		
 		currentcolor = ChatColor.YELLOW;
 
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {

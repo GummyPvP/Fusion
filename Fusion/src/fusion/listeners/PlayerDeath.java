@@ -12,7 +12,6 @@ import fusion.main.Fusion;
 import fusion.utils.StatsManager;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
-import fusion.utils.multiplier.MultiplierManager;
 
 /**
  * 
@@ -59,9 +58,7 @@ public class PlayerDeath implements Listener {
 
 		mKitUser killer = mKitUser.getInstance(player.getKiller());
 
-		MultiplierManager.getInstance().updateMultiplier(killer.getPlayer());
-
-		double rewardAmount = MultiplierManager.getInstance().executeMultiplier(killer.getPlayer(), 15);
+		double rewardAmount = 15.0;
 
 		killer.addCandies(rewardAmount);
 
@@ -91,43 +88,26 @@ public class PlayerDeath implements Listener {
 			Bukkit.broadcastMessage(
 					ChatColor.translateAlternateColorCodes('&',
 							Chat.CHAT_PREFIX + "&aWOAH! &b" + user.getPlayer().getName()
-									+ " &alost there killstreak of &e" + userKS + " &ato &b"
+									+ " &alost their killstreak of &e" + userKS + " &ato &b"
 									+ killer.getPlayer().getName() + "&a!"));
 
 		}
 		
-		user.reesetKillStreak();
+		user.resetKillStreak();
+		
+		rewardAmount = Math.round(rewardAmount);
+		
+		rewardAmount = rewardAmount <= 10.0 ? 10.0 : rewardAmount; // making sure that the minimum is 10 candies
+		
+		killer.addCandies(rewardAmount);
+		user.removeCandies(rewardAmount);
+		
 
-		//
-		// rewardAmount = Math.round(rewardAmount);
-		//
-		// rewardAmount = rewardAmount <= 10.0 ? 10.0 : rewardAmount; //
-		// ensuring
-		// // that
-		// // the
-		// // minimum
-		// // is
-		// // 10.0
-		// // candies
-		//
-		// killer.addCandies(rewardAmount);
-		// user.removeCandies(rewardAmount);
-		//
-		// }
-
-		Chat.getInstance().messagePlayer(player.getKiller(),
-				Chat.SECONDARY_BASE + "You received " + Chat.IMPORTANT_COLOR + rewardAmount + " &c(x"
-						+ MultiplierManager.getInstance().getMultiplier(player.getKiller()).i + " Multiplier)"
-						+ Chat.SECONDARY_BASE + " candies for killing " + player.getName());
-		// Chat.getInstance().messagePlayer(player, Chat.SECONDARY_BASE + "You
-		// lost " + Chat.IMPORTANT_COLOR + rewardAmount
-		// + Chat.SECONDARY_BASE + " candies for getting killed by " +
-		// player.getName());
+		Chat.getInstance().messagePlayer(player, Chat.SECONDARY_BASE + "You lost " + Chat.IMPORTANT_COLOR + rewardAmount + Chat.SECONDARY_BASE + "candies for getting killed by " +  player.getName());
 
 		e.setDeathMessage(Chat.SECONDARY_BASE + player.getName() + Chat.IMPORTANT_COLOR + " ("
-				+ (oldKit == null ? "Nothing" : oldKit.getName()) + ") " + Chat.BASE_COLOR + "was slain by "
-				+ Chat.SECONDARY_BASE + player.getKiller().getName() + Chat.IMPORTANT_COLOR + " ("
-				+ (killer.hasKit() ? killer.getKit().getName() : "Nothing") + ")");
+				+ (oldKit == null ? "Nothing" : oldKit.getName()) + ") " + Chat.BASE_COLOR + "was slain by " 
+				+ Chat.SECONDARY_BASE + player.getKiller().getName() + Chat.IMPORTANT_COLOR + " (" + (killer.hasKit() ? killer.getKit().getName() : "Nothing") + ")");
 
 	}
 

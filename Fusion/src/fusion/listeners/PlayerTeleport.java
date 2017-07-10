@@ -5,10 +5,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
+import fusion.utils.chat.Chat;
 import fusion.utils.protection.ProtectedRegion;
 import fusion.utils.protection.Region;
 import fusion.utils.protection.RegionManager;
-import mpermissions.utils.Chat;
 
 public class PlayerTeleport implements Listener {
 

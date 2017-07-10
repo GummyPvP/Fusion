@@ -11,7 +11,6 @@ import fusion.main.Fusion;
 import fusion.utils.Utils;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
-import klap.utils.mPlayer;
 
 /**
 	 * 
@@ -51,7 +50,7 @@ public class PlayerQuit implements Listener {
 			for (Player teammembers : mKitUser.getInstance(player).getTeam().getOnlineMemebers(player)) {
 
 					Utils.sendActionBar(teammembers, ChatColor.translateAlternateColorCodes('&',
-							mPlayer.getInstance(player).getGroup().getPrefix() + player.getName() + " &cjust logged out!"), 20 * 5);
+							player.getDisplayName() + " &cjust logged out!"), 20 * 5);
 
 
 			}

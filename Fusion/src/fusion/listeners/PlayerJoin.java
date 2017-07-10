@@ -11,9 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import fusion.utils.StatsManager;
 import fusion.utils.Utils;
 import fusion.utils.mKitUser;
-import fusion.utils.multiplier.MultiplierManager;
 import fusion.utils.spawn.Spawn;
-import klap.utils.mPlayer;
 
 /**
  * 
@@ -30,8 +28,6 @@ public class PlayerJoin implements Listener {
 		final Player player = e.getPlayer();
 
 		mKitUser.getInstance(player).load();
-
-		MultiplierManager.getInstance().updateMultiplier(player);
 
 		Utils.giveDefaultItems(player);
 
@@ -54,7 +50,7 @@ public class PlayerJoin implements Listener {
 
 
 					Utils.sendActionBar(teammembers, ChatColor.translateAlternateColorCodes('&',
-							mPlayer.getInstance(player).getGroup().getPrefix() + player.getName() + " &ajust logged in!"), 20 * 5);
+							player.getDisplayName() + " &ajust logged in!"), 20 * 5);
 
 				
 			}

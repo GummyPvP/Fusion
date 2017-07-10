@@ -25,7 +25,6 @@ import fusion.utils.Utils;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
 import fusion.utils.protection.RegionManager;
-import klap.utils.mPlayer;
 
 /*
  * 
@@ -145,16 +144,10 @@ public class GladiatorEvent implements Listener {
 		 */
 
 		for (Player online : Bukkit.getOnlinePlayers()) {
-
-			mPlayer mplayer = mPlayer.getInstance(online);
-
-			if (!mplayer.isVanished()) {
-
-				winner.showPlayer(online);
-				loser.showPlayer(online);
-
-			}
-
+			
+			winner.showPlayer(online);
+			loser.showPlayer(online);
+			
 		}
 
 		winner.showPlayer(loser);

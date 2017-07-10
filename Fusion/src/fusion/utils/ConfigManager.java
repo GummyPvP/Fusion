@@ -26,11 +26,11 @@ public class ConfigManager {
 	private FileConfiguration config;
 
 	public ConfigManager(String fileName, boolean isPlayerFile) {
-
+		
 		if (!Fusion.getInstance().getDataFolder().exists()) {
-
+			
 			Fusion.getInstance().getDataFolder().mkdir();
-
+			
 		}
 
 		if (!isPlayerFile) {

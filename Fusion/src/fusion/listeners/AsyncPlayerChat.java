@@ -8,7 +8,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import fusion.teams.utils.Team;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
-import klap.utils.mPlayer;
 import net.md_5.bungee.api.ChatColor;
 
 public class AsyncPlayerChat implements Listener {
@@ -23,12 +22,10 @@ public class AsyncPlayerChat implements Listener {
 		if (team == null) return;
 
 		if (team.getChat().contains(event.getPlayer().getUniqueId())) {
-
+			
 			event.setCancelled(true);
-
-			team.messageMembers("&a&lTeamChat " + Chat.CHAT_PREFIX
-					+ mPlayer.getInstance(event.getPlayer()).getGroup().getPrefix() + event.getPlayer().getName() + " "
-					+ Chat.CHAT_PREFIX + "&b" + event.getMessage());
+			
+			team.messageMembers("&a&lTeamChat " + Chat.CHAT_PREFIX + event.getPlayer().getDisplayName() + " " + Chat.CHAT_PREFIX + "&b" + event.getMessage());
 
 			return;
 		}

@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import fusion.events.Event;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 
@@ -14,8 +13,6 @@ import fusion.kits.utils.KitManager;
 import fusion.main.Fusion;
 import fusion.teams.utils.Team;
 import fusion.teams.utils.TeamManager;
-import fusion.utils.multiplier.Multiplier;
-import fusion.utils.multiplier.MultiplierManager;
 import fusion.utils.protection.ProtectedRegion.HealingItem;
 
 /**
@@ -36,10 +33,8 @@ public class mKitUser {
 	private Kit kit, previousKit;
 	private double money;
 	private HealingItem item;
-	private Multiplier multiplier;
 	private boolean glad;
-	private Event event;
-
+	
 	private int kills;
 	private int deaths;
 	private int killstreak;
@@ -49,12 +44,8 @@ public class mKitUser {
 		this.player = player;
 		this.kit = null;
 		setGlad(false);
-		multiplier = Multiplier.NONE;
-
+		
 		instances.add(this);
-
-		// done after because method gets instance of the players mkitUser class
-		MultiplierManager.getInstance().updateMultiplier(player);
 
 	}
 
@@ -146,15 +137,7 @@ public class mKitUser {
 	public void setHealingItem(HealingItem item) {
 		this.item = item;
 	}
-
-	public Multiplier getMultiplier() {
-		return multiplier;
-	}
-
-	public void setMultiplier(Multiplier type) {
-		multiplier = type;
-	}
-
+	
 	public boolean isGlad() {
 		return glad;
 	}
@@ -178,8 +161,6 @@ public class mKitUser {
 	public void setDeaths(int deaths) {
 		this.deaths = deaths;
 	}
-
-	public Event getEvent() { return event; }
 
 	public void clearKit() {
 
@@ -314,7 +295,7 @@ public class mKitUser {
 
 	}
 
-	public void reesetKillStreak() {
+	public void resetKillStreak() {
 
 		killstreak = 0;
 

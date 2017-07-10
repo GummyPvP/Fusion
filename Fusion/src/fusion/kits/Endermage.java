@@ -47,7 +47,6 @@ public class Endermage extends Kit {
 	public PotionEffect[] getPotionEffects() {
 		return null;
 	}
-
 	@Override
 	public String[] getSpecialAdvantageStrings() {
 		return new String[] { "Teleport people above and below you", "directly to anywhere you want!" };

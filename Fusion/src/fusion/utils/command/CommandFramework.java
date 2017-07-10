@@ -26,9 +26,8 @@ import org.bukkit.help.IndexHelpTopic;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.SimplePluginManager;
 
-import klap.utils.mPlayer;
-import mpermissions.utils.Chat;
-import mpermissions.utils.permissions.Rank;
+import fusion.utils.chat.Chat;
+
 
 /**
  * Command Framework - CommandFramework <br>
@@ -97,15 +96,8 @@ public class CommandFramework implements CommandExecutor {
 				Method method = commandMap.get(cmdLabel).getKey();
 				Object methodObject = commandMap.get(cmdLabel).getValue();
 				Command command = method.getAnnotation(Command.class);
-				if (!command.permission().equals("") && command.rank() != Rank.MEMBER
-						&& !sender.hasPermission(command.permission())) {
+				if (!command.permission().equals("") && !sender.hasPermission(command.permission())) {
 					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', command.noPerm()));
-					return true;
-				}
-				if ((sender instanceof Player)
-						&& !mPlayer.getInstance((Player) sender).getGroup().getRank().hasRequiredRank(command.rank())) {
-					sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-							String.format(command.noRankPerm(), command.rank().getColor() + command.rank().getName())));
 					return true;
 				}
 				if (command.inGameOnly() && !(sender instanceof Player)) {

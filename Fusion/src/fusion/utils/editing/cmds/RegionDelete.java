@@ -5,7 +5,6 @@ import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
 import fusion.utils.protection.Region;
 import fusion.utils.protection.RegionManager;
-import mpermissions.utils.permissions.Rank;
 
 /**
 	 * 
@@ -16,7 +15,7 @@ import mpermissions.utils.permissions.Rank;
 
 public class RegionDelete {
 	
-	@Command(name = "deleteregion", description = "Deletes a region.", usage = "/deleteregion (name)", rank = Rank.ADMIN)
+	@Command(name = "deleteregion", description = "Deletes a region.", usage = "/deleteregion (name)", permission = "region.delete")
 	public void regionDelete(CommandArgs args) {
 		
 		if (args.length() < 1) {

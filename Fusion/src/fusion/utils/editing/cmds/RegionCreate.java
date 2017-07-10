@@ -10,7 +10,6 @@ import fusion.utils.editing.EditorSessions;
 import fusion.utils.editing.editors.RegionEditor;
 import fusion.utils.protection.ProtectedRegion;
 import fusion.utils.protection.RegionManager;
-import mpermissions.utils.permissions.Rank;
 
 /**
 	 * 
@@ -21,7 +20,7 @@ import mpermissions.utils.permissions.Rank;
 
 public class RegionCreate {
 	
-	@Command(name = "createregion", aliases = { "rg.create", "cr", "region.create" }, description = "Creates a protected region.", usage = "/createregion (name)", rank = Rank.ADMIN, inGameOnly = true)
+	@Command(name = "createregion", aliases = { "rg.create", "cr", "region.create" }, description = "Creates a protected region.", usage = "/createregion (name)", inGameOnly = true)
 	public void regionCreate(CommandArgs args) {
 		
 		Player player = args.getPlayer();

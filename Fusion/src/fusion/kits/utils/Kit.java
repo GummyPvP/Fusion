@@ -97,7 +97,7 @@ public abstract class Kit {
 
 		}
 
-		if (!user.ownsKit(this) && !isDefault() && !Fusion.getInstance().freekitfriday) {
+		if (!user.ownsKit(this) && !isDefault()) {
 
 			Chat.getInstance().messagePlayer(player,
 					String.format(Chat.BASE_COLOR + "You do not own " + Chat.IMPORTANT_COLOR + "%s", getName()));
@@ -106,8 +106,7 @@ public abstract class Kit {
 		}
 
 		user.setKit(this);
-		user.getPlayer().closeInventory();
-
+		
 		player.getInventory().clear();
 		player.getInventory().setArmorContents(null);
 
@@ -176,6 +175,8 @@ public abstract class Kit {
 		player.updateInventory();
 
 		StatsManager.getInstance().refreshScoreBoard(player, CombatLog.getInstance().isInCombat(player));
+		
+		user.getPlayer().closeInventory();
 
 	}
 

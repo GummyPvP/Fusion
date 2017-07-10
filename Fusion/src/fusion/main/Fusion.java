@@ -1,7 +1,6 @@
 package fusion.main;
 
 import java.text.DecimalFormat;
-import java.util.Calendar;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -21,19 +20,12 @@ import fusion.cmds.ClearKit;
 import fusion.cmds.CombatLogCommand;
 import fusion.cmds.EcoGive;
 import fusion.cmds.EcoSet;
-import fusion.cmds.FreeKitFriday;
 import fusion.cmds.KitCommand;
 import fusion.cmds.Pay;
 import fusion.cmds.SetGladiator;
 import fusion.cmds.SetSpawn;
 import fusion.cmds.SpawnCommand;
 import fusion.cmds.Stats;
-import fusion.cmds.Test;
-import fusion.events.ArenaManager;
-import fusion.events.EventManager;
-import fusion.events.cmds.EventCommand;
-import fusion.events.cmds.EventJoin;
-import fusion.events.listeners.EventInventoryClick;
 import fusion.kits.Archer;
 import fusion.kits.Endermage;
 import fusion.kits.Fisherman;
@@ -90,7 +82,6 @@ import fusion.listeners.PlayerMove;
 import fusion.listeners.PlayerQuit;
 import fusion.listeners.PlayerRespawn;
 import fusion.listeners.PlayerTeleport;
-import fusion.listeners.PlayerUpdateRankEvent;
 import fusion.listeners.TabComplete;
 import fusion.teams.cmds.TeamCommand;
 import fusion.teams.utils.TeamManager;
@@ -108,7 +99,6 @@ import fusion.utils.editing.cmds.RegionDelete;
 import fusion.utils.editing.cmds.RegionList;
 import fusion.utils.editing.cmds.SetFlag;
 import fusion.utils.editing.editors.RegionEditor;
-import fusion.utils.gui.EventJoinGUI;
 import fusion.utils.protection.BlockBreak;
 import fusion.utils.protection.BlockBurn;
 import fusion.utils.protection.BlockDecay;
@@ -135,11 +125,8 @@ public class Fusion extends JavaPlugin {
 	private static Fusion instance;
 
 	private CommandFramework framework;
-	public boolean freekitfriday = false;
 	private ConfigManager spawn, warps, regions, config, kitInfo, teams, arena;
 
-	private int day;
-	
 	public void onEnable() {
 
 		long startTime = System.nanoTime();
@@ -166,15 +153,15 @@ public class Fusion extends JavaPlugin {
 				new DropItem(), new MobSpawn(), new BlockIgnite(), new BlockDecay(), new BlockBurn(), new ThorEvent(),
 				new TabComplete(), new ChunkUnload(), new ChunkLoad(), new PlayerInteractEntity(), new SwitchEvent(),
 				new EndermageEvent(), new CommandPreprocess(), new SnailEvent(), new NinjaEvent(), new SharkEvent(),
-				new GladiatorEvent(), new PlayerUpdateRankEvent(), new PlayerMove(), new WimpEvent(),
-				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent(), EventManager.get(), new EventInventoryClick());
+				new GladiatorEvent(), new PlayerMove(), new WimpEvent(),
+				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent());
 
 		log("Listeners loaded");
 
-		loadCommands(new KitCommand(), new Test(), new WarpCreate(), new WarpList(), new SetSpawn(), new SpawnCommand(),
+		loadCommands(new KitCommand(), new WarpCreate(), new WarpList(), new SetSpawn(), new SpawnCommand(),
 				new RegionCreate(), new RegionList(), new SetFlag(), new WarpDelete(), new RegionDelete(),
 				new Balance(), new CombatLogCommand(), new ClearKit(), new CandyManCommands(), new EcoSet(),
-				new SetGladiator(), new EcoGive(), new FreeKitFriday(), new Pay(), new TeamCommand(), new Stats(), new EventCommand(), new EventJoin());
+				new SetGladiator(), new EcoGive(), new Pay(), new TeamCommand(), new Stats());
 
 		log("Commands loaded");
 
@@ -210,12 +197,6 @@ public class Fusion extends JavaPlugin {
 		
 		ConfigurationSerialization.registerClass(Bounds.class);
 		
-		ArenaManager.get().loadArenas();
-		
-		EventManager.get().start();
-		
-		EventJoinGUI.get().populateInventory();
-		
 		if (Bukkit.getOnlinePlayers().size() != 0) {
 
 			for (Player online : Bukkit.getOnlinePlayers()) {
@@ -228,8 +209,6 @@ public class Fusion extends JavaPlugin {
 		
 		Utils.get().load();
 		
-		freeKitFriday();
-
 		long finishTime = System.nanoTime();
 
 		log("Finished in: " + TimeUnit.NANOSECONDS.toMillis(finishTime - startTime) + " ms");
@@ -246,8 +225,6 @@ public class Fusion extends JavaPlugin {
 
 		Spawn.getInstance().save();
 		
-		ArenaManager.get().saveArenas();
-
 		for (Player online : Bukkit.getOnlinePlayers()) {
 
 			mKitUser.getInstance(online).save();
@@ -573,102 +550,4 @@ public class Fusion extends JavaPlugin {
 		System.out.println("[Fusion] " + s);
 
 	}
-	public void freeKitFriday() {
-		
-		
-		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-			public void run() {
-				
-				day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-				
-				if (day == 6 && !freekitfriday) {
-					
-					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "freekitfriday");
-					
-				}
-				if (day != 6 && freekitfriday) {
-					
-					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "freekitfriday");
-					
-				}
-				
-			}
-		}, 20L, 20 * 5L);
-		
-	}
-
-	/*
-	 *
-	 * Copyright EchoPet - Not our code!!!
-	 *
-	 * @param clazz
-	 *            - Class that holds our custom entity
-	 * @param name
-	 *            - User friendly name? I don't exactly know what it's for
-	 * @param id
-	 *            - The network ID for the client to use
-	 */
-
-	// @SuppressWarnings("unchecked")
-	// public static void registerEntity(Class<? extends EntityInsentient>
-	// clazz, String name, int id) {
-	// try {
-	// Field field_c = EntityTypes.class.getDeclaredField("c");
-	// Field field_d = EntityTypes.class.getDeclaredField("d");
-	// Field field_f = EntityTypes.class.getDeclaredField("f");
-	// Field field_g = EntityTypes.class.getDeclaredField("g");
-	// field_c.setAccessible(true);
-	// field_d.setAccessible(true);
-	// field_f.setAccessible(true);
-	// field_g.setAccessible(true);
-	//
-	// Map<String, Class<?>> c = (Map<String, Class<?>>) field_c.get(field_c);
-	// Map<Class<?>, String> d = (Map<Class<?>, String>) field_d.get(field_d);
-	// Map<Class<?>, Integer> f = (Map<Class<?>, Integer>) field_f.get(field_f);
-	// Map<String, Integer> g = (Map<String, Integer>) field_g.get(field_g);
-	//
-	// Iterator<String> i = c.keySet().iterator();
-	// while (i.hasNext()) {
-	// String s = i.next();
-	// if (s.equals(name)) {
-	// i.remove();
-	// }
-	// }
-	//
-	// Iterator<Class<?>> i2 = d.keySet().iterator();
-	// while (i2.hasNext()) {
-	// Class<?> cl = i2.next();
-	// if (cl.getCanonicalName().equals(clazz.getCanonicalName())) {
-	// i2.remove();
-	// }
-	// }
-	//
-	// Iterator<Class<?>> i3 = f.keySet().iterator();
-	// while (i2.hasNext()) {
-	// Class<?> cl = i3.next();
-	// if (cl.getCanonicalName().equals(clazz.getCanonicalName())) {
-	// i3.remove();
-	// }
-	// }
-	//
-	// Iterator<String> i4 = g.keySet().iterator();
-	// while (i4.hasNext()) {
-	// String s = i4.next();
-	// if (s.equals(name)) {
-	// i4.remove();
-	// }
-	// }
-	//
-	// c.put(name, clazz);
-	// d.put(clazz, name);
-	// f.put(clazz, id);
-	// g.put(name, id);
-	// } catch (Exception e) {
-	//
-	// System.out.println("Couldn't register " + name + " ID: " + id + "!");
-	//
-	// e.printStackTrace();
-	// }
-	// }
-
 }

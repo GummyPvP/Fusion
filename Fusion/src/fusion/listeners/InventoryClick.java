@@ -5,20 +5,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
 
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
-import fusion.utils.gui.CandyGUI;
 import fusion.utils.gui.KitGUI;
 import fusion.utils.gui.ShopGUI;
 import fusion.utils.gui.WarpGUI;
 import fusion.utils.warps.Warp;
 import fusion.utils.warps.WarpManager;
-import klap.utils.mPlayer;
-import mpermissions.utils.permissions.Rank;
 
 /*
  * 
@@ -137,80 +133,5 @@ public class InventoryClick implements Listener {
 
 			return;
 		}
-
-		/**
-		 * 
-		 * Candyman
-		 * 
-		 */
-
-		if (e.getInventory().getName().contains(CandyGUI.INVENTORY_NAME)) {
-
-			ItemStack item = e.getCurrentItem();
-			mPlayer user = mPlayer.getInstance(player);
-
-			switch (item.getType()) {
-			case IRON_INGOT:
-
-				player.sendMessage("you got 250 candies from default prize");
-
-				break;
-
-			case GOLD_INGOT:
-
-				if (user.getGroup().getRank().hasRequiredRank(Rank.SLIME)) {
-
-					player.sendMessage("you got 250 candies from slime prize");
-
-					break;
-				}
-
-				player.sendMessage("no perms");
-
-				break;
-
-			case DIAMOND:
-
-				if (user.getGroup().getRank().hasRequiredRank(Rank.HARIBO)) {
-
-					player.sendMessage("you got 250 candies from haribo prize");
-
-					break;
-				}
-
-				player.sendMessage("no perms");
-
-				break;
-
-			case EMERALD:
-
-				if (user.getGroup().getRank().hasRequiredRank(Rank.GUMMY)) {
-
-					player.sendMessage("you got 250 candies from gummy prize");
-
-					break;
-				}
-
-				player.sendMessage("no perms");
-
-				break;
-
-			case WATCH:
-
-				player.closeInventory();
-				new ShopGUI(player);
-
-				break;
-
-			default:
-
-				player.sendMessage("random item");
-
-				break;
-			}
-
-			return;
-		}
 	}
-
 }

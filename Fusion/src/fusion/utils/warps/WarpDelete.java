@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 import fusion.utils.chat.Chat;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
-import mpermissions.utils.permissions.Rank;
 
 /**
 	 * 
@@ -16,7 +15,7 @@ import mpermissions.utils.permissions.Rank;
 
 public class WarpDelete {
 	
-	@Command(name = "delwarp", usage = "/delwarp (name)", description= "Deletes a warp", rank = Rank.ADMIN, inGameOnly = true)
+	@Command(name = "delwarp", usage = "/delwarp (name)", description= "Deletes a warp", permission = "warp.delete", inGameOnly = true)
 	public void warpCreate(CommandArgs args) {
 		
 		Player player = args.getPlayer();

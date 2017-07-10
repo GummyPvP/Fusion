@@ -10,9 +10,9 @@ import fusion.main.Fusion;
 import fusion.teams.utils.Team;
 import fusion.teams.utils.TeamManager;
 import fusion.utils.mKitUser;
+import fusion.utils.chat.Chat;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
-import klap.utils.Chat;
 
 public class Stats {
 

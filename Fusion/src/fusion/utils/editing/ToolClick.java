@@ -10,8 +10,6 @@ import org.bukkit.inventory.ItemStack;
 
 import fusion.utils.chat.Chat;
 import fusion.utils.editing.event.PlayerSelectPointEvent;
-import klap.utils.mPlayer;
-import mpermissions.utils.permissions.Rank;
 
 /**
 	 * 
@@ -34,9 +32,9 @@ public class ToolClick implements Listener {
 		
 		if (EditorManager.getInstance().getEditor(item.getType()) == null) return;
 		
-		if (!mPlayer.getInstance(player).getGroup().getRank().hasRequiredRank(Rank.ADMIN)) return;
-		
 		Editor editor = EditorManager.getInstance().getEditor(item.getType());
+		
+		if (!player.hasPermission("region.wand." + editor.getName())) return;
 		
 		if (editor.getTool() == item.getType()) {
 			

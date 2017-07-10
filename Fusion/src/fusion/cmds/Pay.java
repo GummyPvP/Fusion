@@ -8,7 +8,6 @@ import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
-import mpermissions.utils.permissions.Rank;
 
 /**
  * 
@@ -18,7 +17,7 @@ import mpermissions.utils.permissions.Rank;
 
 public class Pay {
 
-	@Command(name = "pay", description = "pays another player", usage = "/pay <player> <amount>", rank = Rank.MEMBER)
+	@Command(name = "pay", description = "pays another player", usage = "/pay <player> <amount>")
 	public void ecosetCommand(CommandArgs args) {
 
 		if (args.length() != 2) {

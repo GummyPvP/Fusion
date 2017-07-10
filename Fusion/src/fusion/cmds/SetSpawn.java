@@ -6,7 +6,6 @@ import fusion.utils.chat.Chat;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
 import fusion.utils.spawn.Spawn;
-import mpermissions.utils.permissions.Rank;
 
 /**
 	 * 
@@ -17,7 +16,7 @@ import mpermissions.utils.permissions.Rank;
 
 public class SetSpawn {
 	
-	@Command(name = "setspawn", aliases = { "spawnset" }, usage = "/setspawn (radius)", description = "Sets the spawnpoint", rank = Rank.ADMIN, inGameOnly = true)
+	@Command(name = "setspawn", aliases = { "spawnset" }, usage = "/setspawn", description = "Sets the spawnpoint", permission = "spawn.set", inGameOnly = true)
 	public void commandSetSpawn(CommandArgs args) {
 		
 		Player player = args.getPlayer();

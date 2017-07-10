@@ -6,7 +6,6 @@ import fusion.utils.command.CommandArgs;
 import fusion.utils.protection.ProtectedRegion;
 import fusion.utils.protection.Region;
 import fusion.utils.protection.RegionManager;
-import mpermissions.utils.permissions.Rank;
 
 /**
 	 * 
@@ -17,7 +16,7 @@ import mpermissions.utils.permissions.Rank;
 
 public class RegionList {
 	
-	@Command(name = "regions", aliases = { "listregions", "regionlist" }, description = "Lists the regions loaded.", usage = "/regions", rank = Rank.MODERATOR)
+	@Command(name = "regions", aliases = { "listregions", "regionlist" }, description = "Lists the regions loaded.", usage = "/regions", permission = "region.list")
 	public void regionList(CommandArgs args) {
 		
 		Chat.getInstance().messagePlayer(args.getSender(), Chat.SECONDARY_BASE + "Regions: ");

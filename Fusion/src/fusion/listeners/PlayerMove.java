@@ -10,8 +10,6 @@ import fusion.utils.protection.ProtectedRegion;
 import fusion.utils.protection.Region;
 import fusion.utils.protection.RegionManager;
 import fusion.utils.spawn.Spawn;
-import klap.utils.mPlayer;
-import mpermissions.utils.permissions.Rank;
 
 public class PlayerMove implements Listener {
 
@@ -30,7 +28,7 @@ public class PlayerMove implements Listener {
 			
 			if (reg.isPVPEnabled()) {
 
-				if (!mPlayer.getInstance(event.getPlayer()).getGroup().getRank().hasRequiredRank(Rank.MODERATOR)) {
+				if (!event.getPlayer().hasPermission("protectedregion.leave-nokit")) {
 
 					Spawn.getInstance().teleport(event.getPlayer());
 

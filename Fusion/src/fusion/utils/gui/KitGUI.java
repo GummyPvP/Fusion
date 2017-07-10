@@ -16,7 +16,6 @@ import org.bukkit.potion.PotionEffect;
 
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
-import fusion.main.Fusion;
 import fusion.utils.ItemBuilder;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
@@ -118,28 +117,16 @@ public class KitGUI {
 
 		int ownedKits = 0;
 
-		if (Fusion.getInstance().freekitfriday) {
 
-			for (Kit kits : KitManager.getInstance().getKits()) {
+		for (Kit kits : checkedKits) {
 
-				ownedKits++;
+			if (!user.ownsKit(kits) && !kits.isDefault())
+				continue;
 
-				inv.addItem(createKitItem(kits));
+			inv.addItem(createKitItem(kits));
 
-			}
+			ownedKits++;
 
-		} else {
-
-			for (Kit kits : checkedKits) {
-
-				if (!user.ownsKit(kits) && !kits.isDefault())
-					continue;
-
-				inv.addItem(createKitItem(kits));
-
-				ownedKits++;
-
-			}
 		}
 
 		inv.setItem(8,

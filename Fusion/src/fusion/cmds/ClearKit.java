@@ -12,8 +12,6 @@ import fusion.utils.chat.Chat;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
 import fusion.utils.spawn.Spawn;
-import klap.utils.mPlayer;
-import mpermissions.utils.permissions.Rank;
 
 /**
  * 
@@ -47,7 +45,7 @@ public class ClearKit {
 				return;
 			}
 
-			if (mPlayer.getInstance(args.getPlayer()).getGroup().getRank().hasRequiredRank(Rank.ADMIN)) {
+			if (user.getPlayer().hasPermission("kit.clear.bypass")) {
 
 				user.clearKit();
 
@@ -60,6 +58,7 @@ public class ClearKit {
 					args.getPlayer().removePotionEffect(pt.getType());
 					
 				}
+				
 				Chat.getInstance().messagePlayer(args.getPlayer(),
 						" &4&4BYPASS: " + Chat.SECONDARY_BASE + "Your kit has been cleared!");
 
@@ -101,7 +100,7 @@ public class ClearKit {
 
 		}
 
-		if (mPlayer.getInstance(args.getPlayer()).getGroup().getRank().hasRequiredRank(Rank.MODPLUS)) {
+		if (args.getPlayer().hasPermission("kit.clear.others")) {
 
 			Player target = Bukkit.getPlayer(args.getArgs(0));
 

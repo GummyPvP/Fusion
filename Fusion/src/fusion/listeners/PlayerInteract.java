@@ -30,8 +30,6 @@ import fusion.utils.gui.WarpGUI;
 import fusion.utils.protection.ProtectedRegion.HealingItem;
 import fusion.utils.protection.Region;
 import fusion.utils.protection.RegionManager;
-import klap.utils.mPlayer;
-import mpermissions.utils.permissions.Rank;
 
 /**
  * 
@@ -50,7 +48,7 @@ public class PlayerInteract implements Listener {
 		mKitUser user = mKitUser.getInstance(player);
 
 		if (e.getClickedBlock() != null && e.getClickedBlock().getType() == Material.CHEST
-				&& !mPlayer.getInstance(player).getGroup().getRank().hasRequiredRank(Rank.ADMIN)) {
+				&& !player.hasPermission("chests.view")) {
 
 			e.setCancelled(true);
 
@@ -208,7 +206,7 @@ public class PlayerInteract implements Listener {
 
 			case LEATHER:
 
-				if (mPlayer.getInstance(player).getGroup().getRank().hasRequiredRank(Rank.MODPLUS)) {
+				if (player.hasPermission("region.view")) {
 
 					if (e.getAction() != Action.RIGHT_CLICK_BLOCK)
 						return;

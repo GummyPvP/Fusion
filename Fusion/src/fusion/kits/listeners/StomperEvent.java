@@ -10,7 +10,6 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import fusion.kits.utils.KitManager;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
-import fusion.utils.multiplier.MultiplierManager;
 import fusion.utils.protection.RegionManager;
 
 /**
@@ -66,9 +65,7 @@ public class StomperEvent implements Listener {
 			if (!target.isDead())
 				return;
 
-			MultiplierManager.getInstance().updateMultiplier(player);
-			
-			double reward = MultiplierManager.getInstance().executeMultiplier(player, 15);
+			double reward = 15.0;
 
 			mKitUser.getInstance(player).addCandies(reward);
 

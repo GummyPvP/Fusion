@@ -8,7 +8,6 @@ import fusion.utils.protection.ProtectedRegion;
 import fusion.utils.protection.ProtectedRegion.HealingItem;
 import fusion.utils.protection.Region;
 import fusion.utils.protection.RegionManager;
-import mpermissions.utils.permissions.Rank;
 
 /**
  * 
@@ -19,7 +18,7 @@ import mpermissions.utils.permissions.Rank;
 
 public class SetFlag {
 
-	@Command(name = "setflag", description = "Sets flags to a region.", usage = "/setflag (region) (flag) (modifier)", rank = Rank.ADMIN)
+	@Command(name = "setflag", description = "Sets flags to a region.", usage = "/setflag (region) (flag) (modifier)", permission = "region.setflag")
 	public void addFlag(CommandArgs args) {
 
 		if (args.length() < 3) {
