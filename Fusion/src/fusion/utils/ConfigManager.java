@@ -47,9 +47,11 @@ public class ConfigManager {
 			try {
 				if (dir != null) {
 					file.createNewFile();
-				} else
-					Fusion.getInstance().saveResource(fileName + ".yml", false);
-
+					return;
+				} 
+				
+				attemptFileGrabFromJar(fileName, false);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -57,6 +59,15 @@ public class ConfigManager {
 
 		config = YamlConfiguration.loadConfiguration(file);
 
+	}
+	
+	public void attemptFileGrabFromJar(String fileName, boolean replace) {
+		try {
+			
+			Fusion.getInstance().saveResource(fileName + ".yml", replace);
+			
+		} catch (Exception e) { }
+		
 	}
 
 	public void set(String path, Object value) {

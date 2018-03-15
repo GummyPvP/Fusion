@@ -24,6 +24,13 @@ public class WarpList {
 		
 		if (args.length() < 1) {
 			
+			if (WarpManager.getInstance().getWarps().isEmpty()) {
+				
+				Chat.getInstance().messagePlayer(player, Chat.IMPORTANT_COLOR + "No warps are currently set!");
+				
+				return;
+			}
+			
 			new WarpGUI(player);
 			
 			return;

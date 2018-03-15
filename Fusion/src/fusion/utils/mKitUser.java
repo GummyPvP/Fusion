@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 
@@ -186,7 +187,14 @@ public class mKitUser {
 	}
 
 	public void load() {
-
+		
+		if (file == null) {
+			
+			player.kickPlayer(ChatColor.RED + "Your profile did not load correctly, please rejoin. If the problem persists, contact a staff member via the forums.");
+			
+			return;
+		}
+		
 		if (file.contains("profile.candies")) {
 
 			setCandies(file.getDouble("profile.candies"));

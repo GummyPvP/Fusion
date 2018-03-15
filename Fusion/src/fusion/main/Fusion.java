@@ -126,7 +126,7 @@ public class Fusion extends JavaPlugin {
 	private static Fusion instance;
 
 	private CommandFramework framework;
-	private ConfigManager spawn, warps, regions, config, kitInfo, teams, arena;
+	private ConfigManager spawn, warps, regions, config, kitInfo, teams;
 	
 	public void onEnable() {
 
@@ -141,7 +141,6 @@ public class Fusion extends JavaPlugin {
 		config = new ConfigManager("config", null);
 		kitInfo = new ConfigManager("kit_info", null);
 		teams = new ConfigManager("teams", null);
-		arena = new ConfigManager("arena", null);
 		
 		// registerEntity(CandyMan.class, "Candyman", 120);
 		
@@ -500,10 +499,6 @@ public class Fusion extends JavaPlugin {
 
 	public ConfigManager getTeamsFile() {
 		return teams;
-	}
-
-	public ConfigManager getArenaFile() {
-		return arena;
 	}
 	
 	private void loadListeners(Listener... listeners) {
