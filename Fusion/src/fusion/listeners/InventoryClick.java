@@ -32,8 +32,6 @@ public class InventoryClick implements Listener {
 			return;
 		if (e.getInventory().getName() == null)
 			return;
-		if (!e.getInventory().getName().contains("GummyPvP"))
-			return;
 		if (e.getCurrentItem() == null)
 			return;
 		if (!e.getCurrentItem().hasItemMeta())
@@ -43,9 +41,9 @@ public class InventoryClick implements Listener {
 
 		Player player = (Player) e.getWhoClicked();
 
-		e.setCancelled(true);
-
 		if (e.getInventory().getName().contains(KitGUI.INVENTORY_NAME)) {
+			
+			e.setCancelled(true);
 
 			if (KitManager.getInstance()
 					.valueOf(ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName())) == null) {
@@ -88,6 +86,8 @@ public class InventoryClick implements Listener {
 		 */
 
 		if (e.getInventory().getName().contains(ShopGUI.INVENTORY_NAME)) {
+			
+			e.setCancelled(true);
 
 			if (KitManager.getInstance()
 					.valueOf(ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName())) == null)
@@ -122,6 +122,8 @@ public class InventoryClick implements Listener {
 		 */
 
 		if (e.getInventory().getName().contains(WarpGUI.INVENTORY_NAME)) {
+			
+			e.setCancelled(true);
 
 			Warp warp = WarpManager.getInstance()
 					.getWarp(ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()));

@@ -102,8 +102,8 @@ public class PlayerDeath implements Listener {
 		killer.addCandies(rewardAmount);
 		user.removeCandies(rewardAmount);
 		
-
-		Chat.getInstance().messagePlayer(player, Chat.SECONDARY_BASE + "You lost " + Chat.IMPORTANT_COLOR + rewardAmount + Chat.SECONDARY_BASE + "candies for getting killed by " +  player.getName());
+		
+		Chat.getInstance().messagePlayer(player, Chat.SECONDARY_BASE + "You lost " + Chat.IMPORTANT_COLOR + rewardAmount + Chat.SECONDARY_BASE + " candies for getting killed by " +  player.getKiller().getName());
 
 		e.setDeathMessage(Chat.SECONDARY_BASE + player.getName() + Chat.IMPORTANT_COLOR + " ("
 				+ (oldKit == null ? "Nothing" : oldKit.getName()) + ") " + Chat.BASE_COLOR + "was slain by " 

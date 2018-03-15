@@ -233,23 +233,22 @@ public class CommandFramework implements CommandExecutor {
 	}
 
 	public void messageCommandInformation(CommandSender sender) {
-
+		
 		Set<String> commands = new HashSet<String>();
 		String tempString = "";
-
+		
 		for (String commandList : commandMap.keySet()) {
-
+			
 			if (!commandList.contains(".")) {
-
+				
 				org.bukkit.command.Command command = map.getCommand(commandList);
-
-				tempString = Chat.IMPORTANT_COLOR + command.getUsage() + Chat.BASE_COLOR + " - " + Chat.IMPORTANT_COLOR
-						+ command.getDescription();
+				
+				tempString = Chat.IMPORTANT_COLOR + command.getUsage() + Chat.BASE_COLOR + " - " + Chat.IMPORTANT_COLOR + command.getDescription();
 				commands.add(tempString);
 				tempString = "";
-
+				
 			}
-
+			
 		}
 
 		for (String message : commands) {

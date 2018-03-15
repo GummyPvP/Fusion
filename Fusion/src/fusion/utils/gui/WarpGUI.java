@@ -19,7 +19,7 @@ import fusion.utils.warps.WarpManager;
 
 public class WarpGUI extends GUI {
 	
-	public static final String INVENTORY_NAME = ChatColor.translateAlternateColorCodes('&', Settings.getSettings().WARP_GUI_NAME);
+	public static String INVENTORY_NAME = ChatColor.translateAlternateColorCodes('&', Settings.getSettings().WARP_GUI_NAME);
 	
 	public WarpGUI(Player player) {
 		

@@ -20,6 +20,7 @@ import fusion.cmds.ClearKit;
 import fusion.cmds.CombatLogCommand;
 import fusion.cmds.EcoGive;
 import fusion.cmds.EcoSet;
+import fusion.cmds.Help;
 import fusion.cmds.KitCommand;
 import fusion.cmds.Pay;
 import fusion.cmds.SetGladiator;
@@ -91,7 +92,6 @@ import fusion.utils.StatsManager;
 import fusion.utils.Utils;
 import fusion.utils.mKitUser;
 import fusion.utils.command.CommandFramework;
-import fusion.utils.crates.CrateManager;
 import fusion.utils.editing.EditorManager;
 import fusion.utils.editing.TeleportListener;
 import fusion.utils.editing.ToolClick;
@@ -164,7 +164,7 @@ public class Fusion extends JavaPlugin {
 		loadCommands(new KitCommand(), new WarpCreate(), new WarpList(), new SetSpawn(), new SpawnCommand(),
 				new RegionCreate(), new RegionList(), new SetFlag(), new WarpDelete(), new RegionDelete(),
 				new Balance(), new CombatLogCommand(), new ClearKit(), new CandyManCommands(), new EcoSet(),
-				new SetGladiator(), new EcoGive(), new Pay(), new TeamCommand(), new Stats());
+				new SetGladiator(), new EcoGive(), new Pay(), new TeamCommand(), new Stats(), new Help());
 
 		log("Commands loaded");
 
@@ -193,9 +193,7 @@ public class Fusion extends JavaPlugin {
 		EditorManager.getInstance().loadEditors();
 
 		RegionManager.getInstance().loadRegions();
-
-		CrateManager.getInstance().loadCrates();
-
+		
 		StatsManager.getInstance().startScoreboard(this);
 		
 		ConfigurationSerialization.registerClass(Bounds.class);
@@ -542,6 +540,10 @@ public class Fusion extends JavaPlugin {
 
 		return instance;
 
+	}
+	
+	public CommandFramework getCommandFramework() {
+		return framework;
 	}
 
 	private void log(String s) {
