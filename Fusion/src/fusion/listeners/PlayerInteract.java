@@ -29,6 +29,7 @@ import fusion.utils.gui.KitGUI;
 import fusion.utils.gui.ShopGUI;
 import fusion.utils.gui.WarpGUI;
 import fusion.utils.protection.ProtectedRegion.HealingItem;
+import fusion.utils.warps.WarpManager;
 import fusion.utils.protection.Region;
 import fusion.utils.protection.RegionManager;
 
@@ -199,6 +200,13 @@ public class PlayerInteract implements Listener {
 
 				if (item.hasItemMeta() && item.getItemMeta().getDisplayName().contains("Warps")) {
 
+					if (WarpManager.getInstance().getWarps().isEmpty()) {
+						
+						Chat.getInstance().messagePlayer(player, Chat.IMPORTANT_COLOR + "No warps are currently set!");
+						
+						return;
+					}
+					
 					new WarpGUI(player);
 
 					player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 0.5F, 1);
