@@ -1,10 +1,13 @@
 package fusion.utils.protection;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.util.Vector;
@@ -100,7 +103,62 @@ public class Bounds implements ConfigurationSerializable {
 		return volume;
 		
 	}
+	
+	public List<Vector> getEdges() {
+		
+		int minX = min.getBlockX();
+		int maxX = max.getBlockX();
+		
+		int minY = min.getBlockY();
+		int maxY = max.getBlockY();
+		
+		int minZ = min.getBlockZ();
+		int maxZ = max.getBlockZ();
+		
+		int amountOfBlocks = (((maxX - minX) * (maxY - minY)) * 2) + (((maxZ - minZ) * (maxY - minY)) * 2);
+		
+		List<Vector> result = new ArrayList<Vector>(amountOfBlocks);
+		
+		for (int y = minY + 1; y <= maxY; y++) {
+			
+			for (int x = minX; x <= maxX; x++) {
+				
+				result.add(new Vector(x, y, minZ));
+				result.add(new Vector(x, y, maxZ));
+				
+			}
+			
+			for (int z = minZ; z <= maxZ; z++) {
+				
+				result.add(new Vector(minX, y, z));
+				result.add(new Vector(maxX, y, z));
+				
+			}
+			
+		}
+		
+		return result;
+		
+	}
 
+	public void generateHollowCube(int radius) { // Thanks Bukkit forums
+		
+		for (int x = 0; x < radius; x++) {
+		    for (int z = 0; z < radius; z++) {
+		        for (int y = 0; y <= radius / 2; y++) {
+		            Location loc = new Location(world, min.getBlockX() + x, min.getBlockY() + y, min.getBlockZ() + z);
+		            if (y != (radius / 2) && y!=0) {
+		                if ((x >= 0 && z == 0) || (x >= 0 && z == radius - 1) ||( x == 0 && z >= 0) || (x == radius - 1 && z >= 0))
+		                    loc.getBlock().setType(Material.GLASS);
+		            } else {
+		                loc.getBlock().setType(Material.GLASS);
+		            }
+		        }
+		    }
+		}
+		
+	}
+	
 	@Override
 	public Map<String, Object> serialize() {
 		

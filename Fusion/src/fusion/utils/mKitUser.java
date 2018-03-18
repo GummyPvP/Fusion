@@ -199,7 +199,7 @@ public class mKitUser {
 
 			setCandies(file.getDouble("profile.candies"));
 
-		}
+		} else setCandies(100.0);
 
 		if (file.contains("settings.healingItem")) {
 
