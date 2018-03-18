@@ -65,6 +65,7 @@ import fusion.kits.listeners.ViperEvent;
 import fusion.kits.listeners.WimpEvent;
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
+import fusion.kits.utils.kitutils.GladiatorManager;
 import fusion.listeners.AsyncPlayerChat;
 import fusion.listeners.ChunkLoad;
 import fusion.listeners.ChunkUnload;
@@ -107,6 +108,7 @@ import fusion.utils.protection.BlockDecay;
 import fusion.utils.protection.BlockIgnite;
 import fusion.utils.protection.BlockPlace;
 import fusion.utils.protection.Bounds;
+import fusion.utils.protection.GladiatorArena;
 import fusion.utils.protection.PlayerDamage;
 import fusion.utils.protection.RegionManager;
 import fusion.utils.spawn.Spawn;
@@ -239,6 +241,10 @@ public class Fusion extends JavaPlugin {
 		WarpManager.getInstance().saveWarps();
 
 		RegionManager.getInstance().saveRegions();
+		
+		for (GladiatorArena arena : GladiatorManager.getInstance().getArenas()) {
+			arena.destroyArena();
+		}
 
 	}
 

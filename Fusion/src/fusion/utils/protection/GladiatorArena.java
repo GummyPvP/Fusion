@@ -140,7 +140,7 @@ public class GladiatorArena {
 		
 	}
 	
-	private void destroyArena() {
+	public void destroyArena() {
 		
 		for (BlockState currentBlockState : oldBlockStates) {
 			
