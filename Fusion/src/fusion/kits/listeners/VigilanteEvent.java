@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,6 +12,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import fusion.kits.utils.KitManager;
+import fusion.main.Fusion;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
 import fusion.utils.protection.RegionManager;
@@ -44,12 +46,23 @@ public class VigilanteEvent implements Listener {
 			e.getPlayer().setItemInHand(new ItemStack(Material.AIR));
 			e.getPlayer().updateInventory();
 			
-			Location location = new Location(Bukkit.getServer().getWorld("NightskyKitpvp"), 406.904, 72, 1196.976);
+			Location location;
+			World world;
+			double x, y, z;
+			int yaw, pitch;
+			
+			world = Bukkit.getWorld(Fusion.getInstance().getKitInfoFile().getString("vigilante.world"));
+			x = Fusion.getInstance().getKitInfoFile().getDouble("vigilante.x");
+			y = Fusion.getInstance().getKitInfoFile().getDouble("vigilante.y");
+			z = Fusion.getInstance().getKitInfoFile().getDouble("vigilante.z");
+			yaw = Fusion.getInstance().getKitInfoFile().getInt("vigilante.yaw");
+			pitch = Fusion.getInstance().getKitInfoFile().getInt("vigilante.pitch");
+			location = new Location(world, x, y, z, yaw, pitch);
 			
 			e.getPlayer().teleport(location);
 			
 			Chat.getInstance().messagePlayer(p, "&aYou've been teleported to the Hideout!");
-			Bukkit.getServer().broadcastMessage(ChatColor.GREEN + "Vigilante "+ p.getName() + " has hid away to avoid arrest!");
+			Bukkit.getServer().broadcastMessage(ChatColor.GREEN + "Vigilante "+ p.getName() + " has hid away to avoid execution!");
 			
 		}
 		

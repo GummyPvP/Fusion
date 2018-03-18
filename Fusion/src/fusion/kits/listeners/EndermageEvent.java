@@ -63,13 +63,16 @@ public class EndermageEvent implements Listener {
 			int amount = 0;
 
 			for (Entity entities : player.getNearbyEntities(5.0, 256.0, 5.0)) {
-
+				
 				if (!(entities instanceof Player))
 					continue;
-
+				
 				Player teleporter = (Player) entities;
 
 				if (teleporter.getGameMode() == GameMode.CREATIVE)
+					continue;
+				
+				if (RegionManager.getInstance().isInProtectedRegion(teleporter)) 
 					continue;
 
 				teleporter.teleport(e.getBlock().getLocation());

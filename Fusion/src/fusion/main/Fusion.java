@@ -25,6 +25,7 @@ import fusion.cmds.KitCommand;
 import fusion.cmds.Pay;
 import fusion.cmds.SetGladiator;
 import fusion.cmds.SetSpawn;
+import fusion.cmds.SetVigilante;
 import fusion.cmds.SpawnCommand;
 import fusion.cmds.Stats;
 import fusion.kits.Archer;
@@ -163,7 +164,7 @@ public class Fusion extends JavaPlugin {
 		loadCommands(new KitCommand(), new WarpCreate(), new WarpList(), new SetSpawn(), new SpawnCommand(),
 				new RegionCreate(), new RegionList(), new SetFlag(), new WarpDelete(), new RegionDelete(),
 				new Balance(), new CombatLogCommand(), new ClearKit(), new CandyManCommands(), new EcoSet(),
-				new SetGladiator(), new EcoGive(), new Pay(), new TeamCommand(), new Stats(), new Help());
+				new SetGladiator(), new EcoGive(), new Pay(), new TeamCommand(), new Stats(), new Help(), new SetVigilante());
 
 		log("Commands loaded");
 
@@ -419,7 +420,7 @@ public class Fusion extends JavaPlugin {
 					return ChatColor.GREEN + "Not in combat";
 				}
 
-				return ChatColor.RED + String.valueOf(CombatLog.getInstance().getRemainingTime(player));
+				return ChatColor.RED + String.valueOf("Combat: " + CombatLog.getInstance().getRemainingTime(player));
 
 			}
 		});

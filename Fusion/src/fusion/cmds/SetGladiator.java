@@ -15,7 +15,7 @@ import fusion.utils.command.CommandArgs;
 
 public class SetGladiator {
 	
-	@Command(name = "setgladiator", description = "Set gladiator spawn positions", usage = "/setgladiator (position)")
+	@Command(name = "setgladiator", description = "Set gladiator spawn positions", usage = "/setgladiator (position)", permission = "gladiator.set")
 	public void setGladiatorCommand(CommandArgs args) {
 		
 		Player player = args.getPlayer();

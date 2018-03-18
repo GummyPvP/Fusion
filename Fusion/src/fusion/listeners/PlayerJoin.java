@@ -39,21 +39,16 @@ public class PlayerJoin implements Listener {
 		player.getInventory().setBoots(new ItemStack(Material.AIR));
 
 		player.getActivePotionEffects().clear();
-
+		
 		player.updateInventory();
+		
+		
+		if (mKitUser.getInstance(player).getTeam() == null) 
+			return;
 
-		StatsManager.getInstance().refreshScoreBoard(player, false);
+		for (Player teammembers : mKitUser.getInstance(player).getTeam().getOnlineMemebers(player)) {
 
-		if (mKitUser.getInstance(player).getTeam() != null) {
-
-			for (Player teammembers : mKitUser.getInstance(player).getTeam().getOnlineMemebers(player)) {
-
-
-					Utils.sendActionBar(teammembers, ChatColor.translateAlternateColorCodes('&',
-							player.getDisplayName() + " &ajust logged in!"), 20 * 5);
-
-				
-			}
+			Utils.sendActionBar(teammembers, ChatColor.translateAlternateColorCodes('&', player.getDisplayName() + " &ajust logged in!"), 20 * 5);
 
 		}
 

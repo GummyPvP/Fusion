@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Instrument;
 import org.bukkit.Material;
 import org.bukkit.Note;
@@ -58,6 +59,8 @@ public class PlayerInteract implements Listener {
 
 			if (e.getClickedBlock() != null && e.getClickedBlock().getType() == Material.ENDER_CHEST) {
 
+				if (player.getGameMode() == GameMode.CREATIVE) return;
+				
 				e.setCancelled(true);
 
 				if (user.getCandies() >= 50) {
