@@ -1,4 +1,4 @@
-package fusion.utils.protection;
+package fusion.utils.editing.regions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +16,7 @@ import org.bukkit.util.Vector;
 import fusion.kits.utils.Kit;
 import fusion.main.Fusion;
 import fusion.utils.ItemBuilder;
+import fusion.utils.editing.Bounds;
 
 /**
  * 

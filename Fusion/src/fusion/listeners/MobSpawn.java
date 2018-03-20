@@ -5,7 +5,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
-import fusion.utils.protection.RegionManager;
+import fusion.utils.editing.regions.RegionManager;
 
 /**
 	 * 

@@ -2,16 +2,13 @@ package fusion.cmds;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
 
 import fusion.listeners.CombatLog;
 import fusion.main.Fusion;
-import fusion.utils.Utils;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
-import fusion.utils.spawn.Spawn;
 
 /**
  * 
@@ -49,16 +46,6 @@ public class ClearKit {
 
 				user.clearKit();
 
-				Utils.giveDefaultItems(args.getPlayer());
-
-				Spawn.getInstance().teleport(args.getPlayer());
-				
-				for (PotionEffect pt : args.getPlayer().getActivePotionEffects()) {
-					
-					args.getPlayer().removePotionEffect(pt.getType());
-					
-				}
-				
 				Chat.getInstance().messagePlayer(args.getPlayer(),
 						" &4&4BYPASS: " + Chat.SECONDARY_BASE + "Your kit has been cleared!");
 
@@ -74,22 +61,12 @@ public class ClearKit {
 
 						Chat.getInstance().messagePlayer(args.getPlayer(),
 								Chat.IMPORTANT_COLOR + "You were combat tagged!");
-
+						
 						return;
 					}
 
 					user.clearKit();
 
-					Utils.giveDefaultItems(args.getPlayer());
-
-					Spawn.getInstance().teleport(args.getPlayer());
-
-					for (PotionEffect pt : args.getPlayer().getActivePotionEffects()) {
-						
-						args.getPlayer().removePotionEffect(pt.getType());
-						
-					}
-					
 					Chat.getInstance().messagePlayer(args.getPlayer(),
 							Chat.SECONDARY_BASE + "Your kit has been cleared!");
 
@@ -121,16 +98,6 @@ public class ClearKit {
 			}
 
 			user.clearKit();
-
-			Utils.giveDefaultItems(target);
-
-			Spawn.getInstance().teleport(target);
-
-			for (PotionEffect pt : args.getPlayer().getActivePotionEffects()) {
-				
-				args.getPlayer().removePotionEffect(pt.getType());
-				
-			}
 			
 			Chat.getInstance().messagePlayer(target,
 					Chat.SECONDARY_BASE + "Your kit has been cleared by a staff member!");
@@ -142,5 +109,4 @@ public class ClearKit {
 		}
 
 	}
-
 }

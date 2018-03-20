@@ -8,7 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 
-import fusion.utils.StatsManager;
 import fusion.utils.Utils;
 import fusion.utils.mKitUser;
 import fusion.utils.spawn.Spawn;

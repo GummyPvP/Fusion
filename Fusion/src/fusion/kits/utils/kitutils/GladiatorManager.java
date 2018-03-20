@@ -6,7 +6,6 @@ import java.util.Set;
 import org.bukkit.entity.Player;
 
 import fusion.utils.mKitUser;
-import fusion.utils.protection.GladiatorArena;
 
 /**
 	 * 

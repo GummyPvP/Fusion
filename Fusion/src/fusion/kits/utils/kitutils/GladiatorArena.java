@@ -1,4 +1,4 @@
-package fusion.utils.protection;
+package fusion.kits.utils.kitutils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,10 +15,13 @@ import org.bukkit.util.Vector;
 
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
-import fusion.kits.utils.kitutils.GladiatorManager;
 import fusion.utils.Utils;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
+import fusion.utils.editing.Bounds;
+import fusion.utils.editing.regions.ProtectedRegion;
+import fusion.utils.editing.regions.Region;
+import fusion.utils.editing.regions.RegionManager;
 
 /**
 	 * 

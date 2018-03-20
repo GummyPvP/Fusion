@@ -13,10 +13,10 @@ import fusion.main.Fusion;
 import fusion.utils.StatsManager;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
-import fusion.utils.protection.ProtectedRegion;
-import fusion.utils.protection.ProtectedRegion.HealingItem;
-import fusion.utils.protection.Region;
-import fusion.utils.protection.RegionManager;
+import fusion.utils.editing.regions.ProtectedRegion;
+import fusion.utils.editing.regions.Region;
+import fusion.utils.editing.regions.RegionManager;
+import fusion.utils.editing.regions.ProtectedRegion.HealingItem;
 
 /**
  * 

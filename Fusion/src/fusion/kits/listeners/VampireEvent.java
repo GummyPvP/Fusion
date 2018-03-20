@@ -13,7 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 import fusion.kits.utils.KitManager;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
-import fusion.utils.protection.RegionManager;
+import fusion.utils.editing.regions.RegionManager;
 
 /**
  * 

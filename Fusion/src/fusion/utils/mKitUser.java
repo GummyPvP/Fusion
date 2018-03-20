@@ -14,7 +14,8 @@ import fusion.kits.utils.KitManager;
 import fusion.kits.utils.kitutils.GladiatorManager;
 import fusion.teams.utils.Team;
 import fusion.teams.utils.TeamManager;
-import fusion.utils.protection.ProtectedRegion.HealingItem;
+import fusion.utils.editing.regions.ProtectedRegion.HealingItem;
+import fusion.utils.spawn.Spawn;
 
 /**
  * 
@@ -173,6 +174,10 @@ public class mKitUser {
 		player.getInventory().clear();
 		player.getInventory().setArmorContents(null);
 
+		Utils.giveDefaultItems(player);
+
+		Spawn.getInstance().teleport(player);
+		
 		for (PotionEffect effect : player.getActivePotionEffects()) {
 
 			player.removePotionEffect(effect.getType());

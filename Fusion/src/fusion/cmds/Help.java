@@ -15,7 +15,7 @@ public class Help {
 	@Command(name = "fusion", description = "Displays the help information for Fusion", usage = "/fusion help", permission = "fusion.help")
 	public void helpCommand(CommandArgs args) {
 		
-		//Fusion.getInstance().getCommandFramework().messageCommandInformation(args.getSender());
+		Fusion.getInstance().getCommandFramework().messageCommandInformation(args.getSender());
 		
 	}
 	

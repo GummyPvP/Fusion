@@ -10,6 +10,9 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import fusion.main.Fusion;
+import fusion.utils.editing.regions.ProtectedRegion;
+import fusion.utils.editing.regions.Region;
+import fusion.utils.editing.regions.RegionManager;
 
 /**
 	 * 

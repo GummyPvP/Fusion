@@ -10,9 +10,9 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import fusion.kits.utils.KitManager;
+import fusion.kits.utils.kitutils.GladiatorArena;
 import fusion.kits.utils.kitutils.GladiatorManager;
-import fusion.utils.protection.GladiatorArena;
-import fusion.utils.protection.RegionManager;
+import fusion.utils.editing.regions.RegionManager;
 
 /*
  * 

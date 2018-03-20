@@ -254,7 +254,7 @@ public class CommandFramework implements CommandExecutor {
 		for (String message : commands) {
 
 			Chat.getInstance().messagePlayer(sender, message);
-			sender.sendMessage("");
+			//sender.sendMessage("");
 
 		}
 

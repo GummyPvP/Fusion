@@ -8,8 +8,8 @@ import fusion.utils.command.CommandArgs;
 import fusion.utils.editing.EditorSession;
 import fusion.utils.editing.EditorSessions;
 import fusion.utils.editing.editors.RegionEditor;
-import fusion.utils.protection.ProtectedRegion;
-import fusion.utils.protection.RegionManager;
+import fusion.utils.editing.regions.ProtectedRegion;
+import fusion.utils.editing.regions.RegionManager;
 
 /**
 	 * 

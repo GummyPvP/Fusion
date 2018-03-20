@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 
 import fusion.utils.mKitUser;
-import fusion.utils.protection.RegionManager;
+import fusion.utils.editing.regions.RegionManager;
 
 /**
 	 * 

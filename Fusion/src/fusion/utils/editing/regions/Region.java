@@ -1,4 +1,6 @@
-package fusion.utils.protection;
+package fusion.utils.editing.regions;
+
+import fusion.utils.editing.Bounds;
 
 /**
 	 * 

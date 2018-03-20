@@ -3,8 +3,8 @@ package fusion.utils.editing.cmds;
 import fusion.utils.chat.Chat;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
-import fusion.utils.protection.Region;
-import fusion.utils.protection.RegionManager;
+import fusion.utils.editing.regions.Region;
+import fusion.utils.editing.regions.RegionManager;
 
 /**
 	 * 

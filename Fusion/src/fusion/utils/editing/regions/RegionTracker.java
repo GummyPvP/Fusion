@@ -1,4 +1,4 @@
-package fusion.utils.protection;
+package fusion.utils.editing.regions;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -25,13 +25,13 @@ import org.bukkit.potion.PotionType;
 import fusion.utils.ItemBuilder;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
+import fusion.utils.editing.regions.Region;
+import fusion.utils.editing.regions.RegionManager;
+import fusion.utils.editing.regions.ProtectedRegion.HealingItem;
 import fusion.utils.gui.KitGUI;
 import fusion.utils.gui.ShopGUI;
 import fusion.utils.gui.WarpGUI;
-import fusion.utils.protection.ProtectedRegion.HealingItem;
 import fusion.utils.warps.WarpManager;
-import fusion.utils.protection.Region;
-import fusion.utils.protection.RegionManager;
 
 /**
  * 

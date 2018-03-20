@@ -9,8 +9,8 @@ import fusion.listeners.CombatLog;
 import fusion.main.Fusion;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
-import fusion.utils.protection.ProtectedRegion;
-import fusion.utils.protection.RegionManager;
+import fusion.utils.editing.regions.ProtectedRegion;
+import fusion.utils.editing.regions.RegionManager;
 
 /**
  * 

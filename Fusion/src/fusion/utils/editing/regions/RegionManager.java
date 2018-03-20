@@ -1,4 +1,4 @@
-package fusion.utils.protection;
+package fusion.utils.editing.regions;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,7 +12,7 @@ import org.bukkit.util.Vector;
 
 import fusion.kits.utils.KitManager;
 import fusion.main.Fusion;
-import fusion.utils.protection.ProtectedRegion.HealingItem;
+import fusion.utils.editing.regions.ProtectedRegion.HealingItem;
 
 /**
 	 * 

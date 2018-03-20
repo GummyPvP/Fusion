@@ -1,4 +1,4 @@
-package fusion.utils.protection;
+package fusion.utils.editing;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +11,8 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.util.Vector;
+
+import fusion.utils.editing.regions.Region;
 
 /**
 	 * 
