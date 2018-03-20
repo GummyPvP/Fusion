@@ -11,6 +11,7 @@ import org.bukkit.potion.PotionEffect;
 
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
+import fusion.kits.utils.kitutils.GladiatorManager;
 import fusion.teams.utils.Team;
 import fusion.teams.utils.TeamManager;
 import fusion.utils.protection.ProtectedRegion.HealingItem;
@@ -34,7 +35,6 @@ public class mKitUser {
 	private Kit kit, previousKit;
 	private double money;
 	private HealingItem item;
-	private boolean glad;
 	
 	private int kills;
 	private int deaths;
@@ -44,7 +44,6 @@ public class mKitUser {
 
 		this.player = player;
 		this.kit = null;
-		setGlad(false);
 		
 		this.file = new ConfigManager(player.getUniqueId().toString(), "players");
 		
@@ -145,12 +144,8 @@ public class mKitUser {
 		this.item = item;
 	}
 	
-	public boolean isGlad() {
-		return glad;
-	}
-
-	public void setGlad(boolean glad) {
-		this.glad = glad;
+	public boolean isInGladiatorArena() {
+		return GladiatorManager.getInstance().getArena(player) != null;
 	}
 
 	public int getKills() {

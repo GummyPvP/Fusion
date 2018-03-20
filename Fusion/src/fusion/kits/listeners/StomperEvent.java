@@ -39,7 +39,7 @@ public class StomperEvent implements Listener {
 		if (player.hasMetadata("noFall")) {
 			return;
 		}
-		if (mKitUser.getInstance(player).isGlad())
+		if (mKitUser.getInstance(player).isInGladiatorArena())
 			return;
 
 		double damage = e.getDamage();

@@ -29,7 +29,7 @@ public class WimpEvent implements Listener {
 
 		if (!KitManager.getInstance().hasRequiredKit(p, KitManager.getInstance().valueOf("Wimp")))
 			return;
-		if (mKitUser.getInstance(p).isGlad())
+		if (mKitUser.getInstance(p).isInGladiatorArena())
 			return;
 
 		if (p.getHealth() <= 8) {

@@ -47,7 +47,7 @@ public class ThorEvent implements Listener {
 
 		if (RegionManager.getInstance().isInProtectedRegion(player))
 			return;
-		if (mKitUser.getInstance(player).isGlad())
+		if (mKitUser.getInstance(player).isInGladiatorArena())
 			return;
 
 		if (!isInThorTimer(player)) {

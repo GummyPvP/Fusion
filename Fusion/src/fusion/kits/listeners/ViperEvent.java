@@ -33,7 +33,7 @@ public class ViperEvent implements Listener {
 
 		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Viper")))
 			return;
-		if (mKitUser.getInstance(player).isGlad())
+		if (mKitUser.getInstance(player).isInGladiatorArena())
 			return;
 		
 		if (RegionManager.getInstance().isInProtectedRegion(player)) return;

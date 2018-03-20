@@ -28,7 +28,7 @@ public class SharkEvent implements Listener {
 		if (!KitManager.getInstance().hasRequiredKit(p, KitManager.getInstance().valueOf("Shark")))
 			return;
 		
-		if (mKitUser.getInstance(p).isGlad())
+		if (mKitUser.getInstance(p).isInGladiatorArena())
 			return;
 		
 		if (p.getLocation().getBlock().isLiquid() == false) {

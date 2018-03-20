@@ -26,7 +26,7 @@ public class TurtleEvent implements Listener {
 		
 		if (!KitManager.getInstance().hasRequiredKit(player, "Turtle")) return;
 		
-		if (mKitUser.getInstance(player).isGlad())
+		if (mKitUser.getInstance(player).isInGladiatorArena())
 			return;
 		
 		if (!player.isSneaking()) return;

@@ -36,7 +36,7 @@ public class VampireEvent implements Listener {
 		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Vampire")))
 			return;
 		
-		if (mKitUser.getInstance(player).isGlad())
+		if (mKitUser.getInstance(player).isInGladiatorArena())
 			return;
 		
 		if (RegionManager.getInstance().isInProtectedRegion(player)) return;

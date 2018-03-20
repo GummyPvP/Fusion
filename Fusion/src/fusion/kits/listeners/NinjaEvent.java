@@ -36,7 +36,7 @@ public class NinjaEvent implements Listener {
 		
 		if (RegionManager.getInstance().isInProtectedRegion(player)) return;
 
-		if (mKitUser.getInstance(player).isGlad())
+		if (mKitUser.getInstance(player).isInGladiatorArena())
 			return;
 		
 		Random r = new Random();

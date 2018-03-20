@@ -45,7 +45,7 @@ public class EndermageEvent implements Listener {
 		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Endermage")))
 			return;
 
-		if (mKitUser.getInstance(player).isGlad())
+		if (mKitUser.getInstance(player).isInGladiatorArena())
 			return;
 
 		if (e.getBlock().getType() != Material.ENDER_PORTAL_FRAME)

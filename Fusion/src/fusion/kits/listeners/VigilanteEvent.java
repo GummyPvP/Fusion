@@ -38,7 +38,7 @@ public class VigilanteEvent implements Listener {
 		if (RegionManager.getInstance().isInProtectedRegion(e.getPlayer()))
 			
 			return;
-		if (mKitUser.getInstance(p).isGlad())
+		if (mKitUser.getInstance(p).isInGladiatorArena())
 			return;
 		
 		if (e.getPlayer().getItemInHand().getType() == Material.SULPHUR) {
