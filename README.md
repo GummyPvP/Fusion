@@ -13,4 +13,6 @@ Download links:
 
 Fusion is being released to the public in the hope that someone may one day find it useful, whether it's a server owner looking for some spice to throw on their players, or a developer looking to work on an open-source project. We will eventually get around to creating documentation for the plugin and its features, but for now, you're gonna kind of have to wing it.
 
+If anyone is interested in making changes to the code, send me a pull request. Until I see any sort of interest, however, expect direct forced pushes to the master branch from us, so message @Lemonbus before you make a huge change that can't be merged into the code base <3.
+
 This plugin uses extendedclip's PlaceHolderAPI for placeholders designed for scoreboards (we used FeatherBoard). Our own scoreboard code was relatively inefficient. The API made it a lot easier for us to just write it out and never look at it again :P. https://github.com/extendedclip/PlaceholderAPI
