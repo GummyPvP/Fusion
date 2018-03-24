@@ -1,6 +1,6 @@
 package fusion.main;
 
-import java.text.DecimalFormat;
+import java.io.IOException;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -11,27 +11,109 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import be.maximvdw.placeholderapi.*;
-import fusion.cmds.*;
-import fusion.kits.*;
-import fusion.kits.listeners.*;
+import be.maximvdw.placeholderapi.PlaceholderAPI;
+import be.maximvdw.placeholderapi.PlaceholderReplaceEvent;
+import be.maximvdw.placeholderapi.PlaceholderReplacer;
+import fusion.cmds.Balance;
+import fusion.cmds.CandyManCommands;
+import fusion.cmds.ClearKit;
+import fusion.cmds.CombatLogCommand;
+import fusion.cmds.EcoGive;
+import fusion.cmds.EcoSet;
+import fusion.cmds.Help;
+import fusion.cmds.KitCommand;
+import fusion.cmds.Pay;
+import fusion.cmds.SetSpawn;
+import fusion.cmds.SetVigilante;
+import fusion.cmds.SpawnCommand;
+import fusion.cmds.Stats;
+import fusion.kits.Archer;
+import fusion.kits.Endermage;
+import fusion.kits.Fisherman;
+import fusion.kits.Gladiator;
+import fusion.kits.Heavy;
+import fusion.kits.Ninja;
+import fusion.kits.PVP;
+import fusion.kits.Sanic;
+import fusion.kits.Santa;
+import fusion.kits.Shark;
+import fusion.kits.Snail;
+import fusion.kits.SpellCaster;
+import fusion.kits.Stomper;
+import fusion.kits.Switcher;
+import fusion.kits.Thor;
+import fusion.kits.Turtle;
+import fusion.kits.Vampire;
+import fusion.kits.Vigilante;
+import fusion.kits.Viper;
+import fusion.kits.Wimp;
+import fusion.kits.listeners.EndermageEvent;
+import fusion.kits.listeners.FishEvent;
+import fusion.kits.listeners.GladiatorEvent;
+import fusion.kits.listeners.NinjaEvent;
+import fusion.kits.listeners.SharkEvent;
+import fusion.kits.listeners.SnailEvent;
+import fusion.kits.listeners.SpellCasterEvent;
+import fusion.kits.listeners.StomperEvent;
+import fusion.kits.listeners.SwitchEvent;
+import fusion.kits.listeners.ThorEvent;
+import fusion.kits.listeners.TurtleEvent;
+import fusion.kits.listeners.VampireEvent;
+import fusion.kits.listeners.VigilanteEvent;
+import fusion.kits.listeners.ViperEvent;
+import fusion.kits.listeners.WimpEvent;
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
 import fusion.kits.utils.kitutils.GladiatorArena;
 import fusion.kits.utils.kitutils.GladiatorManager;
-import fusion.listeners.*;
+import fusion.listeners.AsyncPlayerChat;
+import fusion.listeners.ChunkLoad;
+import fusion.listeners.ChunkUnload;
+import fusion.listeners.CombatLog;
+import fusion.listeners.CommandPreprocess;
+import fusion.listeners.DropItem;
+import fusion.listeners.EntityDamageByEntity;
+import fusion.listeners.FoodChange;
+import fusion.listeners.InventoryClick;
+import fusion.listeners.ItemPickup;
+import fusion.listeners.MobSpawn;
+import fusion.listeners.PlayerDeath;
+import fusion.listeners.PlayerInteract;
+import fusion.listeners.PlayerInteractEntity;
+import fusion.listeners.PlayerJoin;
+import fusion.listeners.PlayerMove;
+import fusion.listeners.PlayerQuit;
+import fusion.listeners.PlayerRespawn;
+import fusion.listeners.PlayerTeleport;
+import fusion.listeners.TabComplete;
 import fusion.teams.cmds.TeamCommand;
 import fusion.teams.utils.TeamManager;
-import fusion.utils.*;
+import fusion.utils.ConfigManager;
 import fusion.utils.Settings;
+import fusion.utils.Utils;
+import fusion.utils.mKitUser;
 import fusion.utils.command.CommandFramework;
-import fusion.utils.editing.*;
-import fusion.utils.editing.cmds.*;
+import fusion.utils.editing.Bounds;
+import fusion.utils.editing.EditorManager;
+import fusion.utils.editing.TeleportListener;
+import fusion.utils.editing.ToolClick;
+import fusion.utils.editing.cmds.RegionCreate;
+import fusion.utils.editing.cmds.RegionDelete;
+import fusion.utils.editing.cmds.RegionList;
+import fusion.utils.editing.cmds.SetFlag;
 import fusion.utils.editing.editors.RegionEditor;
 import fusion.utils.editing.regions.RegionManager;
-import fusion.utils.protection.*;
+import fusion.utils.protection.BlockBreak;
+import fusion.utils.protection.BlockBurn;
+import fusion.utils.protection.BlockDecay;
+import fusion.utils.protection.BlockIgnite;
+import fusion.utils.protection.BlockPlace;
+import fusion.utils.protection.PlayerDamage;
 import fusion.utils.spawn.Spawn;
-import fusion.utils.warps.*;
+import fusion.utils.warps.WarpCreate;
+import fusion.utils.warps.WarpDelete;
+import fusion.utils.warps.WarpList;
+import fusion.utils.warps.WarpManager;
 
 /**
  * 
@@ -45,7 +127,7 @@ public class Fusion extends JavaPlugin {
 	private static Fusion instance;
 
 	private CommandFramework framework;
-	private ConfigManager spawn, warps, regions, config, kitInfo, teams;
+	private ConfigManager spawn, warps, regions, config, kitInfo, teams, defaultPlayerFile;
 	
 	public void onEnable() {
 
@@ -60,6 +142,7 @@ public class Fusion extends JavaPlugin {
 		config = new ConfigManager("config", null);
 		kitInfo = new ConfigManager("kit_info", null);
 		teams = new ConfigManager("teams", null);
+		defaultPlayerFile = new ConfigManager("default_player_data", null);
 		
 		// registerEntity(CandyMan.class, "Candyman", 120);
 		
@@ -105,13 +188,9 @@ public class Fusion extends JavaPlugin {
 		
 		registerPlaceHolders();
 
-		StatsManager.getInstance().setup(this);
-
 		EditorManager.getInstance().loadEditors();
 
 		RegionManager.getInstance().loadRegions();
-		
-		StatsManager.getInstance().startScoreboard(this);
 		
 		ConfigurationSerialization.registerClass(Bounds.class);
 		
@@ -119,7 +198,11 @@ public class Fusion extends JavaPlugin {
 
 			for (Player online : Bukkit.getOnlinePlayers()) {
 
-				mKitUser.getInstance(online).load();
+				try {
+					mKitUser.getInstance(online).load();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 
 			}
 
@@ -144,7 +227,7 @@ public class Fusion extends JavaPlugin {
 		Spawn.getInstance().save();
 		
 		for (Player online : Bukkit.getOnlinePlayers()) {
-
+			
 			mKitUser.getInstance(online).save();
 
 			if (CombatLog.getInstance().isInCombat(online)) {
@@ -154,13 +237,14 @@ public class Fusion extends JavaPlugin {
 		}
 
 		WarpManager.getInstance().saveWarps();
-
+		
 		RegionManager.getInstance().saveRegions();
 		
-		for (GladiatorArena arena : GladiatorManager.getInstance().getArenas()) {
-			arena.destroyArena();
+		if (GladiatorManager.getInstance().getArenas() != null && !GladiatorManager.getInstance().getArenas().isEmpty())  {
+			for (GladiatorArena arena : GladiatorManager.getInstance().getArenas()) {
+				arena.destroyArena();
+			}
 		}
-
 	}
 
 	public void registerPlaceHolders() {
@@ -360,18 +444,7 @@ public class Fusion extends JavaPlugin {
 
 				mKitUser user = mKitUser.getInstance(player);
 				
-				DecimalFormat dm = new DecimalFormat("#.##");
-				double kd = 0.0;
-				
-				if (user.getKills() != 0) {
-
-					kd = (double) user.getKills() / (double) user.getDeaths();
-					
-				}
-				
-				String kdr = dm.format(kd);
-				
-				return kdr;
+				return user.getKDRText();
 
 			}
 		});
@@ -421,6 +494,10 @@ public class Fusion extends JavaPlugin {
 
 	public ConfigManager getTeamsFile() {
 		return teams;
+	}
+	
+	public ConfigManager getDefaultPlayerFile() {
+		return defaultPlayerFile;
 	}
 	
 	private void loadListeners(Listener... listeners) {

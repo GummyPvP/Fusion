@@ -1,10 +1,14 @@
 package fusion.utils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -61,31 +65,39 @@ public class ConfigManager {
 
 	}
 	
-	public void attemptFileGrabFromJar(String fileName, boolean replace) {
-		try {
-			
-			Fusion.getInstance().saveResource(fileName + ".yml", replace);
-			
-		} catch (Exception e) { }
+	public ConfigManager(File file) {
+		
+		if (!Fusion.getInstance().getDataFolder().exists()) {
+
+			Fusion.getInstance().getDataFolder().mkdir();
+
+		}
+		
+		config = YamlConfiguration.loadConfiguration(file);
 		
 	}
-
+	
+	public void setFile(File file) {
+		this.file = file;
+		config = YamlConfiguration.loadConfiguration(this.file);
+	}
+	
+	public File getFile() {
+		return file;
+	}
+	
 	public void set(String path, Object value) {
 		config.set(path, value);
 		save();
 	}
 
 	public List<?> getList(String path) {
-
 		return config.getList(path);
-
 	}
 
 	@SuppressWarnings("unchecked")
 	public <T> T get(String path) {
-
 		return (T) config.get(path);
-
 	}
 
 	public Set<String> getKeys() {
@@ -97,21 +109,15 @@ public class ConfigManager {
 	}
 
 	public List<String> getStringList(String path) {
-
 		return config.getStringList(path);
-
 	}
 
 	public String getString(String path) {
-
 		return config.getString(path);
-
 	}
 
 	public List<Map<?, ?>> getMapList(String path) {
-
 		return config.getMapList(path);
-
 	}
 
 	public boolean contains(String path) {
@@ -125,10 +131,8 @@ public class ConfigManager {
 	}
 
 	public ConfigurationSection getSection(String path) {
-
 		ConfigurationSection section = config.getConfigurationSection(path);
 		return section;
-
 	}
 
 	public void save() {
@@ -140,21 +144,17 @@ public class ConfigManager {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public boolean getBoolean(String string) {
 		return config.getBoolean(string);
 	}
 
 	public Float getFloat(String string) {
-
 		return ((float) config.getDouble(string));
-
 	}
 
 	public Double getDouble(String string) {
-
 		return config.getDouble(string);
-
 	}
 
 	public int getInt(String string) {
@@ -187,6 +187,40 @@ public class ConfigManager {
 
 	public Long getLong(String s) {
 		return config.getLong(s);
+	}
+	
+	public static void attemptFileGrabFromJar(String fileName, boolean replace) {
+		try {
+			
+			Fusion.getInstance().saveResource(fileName + ".yml", replace);
+			
+		} catch (Exception e) { }
+		
+	}
+	
+	public static File attemptFileGrabFromJar(String path, String fileName) { // probably not useful anymore
+		
+		File file = new File(path + File.pathSeparator + fileName + ".yml"); // create file where we want it
+		
+		InputStream stream = Fusion.getInstance().getResource(fileName + ".yml"); // get file data from jar
+		
+		try {
+			FileUtils.copyInputStreamToFile(stream, file); // copy data into file using apache commons (thanks stackoverflow for spreading this knowledge)
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		
+		return file;
+	}
+	
+	public static File transferData(ConfigManager copying, ConfigManager copyTo) throws IOException {
+		
+		InputStream newData = new FileInputStream(copying.file);
+		
+		FileUtils.copyInputStreamToFile(newData, copyTo.file);
+		
+		return copyTo.file;
+		
 	}
 
 }

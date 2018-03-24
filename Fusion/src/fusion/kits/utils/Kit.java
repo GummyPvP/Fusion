@@ -8,15 +8,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 
-import fusion.listeners.CombatLog;
 import fusion.main.Fusion;
-import fusion.utils.StatsManager;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
 import fusion.utils.editing.regions.ProtectedRegion;
+import fusion.utils.editing.regions.ProtectedRegion.HealingItem;
 import fusion.utils.editing.regions.Region;
 import fusion.utils.editing.regions.RegionManager;
-import fusion.utils.editing.regions.ProtectedRegion.HealingItem;
 
 /**
  * 
@@ -183,8 +181,6 @@ public abstract class Kit {
 		player.playSound(player.getLocation(), Sound.SLIME_WALK, 1, 1);
 
 		player.updateInventory();
-
-		StatsManager.getInstance().refreshScoreBoard(player, CombatLog.getInstance().isInCombat(player));
 		
 		user.getPlayer().closeInventory();
 

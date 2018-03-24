@@ -9,7 +9,6 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 import fusion.kits.utils.Kit;
 import fusion.main.Fusion;
-import fusion.utils.StatsManager;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
 
@@ -65,11 +64,6 @@ public class PlayerDeath implements Listener {
 		killer.addKillStreak();
 		killer.addKill();
 		user.addDeath();
-
-		StatsManager.getInstance().refreshScoreBoard(killer.getPlayer(),
-				CombatLog.getInstance().isInCombat(killer.getPlayer()));
-		StatsManager.getInstance().refreshScoreBoard(user.getPlayer(),
-				CombatLog.getInstance().isInCombat(user.getPlayer()));
 
 		int killerKS = killer.getKillStreak();
 		int ks = killerKS % 5;

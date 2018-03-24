@@ -1,5 +1,7 @@
 package fusion.listeners;
 
+import java.io.IOException;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -24,9 +26,13 @@ public class PlayerJoin implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
 
-		final Player player = e.getPlayer();
+		Player player = e.getPlayer();
 
-		mKitUser.getInstance(player).load();
+		try {
+			mKitUser.getInstance(player).load();
+		} catch (IOException exception) {
+			exception.printStackTrace();
+		}
 
 		Utils.giveDefaultItems(player);
 

@@ -1,17 +1,21 @@
 package fusion.utils;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
 import fusion.kits.utils.kitutils.GladiatorManager;
+import fusion.main.Fusion;
 import fusion.teams.utils.Team;
 import fusion.teams.utils.TeamManager;
 import fusion.utils.editing.regions.ProtectedRegion.HealingItem;
@@ -45,8 +49,6 @@ public class mKitUser {
 
 		this.player = player;
 		this.kit = null;
-		
-		this.file = new ConfigManager(player.getUniqueId().toString(), "players");
 		
 		instances.add(this);
 
@@ -164,94 +166,72 @@ public class mKitUser {
 	public void setDeaths(int deaths) {
 		this.deaths = deaths;
 	}
-
+	
 	public void clearKit() {
-
+		
 		Player player = getPlayer();
-
+		
 		setKit(null);
-
+		
 		player.getInventory().clear();
 		player.getInventory().setArmorContents(null);
-
+		
 		Utils.giveDefaultItems(player);
-
+		
 		Spawn.getInstance().teleport(player);
 		
 		for (PotionEffect effect : player.getActivePotionEffects()) {
-
+			
 			player.removePotionEffect(effect.getType());
-
+			
 		}
-
+		
 	}
 
-	public void load() {
+	public void load() throws IOException {
 		
-		if (file == null) {
+		this.file = new ConfigManager(player.getUniqueId().toString(), "players");
+		
+		BufferedReader reader = new BufferedReader(new FileReader(file.getFile()));  
+		
+		if (reader.readLine() == null) { // assumes that if the balance is missing, everything else probably is too. If not, overwrite all the other values anyway :P
 			
-			player.kickPlayer(ChatColor.RED + "Your profile did not load correctly, please rejoin. If the problem persists, contact a staff member via the forums.");
+			try {
+				file.setFile(ConfigManager.transferData(Fusion.getInstance().getDefaultPlayerFile(), file)); // should copy defaults into the empty player file
+			} catch (IOException e) {
+				e.printStackTrace();
+				player.kickPlayer("Profile did not load correctly, please rejoin.");
+			}
 			
-			return;
+			reader.close();
+			
 		}
 		
-		if (file.contains("profile.candies")) {
-
-			setCandies(file.getDouble("profile.candies"));
-
-		} else setCandies(100.0);
-
-		if (file.contains("settings.healingItem")) {
-
-			setHealingItem(HealingItem.valueOf(file
-					.getString("settings.healingItem").toUpperCase()));
-
-		} else
-			setHealingItem(HealingItem.SOUP);
-
-		if (file.getList("kits") == null)
-			return;
-
-		for (String kits : file.getStringList("kits")) {
-
-			String kitNames = kits;
-
-			ownedKits.add(KitManager.getInstance().valueOf(kitNames));
-
+		// assume at this point that all values are now there because of the check above 
+		
+		setCandies(file.getDouble("profile.candies"));
+		
+		setHealingItem(HealingItem.valueOf(file.getString("settings.healingItem").toUpperCase()));
+		
+		if (!file.getList("kits").isEmpty()) {
+			for (String kits : file.getStringList("kits")) {
+				
+				String kitNames = kits;
+				
+				ownedKits.add(KitManager.getInstance().valueOf(kitNames));
+				
+			}
+			
 		}
 		
-		if (file.contains("kills")) {
-
-			setKills(file.getInt("kills"));
-
-		} else {
-
-			setKills(0);
-
-		}
+		setKills(file.getInt("kills"));
 		
-		if (file.contains("deaths")) {
-
-			setDeaths(file.getInt("deaths"));
-
-		} else {
-
-			setDeaths(0);
-
-		}
+		setDeaths(file.getInt("deaths"));
 		
-		if (file.contains("killstreak")) {
-			
-			setKillStreak(file.getInt("killstreak"));
-			
-		} else {
-			
-			setKillStreak(0);
-			
-		}
-
+		setKillStreak(file.getInt("killstreak"));
+		
 	}
-
+	
 	public void save() {
 
 		if (!ownedKits.isEmpty()) {
@@ -263,15 +243,13 @@ public class mKitUser {
 				kitList.add(kitz.getName());
 
 			}
-
+			
 			file.set("kits", kitList);
-
+			
 		}
-
+		
 		file.set("profile.candies", getCandies());
-
 		file.set("settings.healingItem", item.toString());
-
 		file.set("kills", getKills());
 		file.set("deaths", getDeaths());
 		file.set("killstreak", getKillStreak());
@@ -279,23 +257,17 @@ public class mKitUser {
 	}
 
 	public void unload() {
-
 		ownedKits.clear();
 		kit = null;
 		previousKit = null;
-
 	}
 
 	public void addDeath() {
-
-		deaths = getDeaths() + 1;
-
+		deaths += 1;
 	}
 
 	public void addKill() {
-
-		kills = getKills() + 1;
-
+		kills += 1;
 	}
 
 	public int getKillStreak() {
@@ -307,14 +279,30 @@ public class mKitUser {
 	}
 
 	public void addKillStreak() {
-
-		killstreak = getKillStreak() + 1;
-
+		killstreak += 1;
 	}
 
 	public void resetKillStreak() {
-
 		killstreak = 0;
-
+	}
+	
+	public double getKDR() {
+		double kd = 0.0;
+		
+		if (getDeaths() == 0) {
+			
+			kd = getKills(); // no divide by 0 errors
+			
+		} else {
+			kd = (double) getKills() / (double) getDeaths();
+		}
+		
+		return kd;
+	}
+	
+	public String getKDRText() {
+		DecimalFormat dm = new DecimalFormat("#.##");
+		String kdr = dm.format(getKDR());
+		return kdr;
 	}
 }

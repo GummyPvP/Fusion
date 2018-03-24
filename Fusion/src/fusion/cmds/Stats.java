@@ -31,22 +31,12 @@ public class Stats {
 			
 			mKitUser user = mKitUser.getInstance(args.getPlayer());
 
-			DecimalFormat dm = new DecimalFormat("#.##");
-
 			int kills = user.getKills();
 			int deaths = user.getDeaths();
 			int killstreak = user.getKillStreak();
 			double candies = user.getCandies();
 
-			double kd = 0;
-
-			if (kills != 0) {
-
-				kd = (double) kills / (double) deaths;
-
-			}
-			
-			String kdr = dm.format(kd);
+			String kdr = user.getKDRText();
 			Team team = user.getTeam();
 
 			Chat.getInstance().messagePlayer(args.getSender(), "&8&m----- &a" + args.getPlayer().getName() + " &a(Online) &8&m----");
@@ -80,10 +70,12 @@ public class Stats {
 					
 					double kd = 0;
 
-					if (kills != 0) {
-
+					if (deaths == 0) {
+						
+						kd = kills; // no divide by 0 errors
+						
+					} else {
 						kd = (double) kills / (double) deaths;
-
 					}
 					
 					String kdr = dm.format(kd);
@@ -113,21 +105,12 @@ public class Stats {
 			
 			mKitUser user = mKitUser.getInstance(player);
 
-			DecimalFormat dm = new DecimalFormat("#.##");
-
 			int kills = user.getKills();
 			int deaths = user.getDeaths();
 			int killstreak = user.getKillStreak();
 			double candies = user.getCandies();
-			double kd = 0;
-
-			if (kills != 0) {
-
-				kd = (double) kills / (double) deaths;
-
-			}
 			
-			String kdr = dm.format(kd);
+			String kdr = user.getKDRText();
 			Team team = user.getTeam();
 
 			Chat.getInstance().messagePlayer(args.getSender(), "&8&m----- &a" + player.getName() + " &a(Online) &8&m----");

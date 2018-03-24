@@ -12,7 +12,6 @@ import fusion.listeners.CombatLog;
 import fusion.teams.utils.Team;
 import fusion.teams.utils.TeamManager;
 import fusion.teams.utils.TeamRank;
-import fusion.utils.StatsManager;
 import fusion.utils.Utils;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
@@ -135,8 +134,7 @@ public class TeamCommand {
 
 				user.getTeam().getMembers().remove(player.getUniqueId());
 				Chat.getInstance().messagePlayer(player, "&aYou have left the team.");
-				StatsManager.getInstance().refreshScoreBoard(player, false);
-
+				
 				return;
 			}
 			if (args.getArgs(0).equalsIgnoreCase("disband")) {
@@ -163,25 +161,6 @@ public class TeamCommand {
 
 					}
 					TeamManager.get().deleteTeam(user.getTeam().getName());
-
-					for (Player p : Bukkit.getOnlinePlayers()) {
-
-						for (UUID uuid : u) {
-
-							if (p.getUniqueId().equals(uuid)) {
-
-								if (p.getUniqueId().equals(player.getType()) == false) {
-
-									StatsManager.getInstance().refreshScoreBoard((Player) Bukkit.getPlayer(uuid),
-											CombatLog.getInstance().isInCombat((Player) Bukkit.getPlayer(uuid)));
-
-								}
-							}
-
-						}
-
-					}
-					StatsManager.getInstance().refreshScoreBoard(player, false);
 
 					return;
 
@@ -375,9 +354,7 @@ public class TeamCommand {
 
 				Chat.getInstance().messagePlayer(player, "&e" + args.getArgs(1)
 						+ " &aTeam has been created and 500 candies were taken from your account!");
-
-				StatsManager.getInstance().refreshScoreBoard(player, false);
-
+				
 				kituser.removeCandies(500);
 
 				return;
@@ -869,7 +846,6 @@ public class TeamCommand {
 				user.getTeam()
 						.messageMembers("&e" + player.getName() + " &ahas kick &e" + p.getName() + " &afrom the team!");
 				user.getTeam().getMembers().remove(p.getUniqueId());
-				StatsManager.getInstance().refreshScoreBoard(p, false);
 				Chat.getInstance().messagePlayer(p, "&cYou have been kicked from your current team");
 				Chat.getInstance().messagePlayer(player, "&aYou have kicked that player from your team");
 
@@ -1000,9 +976,7 @@ public class TeamCommand {
 						t.getMembers().put(player.getUniqueId(), TeamRank.MEMBER);
 
 						user.getTeam().messageMembers("&e" + player.getName() + " &ahas joined the team!");
-
-						StatsManager.getInstance().refreshScoreBoard(player, false);
-
+						
 						Chat.getInstance().messagePlayer(player, "&aYou have joined team &b" + t.getName());
 
 						return;
@@ -1031,9 +1005,7 @@ public class TeamCommand {
 					ot.getMembers().put(player.getUniqueId(), TeamRank.MEMBER);
 
 					user.getTeam().messageMembers("&e" + player.getName() + " &ahas joined the team!");
-
-					StatsManager.getInstance().refreshScoreBoard(player, false);
-
+					
 					Chat.getInstance().messagePlayer(player, "&aYou have joined team &b" + ot.getName());
 
 					return;
@@ -1053,9 +1025,7 @@ public class TeamCommand {
 				}
 				team.getInvitedPlayers().remove(player.getUniqueId());
 				team.getMembers().put(player.getUniqueId(), TeamRank.MEMBER);
-
-				StatsManager.getInstance().refreshScoreBoard(player, false);
-
+				
 				Chat.getInstance().messagePlayer(player, "&aYou have joined team &b" + team.getName());
 
 				user.getTeam().messageMembers("&e" + player.getName() + " &ahas joined the team!");

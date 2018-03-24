@@ -1,0 +1,8 @@
+profile:
+  candies: 500.0
+settings:
+  healingItem: SOUP
+kills: 0
+deaths: 0
+killstreak: 0
+kits: []
