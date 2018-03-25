@@ -41,7 +41,7 @@ public class ClearKit {
 
 				return;
 			}
-
+			
 			if (user.getPlayer().hasPermission("kit.clear.bypass")) {
 
 				user.clearKit();

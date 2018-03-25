@@ -1,5 +1,6 @@
 package fusion.listeners;
 
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -8,7 +9,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import fusion.teams.utils.Team;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
-import net.md_5.bungee.api.ChatColor;
 
 public class AsyncPlayerChat implements Listener {
 

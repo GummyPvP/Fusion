@@ -32,10 +32,10 @@ import fusion.kits.Endermage;
 import fusion.kits.Fisherman;
 import fusion.kits.Gladiator;
 import fusion.kits.Heavy;
+import fusion.kits.Kangaroo;
 import fusion.kits.Ninja;
 import fusion.kits.PVP;
 import fusion.kits.Sanic;
-import fusion.kits.Santa;
 import fusion.kits.Shark;
 import fusion.kits.Snail;
 import fusion.kits.SpellCaster;
@@ -50,6 +50,7 @@ import fusion.kits.Wimp;
 import fusion.kits.listeners.EndermageEvent;
 import fusion.kits.listeners.FishEvent;
 import fusion.kits.listeners.GladiatorEvent;
+import fusion.kits.listeners.KangarooEvent;
 import fusion.kits.listeners.NinjaEvent;
 import fusion.kits.listeners.SharkEvent;
 import fusion.kits.listeners.SnailEvent;
@@ -158,7 +159,7 @@ public class Fusion extends JavaPlugin {
 				new TabComplete(), new ChunkUnload(), new ChunkLoad(), new PlayerInteractEntity(), new SwitchEvent(),
 				new EndermageEvent(), new CommandPreprocess(), new SnailEvent(), new NinjaEvent(), new SharkEvent(),
 				new GladiatorEvent(), new PlayerMove(), new WimpEvent(),
-				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent());
+				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent(), new KangarooEvent());
 
 		log("Listeners loaded");
 
@@ -170,7 +171,7 @@ public class Fusion extends JavaPlugin {
 
 		loadKits(new PVP(), new Archer(), new Fisherman(), new Stomper(), new Viper(), new Heavy(), new Thor(),
 				new Switcher(), new Endermage(), new Sanic(), new Shark(), new Ninja(), new Snail(), new Gladiator(),
-				new Wimp(), new SpellCaster(), new Vampire(), new Turtle(), new Vigilante(), new Santa());
+				new Wimp(), new SpellCaster(), new Vampire(), new Turtle(), new Vigilante(), new Kangaroo());
 
 		log("Kits loaded");
 

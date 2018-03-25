@@ -38,10 +38,7 @@ public class PlayerJoin implements Listener {
 
 		Spawn.getInstance().teleport(player);
 
-		player.getInventory().setHelmet(new ItemStack(Material.AIR));
-		player.getInventory().setChestplate(new ItemStack(Material.AIR));
-		player.getInventory().setLeggings(new ItemStack(Material.AIR));
-		player.getInventory().setBoots(new ItemStack(Material.AIR));
+		player.getInventory().setArmorContents(null);
 
 		player.getActivePotionEffects().clear();
 		

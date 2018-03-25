@@ -25,18 +25,16 @@ import fusion.main.Fusion;
  */
 
 public class ConfigManager {
-
+	
 	private File file;
 	private FileConfiguration config;
-
+	
 	public ConfigManager(String fileName, String dir) {
-
+		
 		if (!Fusion.getInstance().getDataFolder().exists()) {
-
 			Fusion.getInstance().getDataFolder().mkdir();
-
 		}
-
+		
 		if (dir != null && !dir.isEmpty()) {
 			File dirFolder = new File("plugins" + File.separator + "Fusion" + File.separator + dir);
 			if (!dirFolder.exists()) {
@@ -46,7 +44,7 @@ public class ConfigManager {
 
 		file = new File(Fusion.getInstance().getDataFolder(),
 				(dir == null ? fileName + ".yml" : File.separator + dir + File.separator + fileName + ".yml"));
-
+		
 		if (!file.exists()) {
 			try {
 				if (dir != null) {
@@ -63,18 +61,6 @@ public class ConfigManager {
 
 		config = YamlConfiguration.loadConfiguration(file);
 
-	}
-	
-	public ConfigManager(File file) {
-		
-		if (!Fusion.getInstance().getDataFolder().exists()) {
-
-			Fusion.getInstance().getDataFolder().mkdir();
-
-		}
-		
-		config = YamlConfiguration.loadConfiguration(file);
-		
 	}
 	
 	public void setFile(File file) {
