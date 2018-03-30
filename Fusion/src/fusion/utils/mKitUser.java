@@ -171,8 +171,6 @@ public class mKitUser {
 		
 		Player player = getPlayer();
 		
-		setKit(null);
-		
 		player.getInventory().clear();
 		player.getInventory().setArmorContents(null);
 		
@@ -185,6 +183,8 @@ public class mKitUser {
 			player.removePotionEffect(effect.getType());
 			
 		}
+		
+		setKit(null);
 		
 	}
 

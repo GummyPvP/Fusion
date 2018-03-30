@@ -3,6 +3,7 @@ package fusion.cmds;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import fusion.kits.utils.kitutils.GladiatorManager;
 import fusion.listeners.CombatLog;
 import fusion.main.Fusion;
 import fusion.utils.mKitUser;
@@ -24,7 +25,7 @@ public class ClearKit {
 
 		if (args.length() != 1) {
 
-			if (CombatLog.getInstance().isInCombat(args.getPlayer())) {
+			if (CombatLog.getInstance().isInCombat(args.getPlayer()) || GladiatorManager.getInstance().getArena(args.getPlayer()) != null) {
 
 				Chat.getInstance().messagePlayer(args.getPlayer(),
 						Chat.IMPORTANT_COLOR + "You are in combat! You may not use this command.");

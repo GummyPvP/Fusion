@@ -55,13 +55,13 @@ public class EcoGive {
 		
 		if ((args.getSender() instanceof Player) && target == ((Player)args.getSender())) {
 			
-			Chat.getInstance().messagePlayer(target, ChatColor.RED + "You set your candies to " + ChatColor.RED + amount);
+			Chat.getInstance().messagePlayer(target, ChatColor.RED + "You set your candies to " + ChatColor.RED + oldAmount + amount);
 			return;
 		}
 		
-		Chat.getInstance().messagePlayer(target, ChatColor.BLUE + "Your balance was set to " + ChatColor.RED + amount + ChatColor.BLUE + "!");
+		Chat.getInstance().messagePlayer(target, ChatColor.BLUE + "Your balance was set to " + ChatColor.RED + oldAmount + amount + ChatColor.BLUE + "!");
 		
-		Chat.getInstance().messagePlayer(args.getSender(), ChatColor.BLUE + "You set " + ChatColor.RED + target.getName() + ChatColor.BLUE+ "'s balance from " + ChatColor.LIGHT_PURPLE + oldAmount + ChatColor.BLUE + " to " + ChatColor.LIGHT_PURPLE + amount + ChatColor.BLUE + "!");
+		Chat.getInstance().messagePlayer(args.getSender(), ChatColor.BLUE + "You set " + ChatColor.RED + target.getName() + ChatColor.BLUE+ "'s balance from " + ChatColor.LIGHT_PURPLE + oldAmount + ChatColor.BLUE + " to " + ChatColor.LIGHT_PURPLE + (oldAmount + amount) + ChatColor.BLUE + "!");
 		
 		
 	}

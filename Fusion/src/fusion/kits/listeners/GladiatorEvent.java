@@ -59,7 +59,7 @@ public class GladiatorEvent implements Listener {
 		if (GladiatorManager.getInstance().getArena(player) == null) return;
 		
 		GladiatorManager.getInstance().endFight(player.getKiller());
-
+		
 	}
 
 	@EventHandler
