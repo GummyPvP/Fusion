@@ -25,11 +25,14 @@ public class PlayerJoin implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent e) {
 
 		Player player = e.getPlayer();
-
+		
+		mKitUser user = mKitUser.getInstance(player);
+		
 		try {
-			mKitUser.getInstance(player).load();
+			user.load();
 		} catch (IOException exception) {
 			exception.printStackTrace();
+			player.kickPlayer("Your profile did not load correctly, please rejoin. If problem persists, contact a staff member via the forums.");
 		}
 
 		Utils.giveDefaultItems(player);
@@ -43,10 +46,10 @@ public class PlayerJoin implements Listener {
 		player.updateInventory();
 		
 		
-		if (mKitUser.getInstance(player).getTeam() == null) 
+		if (user.getTeam() == null) 
 			return;
 
-		for (Player teammembers : mKitUser.getInstance(player).getTeam().getOnlineMemebers(player)) {
+		for (Player teammembers : user.getTeam().getOnlineMemebers(player)) {
 
 			Utils.sendActionBar(teammembers, ChatColor.translateAlternateColorCodes('&', player.getDisplayName() + " &ajust logged in!"), 20 * 5);
 
