@@ -57,7 +57,13 @@ public class GladiatorManager {
 		
 		getArena(winner).endDuel(mKitUser.getInstance(winner));
 		
-		arenas.remove(getArena(winner));
+		if (!arenas.remove(getArena(winner))) {
+			
+			// this is an issue
+			
+			getArena(winner).endDuel(mKitUser.getInstance(winner)); // I need to fix this properly somehow
+			
+		}
 		
 	}
 }
