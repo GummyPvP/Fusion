@@ -122,8 +122,7 @@ public abstract class Kit {
 
 		}
 
-		// player.getInventory().setArmorContents(getArmor());
-
+		
 		player.getInventory().setHelmet(getArmor()[0]);
 		player.getInventory().setChestplate(getArmor()[1]);
 		player.getInventory().setLeggings(getArmor()[2]);
@@ -182,7 +181,6 @@ public abstract class Kit {
 
 		player.updateInventory();
 		
-		user.getPlayer().closeInventory();
 
 	}
 

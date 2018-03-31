@@ -74,7 +74,7 @@ public class Spawn {
 	public void teleport(Player p) {
 
 		if (location == null) {
-
+			
 			Chat.getInstance().messagePlayer(p,
 					Chat.IMPORTANT_COLOR + "The spawn point is not set up. Please contact an administrator.");
 

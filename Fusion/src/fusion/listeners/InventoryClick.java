@@ -40,7 +40,7 @@ public class InventoryClick implements Listener {
 			return;
 
 		Player player = (Player) e.getWhoClicked();
-
+		
 		if (e.getInventory().getName().contains(KitGUI.INVENTORY_NAME)) {
 			
 			e.setCancelled(true);

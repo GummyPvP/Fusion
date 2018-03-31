@@ -46,7 +46,7 @@ public class Heavy extends Kit {
 	}
 
 	public PotionEffect[] getPotionEffects() {
-		return new PotionEffect[] { new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 3) };
+		return new PotionEffect[] { new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 1) };
 	}
 
 	public String[] getSpecialAdvantageStrings() {

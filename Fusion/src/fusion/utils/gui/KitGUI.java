@@ -132,7 +132,7 @@ public class KitGUI {
 
 		inv.setItem(8,
 				new ItemBuilder(Material.DIAMOND).name("&aKit Shop").lore("Click me to show the ShopGUI!").build());
-		inv.setItem(0, new ItemBuilder(Material.EMERALD).name("&aWelcome to GummyPvP!").build());
+		inv.setItem(0, new ItemBuilder(Material.EMERALD).name("&aWelcome to KitPvP!").build());
 		inv.setItem(4, new ItemBuilder(Material.GOLD_INGOT).name("&bInformation")
 				.lore(Arrays.asList("These are your owned kits.", "Pick one and fight!", "",
 						"&6You own &c" + ownedKits + "/" + KitManager.getInstance().getKits().size() + " &6kits."))

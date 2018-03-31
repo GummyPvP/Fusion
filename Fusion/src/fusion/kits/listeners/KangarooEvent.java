@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -38,32 +39,33 @@ public class KangarooEvent implements Listener {
 		if (e.getAction() == Action.LEFT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.PHYSICAL)
 			return;
 		
+		e.setCancelled(true);
+		
 		if (player.isFlying())
 			return;
 		
 		if (midAir.contains(player.getName()))
 			return;
 		
-		e.setCancelled(true);
+		player.setFallDistance(-5F);
 		
-		player.setFallDistance(-0.5F);
-		
-		midAir.add(player.getName());
+		Vector vector = player.getEyeLocation().getDirection();
 		
 		if (player.isSneaking()) { // more forward movement, rather than height
-			
-	        Vector vector = player.getEyeLocation().getDirection();
-	        vector.multiply(0.6F);
+	        
+	        vector.multiply(1.2F);
 	        vector.setY(0.8D);
 	        player.setVelocity(vector);
 			
-			return;
-		}
+		} else {
 		
-        Vector vector = player.getEyeLocation().getDirection();
-        vector.multiply(0.4F);
-        vector.setY(1.2D);
-        player.setVelocity(vector);
+	        vector.multiply(0.4F);
+	        vector.setY(1.2D);
+	        player.setVelocity(vector);
+	        
+		}
+        
+		midAir.add(player.getName());
 		
 	}
 	
@@ -74,11 +76,13 @@ public class KangarooEvent implements Listener {
 		
 		Player player = e.getPlayer();
 		
-		if (!player.getLocation().subtract(0.0, 0.1, 0.0).getBlock().isLiquid()) { // if solid
+		Block underBlock = player.getLocation().subtract(0.0, 0.1, 0.0).getBlock();
+		
+		if (!midAir.contains(player.getName())) return;
+		
+		if (!underBlock.isLiquid() && underBlock.getType() != Material.AIR) { // if solid
 			
-			if (midAir.contains(player.getName())) {
-				midAir.remove(player.getName());
-			}
+			midAir.remove(player.getName());
 			
 		}
 		

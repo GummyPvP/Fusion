@@ -45,6 +45,7 @@ public class PlayerQuit implements Listener {
 			CombatLog.getInstance().remove(player);
 			
 		}
+		
 		if (mKitUser.getInstance(player).getTeam() != null) {
 
 			for (Player teammembers : mKitUser.getInstance(player).getTeam().getOnlineMemebers(player)) {
