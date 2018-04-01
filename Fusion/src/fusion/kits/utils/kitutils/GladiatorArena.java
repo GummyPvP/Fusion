@@ -134,20 +134,17 @@ public class GladiatorArena {
 			
 		}
 		
-//		for (Vector vector : bounds.getEdges()) {
-//			Location vLocation = new Location(bounds.getWorld(), vector.getBlockX(), vector.getBlockY(), vector.getBlockZ());
-//			vLocation.getBlock().setType(Material.GLASS);
-//		}
-//		
 		bounds.generateHollowCube(radius);
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void destroyArena() {
 		
 		for (BlockState currentBlockState : oldBlockStates) {
 			
 			currentBlockState.getBlock().setType(currentBlockState.getType());
+			currentBlockState.getBlock().setData(currentBlockState.getData().getData()); // unfortunately still deprecated, but seems to work fine
 			
 		}
 		
