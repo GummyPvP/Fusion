@@ -52,10 +52,10 @@ public class StomperEvent implements Listener {
 			Player target = (Player) entities;
 			
 			if (target.getName().equalsIgnoreCase(player.getName()))
-				return;
+				continue;
 			
 			if (RegionManager.getInstance().isInProtectedRegion(target))
-				return;
+				continue;
 
 			if (target.isSneaking())
 				target.damage(damage > maxDamage ? maxDamage : damage);
@@ -63,7 +63,7 @@ public class StomperEvent implements Listener {
 				target.damage(damage);
 
 			if (!target.isDead())
-				return;
+				continue;
 
 			double reward = 15.0;
 

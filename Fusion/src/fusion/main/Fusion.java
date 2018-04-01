@@ -202,6 +202,8 @@ public class Fusion extends JavaPlugin {
 
 				try {
 					mKitUser.getInstance(online).load();
+					mKitUser.getInstance(online).clearKit();
+					Spawn.getInstance().forceTP(online);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -235,7 +237,6 @@ public class Fusion extends JavaPlugin {
 			if (CombatLog.getInstance().isInCombat(online)) {
 				CombatLog.getInstance().remove(online);
 			}
-
 		}
 
 		WarpManager.getInstance().saveWarps();
