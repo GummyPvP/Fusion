@@ -62,7 +62,7 @@ public class mKitUser {
 				return users;
 
 		}
-
+		
 		return new mKitUser(player);
 
 	}
@@ -264,6 +264,8 @@ public class mKitUser {
 		ownedKits.clear();
 		kit = null;
 		previousKit = null;
+		file = null;
+		instances.remove(this); // test
 	}
 
 	public void addDeath() {

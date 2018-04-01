@@ -32,10 +32,6 @@ public class PlayerQuit implements Listener {
 			
 		}
 		
-		mKitUser.getInstance(player).save();
-		
-		mKitUser.getInstance(player).unload();
-		
 		if (CombatLog.getInstance().isInCombat(player)) {
 			
 			player.setHealth(0.0);
@@ -57,6 +53,9 @@ public class PlayerQuit implements Listener {
 			}
 
 		}
+		
+		mKitUser.getInstance(player).save();
+		mKitUser.getInstance(player).unload();
 		
 	}
 

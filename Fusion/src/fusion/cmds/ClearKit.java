@@ -44,12 +44,12 @@ public class ClearKit {
 			}
 			
 			if (user.getPlayer().hasPermission("kit.clear.bypass")) {
-
+				
 				user.clearKit();
-
-				Chat.getInstance().messagePlayer(args.getPlayer(),
+				
+				Chat.getInstance().messagePlayer(user.getPlayer(),
 						" &4&4BYPASS: " + Chat.SECONDARY_BASE + "Your kit has been cleared!");
-
+				
 				return;
 			}
 
