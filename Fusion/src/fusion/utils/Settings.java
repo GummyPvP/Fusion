@@ -28,12 +28,15 @@ public class Settings {
 	public String SHOP_GUI_NAME;
 	public String WARP_GUI_NAME;
 	
+	public boolean WEATHER_ENABLED;
+	
 	public void initSettings() {
 		
 		SERVER_NAME = initSetting("SERVER_NAME");
 		KIT_GUI_NAME = initSetting("KIT_GUI_NAME");
 		SHOP_GUI_NAME = initSetting("SHOP_GUI_NAME");
 		WARP_GUI_NAME = initSetting("WARP_GUI_NAME");
+		WEATHER_ENABLED = initSetting("WEATHER_ENABLED");
 		
 	}
 	

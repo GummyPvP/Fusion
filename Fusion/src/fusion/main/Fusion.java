@@ -87,6 +87,7 @@ import fusion.listeners.PlayerQuit;
 import fusion.listeners.PlayerRespawn;
 import fusion.listeners.PlayerTeleport;
 import fusion.listeners.TabComplete;
+import fusion.listeners.WeatherChange;
 import fusion.teams.cmds.TeamCommand;
 import fusion.teams.utils.TeamManager;
 import fusion.utils.ConfigManager;
@@ -159,7 +160,7 @@ public class Fusion extends JavaPlugin {
 				new TabComplete(), new ChunkUnload(), new ChunkLoad(), new PlayerInteractEntity(), new SwitchEvent(),
 				new EndermageEvent(), new CommandPreprocess(), new SnailEvent(), new NinjaEvent(), new SharkEvent(),
 				new GladiatorEvent(), new PlayerMove(), new WimpEvent(),
-				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent(), new KangarooEvent());
+				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent(), new KangarooEvent(), new WeatherChange());
 
 		log("Listeners loaded");
 

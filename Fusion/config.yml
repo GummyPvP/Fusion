@@ -2,3 +2,4 @@ SERVER_NAME: '&4GummyPvP'
 KIT_GUI_NAME: '&cGummyPvP - Kits'
 SHOP_GUI_NAME: '&cGummyPvP - Shop'
 WARP_GUI_NAME: '&eGummyPvP - Warps'
+WEATHER_ENABLED: false
