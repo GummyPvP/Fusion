@@ -56,6 +56,7 @@ public class Utils {
 	public static boolean isAlpha(String name) {
 	    return name.matches("[a-zA-Z]+");
 	}
+	
 	public static String removeLast(StringBuilder sb) {
 
 		String playerList = sb.toString();
@@ -221,6 +222,7 @@ public class Utils {
 			works = false;
 		}
 	}
+	
 	public static void sendActionBar(final Player player, final String message, int duration) {
 		sendActionBar(player, message);
 
@@ -263,12 +265,11 @@ public class Utils {
 		try {
 			Integer.parseInt(arg);
 			return true;
-		} 
+		}
 		
 		catch (NumberFormatException e) {
 			return false;
 		}
 		
 	}
-
 }
