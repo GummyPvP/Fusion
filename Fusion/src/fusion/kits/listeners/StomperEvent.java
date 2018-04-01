@@ -36,9 +36,6 @@ public class StomperEvent implements Listener {
 		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Stomper")))
 			return;
 
-		if (player.hasMetadata("noFall")) {
-			return;
-		}
 		if (mKitUser.getInstance(player).isInGladiatorArena())
 			return;
 

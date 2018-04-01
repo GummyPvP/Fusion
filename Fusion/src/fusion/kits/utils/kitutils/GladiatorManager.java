@@ -31,6 +31,8 @@ public class GladiatorManager {
 	
 	public GladiatorArena getArena(Player player) {
 		
+		if (arenas.isEmpty()) return null;
+		
 		for (GladiatorArena arena : arenas) {
 			
 			if (arena.getAttacked() == player || arena.getAttacker() == player) return arena;
