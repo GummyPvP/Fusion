@@ -123,6 +123,10 @@ public class mKitUser {
 	public void addOwnedKit(Kit kit) {
 		ownedKits.add(kit);
 	}
+	
+	public Set<Kit> getKits() {
+		return ownedKits;
+	}
 
 	public double getCandies() {
 		return money;

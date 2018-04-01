@@ -34,19 +34,20 @@ public class ShopGUI {
 	private static Map<Player, Integer> page = new HashMap<Player, Integer>();
 
 	public ShopGUI(Player player) {
-
-		player.closeInventory();
-		this.inv = Bukkit.createInventory(player, ensureSize(KitManager.getInstance().getKits().size()) + 18, INVENTORY_NAME);
-		populateInventory(player, 0);
-		player.openInventory(inv);
-		
-		page.put(player, 0);
-
+		this(player, 0);
 	}
 
 	public ShopGUI(Player player, int page) {
-
+		
 		player.closeInventory();
+		
+		if (mKitUser.getInstance(player).getKits().size() >= KitManager.getInstance().getKits().size()) {
+			
+			Chat.getInstance().messagePlayer(player, "&cYou already own all kits!");
+			
+			return;
+		}
+		
 		this.inv = Bukkit.createInventory(player, ensureSize(KitManager.getInstance().getKits().size()) + 18, INVENTORY_NAME + " - Page: " + (page + 1));
 		populateInventory(player, page);
 		
