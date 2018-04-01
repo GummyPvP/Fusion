@@ -33,6 +33,9 @@ public class KangarooEvent implements Listener {
 		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Kangaroo")))
 			return;
 
+		if (e.getItem() == null) 
+			return;
+		
 		if (e.getItem().getType() != Material.FIREWORK)
 			return;
 		

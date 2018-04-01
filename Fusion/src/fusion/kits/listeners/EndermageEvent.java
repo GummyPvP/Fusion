@@ -164,15 +164,15 @@ public class EndermageEvent implements Listener {
 
 	}
 
-	public void startEndermageInvincibleTimer(final Player p) {
+	public void startEndermageInvincibleTimer(Player p) {
 
 		invincibleHandler.put(p.getName(), INVINCIBLE_TIME);
 
 		invincibleScheduler.put(p.getName(),
 				Bukkit.getScheduler().scheduleSyncRepeatingTask(Fusion.getInstance(), new Runnable() {
-
+					
 					public void run() {
-
+						
 						if (invincibleHandler.get(p.getName()) <= 1) {
 
 							invincibleHandler.keySet().remove(p.getName());

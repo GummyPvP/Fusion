@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 
@@ -176,8 +175,7 @@ public class mKitUser {
 		
 		Player player = getPlayer();
 		
-		Bukkit.broadcastMessage(getInstance(player).getPlayer().getName());
-		Bukkit.broadcastMessage(player.getName());
+		Spawn.getInstance().forceTP(player);
 		
 		setKit(null);
 		
@@ -185,8 +183,6 @@ public class mKitUser {
 		player.getInventory().setArmorContents(null);
 		
 		Utils.giveDefaultItems(player);
-		
-		Spawn.getInstance().teleport(player);
 		
 		for (PotionEffect effect : player.getActivePotionEffects()) {
 			

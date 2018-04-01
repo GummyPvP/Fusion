@@ -9,7 +9,9 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import fusion.listeners.CombatLog;
 import fusion.main.Fusion;
+import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
 
 /**
@@ -72,7 +74,19 @@ public class WarpManager {
 
 	public void sendPlayer(Player player, Warp warp) {
 
-		// if player is incombat log, no no
+		if (CombatLog.getInstance().isInCombat(player)) {
+			
+			Chat.getInstance().messagePlayer(player, Chat.IMPORTANT_COLOR + "You are in combat!");
+			
+			return;
+		}
+		
+		if (mKitUser.getInstance(player).hasKit()) {
+			
+			Chat.getInstance().messagePlayer(player, Chat.IMPORTANT_COLOR + "You may not warp with a kit equipped!");
+			
+			return;
+		}
 
 		player.teleport(warp.getLocation());
 

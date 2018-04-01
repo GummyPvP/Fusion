@@ -16,6 +16,8 @@ public class PlayerMove implements Listener {
 	@EventHandler
 	public void onMove(PlayerMoveEvent event) {
 
+		if (event.getPlayer().isDead()) return;
+		
 		if (!mKitUser.getInstance(event.getPlayer()).hasKit()) {
 
 			Region newRegion = RegionManager.getInstance()
@@ -27,7 +29,7 @@ public class PlayerMove implements Listener {
 			ProtectedRegion reg = (ProtectedRegion) newRegion;
 			
 			if (reg.isPVPEnabled()) {
-
+				
 				if (!event.getPlayer().hasPermission("protectedregion.leave-nokit")) {
 
 					Spawn.getInstance().teleport(event.getPlayer());

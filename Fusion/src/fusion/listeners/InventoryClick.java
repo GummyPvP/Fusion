@@ -127,7 +127,7 @@ public class InventoryClick implements Listener {
 
 			Warp warp = WarpManager.getInstance()
 					.getWarp(ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()));
-
+			
 			if (warp == null)
 				return;
 
