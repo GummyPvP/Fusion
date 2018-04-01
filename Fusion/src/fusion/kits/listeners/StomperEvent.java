@@ -50,7 +50,10 @@ public class StomperEvent implements Listener {
 				continue;
 
 			Player target = (Player) entities;
-
+			
+			if (target.getName().equalsIgnoreCase(player.getName()))
+				return;
+			
 			if (RegionManager.getInstance().isInProtectedRegion(target))
 				return;
 
