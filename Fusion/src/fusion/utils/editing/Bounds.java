@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.util.Vector;
 
@@ -143,17 +145,22 @@ public class Bounds implements ConfigurationSerializable {
 		
 	}
 
+	@SuppressWarnings("deprecation")
 	public void generateHollowCube(int radius) { // Thanks Bukkit forums
 		
 		for (int x = 0; x < radius; x++) {
 		    for (int z = 0; z < radius; z++) {
 		        for (int y = 0; y <= radius / 2; y++) {
 		            Location loc = new Location(world, min.getBlockX() + x, min.getBlockY() + y, min.getBlockZ() + z);
+		            Block block = loc.getBlock();
 		            if (y != (radius / 2) && y!=0) {
-		                if ((x >= 0 && z == 0) || (x >= 0 && z == radius - 1) ||( x == 0 && z >= 0) || (x == radius - 1 && z >= 0))
-		                    loc.getBlock().setType(Material.GLASS);
+		                if ((x >= 0 && z == 0) || (x >= 0 && z == radius - 1) ||( x == 0 && z >= 0) || (x == radius - 1 && z >= 0)) {
+		                	block.setType(Material.STAINED_GLASS);
+		                	block.setData((byte) new Random().nextInt(16));
+		                }
 		            } else {
-		                loc.getBlock().setType(Material.GLASS);
+		                block.setType(Material.STAINED_GLASS);
+		                block.setData((byte) new Random().nextInt(16));
 		            }
 		        }
 		    }
