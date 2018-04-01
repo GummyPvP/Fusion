@@ -28,11 +28,17 @@ public class StomperEvent implements Listener {
 
 		if (!(e.getEntity() instanceof Player))
 			return;
+		
 		if (e.getCause() != DamageCause.FALL)
 			return;
 
 		Player player = (Player) e.getEntity();
-
+		
+		if (player.hasMetadata("noFall")) {
+			e.setCancelled(true);
+			return;
+		}
+		
 		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Stomper")))
 			return;
 

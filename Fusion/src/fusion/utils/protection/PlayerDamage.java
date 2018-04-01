@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -23,7 +24,7 @@ import fusion.utils.editing.regions.RegionManager;
 
 public class PlayerDamage implements Listener {
 	
-	@EventHandler
+	@EventHandler 
 	public void onPlayerDamage(EntityDamageEvent e) {
 		
 		if (!(e.getEntity() instanceof Player)) return;
