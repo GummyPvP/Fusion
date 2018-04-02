@@ -148,19 +148,22 @@ public class Bounds implements ConfigurationSerializable {
 	@SuppressWarnings("deprecation")
 	public void generateHollowCube(int radius) { // Thanks Bukkit forums
 		
+		final byte floorData = (byte) new Random().nextInt(16);
+		final byte wallData = (byte) new Random().nextInt(16);
+		
 		for (int x = 0; x < radius; x++) {
 		    for (int z = 0; z < radius; z++) {
 		        for (int y = 0; y <= radius / 2; y++) {
 		            Location loc = new Location(world, min.getBlockX() + x, min.getBlockY() + y, min.getBlockZ() + z);
 		            Block block = loc.getBlock();
 		            if (y != (radius / 2) && y!=0) {
-		                if ((x >= 0 && z == 0) || (x >= 0 && z == radius - 1) ||( x == 0 && z >= 0) || (x == radius - 1 && z >= 0)) {
+		                if ((x >= 0 && z == 0) || (x >= 0 && z == radius - 1) ||( x == 0 && z >= 0) || (x == radius - 1 && z >= 0)) { // walls
 		                	block.setType(Material.STAINED_GLASS);
-		                	block.setData((byte) new Random().nextInt(16));
+		                	block.setData(wallData);
 		                }
-		            } else {
+		            } else { // floors
 		                block.setType(Material.STAINED_GLASS);
-		                block.setData((byte) new Random().nextInt(16));
+		                block.setData(floorData);
 		            }
 		        }
 		    }
