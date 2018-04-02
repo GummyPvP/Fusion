@@ -75,6 +75,7 @@ public class InventoryClick implements Listener {
 			KitManager.getInstance().valueOf(ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()))
 					.apply(player);
 			player.updateInventory();
+			player.closeInventory();
 
 			return;
 		}

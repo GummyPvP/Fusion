@@ -173,6 +173,9 @@ public class EndermageEvent implements Listener {
 					
 					public void run() {
 						
+						if (p == null || p.isOnline()) 
+							return;
+						
 						if (invincibleHandler.get(p.getName()) <= 1) {
 
 							invincibleHandler.keySet().remove(p.getName());
