@@ -243,7 +243,9 @@ public class mKitUser {
 			List<String> kitList = new ArrayList<String>();
 
 			for (Kit kitz : ownedKits) {
-
+				
+				if (kitz == null) continue;
+				
 				kitList.add(kitz.getName());
 
 			}
