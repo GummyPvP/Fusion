@@ -33,9 +33,7 @@ public class Gladiator extends Kit {
 
 	@Override
 	public PotionEffect[] getPotionEffects() {
-
 		return null;
-
 	}
 
 	@Override

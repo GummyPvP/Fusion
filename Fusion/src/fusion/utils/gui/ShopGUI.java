@@ -41,7 +41,7 @@ public class ShopGUI {
 		
 		player.closeInventory();
 		
-		if (mKitUser.getInstance(player).getKits().size() >= KitManager.getInstance().getKits().size()) {
+		if (mKitUser.getInstance(player).getKits().size() >= KitManager.getInstance().getPaidKits().size()) {
 			
 			Chat.getInstance().messagePlayer(player, "&cYou already own all kits!");
 			

@@ -171,8 +171,8 @@ public class Fusion extends JavaPlugin {
 		log("Commands loaded");
 
 		loadKits(new PVP(), new Archer(), new Fisherman(), new Stomper(), new Viper(), new Heavy(), new Thor(),
-				new Switcher(), new Endermage(), new Sanic(), new Shark(), new Ninja(), new Snail(), new Gladiator(),
-				new Wimp(), new SpellCaster(), new Vampire(), new Turtle(), new Vigilante(), new Kangaroo());
+				new Switcher(), new Sanic(), new Shark(), new Ninja(), new Snail(), new Gladiator(),
+				new Wimp(), new SpellCaster(), new Vampire(), new Turtle(), new Vigilante(), new Kangaroo()); // reenable endermage soon
 
 		log("Kits loaded");
 

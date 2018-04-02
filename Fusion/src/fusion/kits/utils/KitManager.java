@@ -21,28 +21,33 @@ public class KitManager {
 	private static KitManager instance = new KitManager();
 	
 	public static KitManager getInstance() {
-		
 		return instance;
-		
 	}
 	
 	private List<Kit> kits = new ArrayList<Kit>();
 	
 	public void registerKit(Kit kit) {
-		
 		kits.add(kit);
-		
 	}
 	
 	public void unloadKits() {
-		
 		kits.clear();
-		
 	}
 	
 	public List<Kit> getKits() {
-		
 		return kits;
+	}
+	
+	public List<Kit> getPaidKits() {
+		
+		List<Kit> paidKits = new ArrayList<Kit>();
+		
+		for (Kit kit : kits) {
+			if (kit.isDefault()) continue;
+			paidKits.add(kit);
+		}
+		
+		return paidKits;
 		
 	}
 	
