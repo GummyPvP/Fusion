@@ -8,6 +8,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import fusion.kits.utils.KitManager;
+import fusion.main.Fusion;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
 import fusion.utils.editing.regions.RegionManager;
@@ -35,6 +36,7 @@ public class StomperEvent implements Listener {
 		Player player = (Player) e.getEntity();
 		
 		if (player.hasMetadata("noFall")) {
+			player.removeMetadata("noFall", Fusion.getInstance());
 			e.setCancelled(true);
 			return;
 		}
