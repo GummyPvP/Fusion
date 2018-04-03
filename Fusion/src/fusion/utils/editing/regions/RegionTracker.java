@@ -64,14 +64,17 @@ public class RegionTracker implements Listener {
 
 				for (Kit kit : protectedRegion.getBlockedKits()) {
 					
-					if (kit == null) continue;
+					if (kit == null) {
+						protectedRegion.removeBlockedKit(kit); // remove it
+						continue;
+					}
 					
 					kits.append(kit.getName()).append(", ");
-
+					
 				}
 
 				String kitList = "";
-
+				
 				Pattern pattern = Pattern.compile(", $");
 				Matcher matcher = pattern.matcher(kits.toString());
 				kitList = matcher.replaceAll("");

@@ -28,7 +28,6 @@ import fusion.cmds.SetVigilante;
 import fusion.cmds.SpawnCommand;
 import fusion.cmds.Stats;
 import fusion.kits.Archer;
-import fusion.kits.Endermage;
 import fusion.kits.Fisherman;
 import fusion.kits.Gladiator;
 import fusion.kits.Heavy;
@@ -47,7 +46,6 @@ import fusion.kits.Vampire;
 import fusion.kits.Vigilante;
 import fusion.kits.Viper;
 import fusion.kits.Wimp;
-import fusion.kits.listeners.EndermageEvent;
 import fusion.kits.listeners.FishEvent;
 import fusion.kits.listeners.GladiatorEvent;
 import fusion.kits.listeners.KangarooEvent;
@@ -157,8 +155,7 @@ public class Fusion extends JavaPlugin {
 				new PlayerJoin(), new PlayerQuit(), new PlayerRespawn(), new EntityDamageByEntity(), new ItemPickup(),
 				new BlockPlace(), new BlockBreak(), new ToolClick(), new RegionEditor(), new PlayerDamage(),
 				new DropItem(), new MobSpawn(), new BlockIgnite(), new BlockDecay(), new BlockBurn(), new ThorEvent(),
-				new TabComplete(), new ChunkUnload(), new ChunkLoad(), new PlayerInteractEntity(), new SwitchEvent(),
-				new EndermageEvent(), new CommandPreprocess(), new SnailEvent(), new NinjaEvent(), new SharkEvent(),
+				new TabComplete(), new ChunkUnload(), new ChunkLoad(), new PlayerInteractEntity(), new SwitchEvent(), new CommandPreprocess(), new SnailEvent(), new NinjaEvent(), new SharkEvent(),
 				new GladiatorEvent(), new PlayerMove(), new WimpEvent(),
 				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent(), new KangarooEvent(), new WeatherChange());
 
