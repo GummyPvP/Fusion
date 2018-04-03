@@ -59,32 +59,13 @@ public class RegionTracker implements Listener {
 			if (newRegion instanceof ProtectedRegion) {
 
 				ProtectedRegion protectedRegion = (ProtectedRegion) region;
-
-//				if (protectedRegion.isPVPEnabled()) {
-//
-//					if (mKitUser.getInstance(player).hasKit() == false) {
-//						
-//						if (protectedRegion.getName().equalsIgnoreCase("warzone")) {
-//
-//							if (player.isOp() == false) {
-//
-//								Spawn.getInstance().teleport(player);
-//								
-//								onPoint.remove(player.getUniqueId());
-//
-//							}
-//
-//						}
-//
-//					}
-//
-//					return;
-//				}
-
+				
 				StringBuilder kits = new StringBuilder();
 
 				for (Kit kit : protectedRegion.getBlockedKits()) {
-
+					
+					if (kit == null) continue;
+					
 					kits.append(kit.getName()).append(", ");
 
 				}
