@@ -39,6 +39,9 @@ public class ThorEvent implements Listener {
 		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Thor")))
 			return;
 
+		if (e.getItem() == null)
+			return;
+		
 		if (e.getItem().getType() != Material.WOOD_AXE)
 			return;
 

@@ -79,35 +79,21 @@ public class RegionTracker implements Listener {
 				Matcher matcher = pattern.matcher(kits.toString());
 				kitList = matcher.replaceAll("");
 
-				player.sendMessage(
-						Chat.BASE_COLOR + "" + ChatColor.STRIKETHROUGH + "----------------------------------------");
-				Chat.getInstance().messagePlayer(player,
-						ChatColor.YELLOW + "Entering: " + ChatColor.GOLD + protectedRegion.getName()
-								+ (protectedRegion.isPVPEnabled() ? ChatColor.DARK_RED + " (PVP enabled)"
-										: Chat.SECONDARY_BASE + " (PVP disabled)"));
-				Chat.getInstance().messagePlayer(player,
-						ChatColor.YELLOW + "Refills: " + (protectedRegion.areRefillsAllowed()
-								? Chat.SECONDARY_BASE + "enabled" : Chat.IMPORTANT_COLOR + "disabled"));
-				Chat.getInstance().messagePlayer(player, ChatColor.YELLOW + "Healing Item: " + ChatColor.LIGHT_PURPLE
-						+ protectedRegion.getHealingItem().toString());
-				Chat.getInstance().messagePlayer(player,
-						ChatColor.YELLOW + "Blocked Kits: " + (protectedRegion.getBlockedKits().isEmpty()
-								? Chat.SECONDARY_BASE + "none" : Chat.IMPORTANT_COLOR + kitList));
-				player.sendMessage(
-						Chat.BASE_COLOR + "" + ChatColor.STRIKETHROUGH + "----------------------------------------");
+				player.sendMessage( Chat.BASE_COLOR + "" + ChatColor.STRIKETHROUGH + "----------------------------------------");
+				Chat.getInstance().messagePlayer(player, ChatColor.YELLOW + "Entering: " + ChatColor.GOLD + protectedRegion.getName() + (protectedRegion.isPVPEnabled() ? ChatColor.DARK_RED + " (PVP enabled)" : Chat.SECONDARY_BASE + " (PVP disabled)"));
+				Chat.getInstance().messagePlayer(player, ChatColor.YELLOW + "Refills: " + (protectedRegion.areRefillsAllowed() ? Chat.SECONDARY_BASE + "enabled" : Chat.IMPORTANT_COLOR + "disabled"));
+				Chat.getInstance().messagePlayer(player, ChatColor.YELLOW + "Healing Item: " + ChatColor.LIGHT_PURPLE + protectedRegion.getHealingItem().toString());
+				Chat.getInstance().messagePlayer(player, ChatColor.YELLOW + "Blocked Kits: " + (protectedRegion.getBlockedKits().isEmpty() ? Chat.SECONDARY_BASE + "none" : Chat.IMPORTANT_COLOR + kitList));
+				player.sendMessage( Chat.BASE_COLOR + "" + ChatColor.STRIKETHROUGH + "----------------------------------------");
 			}
 
-		} else if (!player.isDead() && !region.getBounds().inBounds(player.getLocation())
-				&& onPoint.contains(player.getUniqueId())) {
+		} else if (!player.isDead() && !region.getBounds().inBounds(player.getLocation()) && onPoint.contains(player.getUniqueId())) {
 
 			onPoint.remove(player.getUniqueId());
 
-			player.sendMessage(
-					Chat.BASE_COLOR + "" + ChatColor.STRIKETHROUGH + "----------------------------------------");
-			Chat.getInstance().messagePlayer(player,
-					ChatColor.YELLOW + "Leaving: " + ChatColor.GOLD + region.getName());
-			player.sendMessage(
-					Chat.BASE_COLOR + "" + ChatColor.STRIKETHROUGH + "----------------------------------------");
+			player.sendMessage( Chat.BASE_COLOR + "" + ChatColor.STRIKETHROUGH + "----------------------------------------");
+			Chat.getInstance().messagePlayer(player, ChatColor.YELLOW + "Leaving: " + ChatColor.GOLD + region.getName());
+			player.sendMessage( Chat.BASE_COLOR + "" + ChatColor.STRIKETHROUGH + "----------------------------------------");
 
 		}
 
@@ -115,9 +101,7 @@ public class RegionTracker implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onMove(PlayerMoveEvent e) {
-
 		handleMove(e.getPlayer(), e.getTo().toVector());
-
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
@@ -127,16 +111,12 @@ public class RegionTracker implements Listener {
 
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
-
 		onPoint.remove(e.getPlayer().getUniqueId());
-
 	}
 
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
-
 		onPoint.remove(e.getEntity().getUniqueId());
-
 	}
 
 }

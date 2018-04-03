@@ -168,7 +168,7 @@ public class GladiatorArena {
 					
 					Block currentBlock = location.getWorld().getBlockAt(x, y, z);
 					
-					if (intersectsProtectedRegions(currentBlock.getLocation()) || intersectsGladiatorArena(currentBlock.getLocation())) { // safety check
+					if (intersectsProtectedRegions(currentBlock.getLocation()) || intersectsGladiatorArena(currentBlock.getLocation())) { // safety check TODO: check for other players that might be in the area
 						
 						createBounds(new Location(location.getWorld(), minX, minY + 5, minZ)); // attempt to create the arena 5 blocks higher
 						
