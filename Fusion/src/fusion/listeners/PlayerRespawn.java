@@ -31,10 +31,10 @@ public class PlayerRespawn implements Listener {
 			@Override
 			public void run() {
 				
-				Spawn.getInstance().teleport(player);
+				Spawn.getInstance().forceTP(player);
 				
 			}
 			
-		}, 3L);	
+		}, 2L);	
 	}
 }

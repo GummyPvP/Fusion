@@ -37,6 +37,7 @@ public class ViperEvent implements Listener {
 			return;
 		
 		if (RegionManager.getInstance().isInProtectedRegion(player)) return;
+		if (RegionManager.getInstance().isInProtectedRegion(hit)) return;
 
 		Random r = new Random();
 
