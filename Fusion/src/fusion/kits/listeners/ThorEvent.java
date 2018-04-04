@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import fusion.kits.utils.KitManager;
@@ -65,6 +67,22 @@ public class ThorEvent implements Listener {
 		Chat.getInstance().messagePlayer(player, Chat.IMPORTANT_COLOR + "You can use your Thor ability in "
 				+ getThorTime(player) + (getThorTime(player) == 1 ? " second" : " seconds") + "!");
 
+	}
+	
+	@EventHandler
+	public void onDamage(EntityDamageEvent e) {
+		
+		if (!(e.getEntity() instanceof Player)) return;
+		
+		if (!e.getCause().equals(DamageCause.LIGHTNING)) return;
+		
+		Player player = (Player) e.getEntity();
+		
+		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Thor"))) return;
+		
+		e.setCancelled(true); // don't allow them to be hurt by lightning cuz they're thor
+		
+		
 	}
 
 	public boolean isInThorTimer(Player p) {
