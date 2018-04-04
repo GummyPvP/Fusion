@@ -78,7 +78,12 @@ public class ThorEvent implements Listener {
 		
 		Player player = (Player) e.getEntity();
 		
-		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Thor"))) return;
+		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Thor"))) { // damage them more so thor isn't useless
+			
+			e.setDamage(e.getFinalDamage() * 2.5); // use final damage to account for armor
+			
+			return;
+		}
 		
 		e.setCancelled(true); // don't allow them to be hurt by lightning cuz they're thor
 		
