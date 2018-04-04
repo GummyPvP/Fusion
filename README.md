@@ -1,5 +1,7 @@
 # Fusion
 
+Want to check Fusion out live? Currently being hosted at: mc.risingpvp.net (1.8.9 server)!
+
 This plugin was made possible by the direct and indirect contributions of several developers. This code has not aged perfectly, and some of the design decisions made early on show a slight lack of experience on my part. But overall, this plugin has a lot of features packed in and slightly hidden away within the code, with a lot of room for improvement and easy tweaking.
 
 Some notable features:
