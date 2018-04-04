@@ -64,15 +64,12 @@ public class RegionTracker implements Listener {
 
 				for (Kit kit : protectedRegion.getBlockedKits()) {
 					
-					if (kit == null) {
-						protectedRegion.removeBlockedKit(kit); // remove it
-						continue;
-					}
+					if (kit == null) continue;
 					
 					kits.append(kit.getName()).append(", ");
 					
 				}
-
+				
 				String kitList = "";
 				
 				Pattern pattern = Pattern.compile(", $");
@@ -83,7 +80,7 @@ public class RegionTracker implements Listener {
 				Chat.getInstance().messagePlayer(player, ChatColor.YELLOW + "Entering: " + ChatColor.GOLD + protectedRegion.getName() + (protectedRegion.isPVPEnabled() ? ChatColor.DARK_RED + " (PVP enabled)" : Chat.SECONDARY_BASE + " (PVP disabled)"));
 				Chat.getInstance().messagePlayer(player, ChatColor.YELLOW + "Refills: " + (protectedRegion.areRefillsAllowed() ? Chat.SECONDARY_BASE + "enabled" : Chat.IMPORTANT_COLOR + "disabled"));
 				Chat.getInstance().messagePlayer(player, ChatColor.YELLOW + "Healing Item: " + ChatColor.LIGHT_PURPLE + protectedRegion.getHealingItem().toString());
-				Chat.getInstance().messagePlayer(player, ChatColor.YELLOW + "Blocked Kits: " + (protectedRegion.getBlockedKits().isEmpty() ? Chat.SECONDARY_BASE + "none" : Chat.IMPORTANT_COLOR + kitList));
+				Chat.getInstance().messagePlayer(player, ChatColor.YELLOW + "Blocked Kits: " + ((kits.length() <= 0) ? Chat.SECONDARY_BASE + "none" : Chat.IMPORTANT_COLOR + kitList));
 				player.sendMessage( Chat.BASE_COLOR + "" + ChatColor.STRIKETHROUGH + "----------------------------------------");
 			}
 
