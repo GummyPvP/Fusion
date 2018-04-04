@@ -44,7 +44,7 @@ public class ThorEvent implements Listener {
 		if (e.getItem() == null)
 			return;
 		
-		if (e.getItem().getType() != Material.WOOD_AXE)
+		if (e.getItem().getType() != Material.GOLD_AXE)
 			return;
 
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK)

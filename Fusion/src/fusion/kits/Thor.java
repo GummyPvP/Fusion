@@ -26,14 +26,14 @@ public class Thor extends Kit {
 
 	@Override
 	public ItemStack getInventoryItem() {
-		return new ItemStack(Material.WOOD_AXE);
+		return new ItemStack(Material.GOLD_AXE);
 	}
 
 	@Override
 	public List<ItemStack> getItems() {
 		
 		ItemStack sword = new ItemBuilder(Material.STONE_SWORD).name("&aThor Sword").lore("I'm a thorry thor thorring thorily").build();
-		ItemStack axe = new ItemBuilder(Material.WOOD_AXE).name("&5Thor Axe").lore("Call lightning from the sky!").build();
+		ItemStack axe = new ItemBuilder(Material.GOLD_AXE).name("&5Thor Axe").lore("Call lightning from the sky!").build();
 		
 		return Arrays.asList(sword, axe);
 	}
