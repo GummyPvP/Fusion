@@ -88,7 +88,7 @@ public class Stats {
 						}
 					}
 
-					Chat.getInstance().messagePlayer(args.getSender(), "&8&m----- &a" + op.getName() + " &c(offline) &8&m----");
+					Chat.getInstance().messagePlayer(args.getSender(), "&8&m----- &a" + op.getName() + " &c(Offline) &8&m----");
 					Chat.getInstance().messagePlayer(args.getSender(), "&aCandies: &f" + candies);
 					Chat.getInstance().messagePlayer(args.getSender(), "&aKills: &f" + kills);
 					Chat.getInstance().messagePlayer(args.getSender(), "&aDeaths: &f" + deaths);
