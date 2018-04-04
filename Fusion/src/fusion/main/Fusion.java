@@ -230,7 +230,7 @@ public class Fusion extends JavaPlugin {
 		for (Player online : Bukkit.getOnlinePlayers()) {
 			
 			mKitUser.getInstance(online).save();
-
+			
 			if (CombatLog.getInstance().isInCombat(online)) {
 				CombatLog.getInstance().remove(online);
 			}
@@ -320,7 +320,7 @@ public class Fusion extends JavaPlugin {
 			public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
 
 				if (event.getPlayer() == null) {
-					return "none";
+					return "None";
 				}
 
 				Player player = event.getPlayer();
@@ -328,7 +328,7 @@ public class Fusion extends JavaPlugin {
 				mKitUser user = mKitUser.getInstance(player);
 
 				if (user.getKit() == null) {
-					return "none";
+					return "None";
 				}
 
 				return String.valueOf(user.getKit().getName());
@@ -343,7 +343,7 @@ public class Fusion extends JavaPlugin {
 			public String onPlaceholderReplace(PlaceholderReplaceEvent event) {
 
 				if (event.getPlayer() == null) {
-					return "none";
+					return "None";
 				}
 
 				Player player = event.getPlayer();
@@ -351,7 +351,7 @@ public class Fusion extends JavaPlugin {
 				mKitUser user = mKitUser.getInstance(player);
 
 				if (user.getTeam() == null) {
-					return "none";
+					return "None";
 				}
 
 				return String.valueOf(user.getTeam().getName());
