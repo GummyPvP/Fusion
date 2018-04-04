@@ -52,19 +52,19 @@ public class TurtleEvent implements Listener {
 		
 	}
 	
-	@EventHandler
-	public void onPlayerDamage(EntityDamageByEntityEvent e) {
-		
-		if (!(e.getEntity() instanceof Player)) return;
-		if (!(e.getDamager() instanceof Player)) return;
-		
-		Player damager = (Player) e.getDamager();
-		
-		if (!KitManager.getInstance().hasRequiredKit(damager, "Turtle")) return;
-			
-		if (!damager.isSneaking()) return;
-		
-		e.setCancelled(true);
-	}
+//	@EventHandler
+//	public void onPlayerDamage(EntityDamageByEntityEvent e) {
+//		
+//		if (!(e.getEntity() instanceof Player)) return;
+//		if (!(e.getDamager() instanceof Player)) return;
+//		
+//		Player damager = (Player) e.getDamager();
+//		
+//		if (!KitManager.getInstance().hasRequiredKit(damager, "Turtle")) return;
+//			
+//		if (!damager.isSneaking()) return;
+//		
+//		e.setCancelled(true);
+//	}
 
 }
