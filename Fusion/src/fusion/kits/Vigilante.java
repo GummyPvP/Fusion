@@ -47,8 +47,9 @@ public class Vigilante extends Kit {
 		ItemStack bow = new ItemBuilder(Material.BOW).name("&5Vigilante Longbow").lore("You're talented upclose or far but only with a bow!")
 				.enchant(Enchantment.ARROW_INFINITE, 1).enchant(Enchantment.DAMAGE_ALL, 3).enchant(Enchantment.ARROW_DAMAGE, 3).build();
 		
-		ItemStack arrow = new ItemBuilder(Material.ARROW).name("&aArrow").build();
 		ItemStack smoke = new ItemBuilder(Material.SULPHUR).name("&aSmoke").build();
+		
+		ItemStack arrow = new ItemBuilder(Material.ARROW).name("&aArrow").build();
 
 		return Arrays.asList(bow, arrow, smoke);
 
