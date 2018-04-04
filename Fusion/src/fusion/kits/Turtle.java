@@ -32,7 +32,7 @@ public class Turtle extends Kit {
 	@Override
 	public List<ItemStack> getItems() {
 		
-		ItemStack sword = new ItemBuilder(Material.WOOD_SWORD).name("&aTurtle Sword").build();
+		ItemStack sword = new ItemBuilder(Material.STONE_SWORD).name("&aTurtle Sword").build();
 		
 		return Collections.singletonList(sword);
 	}
