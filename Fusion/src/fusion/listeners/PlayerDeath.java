@@ -59,11 +59,15 @@ public class PlayerDeath implements Listener {
 
 		double rewardAmount = 15.0;
 
-		killer.addCandies(rewardAmount);
-
 		killer.addKillStreak();
 		killer.addKill();
 		user.addDeath();
+		
+		if (killer.getKillStreak() != 0) {
+			rewardAmount *= (killer.getKillStreak() / 100);
+		}
+		
+		killer.addCandies(rewardAmount); // 5 killstreak = 5% extra reward
 
 		int killerKS = killer.getKillStreak();
 		int ks = killerKS % 5;
@@ -79,11 +83,8 @@ public class PlayerDeath implements Listener {
 
 		if ((userKS >= 5) && (userKS != 0)) {
 
-			Bukkit.broadcastMessage(
-					ChatColor.translateAlternateColorCodes('&',
-							Chat.CHAT_PREFIX + "&aWOAH! &b" + user.getPlayer().getName()
-									+ " &alost their killstreak of &e" + userKS + " &ato &b"
-									+ killer.getPlayer().getName() + "&a!"));
+			Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
+							Chat.CHAT_PREFIX + "&aWOAH! &b" + user.getPlayer().getName() + " &alost their killstreak of &e" + userKS + " &ato &b" + killer.getPlayer().getName() + "&a!"));
 
 		}
 		
