@@ -37,7 +37,7 @@ public class PlayerJoin implements Listener {
 
 		Utils.giveDefaultItems(player);
 
-		Spawn.getInstance().teleport(player);
+		Spawn.getInstance().forceTP(player);
 
 		player.getInventory().setArmorContents(null);
 

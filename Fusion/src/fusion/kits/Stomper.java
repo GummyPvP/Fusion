@@ -45,7 +45,7 @@ public class Stomper extends Kit {
 	@Override
 	public ItemStack[] getArmor() {
 		return new ItemStack[] { new ItemStack(Material.CHAINMAIL_HELMET), new ItemStack(Material.CHAINMAIL_CHESTPLATE),
-				new ItemStack(Material.CHAINMAIL_LEGGINGS), new ItemStack(Material.CHAINMAIL_BOOTS) };
+				new ItemStack(Material.CHAINMAIL_LEGGINGS), new ItemStack(Material.DIAMOND_BOOTS) };
 	}
 
 	@Override
