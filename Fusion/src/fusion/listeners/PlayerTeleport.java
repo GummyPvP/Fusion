@@ -33,7 +33,7 @@ public class PlayerTeleport implements Listener {
 			
 			if (!reg.isPVPEnabled()) {
 				
-				Chat.getInstance().messagePlayer(player, "&cYou can not enderpearl into safezone areas!");
+				Chat.getInstance().messagePlayer(player, "&cYou may not teleport into safezone areas!");
 				
 				event.setCancelled(true);
 				
