@@ -80,7 +80,8 @@ public class ThorEvent implements Listener {
 		
 		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Thor"))) { // damage them more so thor isn't useless
 			
-			e.setDamage(e.getFinalDamage() * 2.5); // use final damage to account for armor
+			e.setDamage(e.getFinalDamage() * 3.5); // use final damage to account for armor
+			player.setVelocity(player.getEyeLocation().getDirection().multiply(-1.5)); // should throw them backwards
 			
 			return;
 		}
