@@ -44,19 +44,18 @@ public class WimpEvent implements Listener {
 	@EventHandler
 	public void onDeath(PlayerDeathEvent event) {
 
-		if (event.getEntity() instanceof Player) {
+		if (!(event.getEntity() instanceof Player))
+			return;
 
-			if (event.getEntity().getKiller() instanceof Player) {
-
-				Player killer = event.getEntity().getKiller();
-
-				if (KitManager.getInstance().hasRequiredKit(killer, KitManager.getInstance().valueOf("Wimp"))) {
-					killer.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20 * 7, 1));
-				}
-
-			}
-
-		}
+		Player killer = event.getEntity().getKiller();
+		
+		if (!KitManager.getInstance().hasRequiredKit(killer, KitManager.getInstance().valueOf("Wimp"))) return;
+		
+		mKitUser user = mKitUser.getInstance(killer);
+		
+		int strengthAmplifier = ((user.getKillStreak() > 3) ? 3 : user.getKillStreak()); // max strength level is 3
+		
+		killer.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20 * 7, strengthAmplifier));
 
 	}
 
