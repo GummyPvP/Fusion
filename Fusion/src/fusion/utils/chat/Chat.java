@@ -25,8 +25,14 @@ public class Chat {
 	public static final String ALREADY_USED_KIT = BASE_COLOR + "You already have kit " + IMPORTANT_COLOR + "%s" + BASE_COLOR + "! Please type /clearkit to choose another kit.";
 	
 	public void messagePlayer(CommandSender sender, String message) {
-		
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', CHAT_PREFIX + BASE_COLOR + message));
+	}
+	
+	public void messagePlayers(String messages, CommandSender... senders) {
+		
+		for (CommandSender sender : senders) {
+			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', CHAT_PREFIX + BASE_COLOR + messages));
+		}
 		
 	}
 	

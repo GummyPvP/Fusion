@@ -1,7 +1,10 @@
 package fusion.kits.listeners;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -28,14 +31,12 @@ import fusion.utils.editing.regions.RegionManager;
 
 public class EndermageEvent implements Listener {
 
-	private Map<String, Integer> cooldownScheduler = new HashMap<String, Integer>();
-	private Map<String, Integer> cooldownHandler = new HashMap<String, Integer>();
-
-	private Map<String, Integer> invincibleScheduler = new HashMap<String, Integer>();
-	private Map<String, Integer> invincibleHandler = new HashMap<String, Integer>();
-
 	private static final int COOLDOWN_TIME = 10;
 	private static final int INVINCIBLE_TIME = 5;
+	private static final double RADIUS = 5.0;
+	
+	private Map<String, Long> cooldownTime = new HashMap<String, Long>();
+	private Set<String> safePlayers = new HashSet<String>();
 
 	@EventHandler
 	public void onEndermage(BlockPlaceEvent e) {
@@ -54,47 +55,52 @@ public class EndermageEvent implements Listener {
 		if (RegionManager.getInstance().isInProtectedRegion(player))
 			return;
 
-		if (!isInEndermageTimer(player)) {
-
-			startEndermageDelay(player);
-
-			startEndermageInvincibleTimer(player);
-
-			int amount = 0;
-
-			for (Entity entities : player.getNearbyEntities(5.0, 256.0, 5.0)) {
-				
-				if (!(entities instanceof Player))
-					continue;
-				
-				Player teleporter = (Player) entities;
-
-				if (teleporter.getGameMode() == GameMode.CREATIVE)
-					continue;
-				
-				if (RegionManager.getInstance().isInProtectedRegion(teleporter)) 
-					continue;
-
-				teleporter.teleport(e.getBlock().getLocation());
-				player.teleport(e.getBlock().getLocation());
-
-				startEndermageInvincibleTimer(teleporter);
-
-				Chat.getInstance().messagePlayer(teleporter,
-						"You have been teleported by an Endermage! You have 5 seconds to run or fight!");
-
-				amount++;
-
-			}
-
-			Chat.getInstance().messagePlayer(player,
-					"You have teleported " + amount + (amount == 1 ? " person" : " people") + "!");
-
+		if (!startEndermageDelay(player)) {
+			
+			long elapsedTimeSinceAction = (System.currentTimeMillis() - cooldownTime.get(player.getName()));
+			
+			long remainingTime = COOLDOWN_TIME - TimeUnit.MILLISECONDS.toSeconds(elapsedTimeSinceAction);
+			
+			Chat.getInstance().messagePlayer(player, Chat.IMPORTANT_COLOR + "You can use your Endermage ability in "
+					+ remainingTime + (remainingTime == 1 ? " second" : " seconds") + "!");
+			
 			return;
 		}
+		
+		startEndermageInvincibleTimer(player);
+		
+		int amount = 0;
 
-		Chat.getInstance().messagePlayer(player, Chat.IMPORTANT_COLOR + "You can use your Endermage ability in "
-				+ getEndermageTime(player) + (getEndermageTime(player) == 1 ? " second" : " seconds") + "!");
+		for (Entity entities : player.getNearbyEntities(RADIUS, 256.0, RADIUS)) {
+
+			if (!(entities instanceof Player))
+				continue;
+
+			Player teleporter = (Player) entities;
+
+			if (teleporter.getGameMode() == GameMode.CREATIVE)
+				continue;
+
+			if (RegionManager.getInstance().isInProtectedRegion(teleporter))
+				continue;
+
+			if (!startEndermageInvincibleTimer(teleporter)) // don't TP players who have recently been TP'd
+				continue;
+			
+			teleporter.teleport(e.getBlock().getLocation());
+			player.teleport(e.getBlock().getLocation());
+
+			Chat.getInstance().messagePlayers("&5The Endermage's spell has been cast... you have "
+					+ INVINCIBLE_TIME + " seconds of invincibility!", player, teleporter);
+
+			amount++;
+
+		}
+
+		Chat.getInstance().messagePlayer(player,
+				"&c&lYou have teleported " + amount + (amount == 1 ? " person" : " people") + "!");
+
+
 
 	}
 
@@ -111,86 +117,52 @@ public class EndermageEvent implements Listener {
 		}
 
 	}
-
-	public boolean isInEndermageTimer(Player p) {
-
-		return cooldownHandler.containsKey(p.getName());
-
-	}
-
-	public int getEndermageTime(Player p) {
-
-		return cooldownHandler.get(p.getName());
-
-	}
-
-	public void startEndermageDelay(final Player p) {
-
-		cooldownHandler.put(p.getName(), COOLDOWN_TIME);
-
-		cooldownScheduler.put(p.getName(),
-				Bukkit.getScheduler().scheduleSyncRepeatingTask(Fusion.getInstance(), new Runnable() {
-
-					public void run() {
-
-						if (cooldownHandler.get(p.getName()) <= 1) {
-
-							cooldownHandler.keySet().remove(p.getName());
-
-							Chat.getInstance().messagePlayer(p,
-									Chat.SECONDARY_BASE + "You may now use your Endermage ability!");
-
-							Bukkit.getScheduler().cancelTask(cooldownScheduler.get(p.getName()));
-						} else
-							cooldownHandler.replace(p.getName(), cooldownHandler.get(p.getName()),
-									(cooldownHandler.get(p.getName()) - 1));
-					}
-
-				}, 0L, 20L));
+	
+	public boolean startEndermageDelay(Player player) {
+		
+		if (cooldownTime.containsKey(player.getName())) {
+			
+			long actionTime = cooldownTime.get(player.getName());
+			
+			if (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - actionTime) >= COOLDOWN_TIME) {
+				cooldownTime.put(player.getName(), System.currentTimeMillis());
+				return true;
+			}
+			
+			return false;
+			
+		}
+		
+		cooldownTime.put(player.getName(), System.currentTimeMillis());
+		
+		return true;
+		
 	}
 
 	public boolean isInvincible(Player player) {
-
-		return invincibleHandler.containsKey(player.getName());
-
+		return safePlayers.contains(player.getName());
 	}
 
-	public int getInvincibleTime(Player player) {
-
-		if (!isInvincible(player))
-			return -1;
-
-		return invincibleHandler.get(player.getName());
-
-	}
-
-	public void startEndermageInvincibleTimer(Player p) {
-
-		invincibleHandler.put(p.getName(), INVINCIBLE_TIME);
-
-		invincibleScheduler.put(p.getName(),
-				Bukkit.getScheduler().scheduleSyncRepeatingTask(Fusion.getInstance(), new Runnable() {
-					
-					public void run() {
-						
-						if (p == null || p.isOnline()) 
-							return;
-						
-						if (invincibleHandler.get(p.getName()) <= 1) {
-
-							invincibleHandler.keySet().remove(p.getName());
-
-							Chat.getInstance().messagePlayer(p,
-									Chat.SECONDARY_BASE + "You are no longer protected by the Endermage spell!");
-
-							Bukkit.getScheduler().cancelTask(invincibleScheduler.get(p.getName()));
-						} else
-							invincibleHandler.replace(p.getName(), invincibleHandler.get(p.getName()),
-									(invincibleHandler.get(p.getName()) - 1));
-					}
-
-				}, 0L, 20L));
-
+	public boolean startEndermageInvincibleTimer(Player player) {
+		
+		if (safePlayers.contains(player.getName())) return false;
+		
+		safePlayers.add(player.getName());
+		
+		Bukkit.getScheduler().scheduleSyncDelayedTask(Fusion.getInstance(), new Runnable() {
+			
+			@Override
+			public void run() {
+				
+				safePlayers.remove(player.getName());
+				
+				Chat.getInstance().messagePlayer(player, "&cYou are no longer protected from the Endermage's spell!");
+				
+			}
+		}, 20 * INVINCIBLE_TIME);
+		
+		return true;
+		
 	}
 
 }
