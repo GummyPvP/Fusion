@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import fusion.kits.utils.KitManager;
 import fusion.kits.utils.kitutils.GladiatorArena;
 import fusion.kits.utils.kitutils.GladiatorManager;
+import fusion.teams.utils.TeamManager;
 import fusion.utils.editing.regions.RegionManager;
 
 /*
@@ -47,6 +48,10 @@ public class GladiatorEvent implements Listener {
 
 		if (attacked.getGameMode() == GameMode.CREATIVE)
 			return;
+		
+		if (TeamManager.get().getTeam(attacked.getUniqueId()) != null) {
+			if (TeamManager.get().getTeam(attacked.getUniqueId()).getMembers().containsKey(player.getUniqueId())) return; // same team
+		}
 
 		GladiatorManager.getInstance().startFight(player, attacked);
 	}
