@@ -26,8 +26,7 @@ public class SpellCaster extends Kit {
 	@Override
 	public List<ItemStack> getItems() {
 
-		ItemStack sword = new ItemBuilder(Material.IRON_SWORD).name("&1&lCAST SPELLS UPON EM!")
-				.unsafeEnchant(Enchantment.DURABILITY, 1).lore("GIVE EM HELL!").build();
+		ItemStack sword = new ItemBuilder(Material.IRON_SWORD).name("&1&lCAST SPELLS UPON 'EM!").unsafeEnchant(Enchantment.DURABILITY, 1).lore("GIVE 'EM HELL!").build();
 		
 		return Collections.singletonList(sword);
 	}
@@ -47,7 +46,7 @@ public class SpellCaster extends Kit {
 
 	@Override
 	public String[] getSpecialAdvantageStrings() {
-		return new String[] { "YOUR A WIZARD HARRY!" };
+		return new String[] { "YOU'RE A WIZARD HARRY!" };
 	}
 
 	@Override
