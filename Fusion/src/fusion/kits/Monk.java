@@ -13,22 +13,21 @@ import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
 
 /**
- * 
- * Copyright GummyPvP. Created on May 15, 2016 by Gummy Dev Team. All Rights
- * Reserved.
- * 
- */
+	 * 
+	 * Created on Apr 6, 2018 by Jeremy Gooch.
+	 * 
+	 */
 
-public class Gladiator extends Kit {
-
+public class Monk extends Kit {
+	
 	@Override
 	public String getName() {
-		return "Gladiator";
+		return "Monk";
 	}
 
 	@Override
 	public ItemStack getInventoryItem() {
-		return new ItemStack(Material.IRON_FENCE);
+		return new ItemStack(Material.BLAZE_ROD);
 	}
 
 	@Override
@@ -39,40 +38,38 @@ public class Gladiator extends Kit {
 	@Override
 	public List<ItemStack> getItems() {
 
-		ItemStack sword = new ItemBuilder(Material.DIAMOND_SWORD).name("&aForged Longsword").lore("One will survive.").build();
-		ItemStack bars = new ItemBuilder(Material.IRON_FENCE).name("&aClick someone to start a 1v1").build();
+		ItemStack sword = new ItemBuilder(Material.IRON_SWORD).name("&aMonk Sword").lore("Violence as a way of achieving racial justice is both impractical and immoral... but oh well!").build();
+		ItemStack rod = new ItemBuilder(Material.BLAZE_ROD).name("&aClick on someone to disarm them!").build();
 		
-		return Arrays.asList(sword, bars);
+		return Arrays.asList(sword, rod);
 
 	}
 
 	@Override
 	public ItemStack[] getArmor() {
 
-		return new ItemStack[] { new ItemStack(Material.LEATHER_HELMET), new ItemStack(Material.CHAINMAIL_CHESTPLATE),
+		return new ItemStack[] { new ItemStack(Material.IRON_HELMET), new ItemStack(Material.IRON_CHESTPLATE),
 				new ItemStack(Material.IRON_LEGGINGS), new ItemStack(Material.IRON_BOOTS) };
 
 	}
 
 	@Override
 	public String[] getSpecialAdvantageStrings() {
-		return new String[] { "Teleport someone into a box for a fair 1v1!" };
+		return new String[] { "Switch the item your enemy is holding with a random item in their inventory to effectively disarm them!" };
 	}
 
 	@Override
 	public boolean isDefault() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public double getCost() {
-
-		return 750.0;
-
+		return 0.0;
 	}
 
-	@Command(name = "Gladiator", description = "Gives the Gladiator kit.", usage = "/kit Gladiator", inGameOnly = true)
-	public void kitGladiatorCommand(CommandArgs args) {
+	@Command(name = "Monk", description = "Gives the Monk kit.", usage = "/kit Monk", inGameOnly = true)
+	public void kitMonkCommand(CommandArgs args) {
 		apply(args.getPlayer());
 	}
 

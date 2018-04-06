@@ -9,6 +9,8 @@ import org.bukkit.potion.PotionEffect;
 
 import fusion.kits.utils.Kit;
 import fusion.utils.ItemBuilder;
+import fusion.utils.command.Command;
+import fusion.utils.command.CommandArgs;
 
 /**
 	 * 
@@ -59,6 +61,11 @@ public class Kangaroo extends Kit {
 	@Override
 	public double getCost() {
 		return 250.0;
+	}
+	
+	@Command(name = "Kangaroo", description = "Gives the Kangaroo kit.", usage = "/kit Kangaroo", inGameOnly = true)
+	public void kitKangarooCommand(CommandArgs args) {
+		apply(args.getPlayer());
 	}
 
 }
