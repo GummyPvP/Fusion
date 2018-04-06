@@ -27,7 +27,7 @@ import fusion.utils.editing.regions.RegionManager;
 
 public class MonkEvent implements Listener {
 	
-	private static final int COOLDOWN_TIME = 3;
+	private static final int COOLDOWN_TIME = 6;
 	
 	private Map<String, Long> cooldownTimes = new HashMap<String, Long>();
 	
