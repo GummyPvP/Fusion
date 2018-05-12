@@ -10,6 +10,15 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.mcwarfare.cubecore.koth.cmds.CreatePoint;
+import org.mcwarfare.cubecore.koth.cmds.CreateRegion;
+import org.mcwarfare.cubecore.koth.cmds.DeletePoint;
+import org.mcwarfare.cubecore.koth.cmds.DeleteRegion;
+import org.mcwarfare.cubecore.koth.cmds.EditPoint;
+import org.mcwarfare.cubecore.koth.cmds.ForceEnd;
+import org.mcwarfare.cubecore.koth.cmds.ForceStart;
+import org.mcwarfare.cubecore.koth.cmds.Koth;
+import org.mcwarfare.cubecore.koth.cmds.Regions;
 
 import be.maximvdw.placeholderapi.PlaceholderAPI;
 import be.maximvdw.placeholderapi.PlaceholderReplaceEvent;
@@ -167,7 +176,8 @@ public class Fusion extends JavaPlugin {
 
 		loadCommands(new KitCommand(), new WarpCreate(), new WarpList(), new SetSpawn(), new SpawnCommand(),
 				new RegionCreate(), new RegionList(), new SetFlag(), new WarpDelete(), new RegionDelete(),
-				new Balance(), new CombatLogCommand(), new ClearKit(), new CandyManCommands(), new EcoSet(), new EcoGive(), new Pay(), new TeamCommand(), new Stats(), new Help(), new SetVigilante());
+				new Balance(), new CombatLogCommand(), new ClearKit(), new CandyManCommands(), new EcoSet(), new EcoGive(), new Pay(), new TeamCommand(), new Stats(), new Help(), new SetVigilante(), new CreatePoint(), new CreateRegion(), new ForceStart(),
+				new Regions(), new DeleteRegion(), new DeletePoint(), new Koth(), new ForceEnd(), new EditPoint());
 
 		log("Commands loaded");
 
