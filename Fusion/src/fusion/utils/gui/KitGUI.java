@@ -169,6 +169,8 @@ public class KitGUI {
 		}
 
 		for (ItemStack armor : kit.getArmor()) {
+			
+			if (armor == null || armor.getType() == Material.AIR) continue;
 
 			String tempName = armor.getType().toString().toLowerCase().replaceAll("_", " ");
 			String firstChar = tempName.substring(0, 1).toUpperCase();

@@ -79,9 +79,7 @@ public class Sanic extends Kit {
 
 	@Command(name = "Sanic", description = "Gives the Sanic kit.", usage = "/kit Sanic", inGameOnly = true)
 	public void kitPVPCommand(CommandArgs args) {
-
 		apply(args.getPlayer());
-
 	}
 
 }
