@@ -83,7 +83,7 @@ public class KangarooEvent implements Listener {
 		
 		if (!midAir.contains(player.getName())) return;
 		
-		if (!underBlock.isLiquid() && underBlock.getType() != Material.AIR) { // if solid
+		if (underBlock.getType() != Material.AIR && !underBlock.getType().isTransparent() && !underBlock.isLiquid()) { // if solid
 			
 			midAir.remove(player.getName());
 			
