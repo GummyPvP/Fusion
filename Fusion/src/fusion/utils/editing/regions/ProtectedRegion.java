@@ -45,9 +45,7 @@ public class ProtectedRegion extends Region {
 	}
 
 	public Bounds getBounds() {
-
 		return bounds;
-
 	}
 
 	@Override
@@ -132,27 +130,20 @@ public class ProtectedRegion extends Region {
 
 	public enum HealingItem {
 
-		ANY(), SOUP(
-				new ItemBuilder(Material.MUSHROOM_SOUP).name("&bSoup").lore("Drinking this soup heals you 3.5 hearts")
-						.build()), POTION(new ItemBuilder(Material.POTION).name("&bPotion").lore(Arrays
-								.asList("Throw this to heal yourself... or maybe", "even the person you're fighting!"))
-								.durability(16421).build());
+		ANY(),
+		SOUP(new ItemBuilder(Material.MUSHROOM_SOUP).name("&bSoup").lore("Drinking this soup heals you 3.5 hearts").build()), 
+		POTION(new ItemBuilder(Material.POTION).name("&bPotion").lore(Arrays.asList("Throw this to heal yourself... or maybe", "even the person you're fighting!")).durability(16421).build());
 
 		ItemStack item;
 
-		HealingItem() {
-		}
+		HealingItem() { }
 
 		HealingItem(ItemStack item) {
-
 			this.item = item;
-
 		}
 
 		public ItemStack getItem() {
-
 			return item;
-
 		}
 
 	}
