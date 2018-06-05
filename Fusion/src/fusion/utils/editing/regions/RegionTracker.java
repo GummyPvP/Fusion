@@ -45,16 +45,13 @@ public class RegionTracker implements Listener {
 
 	public void handleMove(Player player, Vector to) {
 
-		if (!player.isDead() && region.getBounds().inBounds(player.getLocation())
-				&& !onPoint.contains(player.getUniqueId())) {
+		if (!player.isDead() && region.getBounds().inBounds(player.getLocation()) && !onPoint.contains(player.getUniqueId())) {
 
-			if (RegionManager.getInstance().getRegions(to).isEmpty())
-				return;
+			if (RegionManager.getInstance().getRegions(to).isEmpty()) return;
 
 			onPoint.add(player.getUniqueId());
 
-			Region newRegion = RegionManager.getInstance()
-					.getSmallestRegion(RegionManager.getInstance().getRegions(to));
+			Region newRegion = RegionManager.getInstance().getSmallestRegion(RegionManager.getInstance().getRegions(to));
 
 			if (newRegion instanceof ProtectedRegion) {
 

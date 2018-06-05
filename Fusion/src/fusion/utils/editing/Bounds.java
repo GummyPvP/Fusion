@@ -61,15 +61,11 @@ public class Bounds implements ConfigurationSerializable {
 	}
 	
 	public boolean inBounds(Location location) {
-		
 		return location.toVector().isInAABB(min, max);
-		
 	}
 	
 	public boolean inBounds(Vector vector) {
-		
 		return vector.isInAABB(min, max);
-		
 	}
 	
 	public boolean isInRegion(Region region) {
