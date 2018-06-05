@@ -80,7 +80,7 @@ public class MonkEvent implements Listener {
 				
 				Long remainingTime = (COOLDOWN_TIME - elapsedTimeInSeconds);
 				
-				Chat.getInstance().messagePlayer(monk, "&cYou can use your Monk ability in " + remainingTime + (remainingTime == 1 ? " second" : " seconds!"));
+				Chat.getInstance().messagePlayer(monk, "&cYou can use your Monk ability in " + remainingTime + (remainingTime == 1 ? " second!" : " seconds!"));
 				
 				return false;
 			}
