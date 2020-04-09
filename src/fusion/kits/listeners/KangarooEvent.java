@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
@@ -50,8 +52,6 @@ public class KangarooEvent implements Listener {
 		if (midAir.contains(player.getName()))
 			return;
 		
-		player.setFallDistance(-5F);
-		
 		Vector vector = player.getEyeLocation().getDirection();
 		
 		if (player.isSneaking()) { // more forward movement, rather than height
@@ -70,6 +70,18 @@ public class KangarooEvent implements Listener {
         
 		midAir.add(player.getName());
 		
+	}
+	
+	@EventHandler
+	public void onFallDamage(EntityDamageEvent event) {
+		
+		double maxDamage = 7.0;
+		
+		if (!(event.getEntity() instanceof Player)) return;
+		if (event.getCause() != DamageCause.FALL) return;
+		if (!KitManager.getInstance().hasRequiredKit((Player) event.getEntity(), KitManager.getInstance().valueOf("Kangaroo"))) return;
+		
+		event.setDamage(event.getDamage() > maxDamage ? maxDamage : event.getDamage());
 	}
 	
 	@EventHandler
