@@ -17,6 +17,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import fusion.main.Fusion;
+import fusion.utils.editing.regions.ProtectedRegion.HealingItem;
 
 /**
 	 * 
@@ -84,7 +85,7 @@ public class Utils {
 				
 				ItemStack kitSelector = new ItemBuilder(Material.NETHER_STAR).name("&aKit Selector").lore("Click me to show your owned kits!").build();
 				//ItemStack cosmeticSelector = new ItemBuilder(Material.CHEST).name("&aCosmetic Selector").lore("Click me to change cosmetic settings!").build();
-				ItemStack healthSelector = new ItemBuilder(user.getHealingItem().getItem().clone()).name("&aCurrent Healing Item: &e" + user.getHealingItem().toString()).build();
+				ItemStack healthSelector = new ItemBuilder((user.getHealingItem() == HealingItem.POTION ? Material.POTION : user.getHealingItem().getItem().getType())).name("&aCurrent Healing Item: &e" + user.getHealingItem().toString()).build();
 				ItemStack warpSelector = new ItemBuilder(Material.COMPASS).name("&aWarps").lore("Click me to show cool warps!").build();
 				ItemStack shopSelector = new ItemBuilder(Material.ENDER_CHEST).name("&aKit Shop").lore("Click me to buy kits!").build();
 				

@@ -135,8 +135,7 @@ public class PlayerInteract implements Listener {
 
 			case POTION:
 
-				if (((PotionMeta) item.getItemMeta()).getBasePotionData().getType() == PotionType.INSTANT_HEAL && item.hasItemMeta()
-						&& item.getItemMeta().getDisplayName().contains("Current Healing Item:")) {
+				if (item.hasItemMeta() && item.getItemMeta().getDisplayName().contains("Current Healing Item:")) {
 					
 					e.setCancelled(true);
 
