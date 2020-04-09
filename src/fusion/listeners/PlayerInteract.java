@@ -19,15 +19,16 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.Potion;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 
 import fusion.utils.ItemBuilder;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
+import fusion.utils.editing.regions.ProtectedRegion.HealingItem;
 import fusion.utils.editing.regions.Region;
 import fusion.utils.editing.regions.RegionManager;
-import fusion.utils.editing.regions.ProtectedRegion.HealingItem;
 import fusion.utils.gui.KitGUI;
 import fusion.utils.gui.ShopGUI;
 import fusion.utils.gui.WarpGUI;
@@ -101,8 +102,7 @@ public class PlayerInteract implements Listener {
 
 					e.setCancelled(true);
 
-					player.setItemInHand(new ItemBuilder(new Potion(PotionType.INSTANT_HEAL).toItemStack(1))
-							.name("&aCurrent Healing Item: &ePOTION").build());
+					player.setItemInHand(new ItemBuilder(Material.POTION).name("&aCurrent Healing Item: &ePOTION").addPotionData(new PotionData(PotionType.INSTANT_HEAL)).build());
 
 					player.updateInventory();
 
@@ -135,13 +135,12 @@ public class PlayerInteract implements Listener {
 
 			case POTION:
 
-				if (Potion.fromItemStack(item).getType() == PotionType.INSTANT_HEAL && item.hasItemMeta()
+				if (((PotionMeta) item.getItemMeta()).getBasePotionData().getType() == PotionType.INSTANT_HEAL && item.hasItemMeta()
 						&& item.getItemMeta().getDisplayName().contains("Current Healing Item:")) {
-
+					
 					e.setCancelled(true);
 
-					player.setItemInHand(
-							new ItemBuilder(Material.MUSHROOM_STEW).name("&aCurrent Healing Item: &eSOUP").build());
+					player.setItemInHand(new ItemBuilder(Material.MUSHROOM_STEW).name("&aCurrent Healing Item: &eSOUP").build());
 
 					player.updateInventory();
 

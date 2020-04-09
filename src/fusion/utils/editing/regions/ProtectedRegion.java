@@ -11,6 +11,8 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionType;
 import org.bukkit.util.Vector;
 
 import fusion.kits.utils.Kit;
@@ -113,35 +115,35 @@ public class ProtectedRegion extends Region {
 		for (Kit kit : blockedKits) {
 
 			blockedList.add(kit.getName());
-
+			
 		}
-
+		
 		Fusion.getInstance().getRegionsFile().set("regions." + getName() + ".blockedKits", blockedList);
-
+		
 	}
-
+	
 	public void register() {
 		Bukkit.getPluginManager().registerEvents(this.tracker, Fusion.getInstance());
 	}
-
+	
 	public void unregister() {
 		HandlerList.unregisterAll(this.tracker);
 	}
-
+	
 	public enum HealingItem {
-
+		
 		ANY(),
 		SOUP(new ItemBuilder(Material.MUSHROOM_STEW).name("&bSoup").lore("Drinking this soup heals you 3.5 hearts").build()), 
-		POTION(new ItemBuilder(Material.POTION).name("&bPotion").lore(Arrays.asList("Throw this to heal yourself... or maybe", "even the person you're fighting!")).durability(16421).build());
-
+		POTION(new ItemBuilder(Material.SPLASH_POTION).name("&bPotion").lore(Arrays.asList("Throw this to heal yourself... or maybe", "even the person you're fighting!")).addPotionData(new PotionData(PotionType.INSTANT_HEAL)).build());
+		
 		ItemStack item;
-
+		
 		HealingItem() { }
-
+		
 		HealingItem(ItemStack item) {
 			this.item = item;
 		}
-
+		
 		public ItemStack getItem() {
 			return item;
 		}
