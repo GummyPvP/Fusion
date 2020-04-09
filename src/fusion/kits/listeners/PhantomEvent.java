@@ -73,7 +73,7 @@ public class PhantomEvent implements Listener {
 		Player player = (Player) event.getEntity();
 		
 		if (inFlightPlayers.contains(player.getName())) {
-			player.setHealth(0.0);
+			event.setDamage(20.0);
 			Chat.getInstance().messagePlayer(player, "&cYou fell out of the sky! Try landing next time");
 			inFlightPlayers.remove(player.getName());
 		}

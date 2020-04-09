@@ -3,6 +3,7 @@ package fusion.kits.listeners;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 import fusion.kits.utils.KitManager;
@@ -40,7 +41,7 @@ public class TurtleEvent implements Listener {
 			
 			double damage = e.getDamage();
 			
-			damage *= .25;
+			damage *= .50;
 			
 			e.setDamage(damage);
 			
@@ -49,19 +50,19 @@ public class TurtleEvent implements Listener {
 		
 	}
 	
-//	@EventHandler
-//	public void onPlayerDamage(EntityDamageByEntityEvent e) {
-//		
-//		if (!(e.getEntity() instanceof Player)) return;
-//		if (!(e.getDamager() instanceof Player)) return;
-//		
-//		Player damager = (Player) e.getDamager();
-//		
-//		if (!KitManager.getInstance().hasRequiredKit(damager, "Turtle")) return;
-//			
-//		if (!damager.isSneaking()) return;
-//		
-//		e.setCancelled(true);
-//	}
+	@EventHandler
+	public void onPlayerDamage(EntityDamageByEntityEvent e) {
+		
+		if (!(e.getEntity() instanceof Player)) return;
+		if (!(e.getDamager() instanceof Player)) return;
+		
+		Player damager = (Player) e.getDamager();
+		
+		if (!KitManager.getInstance().hasRequiredKit(damager, "Turtle")) return;
+			
+		if (!damager.isSneaking()) return;
+		
+		e.setCancelled(true);
+	}
 
 }

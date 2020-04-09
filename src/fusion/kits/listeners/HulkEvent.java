@@ -17,6 +17,7 @@ import org.spigotmc.event.entity.EntityDismountEvent;
 import fusion.kits.utils.KitManager;
 import fusion.main.Fusion;
 import fusion.utils.chat.Chat;
+import fusion.utils.editing.regions.RegionManager;
 
 public class HulkEvent implements Listener {
 	
@@ -37,6 +38,9 @@ public class HulkEvent implements Listener {
 		if (!(event.getRightClicked() instanceof Player)) return;
 		
 		Player pickedUp = (Player) event.getRightClicked();
+		
+		if (RegionManager.getInstance().isInProtectedRegion(player)) return;
+		if (RegionManager.getInstance().isInProtectedRegion(pickedUp)) return;
 		
 		if (!pickup(player, pickedUp)) return;
 		
