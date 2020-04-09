@@ -9,8 +9,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.util.Vector;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
@@ -46,6 +48,36 @@ public class HulkEvent implements Listener {
 		
 		Chat.getInstance().messagePlayer(player, "&aYou used your Hulk ability to pickup " + pickedUp.getName() + "!");
 		Chat.getInstance().messagePlayer(pickedUp, "&c&lYou were picked up by a Hulk!");
+		
+	}
+	
+	@EventHandler
+	public void onHulkDeath(PlayerDeathEvent event) {
+			
+		Player player = event.getEntity();
+		
+		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Hulk")))
+			return;
+		
+		if (player.getPassengers().isEmpty()) return;
+		
+		player.eject();
+		player.getPassengers().get(0).eject();
+		
+	}
+	
+	@EventHandler
+	public void onHulkTeleport(PlayerTeleportEvent event) {
+			
+		Player player = event.getPlayer();
+		
+		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Hulk")))
+			return;
+		
+		if (player.getPassengers().isEmpty()) return;
+		
+		player.eject();
+		player.getPassengers().get(0).eject();
 		
 	}
 	
