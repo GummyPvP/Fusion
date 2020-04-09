@@ -65,6 +65,8 @@ public class Spawn {
 			return;
 		}
 		
+		if (p == null) return;
+		
 		p.teleport(location);
 
 		Chat.getInstance().messagePlayer(p, Chat.SECONDARY_BASE + "Teleported to the spawnpoint!");

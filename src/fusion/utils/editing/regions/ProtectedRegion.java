@@ -134,7 +134,7 @@ public class ProtectedRegion extends Region {
 		
 		ANY(),
 		SOUP(new ItemBuilder(Material.MUSHROOM_STEW).name("&bSoup").lore("Drinking this soup heals you 3.5 hearts").build()), 
-		POTION(new ItemBuilder(Material.SPLASH_POTION).name("&bPotion").lore(Arrays.asList("Throw this to heal yourself... or maybe", "even the person you're fighting!")).addPotionData(new PotionData(PotionType.INSTANT_HEAL)).build());
+		POTION(new ItemBuilder(Material.SPLASH_POTION).name("&bPotion").lore(Arrays.asList("Throw this to heal yourself... or maybe", "even the person you're fighting!")).addPotionData(new PotionData(PotionType.INSTANT_HEAL, false, true)).build());
 		
 		ItemStack item;
 		

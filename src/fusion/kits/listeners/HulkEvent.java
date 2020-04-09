@@ -95,6 +95,8 @@ public class HulkEvent implements Listener {
 		
 		Player pickedUp = (Player) player.getPassengers().get(0);
 		
+		leaveTimes.remove(pickedUp.getName());
+		
 		player.eject();
 		pickedUp.eject();
 		
