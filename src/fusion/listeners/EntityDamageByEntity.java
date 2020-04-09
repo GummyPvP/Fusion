@@ -105,12 +105,7 @@ public class EntityDamageByEntity implements Listener {
 		
 		if (hitter.getInventory().getItemInMainHand().getType().toString().contains("SWORD") || hitter.getInventory().getItemInMainHand().getType().toString().contains("AXE")) {
 			
-			ItemMeta meta = hitter.getInventory().getItemInMainHand().getItemMeta();
-			
-			Damageable dMeta = (Damageable) meta;
-			dMeta.setDamage(-1);
-			
-			hitter.getInventory().getItemInMainHand().setItemMeta(meta);
+			hitter.getInventory().getItemInMainHand().setDurability((short) -1);
 			
 		}
 		
@@ -120,14 +115,7 @@ public class EntityDamageByEntity implements Listener {
 		
 		for (ItemStack armor : reciever.getInventory().getArmorContents()) {
 			
-			ItemMeta meta = armor.getItemMeta();
-			
-			Damageable dMeta = (Damageable) meta;
-			dMeta.setDamage(-1);
-			
-			hitter.getInventory().getItemInMainHand().setItemMeta(meta);
-			
-			armor.setItemMeta(meta);
+			armor.setDurability((short) -1);
 			
 		}
 		
@@ -150,8 +138,6 @@ public class EntityDamageByEntity implements Listener {
 			e.setCancelled(true);
 			return;
 		}
-		
-
 		
 		if (!CombatLog.getInstance().isInCombat(hitter)) {
 			

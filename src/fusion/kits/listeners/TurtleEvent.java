@@ -42,9 +42,7 @@ public class TurtleEvent implements Listener {
 			
 			damage *= .25;
 			
-			e.setCancelled(true);
-			
-			player.damage(damage);
+			e.setDamage(damage);
 			
 			break;
 		}
