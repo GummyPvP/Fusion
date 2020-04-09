@@ -1,9 +1,12 @@
 package fusion.listeners;
 
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.util.Vector;
 
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
@@ -38,6 +41,35 @@ public class PlayerMove implements Listener {
 		
 		Chat.getInstance().messagePlayer(player, "&cYou must pick a kit before exiting!");
 
+	}
+	
+	@EventHandler
+	public void onSponge(PlayerMoveEvent event) {
+		
+		Player player = event.getPlayer();
+		
+		if (player.getLocation().subtract(0.0, 1.0, 0.0).getBlock().getType() == Material.SPONGE) {
+			
+			int wool = countWool(player.getWorld(), player.getLocation().subtract(0.0, 1.0, 0.0).toVector());
+			
+			player.setVelocity(new Vector(0.0, 1.0 + wool, 0.0));
+		}
+		
+	}
+	
+	private int countWool(World world, Vector vector) {
+		
+		int result = 0;
+		
+		Vector currentVector = vector;
+		
+		while (currentVector.toLocation(world).subtract(0.0, 1.0, 0.0).getBlock().getType() == Material.WHITE_WOOL) {
+			result++;
+			currentVector.subtract(new Vector(0, 1, 0));
+		}
+		
+		return result;
+		
 	}
 
 }
