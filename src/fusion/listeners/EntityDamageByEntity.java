@@ -1,5 +1,6 @@
 package fusion.listeners;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -7,8 +8,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
@@ -112,12 +111,15 @@ public class EntityDamageByEntity implements Listener {
 		if (!(entityReciever instanceof Player)) return;
 		
 		Player reciever = (Player) entityReciever;
-		
+	
 		for (ItemStack armor : reciever.getInventory().getArmorContents()) {
 			
-			armor.setDurability((short) -1);
+			if (armor == null || armor.getType() == Material.AIR) continue;
+			
+			armor.setDurability((short) 0);
 			
 		}
+		
 		
 		Region hitterRegion = RegionManager.getInstance().getSmallestRegion(RegionManager.getInstance().getRegions(hitter.getLocation().toVector()));
 		Region recieverRegion = RegionManager.getInstance().getSmallestRegion(RegionManager.getInstance().getRegions(reciever.getLocation().toVector()));

@@ -21,7 +21,7 @@ import fusion.utils.mKitUser;
 public class WimpEvent implements Listener {
 
 	@EventHandler
-	public void onViper(EntityDamageByEntityEvent e) {
+	public void onDamage(EntityDamageByEntityEvent e) {
 
 		if (!(e.getEntity() instanceof Player)) return;
 	
@@ -43,10 +43,14 @@ public class WimpEvent implements Listener {
 
 	@EventHandler
 	public void onDeath(PlayerDeathEvent event) {
-
+		
 		if (!(event.getEntity() instanceof Player))
 			return;
-
+		
+		if (event.getEntity().getKiller() == null) return;
+		
+		if (!(event.getEntity().getKiller() instanceof Player)) return;
+		
 		Player killer = event.getEntity().getKiller();
 		
 		if (!KitManager.getInstance().hasRequiredKit(killer, KitManager.getInstance().valueOf("Wimp"))) return;
