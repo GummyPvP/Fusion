@@ -100,8 +100,8 @@ public class GladiatorArena {
 		
 		createArena(attacker.getLocation());
 		
-		attacker.teleport(bounds.getMin().add(new Vector(2, 1, 2)).toLocation(bounds.getWorld()));
-		attacked.teleport(new Vector(bounds.getMax().getBlockX() - 2, bounds.getMin().getBlockY(), bounds.getMax().getBlockZ() - 2).toLocation(bounds.getWorld()));
+		attacker.teleport(bounds.getMin().add(new Vector(2, 2, 2)).toLocation(bounds.getWorld()));
+		attacked.teleport(new Vector(bounds.getMax().getBlockX() - 2, bounds.getMin().getBlockY() + 1, bounds.getMax().getBlockZ() - 2).toLocation(bounds.getWorld()));
 		
 		Utils.get().sendTitle(attacker, 5, 40, 5, "&4&lFight", "&9To the death!");
 		Utils.get().sendTitle(attacked, 5, 40, 5, "&4&lFight", "&9To the death!");
