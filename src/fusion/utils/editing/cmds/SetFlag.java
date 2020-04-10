@@ -1,13 +1,16 @@
 package fusion.utils.editing.cmds;
 
+import org.bukkit.Bukkit;
+
+import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
 import fusion.utils.chat.Chat;
 import fusion.utils.command.Command;
 import fusion.utils.command.CommandArgs;
 import fusion.utils.editing.regions.ProtectedRegion;
+import fusion.utils.editing.regions.ProtectedRegion.HealingItem;
 import fusion.utils.editing.regions.Region;
 import fusion.utils.editing.regions.RegionManager;
-import fusion.utils.editing.regions.ProtectedRegion.HealingItem;
 
 /**
  * 
@@ -96,7 +99,16 @@ public class SetFlag {
 			break;
 
 		case "blockkit":
-
+			
+			if (modifier.equalsIgnoreCase("all")) {
+				
+				for (Kit kit : KitManager.getInstance().getKits()) {
+					Bukkit.dispatchCommand(args.getSender(), "setflag " + regionName + " blockkit " + kit.getName());
+				}
+				
+				return;
+			}
+			
 			if (KitManager.getInstance().valueOf(modifier) == null) {
 
 				Chat.getInstance().messagePlayer(args.getSender(), Chat.IMPORTANT_COLOR + "That kit does not exist!");
@@ -120,7 +132,7 @@ public class SetFlag {
 					Chat.STAFF_NOTIFICATION + "Successfully added blocked kit: " + modifier);
 
 			break;
-
+			
 		default:
 
 			Chat.getInstance().messagePlayer(args.getSender(),
