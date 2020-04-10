@@ -61,10 +61,15 @@ public class GladiatorEvent implements Listener {
 
 		Player player = e.getEntity();
 		
-		if (GladiatorManager.getInstance().getArena(player) == null) return;
+		GladiatorArena arena = GladiatorManager.getInstance().getArena(player);
 		
-		GladiatorManager.getInstance().endFight(player.getKiller());
+		if (arena == null) return;
 		
+		if (arena.getAttacker().getName().equalsIgnoreCase(player.getName())) {
+			GladiatorManager.getInstance().endFight(arena.getAttacked());
+		} else {
+			GladiatorManager.getInstance().endFight(arena.getAttacker());
+		}
 	}
 
 	@EventHandler
