@@ -76,6 +76,7 @@ public class StomperEvent implements Listener {
 			double reward = 15.0;
 
 			mKitUser.getInstance(player).addCandies(reward);
+			mKitUser.getInstance(player).addKill();
 
 			Chat.getInstance().messagePlayer(player, Chat.SECONDARY_BASE + "You received " + Chat.IMPORTANT_COLOR
 					+ reward + Chat.SECONDARY_BASE + " candies for killing " + target.getName());
