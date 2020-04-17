@@ -17,6 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -49,7 +50,9 @@ public class PlayerInteract implements Listener {
 		Player player = e.getPlayer();
 		ItemStack item = e.getItem();
 		mKitUser user = mKitUser.getInstance(player);
-
+		
+		if (e.getHand() != EquipmentSlot.HAND) return;
+		
 		if (e.getClickedBlock() != null && e.getClickedBlock().getType() == Material.CHEST
 				&& !player.hasPermission("chests.view")) {
 
