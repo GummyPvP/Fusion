@@ -53,7 +53,7 @@ public class SetFlag {
 		}
 
 		ProtectedRegion protectedRegion = (ProtectedRegion) region;
-
+		
 		switch (flag.toLowerCase()) {
 		case "pvp":
 		case "pvpenable":

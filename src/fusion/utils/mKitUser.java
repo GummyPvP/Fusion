@@ -44,6 +44,8 @@ public class mKitUser {
 	private int kills;
 	private int deaths;
 	private int killstreak;
+	
+	private double duelElo;
 
 	private mKitUser(Player player) {
 
@@ -234,6 +236,8 @@ public class mKitUser {
 		
 		setKillStreak(file.getInt("killstreak"));
 		
+		setDuelElo(file.getDouble("duelElo"));
+		
 	}
 	
 	public void save() {
@@ -259,6 +263,7 @@ public class mKitUser {
 		file.set("kills", getKills());
 		file.set("deaths", getDeaths());
 		file.set("killstreak", getKillStreak());
+		file.set("duelElo", getDuelElo());
 		
 	}
 
@@ -306,6 +311,22 @@ public class mKitUser {
 		}
 		
 		return kd;
+	}
+	
+	public double getDuelElo() {
+		return duelElo;
+	}
+	
+	public void setDuelElo(double duelElo) {
+		this.duelElo = duelElo;
+	}
+	
+	public void addDuelElo(double duelElo) {
+		this.duelElo += duelElo;
+	}
+	
+	public void removeDuelElo(double duelElo) {
+		this.duelElo -= duelElo;
 	}
 	
 	public String getKDRText() {

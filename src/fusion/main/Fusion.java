@@ -101,6 +101,7 @@ import fusion.utils.Settings;
 import fusion.utils.Utils;
 import fusion.utils.mKitUser;
 import fusion.utils.command.CommandFramework;
+import fusion.utils.duels.cmds.SetDuelSpawn;
 import fusion.utils.editing.Bounds;
 import fusion.utils.editing.EditorManager;
 import fusion.utils.editing.TeleportListener;
@@ -171,7 +172,7 @@ public class Fusion extends JavaPlugin {
 
 		loadCommands(new KitCommand(), new WarpCreate(), new WarpList(), new SetSpawn(), new SpawnCommand(),
 				new RegionCreate(), new RegionList(), new SetFlag(), new WarpDelete(), new RegionDelete(),
-				new Balance(), new CombatLogCommand(), new ClearKit(), new CandyManCommands(), new EcoSet(), new EcoGive(), new Pay(), new TeamCommand(), new Stats(), new Help(), new SetVigilante());
+				new Balance(), new CombatLogCommand(), new ClearKit(), new CandyManCommands(), new EcoSet(), new EcoGive(), new Pay(), new TeamCommand(), new Stats(), new Help(), new SetVigilante(), new SetDuelSpawn());
 
 		log("Commands loaded");
 
