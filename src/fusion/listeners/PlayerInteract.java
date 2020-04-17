@@ -51,8 +51,6 @@ public class PlayerInteract implements Listener {
 		ItemStack item = e.getItem();
 		mKitUser user = mKitUser.getInstance(player);
 		
-		if (e.getHand() != EquipmentSlot.HAND) return;
-		
 		if (e.getClickedBlock() != null && e.getClickedBlock().getType() == Material.CHEST
 				&& !player.hasPermission("chests.view")) {
 
@@ -61,7 +59,9 @@ public class PlayerInteract implements Listener {
 		}
 
 		if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR) {
-
+			
+			if (e.getHand() != EquipmentSlot.HAND) return;
+			
 			if (e.getClickedBlock() != null && e.getClickedBlock().getType() == Material.ENDER_CHEST) {
 
 				if (player.getGameMode() == GameMode.CREATIVE) return;
