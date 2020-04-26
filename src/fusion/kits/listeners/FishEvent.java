@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 
+import fusion.kits.utils.kitutils.GladiatorManager;
 import fusion.utils.mKitUser;
 import fusion.utils.editing.regions.RegionManager;
 
@@ -24,10 +25,13 @@ public class FishEvent implements Listener {
 		if (!mKitUser.getInstance(e.getPlayer()).hasKit()) return;
 		if (!mKitUser.getInstance(e.getPlayer()).getKit().getName().equalsIgnoreCase("Fisherman")) return;
 		
-		if (RegionManager.getInstance().isInProtectedRegion(e.getPlayer())) return;
-		
 		Player player = e.getPlayer();
 		Player caught = (Player) e.getCaught();
+		
+		if (RegionManager.getInstance().isInProtectedRegion(player)) return;
+		if (RegionManager.getInstance().isInProtectedRegion(caught)) return;
+		
+		if (GladiatorManager.getInstance().getArena(caught) != null) return;
 		
 		caught.teleport(player);
 		
