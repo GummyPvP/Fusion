@@ -207,7 +207,7 @@ public class GladiatorArena {
 		
 	}
 	
-	private boolean intersectsGladiatorArena(Location location) {
+	public boolean intersectsGladiatorArena(Location location) {
 		
 		boolean intersects = false;
 		

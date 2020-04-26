@@ -1,11 +1,13 @@
 package fusion.listeners;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
+import fusion.kits.utils.kitutils.GladiatorArena;
 import fusion.kits.utils.kitutils.GladiatorManager;
 import fusion.utils.chat.Chat;
 import fusion.utils.editing.regions.ProtectedRegion;
@@ -23,8 +25,19 @@ public class PlayerTeleport implements Listener {
 			
 			if (GladiatorManager.getInstance().getArena(player) != null) return; // don't let players TP away from a gladiator fight!
 			
-			Region newRegion = RegionManager.getInstance()
-					.getSmallestRegion(RegionManager.getInstance().getRegions(event.getTo().toVector()));
+			if (event.getTo().getBlock().getType() == Material.GLASS) {
+				
+				for (GladiatorArena arena : GladiatorManager.getInstance().getArenas()) {
+					if (arena.intersectsGladiatorArena(event.getTo())) {
+						event.setCancelled(true);
+						Chat.getInstance().messagePlayer(player, "&cYou may not teleport to a gladiator arena!");
+						return;
+					}
+				}
+				
+			}
+			
+			Region newRegion = RegionManager.getInstance().getSmallestRegion(RegionManager.getInstance().getRegions(event.getTo().toVector()));
 
 			if (newRegion == null) return;
 			if (!(newRegion instanceof ProtectedRegion)) return;
@@ -37,12 +50,10 @@ public class PlayerTeleport implements Listener {
 				
 				event.setCancelled(true);
 				
-				
 				return;
 			}
 			
 		}
 		
 	}
-	
 }

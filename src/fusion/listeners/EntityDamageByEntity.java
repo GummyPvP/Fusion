@@ -96,6 +96,10 @@ public class EntityDamageByEntity implements Listener {
 		
 		Entity entityHitter = e.getDamager();
 		
+		if (entityHitter instanceof Arrow) {
+			entityHitter = (Entity) ((Arrow) entityHitter).getShooter();
+		}
+		
 		if (!(entityHitter instanceof Player)) return;
 		
 		Player hitter = (Player) entityHitter;

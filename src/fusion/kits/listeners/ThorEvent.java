@@ -14,6 +14,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import fusion.kits.utils.KitManager;
+import fusion.kits.utils.kitutils.GladiatorManager;
 import fusion.main.Fusion;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
@@ -77,6 +78,11 @@ public class ThorEvent implements Listener {
 		if (!e.getCause().equals(DamageCause.LIGHTNING)) return;
 		
 		Player player = (Player) e.getEntity();
+		
+		if (GladiatorManager.getInstance().getArena(player) != null) {
+			e.setCancelled(true);
+			return;
+		}
 		
 		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Thor"))) { // damage them more so thor isn't useless
 			
