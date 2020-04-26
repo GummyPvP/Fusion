@@ -25,7 +25,7 @@ public class PlayerTeleport implements Listener {
 			
 			if (GladiatorManager.getInstance().getArena(player) != null) return; // don't let players TP away from a gladiator fight!
 			
-			if (event.getTo().getBlock().getType() == Material.GLASS) {
+			if (event.getTo().getBlock().getType() == Material.BLUE_STAINED_GLASS || event.getTo().getBlock().getType() == Material.YELLOW_STAINED_GLASS) {
 				
 				for (GladiatorArena arena : GladiatorManager.getInstance().getArenas()) {
 					if (arena.intersectsGladiatorArena(event.getTo())) {
