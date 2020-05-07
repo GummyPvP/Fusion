@@ -32,7 +32,7 @@ public class ThorEvent implements Listener {
 	private Map<String, Integer> cooldownScheduler = new HashMap<String, Integer>();
 	private Map<String, Integer> cooldownHandler = new HashMap<String, Integer>();
 
-	private static final int COOLDOWN_TIME = 6;
+	private static final int COOLDOWN_TIME = 12;
 
 	@EventHandler
 	public void onThor(PlayerInteractEvent e) {

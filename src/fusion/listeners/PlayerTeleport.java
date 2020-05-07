@@ -23,7 +23,10 @@ public class PlayerTeleport implements Listener {
 		
 		if (event.getCause() == TeleportCause.ENDER_PEARL) {
 			
-			if (GladiatorManager.getInstance().getArena(player) != null) return; // don't let players TP away from a gladiator fight!
+			if (GladiatorManager.getInstance().getArena(player) != null) {
+				event.setCancelled(true);
+				return; // don't let players TP away from a gladiator fight!
+			}
 			
 			if (event.getTo().getBlock().getType() == Material.BLUE_STAINED_GLASS || event.getTo().getBlock().getType() == Material.YELLOW_STAINED_GLASS) {
 				

@@ -31,7 +31,6 @@ public class VigilanteEvent implements Listener {
 		if (!KitManager.getInstance().hasRequiredKit(e.getPlayer(), KitManager.getInstance().valueOf("Vigilante")))
 			return;
 
-
 		if (e.getPlayer().getInventory().getItemInMainHand().getType()  == null || e.getPlayer().getInventory().getItemInMainHand() == null) 
 			return;
 
