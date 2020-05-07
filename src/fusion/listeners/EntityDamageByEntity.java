@@ -1,6 +1,7 @@
 package fusion.listeners;
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -143,6 +144,25 @@ public class EntityDamageByEntity implements Listener {
 			
 			e.setCancelled(true);
 			return;
+		}
+		
+		if (!hitter.getInventory().getItemInMainHand().getType().toString().contains("SWORD") || !hitter.getInventory().getItemInMainHand().getType().toString().contains("AXE")) {
+			
+			ItemStack itemInHand = hitter.getInventory().getItemInMainHand();
+			
+			if (itemInHand.hasItemMeta()) {
+				
+				if (itemInHand.getItemMeta().hasEnchant(Enchantment.DAMAGE_ALL)) {
+					
+					double damage = e.getDamage();
+					
+					damage += (itemInHand.getItemMeta().getEnchantLevel(Enchantment.DAMAGE_ALL) * 1.25);
+					
+					e.setDamage(damage);
+					
+				}
+				
+			}
 		}
 		
 		if (!CombatLog.getInstance().isInCombat(hitter)) {
