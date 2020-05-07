@@ -44,7 +44,7 @@ public class Vampire extends Kit {
 	public List<ItemStack> getItems() {
 
 		ItemStack sword = new ItemBuilder(Material.GHAST_TEAR).name("&cBloody Tear")
-				.lore("Why ask for blood when you can take it?").unsafeEnchant(Enchantment.DAMAGE_ALL, 4).build();
+				.lore("Why ask for blood when you can take it?").unsafeEnchant(Enchantment.DAMAGE_ALL, 2).build();
 
 		return Collections.singletonList(sword);
 
