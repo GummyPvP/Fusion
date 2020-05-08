@@ -66,14 +66,14 @@ public abstract class Kit {
 	public abstract boolean isDefault();
 
 	public abstract double getCost();
-
+	
 	public void apply(Player player) {
 
 		mKitUser user = mKitUser.getInstance(player);
 
 		Region region = RegionManager.getInstance()
 				.getSmallestRegion(RegionManager.getInstance().getRegions(player.getLocation().toVector()));
-
+		
 		if (user.hasKit()) {
 
 			Chat.getInstance().messagePlayer(player,
@@ -83,7 +83,12 @@ public abstract class Kit {
 
 			return;
 		}
-
+		
+		if (Fusion.getInstance().getEventModeHandler().isInEventMode() && Fusion.getInstance().getEventModeHandler().getAllowedKits().contains(this)) {
+			giveItems(player, region, user); // allow this player to use the kit regardless of ownership or local region blockage
+			return;
+		}
+		
 		if (region != null && region instanceof ProtectedRegion) {
 
 			if (((ProtectedRegion) region).getBlockedKits().contains(this)) {
@@ -102,7 +107,13 @@ public abstract class Kit {
 
 			return;
 		}
+		
+		giveItems(player, region, user);
 
+	}
+	
+	private void giveItems(Player player, Region region, mKitUser user) {
+		
 		user.setKit(this);
 		
 		player.getInventory().clear();
@@ -180,8 +191,6 @@ public abstract class Kit {
 		player.playSound(player.getLocation(), Sound.ENTITY_SLIME_SQUISH, 1, 1);
 
 		player.updateInventory();
-		
-
 	}
 
 }

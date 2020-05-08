@@ -16,6 +16,7 @@ import org.bukkit.potion.PotionEffect;
 
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
+import fusion.main.Fusion;
 import fusion.utils.ItemBuilder;
 import fusion.utils.Settings;
 import fusion.utils.mKitUser;
@@ -120,7 +121,13 @@ public class KitGUI {
 
 
 		for (Kit kits : checkedKits) {
-
+			
+			if (Fusion.getInstance().getEventModeHandler().isInEventMode() && Fusion.getInstance().getEventModeHandler().getAllowedKits().contains(kits)) { // give access to all kits in the gui
+				inv.addItem(createKitItem(kits));
+				ownedKits++;
+				continue;
+			}
+			
 			if (!user.ownsKit(kits) && !kits.isDefault())
 				continue;
 

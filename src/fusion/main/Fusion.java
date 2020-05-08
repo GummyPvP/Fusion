@@ -97,6 +97,7 @@ import fusion.listeners.WeatherChange;
 import fusion.teams.cmds.TeamCommand;
 import fusion.teams.utils.TeamManager;
 import fusion.utils.ConfigManager;
+import fusion.utils.EventModeHandler;
 import fusion.utils.Settings;
 import fusion.utils.Utils;
 import fusion.utils.mKitUser;
@@ -137,6 +138,8 @@ public class Fusion extends JavaPlugin {
 
 	private CommandFramework framework;
 	private ConfigManager spawn, warps, regions, config, kitInfo, teams, defaultPlayerFile;
+	
+	private EventModeHandler eventModeHandler;
 	
 	public void onEnable() {
 
@@ -219,6 +222,8 @@ public class Fusion extends JavaPlugin {
 		}
 		
 		Utils.get().load();
+		
+		this.eventModeHandler = new EventModeHandler();
 		
 		long finishTime = System.nanoTime();
 
@@ -507,6 +512,10 @@ public class Fusion extends JavaPlugin {
 	
 	public ConfigManager getDefaultPlayerFile() {
 		return defaultPlayerFile;
+	}
+	
+	public EventModeHandler getEventModeHandler() {
+		return eventModeHandler;
 	}
 	
 	private void loadListeners(Listener... listeners) {
