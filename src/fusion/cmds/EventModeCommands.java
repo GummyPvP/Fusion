@@ -3,6 +3,9 @@ package fusion.cmds;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
 import fusion.kits.utils.Kit;
 import fusion.kits.utils.KitManager;
 import fusion.main.Fusion;
@@ -105,9 +108,90 @@ public class EventModeCommands {
 		
 	}
 	
+	@Command(name = "eventmode.createkit", aliases = { "event.createkit" }, description = "Allows admins to create a custom kit in event mode", usage = "/eventmode createkit <kit>", permission = "fusion.eventmode")
+	public void eventmodeKitCreate(CommandArgs args) {
+		
+		if (args.length() == 0) return;
+		
+		if (Fusion.getInstance().getEventModeHandler().getCustomKit(args.getArgs(0)) != null) {
+			Chat.getInstance().messagePlayer(args.getSender(), "&eKit &a" + args.getArgs(0) + " &ealready exists");
+			return;
+		}
+		
+		Fusion.getInstance().getEventModeHandler().addCustomKit(args.getArgs(0), args.getPlayer().getInventory().getContents());
+		
+		Chat.getInstance().messagePlayer(args.getSender(), "&eKit &a" + args.getArgs(0) + " &ehas been added to the event mode kit list with your inventory contents");
+		
+	}
+	
+	@Command(name = "eventmode.deletekit", aliases = { "event.deletekit" }, description = "Allows admins to delete a custom kit in event mode", usage = "/eventmode deletekit <kit>", permission = "fusion.eventmode")
+	public void eventmodeKitDelete(CommandArgs args) {
+		
+		if (args.length() == 0) return;
+		
+		if (Fusion.getInstance().getEventModeHandler().getCustomKit(args.getArgs(0)) == null) {
+			Chat.getInstance().messagePlayer(args.getSender(), "&eKit &a" + args.getArgs(0) + " &edoes not exist");
+			return;
+		}
+		
+		Fusion.getInstance().getEventModeHandler().removeCustomKit(args.getArgs(0));
+		
+		Chat.getInstance().messagePlayer(args.getSender(), "&eKit &a" + args.getArgs(0) + " &ehas been removed from the event mode kit list");
+		
+	}
+	
+	@Command(name = "eventmode.applykit", aliases = { "event.applykit" }, description = "Allows admins to apply a custom kit in event mode", usage = "/eventmode applykit <kit> <user>", permission = "fusion.eventmode")
+	public void eventmodeKitApply(CommandArgs args) {
+		
+		if (args.length() < 2) return;
+		
+		if (Fusion.getInstance().getEventModeHandler().getCustomKit(args.getArgs(0)) == null) {
+			Chat.getInstance().messagePlayer(args.getSender(), "&eKit &a" + args.getArgs(0) + " &edoes not exist");
+			return;
+		}
+		
+		if (args.getArgs(1).equalsIgnoreCase("all")) {
+			
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				Bukkit.dispatchCommand(args.getSender(), "eventmode applykit " + args.getArgs(0) + " " + player.getName());
+			}
+			
+			return;
+		}
+		
+		Player target = Bukkit.getPlayer(args.getArgs(1));
+		
+		if (target == null) {
+			Chat.getInstance().messagePlayer(args.getSender(), "&ePlayer &c" + args.getArgs(1) + " &edoes not exist");
+			return;
+		}
+		
+		Fusion.getInstance().getEventModeHandler().applyCustomKit(target, args.getArgs(0));
+		
+		Chat.getInstance().messagePlayer(args.getSender(), "&eKit &a" + args.getArgs(0) + " &ehas been applied to " + target.getName());
+		Chat.getInstance().messagePlayer(target, "&eKit &a" + args.getArgs(0) + " &ehas been applied to you");
+		
+	}
+	
+	@Command(name = "eventmode.listkits", aliases = { "event.listkits", "event.kitlist" }, description = "Allows admins to list all custom kits in event mode", usage = "/eventmode listkits", permission = "fusion.eventmode")
+	public void eventmodeKitList(CommandArgs args) {
+		
+		String kitList = "";
+		
+		for (String name : Fusion.getInstance().getEventModeHandler().getCustomKits().keySet()) {
+			kitList += "&a" + name + "&7, ";
+		}
+		
+		Pattern pattern = Pattern.compile(", $");
+		Matcher matcher = pattern.matcher(kitList.toString());
+		kitList = matcher.replaceAll("");
+		
+		Chat.getInstance().messagePlayer(args.getSender(), "&eCustom event kits: &a" + (kitList.equalsIgnoreCase("") ? "none" : kitList));
+		
+	}
+	
 	private String convertTimeToString(long durationInMillis) {
 		
-		long millis = durationInMillis % 1000;
 		long second = (durationInMillis / 1000) % 60;
 		long minute = (durationInMillis / (1000 * 60)) % 60;
 		long hour = (durationInMillis / (1000 * 60 * 60)) % 24;
