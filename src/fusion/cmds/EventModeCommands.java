@@ -1,6 +1,5 @@
 package fusion.cmds;
 
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,7 +36,7 @@ public class EventModeCommands {
 		Chat.getInstance().messagePlayer(args.getSender(), "&e--== Event Mode ==--");
 		Chat.getInstance().messagePlayer(args.getSender(), "&eEvent mode: " + (Fusion.getInstance().getEventModeHandler().isInEventMode() ? "&a&lON" : "&c&lOFF"));
 		Chat.getInstance().messagePlayer(args.getSender(), "&eAllowed kits: &a" + kitList);
-		Chat.getInstance().messagePlayer(args.getSender(), "&eTime running: &6" + (timeLastStarted == 0L ? "N/A" : TimeUnit.MILLISECONDS.toHours(System.currentTimeMillis() - timeLastStarted)));
+		Chat.getInstance().messagePlayer(args.getSender(), "&eTime running: &6" + (timeLastStarted == 0L ? "N/A" : convertTimeToString(System.currentTimeMillis() - timeLastStarted)));
 	}
 	
 	@Command(name = "eventmode.toggle", aliases = { "event.toggle" }, description = "Allows admins to toggle event mode", usage = "/eventmode toggle", permission = "fusion.eventmode")
@@ -104,6 +103,18 @@ public class EventModeCommands {
 		Fusion.getInstance().getEventModeHandler().removeAllowedKit(kit);
 		Chat.getInstance().messagePlayer(args.getSender(), "&eKit &a" + kit.getName() + " &eis now blocked during event mode");
 		
+	}
+	
+	private String convertTimeToString(long durationInMillis) {
+		
+		long millis = durationInMillis % 1000;
+		long second = (durationInMillis / 1000) % 60;
+		long minute = (durationInMillis / (1000 * 60)) % 60;
+		long hour = (durationInMillis / (1000 * 60 * 60)) % 24;
+
+		String time = String.format("%02d:%02d:%02d", hour, minute, second);
+		
+		return time;
 	}
 	
 }
