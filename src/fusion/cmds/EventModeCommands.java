@@ -51,6 +51,20 @@ public class EventModeCommands {
 	@Command(name = "eventmode.addkit", aliases = { "event.addkit" }, description = "Allows admins to allow a kit in event mode", usage = "/eventmode addkit <kit>", permission = "fusion.eventmode")
 	public void eventmodeKitAdd(CommandArgs args) {
 		
+		if (args.length() == 0) return;
+		
+		if (args.getArgs(0).equalsIgnoreCase("all")) {
+			
+			for (Kit kit : KitManager.getInstance().getKits()) {
+				Fusion.getInstance().getEventModeHandler().addAllowedKit(kit);
+			}
+			
+			Chat.getInstance().messagePlayer(args.getSender(), "&eAll kits are now allowed during event mode");
+			
+			return;
+			
+		}
+		
 		Kit kit = KitManager.getInstance().valueOf(args.getArgs(0));
 		
 		if (kit == null) {
@@ -65,6 +79,20 @@ public class EventModeCommands {
 	
 	@Command(name = "eventmode.removekit", aliases = { "event.removekit" }, description = "Allows admins to block a kit in event mode", usage = "/eventmode removekit <kit>", permission = "fusion.eventmode")
 	public void eventmodeKitRemove(CommandArgs args) {
+		
+		if (args.length() == 0) return;
+		
+		if (args.getArgs(0).equalsIgnoreCase("all")) {
+			
+			for (Kit kit : KitManager.getInstance().getKits()) {
+				Fusion.getInstance().getEventModeHandler().removeAllowedKit(kit);
+			}
+			
+			Chat.getInstance().messagePlayer(args.getSender(), "&eAll kits are now blocked during event mode");
+			
+			return;
+			
+		}
 		
 		Kit kit = KitManager.getInstance().valueOf(args.getArgs(0));
 		
