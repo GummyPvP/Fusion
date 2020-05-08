@@ -71,7 +71,7 @@ public class VampireEvent implements Listener {
 		killer.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 1, 1));
 		killer.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20 * 10, 1));
 		
-		Chat.getInstance().messagePlayer(killer, "&cYou finish " + dp.getName() +  "off with ease, you feel the power in your veins.");
+		Chat.getInstance().messagePlayer(killer, "&cYou finish " + dp.getName() +  " off with ease, you feel the power in your veins.");
 		
 	}
 	
