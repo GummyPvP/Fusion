@@ -122,9 +122,14 @@ public class KitGUI {
 
 		for (Kit kits : checkedKits) {
 			
-			if (Fusion.getInstance().getEventModeHandler().isInEventMode() && Fusion.getInstance().getEventModeHandler().getAllowedKits().contains(kits)) { // give access to all kits in the gui
-				inv.addItem(createKitItem(kits));
-				ownedKits++;
+			if (Fusion.getInstance().getEventModeHandler().isInEventMode()) { // give access to all kits in the gui
+				
+				if (Fusion.getInstance().getEventModeHandler().getAllowedKits().contains(kits)) {
+					inv.addItem(createKitItem(kits));
+					ownedKits++;
+					continue;
+				}
+				
 				continue;
 			}
 			

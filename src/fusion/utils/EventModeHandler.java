@@ -12,10 +12,13 @@ public class EventModeHandler {
 	
 	private Set<Kit> allowedKits;
 	
+	private long timeLastStarted;
+	
 	public EventModeHandler() {
 		this.inEventMode = false;
 		this.allowedKits = new HashSet<Kit>();
 		this.allowedKits.addAll(KitManager.getInstance().getKits());
+		this.timeLastStarted = 0L;
 	}
 	
 	public boolean isInEventMode() {
@@ -24,6 +27,10 @@ public class EventModeHandler {
 	
 	public void setInEventMode(boolean eventMode) {
 		this.inEventMode = eventMode;
+		
+		if (eventMode) {
+			timeLastStarted = System.currentTimeMillis();
+		} else timeLastStarted = 0L;
 	}
 	
 	public Set<Kit> getAllowedKits() {
@@ -38,4 +45,12 @@ public class EventModeHandler {
 		this.allowedKits.remove(kit);
 	}
 
+	public void setTimeLastStarted(long time) {
+		this.timeLastStarted = time;
+	}
+	
+	public long getTimeLastStarted() {
+		return this.timeLastStarted;
+	}
+	
 }

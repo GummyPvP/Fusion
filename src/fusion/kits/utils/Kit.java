@@ -84,8 +84,15 @@ public abstract class Kit {
 			return;
 		}
 		
-		if (Fusion.getInstance().getEventModeHandler().isInEventMode() && Fusion.getInstance().getEventModeHandler().getAllowedKits().contains(this)) {
-			giveItems(player, region, user); // allow this player to use the kit regardless of ownership or local region blockage
+		if (Fusion.getInstance().getEventModeHandler().isInEventMode()) {
+			
+			if (Fusion.getInstance().getEventModeHandler().getAllowedKits().contains(this)) {
+				giveItems(player, region, user); // allow this player to use the kit regardless of ownership or local region blockage
+				return;
+			}
+			
+			Chat.getInstance().messagePlayer(player, Chat.BASE_COLOR + getName() + " is currently blocked globally due to an event!");
+			
 			return;
 		}
 		
