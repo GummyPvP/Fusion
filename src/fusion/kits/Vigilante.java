@@ -58,8 +58,12 @@ public class Vigilante extends Kit {
 	@Override
 	public ItemStack[] getArmor() {
 		
-		return new ItemStack[] { new ItemBuilder(Material.LEATHER_HELMET).color(Color.ORANGE).build(), new ItemBuilder(Material.LEATHER_CHESTPLATE).color(Color.ORANGE).build(),
-				new ItemBuilder(Material.LEATHER_LEGGINGS).color(Color.ORANGE).build(), new ItemBuilder(Material.LEATHER_BOOTS).color(Color.ORANGE).build() };
+		return new ItemStack[] {
+				new ItemBuilder(Material.LEATHER_HELMET).enchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1).color(Color.ORANGE).build(),
+				new ItemBuilder(Material.LEATHER_CHESTPLATE).enchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1).color(Color.ORANGE).build(),
+				new ItemBuilder(Material.LEATHER_LEGGINGS).enchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1).color(Color.ORANGE).build(),
+				new ItemBuilder(Material.LEATHER_BOOTS).enchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1).color(Color.ORANGE).build()
+		};
 		
 	}
 	

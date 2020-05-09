@@ -7,6 +7,7 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import fusion.kits.utils.Kit;
 import fusion.utils.ItemBuilder;
@@ -26,7 +27,7 @@ public class Turtle extends Kit {
 
 	@Override
 	public ItemStack getInventoryItem() {
-		return new ItemStack(Material.DIAMOND_HELMET);
+		return new ItemStack(Material.TURTLE_HELMET);
 	}
 
 	@Override
@@ -41,15 +42,16 @@ public class Turtle extends Kit {
 	public ItemStack[] getArmor() {
 		
 		ItemStack helmet = new ItemBuilder(Material.LEATHER_HELMET).color(Color.GREEN).build();
+		ItemStack chestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
 		ItemStack leggings = new ItemBuilder(Material.LEATHER_LEGGINGS).color(Color.GREEN).build();
 		ItemStack boots = new ItemBuilder(Material.LEATHER_BOOTS).color(Color.GREEN).build();
 		
-		return new ItemStack[] { helmet, new ItemStack(Material.LEATHER_CHESTPLATE), leggings, boots };
+		return new ItemStack[] { helmet, chestplate, leggings, boots };
 	}
 
 	@Override
 	public PotionEffect[] getPotionEffects() {
-		return null;
+		return new PotionEffect[] { new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0) };
 	}
 
 	@Override
