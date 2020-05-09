@@ -25,7 +25,7 @@ public class StalkerEvent implements Listener {
 		if (!KitManager.getInstance().hasRequiredKit(player, KitManager.getInstance().valueOf("Stalker")))
 			return;
 		
-		if (player.getLocation().getBlock().getLightLevel() >= 8) {
+		if (player.getLocation().getBlock().getLightFromSky() >= 8) {
 			
 			if (!inOpen.containsKey(player.getName())) {
 				inOpen.put(player.getName(), true);
