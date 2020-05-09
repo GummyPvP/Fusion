@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -43,6 +44,8 @@ public class HulkEvent implements Listener {
 		
 		if (RegionManager.getInstance().isInProtectedRegion(player)) return;
 		if (RegionManager.getInstance().isInProtectedRegion(pickedUp)) return;
+		
+		if (pickedUp.isFlying() || pickedUp.getGameMode() == GameMode.CREATIVE) return;
 		
 		if (!pickup(player, pickedUp)) return;
 		
