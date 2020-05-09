@@ -47,6 +47,7 @@ public class EventModeCommands {
 		
 		Fusion.getInstance().getEventModeHandler().setInEventMode(!Fusion.getInstance().getEventModeHandler().isInEventMode());
 		Chat.getInstance().messagePlayer(args.getSender(), "&eEvent mode is now GLOBALLY turned " + (Fusion.getInstance().getEventModeHandler().isInEventMode() ? "&a&lON" : "&c&lOFF"));
+		Chat.getInstance().broadcastMessage("&e&lEvent mode has been toggled " + (Fusion.getInstance().getEventModeHandler().isInEventMode() ? "&a&lON" : "&c&lOFF") + "&e&l!");
 		
 	}
 	
@@ -187,6 +188,19 @@ public class EventModeCommands {
 		kitList = matcher.replaceAll("");
 		
 		Chat.getInstance().messagePlayer(args.getSender(), "&eCustom event kits: &a" + (kitList.equalsIgnoreCase("") ? "none" : kitList));
+		
+	}
+	
+	@Command(name = "eventmode.help", aliases = { "event.help" }, description = "Event mode help menu", usage = "/eventmode help", permission = "fusion.eventmode")
+	public void eventmodeKitHelp(CommandArgs args) {
+		
+		Chat.getInstance().messagePlayer(args.getSender(), "&e/event toggle - Toggles server wide event mode");
+		Chat.getInstance().messagePlayer(args.getSender(), "&e/event addkit <kit name> - Adds a kit to the allowed event mode kits");
+		Chat.getInstance().messagePlayer(args.getSender(), "&e/event removekit <kit name> - Removes a kit from the allowed event mode kits");
+		Chat.getInstance().messagePlayer(args.getSender(), "&e/event createkit <kit name> - Creates a custom kit based on your inventory contents");
+		Chat.getInstance().messagePlayer(args.getSender(), "&e/event deletekit <kit name> - Removes a custom kit");
+		Chat.getInstance().messagePlayer(args.getSender(), "&e/event listkits - Displays all custom kits");
+		Chat.getInstance().messagePlayer(args.getSender(), "&e/event applykit <kit> <user or 'all'> - Applies a custom kit to a player or all");
 		
 	}
 	

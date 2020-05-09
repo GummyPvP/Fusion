@@ -11,7 +11,7 @@ import fusion.utils.duels.DuelArenas;
 
 public class SetDuelSpawn {
 	
-	@Command(name = "setduelspawn", aliases = { "" }, description = "Creates a duel arena spawnpoint", usage = "/setduelspawn (name) (teamNumber)", inGameOnly = true)
+	@Command(name = "setduelspawn", aliases = { }, description = "Creates a duel arena spawnpoint", usage = "/setduelspawn (name) (teamNumber)", inGameOnly = true)
 	public void setDuelSpawn(CommandArgs args) {
 		
 		Player player = args.getPlayer();

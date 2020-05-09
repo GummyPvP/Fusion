@@ -43,6 +43,7 @@ import fusion.kits.Sanic;
 import fusion.kits.Shark;
 import fusion.kits.Snail;
 import fusion.kits.SpellCaster;
+import fusion.kits.Stalker;
 import fusion.kits.Stomper;
 import fusion.kits.Switcher;
 import fusion.kits.Thor;
@@ -62,6 +63,7 @@ import fusion.kits.listeners.PhantomEvent;
 import fusion.kits.listeners.SharkEvent;
 import fusion.kits.listeners.SnailEvent;
 import fusion.kits.listeners.SpellCasterEvent;
+import fusion.kits.listeners.StalkerEvent;
 import fusion.kits.listeners.StomperEvent;
 import fusion.kits.listeners.SwitchEvent;
 import fusion.kits.listeners.ThorEvent;
@@ -170,7 +172,7 @@ public class Fusion extends JavaPlugin {
 				new DropItem(), new MobSpawn(), new BlockIgnite(), new BlockDecay(), new BlockBurn(), new ThorEvent(),
 				new TabComplete(), new ChunkUnload(), new ChunkLoad(), new PlayerInteractEntity(), new SwitchEvent(), new CommandPreprocess(), new SnailEvent(), new NinjaEvent(), new SharkEvent(),
 				new GladiatorEvent(), new PlayerMove(), new WimpEvent(),
-				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent(), new KangarooEvent(), new EndermageEvent(), new WeatherChange(), new MonkEvent(), new HulkEvent(), new PhantomEvent());
+				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent(), new KangarooEvent(), new EndermageEvent(), new WeatherChange(), new MonkEvent(), new HulkEvent(), new PhantomEvent(), new StalkerEvent());
 
 		log("Listeners loaded");
 
@@ -182,7 +184,7 @@ public class Fusion extends JavaPlugin {
 
 		loadKits(new PVP(), new Archer(), new Fisherman(), new Stomper(), new Viper(), new Heavy(), new Thor(),
 				new Switcher(), new Sanic(), new Shark(), new Ninja(), new Snail(), new Gladiator(),
-				new Wimp(), new SpellCaster(), new Vampire(), new Turtle(), new Vigilante(), new Kangaroo(), new Endermage(), new Monk(), new Hulk(), new Phantom());
+				new Wimp(), new SpellCaster(), new Vampire(), new Turtle(), new Vigilante(), new Kangaroo(), new Endermage(), new Monk(), new Hulk(), new Phantom(), new Stalker());
 
 		log("Kits loaded");
 
