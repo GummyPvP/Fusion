@@ -11,6 +11,8 @@ import fusion.main.Fusion;
 import fusion.utils.Utils;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 
 /**
 	 * 
@@ -47,9 +49,8 @@ public class PlayerQuit implements Listener {
 		if (mKitUser.getInstance(player).getTeam() != null) {
 
 			for (Player teammembers : mKitUser.getInstance(player).getTeam().getOnlineMemebers(player)) {
-
-					Utils.sendActionBar(teammembers, ChatColor.translateAlternateColorCodes('&',
-							player.getDisplayName() + " &cjust logged out!"), 20 * 5);
+				
+					Utils.sendActionBar(teammembers, "&a" + player.getDisplayName() + " &cjust logged out!", 20 * 5);
 
 
 			}
