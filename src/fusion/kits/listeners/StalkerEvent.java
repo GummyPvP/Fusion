@@ -34,6 +34,7 @@ public class StalkerEvent implements Listener {
 			if (!inOpen.get(player.getName())) {
 				player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
 				player.removePotionEffect(PotionEffectType.SPEED);
+				player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
 				Chat.getInstance().messagePlayer(player, "&cYou're in the open!");
 				inOpen.put(player.getName(), true);
 			}
@@ -48,6 +49,7 @@ public class StalkerEvent implements Listener {
 		if (inOpen.get(player.getName())) {
 			player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1));
 			player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
+			player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0));
 			
 			Chat.getInstance().messagePlayer(player, "&cYou've blended into the shadows... you feel stronger");
 			
