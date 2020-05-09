@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import fusion.kits.utils.Kit;
@@ -48,6 +49,10 @@ public class EventModeCommands {
 		Fusion.getInstance().getEventModeHandler().setInEventMode(!Fusion.getInstance().getEventModeHandler().isInEventMode());
 		Chat.getInstance().messagePlayer(args.getSender(), "&eEvent mode is now GLOBALLY turned " + (Fusion.getInstance().getEventModeHandler().isInEventMode() ? "&a&lON" : "&c&lOFF"));
 		Chat.getInstance().broadcastMessage("&e&lEvent mode has been toggled " + (Fusion.getInstance().getEventModeHandler().isInEventMode() ? "&a&lON" : "&c&lOFF") + "&e&l!");
+		
+		for (Player online : Bukkit.getOnlinePlayers()) {
+			online.playSound(online.getLocation(), Sound.BLOCK_NOTE_BLOCK_FLUTE, 1.0f, 1.0f);
+		}
 		
 	}
 	
