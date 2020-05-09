@@ -44,8 +44,8 @@ public class Ninja extends Kit {
 	@Override
 	public List<ItemStack> getItems() {
 
-		ItemStack sword = new ItemBuilder(Material.DIAMOND_HOE).name("&aJagged Dagger").lore("All warfare is based on deception").unsafeEnchant(Enchantment.DAMAGE_ALL, 5).build();
-		ItemStack eye = new ItemBuilder(Material.ENDER_PEARL).name("&aEye of Darkness").amount(16).lore("Poof!").build();
+		ItemStack sword = new ItemBuilder(Material.DIAMOND_HOE).name("&aJagged Dagger").lore("All warfare is based on deception").unsafeEnchant(Enchantment.DAMAGE_ALL, 3).build();
+		ItemStack eye = new ItemBuilder(Material.ENDER_PEARL).name("&aEye of Darkness").amount(4).lore("Poof!").build();
 
 		return Arrays.asList(sword, eye);
 
