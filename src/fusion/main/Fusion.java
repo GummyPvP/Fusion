@@ -28,6 +28,7 @@ import fusion.cmds.SetSpawn;
 import fusion.cmds.SetVigilante;
 import fusion.cmds.SpawnCommand;
 import fusion.cmds.Stats;
+import fusion.kits.Anchor;
 import fusion.kits.Archer;
 import fusion.kits.Endermage;
 import fusion.kits.Fisherman;
@@ -52,6 +53,7 @@ import fusion.kits.Vampire;
 import fusion.kits.Vigilante;
 import fusion.kits.Viper;
 import fusion.kits.Wimp;
+import fusion.kits.listeners.AnchorEvent;
 import fusion.kits.listeners.EndermageEvent;
 import fusion.kits.listeners.FishEvent;
 import fusion.kits.listeners.GladiatorEvent;
@@ -173,7 +175,8 @@ public class Fusion extends JavaPlugin {
 				new DropItem(), new MobSpawn(), new BlockIgnite(), new BlockDecay(), new BlockBurn(), new ThorEvent(),
 				new TabComplete(), new ChunkUnload(), new ChunkLoad(), new PlayerInteractEntity(), new SwitchEvent(), new CommandPreprocess(), new SnailEvent(), new NinjaEvent(), new SharkEvent(),
 				new GladiatorEvent(), new PlayerMove(), new WimpEvent(),
-				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent(), new KangarooEvent(), new EndermageEvent(), new WeatherChange(), new MonkEvent(), new HulkEvent(), new PhantomEvent(), new StalkerEvent(), new PlayerInteractSign());
+				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent(), new KangarooEvent(), new EndermageEvent(), new WeatherChange(), 
+				new MonkEvent(), new HulkEvent(), new PhantomEvent(), new StalkerEvent(), new PlayerInteractSign(), new AnchorEvent());
 
 		log("Listeners loaded");
 
@@ -185,7 +188,7 @@ public class Fusion extends JavaPlugin {
 
 		loadKits(new PVP(), new Archer(), new Fisherman(), new Stomper(), new Viper(), new Heavy(), new Thor(),
 				new Switcher(), new Sanic(), new Shark(), new Ninja(), new Snail(), new Gladiator(),
-				new Wimp(), new SpellCaster(), new Vampire(), new Turtle(), new Vigilante(), new Kangaroo(), new Endermage(), new Monk(), new Hulk(), new Phantom(), new Stalker());
+				new Wimp(), new SpellCaster(), new Vampire(), new Turtle(), new Vigilante(), new Kangaroo(), new Endermage(), new Monk(), new Hulk(), new Phantom(), new Stalker(), new Anchor());
 
 		log("Kits loaded");
 
