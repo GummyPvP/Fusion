@@ -32,19 +32,25 @@ public class SharkEvent implements Listener {
 			return;
 		
 		if (p.getLocation().getBlock().isLiquid() == false) {
-			p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100000, 1));
-			p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 100000, 0));
+			
+			for (PotionEffect effect : p.getActivePotionEffects()) {
+				p.removePotionEffect(effect.getType());
+			}
+			
+			p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 1));
+			p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0));
 			return;
 			
 		}
 		
 		if (p.getLocation().getBlock().isLiquid() == true) {
+			
 			for (PotionEffect effect : p.getActivePotionEffects()) {
-				
 				p.removePotionEffect(effect.getType());
-				p.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 300, 0));
-				return;
 			}
+			
+			p.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, Integer.MAX_VALUE, 0));
+			p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0));
 		}
 		
 	}
