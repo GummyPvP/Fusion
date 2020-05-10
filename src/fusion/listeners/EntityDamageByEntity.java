@@ -8,8 +8,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.inventory.ItemStack;
 
+import fusion.main.Fusion;
 import fusion.utils.mKitUser;
 import fusion.utils.chat.Chat;
 import fusion.utils.editing.regions.ProtectedRegion;
@@ -125,6 +127,11 @@ public class EntityDamageByEntity implements Listener {
 			
 		}
 		
+		if (!Fusion.getInstance().getEventModeHandler().isPVPEnabled()) {
+			e.setCancelled(true);
+			return;
+		}
+		
 		
 		Region hitterRegion = RegionManager.getInstance().getSmallestRegion(RegionManager.getInstance().getRegions(hitter.getLocation().toVector()));
 		Region recieverRegion = RegionManager.getInstance().getSmallestRegion(RegionManager.getInstance().getRegions(reciever.getLocation().toVector()));
@@ -158,7 +165,7 @@ public class EntityDamageByEntity implements Listener {
 					
 					damage += (itemInHand.getItemMeta().getEnchantLevel(Enchantment.DAMAGE_ALL) * 1);
 					
-					e.setDamage(damage);
+					e.setDamage(DamageModifier.ARMOR, damage);
 					
 				}
 				

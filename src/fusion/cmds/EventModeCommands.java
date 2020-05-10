@@ -39,6 +39,7 @@ public class EventModeCommands {
 		
 		Chat.getInstance().messagePlayer(args.getSender(), "&e--== Event Mode ==--");
 		Chat.getInstance().messagePlayer(args.getSender(), "&eEvent mode: " + (Fusion.getInstance().getEventModeHandler().isInEventMode() ? "&a&lON" : "&c&lOFF"));
+		Chat.getInstance().messagePlayer(args.getSender(), "&ePVP: " + (Fusion.getInstance().getEventModeHandler().isPVPEnabled() ? "&a&lON" : "&c&lOFF"));
 		Chat.getInstance().messagePlayer(args.getSender(), "&eAllowed kits: &a" + kitList);
 		Chat.getInstance().messagePlayer(args.getSender(), "&eTime running: &6" + (timeLastStarted == 0L ? "N/A" : convertTimeToString(System.currentTimeMillis() - timeLastStarted)));
 	}
@@ -52,6 +53,19 @@ public class EventModeCommands {
 		
 		for (Player online : Bukkit.getOnlinePlayers()) {
 			online.playSound(online.getLocation(), Sound.BLOCK_NOTE_BLOCK_FLUTE, 1.0f, 1.0f);
+		}
+		
+	}
+	
+	@Command(name = "eventmode.togglepvp", aliases = { "event.togglepvp" }, description = "Allows admins to toggle pvp globally", usage = "/eventmode togglepvp", permission = "fusion.eventmode")
+	public void eventModeTogglePVP(CommandArgs args) {
+		
+		Fusion.getInstance().getEventModeHandler().setPVPEnabled(!Fusion.getInstance().getEventModeHandler().isPVPEnabled());
+		Chat.getInstance().messagePlayer(args.getSender(), "&ePVP is now GLOBALLY turned " + (Fusion.getInstance().getEventModeHandler().isPVPEnabled() ? "&a&lON" : "&c&lOFF"));
+		Chat.getInstance().broadcastMessage("&e&lPVP has been toggled " + (Fusion.getInstance().getEventModeHandler().isPVPEnabled() ? "&a&lON" : "&c&lOFF") + "&e&l!");
+		
+		for (Player online : Bukkit.getOnlinePlayers()) {
+			online.playSound(online.getLocation(), Sound.BLOCK_NOTE_BLOCK_GUITAR, 1.0f, 1.0f);
 		}
 		
 	}

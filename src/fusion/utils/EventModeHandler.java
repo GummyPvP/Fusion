@@ -15,6 +15,8 @@ public class EventModeHandler {
 	
 	private boolean inEventMode;
 	
+	private boolean pvpEnabled;
+	
 	private Set<Kit> allowedKits;
 	
 	private Map<String, ItemStack[]> customKits;
@@ -23,6 +25,7 @@ public class EventModeHandler {
 	
 	public EventModeHandler() {
 		this.inEventMode = false;
+		this.pvpEnabled = (true);
 		this.allowedKits = new HashSet<Kit>();
 		this.allowedKits.addAll(KitManager.getInstance().getKits());
 		this.setCustomKits(new HashMap<String, ItemStack[]>()); 
@@ -89,6 +92,14 @@ public class EventModeHandler {
 		
 		player.getInventory().setContents(contents);
 		player.updateInventory();
+	}
+
+	public boolean isPVPEnabled() {
+		return pvpEnabled;
+	}
+
+	public void setPVPEnabled(boolean pvpEnabled) {
+		this.pvpEnabled = pvpEnabled;
 	}
 	
 }
