@@ -163,9 +163,9 @@ public class EntityDamageByEntity implements Listener {
 					
 					double damage = e.getDamage();
 					
-					damage += (itemInHand.getItemMeta().getEnchantLevel(Enchantment.DAMAGE_ALL) * 1);
+					damage += (itemInHand.getItemMeta().getEnchantLevel(Enchantment.DAMAGE_ALL) * .75);
 					
-					e.setDamage(DamageModifier.ARMOR, damage);
+					e.setDamage(damage);
 					
 				}
 				
