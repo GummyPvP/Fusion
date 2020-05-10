@@ -90,6 +90,7 @@ import fusion.listeners.MobSpawn;
 import fusion.listeners.PlayerDeath;
 import fusion.listeners.PlayerInteract;
 import fusion.listeners.PlayerInteractEntity;
+import fusion.listeners.PlayerInteractSign;
 import fusion.listeners.PlayerJoin;
 import fusion.listeners.PlayerMove;
 import fusion.listeners.PlayerQuit;
@@ -172,7 +173,7 @@ public class Fusion extends JavaPlugin {
 				new DropItem(), new MobSpawn(), new BlockIgnite(), new BlockDecay(), new BlockBurn(), new ThorEvent(),
 				new TabComplete(), new ChunkUnload(), new ChunkLoad(), new PlayerInteractEntity(), new SwitchEvent(), new CommandPreprocess(), new SnailEvent(), new NinjaEvent(), new SharkEvent(),
 				new GladiatorEvent(), new PlayerMove(), new WimpEvent(),
-				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent(), new KangarooEvent(), new EndermageEvent(), new WeatherChange(), new MonkEvent(), new HulkEvent(), new PhantomEvent(), new StalkerEvent());
+				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent(), new KangarooEvent(), new EndermageEvent(), new WeatherChange(), new MonkEvent(), new HulkEvent(), new PhantomEvent(), new StalkerEvent(), new PlayerInteractSign());
 
 		log("Listeners loaded");
 
