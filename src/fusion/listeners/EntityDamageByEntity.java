@@ -127,7 +127,7 @@ public class EntityDamageByEntity implements Listener {
 			
 		}
 		
-		if (!Fusion.getInstance().getEventModeHandler().isPVPEnabled()) {
+		if (Fusion.getInstance().getEventModeHandler().isInEventMode() && !Fusion.getInstance().getEventModeHandler().isPVPEnabled()) {
 			e.setCancelled(true);
 			return;
 		}
