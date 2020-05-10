@@ -41,7 +41,7 @@ public class Turtle extends Kit {
 	@Override
 	public ItemStack[] getArmor() {
 		
-		ItemStack helmet = new ItemBuilder(Material.LEATHER_HELMET).color(Color.GREEN).build();
+		ItemStack helmet = new ItemBuilder(Material.TURTLE_HELMET).build();
 		ItemStack chestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
 		ItemStack leggings = new ItemBuilder(Material.LEATHER_LEGGINGS).color(Color.GREEN).build();
 		ItemStack boots = new ItemBuilder(Material.LEATHER_BOOTS).color(Color.GREEN).build();

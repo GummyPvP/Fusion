@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
@@ -180,6 +181,16 @@ public class RegionManager {
 	public boolean isInProtectedRegion(Player player) {
 
 		Region region = getSmallestRegion(getRegions(player.getLocation().toVector()));
+
+		if (region == null) return false;
+
+		return region instanceof ProtectedRegion && !((ProtectedRegion) region).isPVPEnabled();
+
+	}
+	
+	public boolean isInProtectedRegion(Location location) {
+
+		Region region = getSmallestRegion(getRegions(location.toVector()));
 
 		if (region == null) return false;
 
