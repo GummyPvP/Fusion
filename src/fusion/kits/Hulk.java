@@ -44,10 +44,10 @@ public class Hulk extends Kit {
 	public ItemStack[] getArmor() {
 
 		return new ItemStack[] { 
-				new ItemBuilder(Material.LEATHER_HELMET).enchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2).color(Color.GREEN).build(),
-				new ItemBuilder(Material.LEATHER_CHESTPLATE).enchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2).color(Color.GREEN).build(),
-				new ItemBuilder(Material.LEATHER_LEGGINGS).enchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2).color(Color.GREEN).build(),
-				new ItemBuilder(Material.LEATHER_BOOTS).enchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2).color(Color.GREEN).build() 
+				new ItemBuilder(Material.LEATHER_HELMET).color(Color.GREEN).build(),
+				new ItemBuilder(Material.LEATHER_CHESTPLATE).color(Color.GREEN).build(),
+				new ItemBuilder(Material.LEATHER_LEGGINGS).color(Color.GREEN).build(),
+				new ItemBuilder(Material.LEATHER_BOOTS).color(Color.GREEN).build() 
 		};
 
 	}
