@@ -37,6 +37,7 @@ import fusion.kits.Heavy;
 import fusion.kits.Hulk;
 import fusion.kits.Kangaroo;
 import fusion.kits.Monk;
+import fusion.kits.Neo;
 import fusion.kits.Ninja;
 import fusion.kits.PVP;
 import fusion.kits.Phantom;
@@ -48,6 +49,7 @@ import fusion.kits.Spiderman;
 import fusion.kits.Stalker;
 import fusion.kits.Stomper;
 import fusion.kits.Switcher;
+import fusion.kits.Tarzan;
 import fusion.kits.Thor;
 import fusion.kits.Turtle;
 import fusion.kits.Vampire;
@@ -61,6 +63,7 @@ import fusion.kits.listeners.GladiatorEvent;
 import fusion.kits.listeners.HulkEvent;
 import fusion.kits.listeners.KangarooEvent;
 import fusion.kits.listeners.MonkEvent;
+import fusion.kits.listeners.NeoEvent;
 import fusion.kits.listeners.NinjaEvent;
 import fusion.kits.listeners.PhantomEvent;
 import fusion.kits.listeners.SharkEvent;
@@ -70,6 +73,7 @@ import fusion.kits.listeners.SpidermanEvent;
 import fusion.kits.listeners.StalkerEvent;
 import fusion.kits.listeners.StomperEvent;
 import fusion.kits.listeners.SwitchEvent;
+import fusion.kits.listeners.TarzanEvent;
 import fusion.kits.listeners.ThorEvent;
 import fusion.kits.listeners.TurtleEvent;
 import fusion.kits.listeners.VampireEvent;
@@ -178,20 +182,21 @@ public class Fusion extends JavaPlugin {
 				new TabComplete(), new ChunkUnload(), new ChunkLoad(), new PlayerInteractEntity(), new SwitchEvent(), new CommandPreprocess(), new SnailEvent(), new NinjaEvent(), new SharkEvent(),
 				new GladiatorEvent(), new PlayerMove(), new WimpEvent(),
 				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent(), new KangarooEvent(), new EndermageEvent(), new WeatherChange(), 
-				new MonkEvent(), new HulkEvent(), new PhantomEvent(), new StalkerEvent(), new PlayerInteractSign(), new AnchorEvent(), new SpidermanEvent());
+				new MonkEvent(), new HulkEvent(), new PhantomEvent(), new StalkerEvent(), new PlayerInteractSign(), new AnchorEvent(), new SpidermanEvent(), new TarzanEvent(), new NeoEvent());
 
 		log("Listeners loaded");
 
 		loadCommands(new KitCommand(), new WarpCreate(), new WarpList(), new SetSpawn(), new SpawnCommand(),
 				new RegionCreate(), new RegionList(), new SetFlag(), new WarpDelete(), new RegionDelete(),
-				new Balance(), new CombatLogCommand(), new ClearKit(), new CandyManCommands(), new EcoSet(), new EcoGive(), new Pay(), new TeamCommand(), new Stats(), new Help(), new SetVigilante(), new SetDuelSpawn(), new EventModeCommands());
+				new Balance(), new CombatLogCommand(), new ClearKit(), new CandyManCommands(), new EcoSet(), new EcoGive(), new Pay(), 
+				new TeamCommand(), new Stats(), new Help(), new SetVigilante(), new SetDuelSpawn(), new EventModeCommands());
 
 		log("Commands loaded");
 
 		loadKits(new PVP(), new Archer(), new Fisherman(), new Stomper(), new Viper(), new Heavy(), new Thor(),
 				new Switcher(), new Sanic(), new Shark(), new Ninja(), new Snail(), new Gladiator(),
 				new Wimp(), new SpellCaster(), new Vampire(), new Turtle(), new Vigilante(), new Kangaroo(), 
-				new Endermage(), new Monk(), new Hulk(), new Phantom(), new Stalker(), new Anchor(), new Spiderman());
+				new Endermage(), new Monk(), new Hulk(), new Phantom(), new Stalker(), new Anchor(), new Spiderman(), new Tarzan(), new Neo());
 
 		log("Kits loaded");
 

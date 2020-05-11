@@ -31,7 +31,7 @@ public class Vigilante extends Kit {
 	
 	@Override
 	public ItemStack getInventoryItem() {
-		return new ItemStack(Material.ARROW);
+		return new ItemStack(Material.GUNPOWDER);
 	}
 	
 	@Override

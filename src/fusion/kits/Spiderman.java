@@ -34,7 +34,7 @@ public class Spiderman extends Kit {
 	public List<ItemStack> getItems() {
 
 		ItemStack sword = new ItemBuilder(Material.IRON_SWORD).name("&aSpiderman Sword").lore("Spiderman 2 now on VHS!!!").build();
-		ItemStack hairierBalls = new ItemBuilder(Material.SNOWBALL).name("&5Spiderman Webs").lore("Throw me to temporarily cover an area with webs!").amount(5).build();
+		ItemStack hairierBalls = new ItemBuilder(Material.SNOWBALL).name("&5Spiderman Webs").lore("Throw me to temporarily cover an area with webs!").amount(10).build();
 		
 		return Arrays.asList(sword, hairierBalls);
 
@@ -54,7 +54,7 @@ public class Spiderman extends Kit {
 
 	@Override
 	public String[] getSpecialAdvantageStrings() {
-		return new String[] { "Throw webs at enemies to keep them at bay" };
+		return new String[] { "Throw webs at enemies to keep them at bay!" };
 	}
 
 	@Override

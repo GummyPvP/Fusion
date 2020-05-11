@@ -20,8 +20,7 @@ import fusion.utils.mKitUser;
 public class SharkEvent implements Listener {
 
 	@EventHandler
-	public void onViper(PlayerMoveEvent e) {
-
+	public void onSharkMove(PlayerMoveEvent e) {
 		
 		Player p = (Player) e.getPlayer();
 

@@ -6,6 +6,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import fusion.kits.utils.KitManager;
+import fusion.utils.mKitUser;
+import fusion.utils.chat.Chat;
 import fusion.utils.editing.regions.RegionManager;
 
 public class AnchorEvent implements Listener {
@@ -32,6 +34,17 @@ public class AnchorEvent implements Listener {
 			event.setCancelled(true);
 			
 			damaged.damage(damage);
+			
+			if (damaged.isDead()) {
+				
+				int reward = 15;
+				
+				mKitUser.getInstance(damager).addCandies(reward);
+				mKitUser.getInstance(damager).addKill();
+
+				Chat.getInstance().messagePlayer(damager, Chat.SECONDARY_BASE + "You received " + Chat.IMPORTANT_COLOR
+						+ reward + Chat.SECONDARY_BASE + " candies for killing " + damaged.getName());
+			}
 		}
 		
 	}

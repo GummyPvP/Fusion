@@ -33,9 +33,7 @@ public class PVP extends Kit {
 
 	@Override
 	public PotionEffect[] getPotionEffects() {
-
 		return null;
-
 	}
 
 	@Override
@@ -73,9 +71,7 @@ public class PVP extends Kit {
 
 	@Command(name = "pvp", description = "Gives the PVP kit.", usage = "/kit pvp", inGameOnly = true)
 	public void kitPVPCommand(CommandArgs args) {
-		
 		apply(args.getPlayer());
-
 	}
 
 }
