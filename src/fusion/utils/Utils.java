@@ -1,5 +1,6 @@
 package fusion.utils;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -52,6 +53,23 @@ public class Utils {
 			useOldMethods = true;
 		}
 		
+	}
+	
+	public static String getInfinitySymbol() {
+		String infinitySymbol = null;
+
+		try {
+
+		    infinitySymbol = new String(String.valueOf(Character.toString('\u221E')).getBytes("UTF-8"), "UTF-8");
+
+		} catch (UnsupportedEncodingException ex) {
+
+		    infinitySymbol = "Infinity";
+		    //ex.printStackTrace(); //print the unsupported encoding exception.
+
+		}
+		
+		return infinitySymbol;
 	}
 	
 	public static boolean isAlpha(String name) {

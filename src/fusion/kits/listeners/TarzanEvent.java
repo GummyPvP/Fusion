@@ -33,14 +33,20 @@ public class TarzanEvent implements Listener {
 		
 		if (player.getInventory().getItemInMainHand().getType() != Material.VINE) return;
 		
-		generateBlocks(player.getLocation());
+		if (player.getVelocity().getY() > .55) {
+			player.setVelocity(new Vector(player.getVelocity().getX(), .55, player.getVelocity().getZ()));
+		}
+		
+		generateBlocks(player);
 		
 	}
 	
-	private void generateBlocks(Location center) {
+	private void generateBlocks(Player player) {
+		
+		Location center = player.getLocation().add(new Vector(0, 1, 0));
 		
 		Vector min = center.toVector().subtract(new Vector(1, 0, 1));
-		Vector max = center.toVector().add(new Vector(1, 3, 1));
+		Vector max = center.toVector().add(new Vector(1, 2, 1));
 		
 		min = Vector.getMinimum(min, max);
 		max = Vector.getMaximum(min, max);
@@ -59,34 +65,42 @@ public class TarzanEvent implements Listener {
 			
 		}, tarzanVineTime * 20);
 		
-		for (int x = min.getBlockX(); x <= max.getBlockX(); x++) {
-			for (int y = min.getBlockY(); y <= max.getBlockY(); y++) {
-				for (int z = min.getBlockZ(); z <= max.getBlockZ(); z++) {
-					Block currentBlock = center.getWorld().getBlockAt(x, y, z);
+		Block currentBlock = center.add(center.getDirection()).getBlock();
+		
+		System.out.println(currentBlock.getType());
+		
+//		for (int x = min.getBlockX(); x <= max.getBlockX(); x++) {
+//			for (int y = min.getBlockY(); y <= max.getBlockY(); y++) {
+//				for (int z = min.getBlockZ(); z <= max.getBlockZ(); z++) {
+					//Block currentBlock = center.getWorld().getBlockAt(x, y, z);
 					
-					if (RegionManager.getInstance().isInProtectedRegion(currentBlock.getLocation())) continue;
+					if (RegionManager.getInstance().isInProtectedRegion(currentBlock.getLocation())) return;
 					
 					if (currentBlock.getType() != Material.AIR) {
 						
-						if (currentBlock.isPassable()) continue;
-						
-						if (currentBlock.getType() == Material.VINE) continue;
-						
-						if (currentBlock.isLiquid()) continue;
-						
-						if (!currentBlock.getType().isSolid()) continue;
-						
-						if (currentBlock.getFace(center.getBlock()) == null) continue;
+//						if (currentBlock.isPassable()) return;
+//						
+//						if (currentBlock.getType() == Material.VINE) return;
+//						
+//						if (currentBlock.isLiquid()) return;
+//						
+//						if (!currentBlock.getType().isSolid()) return;
+//						
+//						if (currentBlock.getFace(center.getBlock()) == null) return;
 						
 						Block frontBlock = currentBlock.getRelative(currentBlock.getFace(center.getBlock()));
 						
-						if (frontBlock == null) continue;
+						System.out.println("frontBlock: " + frontBlock.getType());
 						
-						if (frontBlock.getType() != Material.AIR) continue;
+						//if (frontBlock == null) return;
+						
+						if (frontBlock.getType() != Material.AIR) return;
 						
 						frontBlock.setType(Material.VINE);
 						
 						blocks.add(frontBlock);
+						
+						player.setVelocity(player.getVelocity().add(new Vector(0, .55, 0)));
 						
 						if (frontBlock.getBlockData() instanceof MultipleFacing) {
 							MultipleFacing data = (MultipleFacing) frontBlock.getBlockData();
@@ -98,9 +112,9 @@ public class TarzanEvent implements Listener {
 						    	  }
 						      }
 						}
-					}
-				}
-			}
+//					}
+//				}
+//			}
 		}
 		
 	}

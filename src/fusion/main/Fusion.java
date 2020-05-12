@@ -28,6 +28,8 @@ import fusion.cmds.SetSpawn;
 import fusion.cmds.SetVigilante;
 import fusion.cmds.SpawnCommand;
 import fusion.cmds.Stats;
+import fusion.event.cmds.EventCommands;
+import fusion.event.util.EventHandler;
 import fusion.kits.Anchor;
 import fusion.kits.Archer;
 import fusion.kits.Endermage;
@@ -151,7 +153,8 @@ public class Fusion extends JavaPlugin {
 	private CommandFramework framework;
 	private ConfigManager spawn, warps, regions, config, kitInfo, teams, defaultPlayerFile;
 	
-	private EventModeHandler eventModeHandler;
+	private EventModeHandler eventModeHandler; // this is for non-automated events essentially
+	private EventHandler eventHandler; // this is for the cool automated events
 	
 	public void onEnable() {
 
@@ -182,21 +185,21 @@ public class Fusion extends JavaPlugin {
 				new TabComplete(), new ChunkUnload(), new ChunkLoad(), new PlayerInteractEntity(), new SwitchEvent(), new CommandPreprocess(), new SnailEvent(), new NinjaEvent(), new SharkEvent(),
 				new GladiatorEvent(), new PlayerMove(), new WimpEvent(),
 				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent(), new KangarooEvent(), new EndermageEvent(), new WeatherChange(), 
-				new MonkEvent(), new HulkEvent(), new PhantomEvent(), new StalkerEvent(), new PlayerInteractSign(), new AnchorEvent(), new SpidermanEvent(), new TarzanEvent(), new NeoEvent());
+				new MonkEvent(), new HulkEvent(), new PhantomEvent(), new StalkerEvent(), new PlayerInteractSign(), new AnchorEvent(), new SpidermanEvent(), new NeoEvent());
 
 		log("Listeners loaded");
 
 		loadCommands(new KitCommand(), new WarpCreate(), new WarpList(), new SetSpawn(), new SpawnCommand(),
 				new RegionCreate(), new RegionList(), new SetFlag(), new WarpDelete(), new RegionDelete(),
 				new Balance(), new CombatLogCommand(), new ClearKit(), new CandyManCommands(), new EcoSet(), new EcoGive(), new Pay(), 
-				new TeamCommand(), new Stats(), new Help(), new SetVigilante(), new SetDuelSpawn(), new EventModeCommands());
+				new TeamCommand(), new Stats(), new Help(), new SetVigilante(), new SetDuelSpawn(), new EventModeCommands(), new EventCommands());
 
 		log("Commands loaded");
 
 		loadKits(new PVP(), new Archer(), new Fisherman(), new Stomper(), new Viper(), new Heavy(), new Thor(),
 				new Switcher(), new Sanic(), new Shark(), new Ninja(), new Snail(), new Gladiator(),
 				new Wimp(), new SpellCaster(), new Vampire(), new Turtle(), new Vigilante(), new Kangaroo(), 
-				new Endermage(), new Monk(), new Hulk(), new Phantom(), new Stalker(), new Anchor(), new Spiderman(), new Tarzan(), new Neo());
+				new Endermage(), new Monk(), new Hulk(), new Phantom(), new Stalker(), new Anchor(), new Spiderman(), new Neo());
 
 		log("Kits loaded");
 
@@ -239,6 +242,7 @@ public class Fusion extends JavaPlugin {
 		Utils.get().load();
 		
 		this.eventModeHandler = new EventModeHandler();
+		this.eventHandler = new EventHandler();
 		
 		long finishTime = System.nanoTime();
 
@@ -533,6 +537,10 @@ public class Fusion extends JavaPlugin {
 		return eventModeHandler;
 	}
 	
+	public EventHandler getEventHandler() {
+		return eventHandler;
+	}
+	
 	private void loadListeners(Listener... listeners) {
 
 		for (Listener l : listeners) {
@@ -578,4 +586,5 @@ public class Fusion extends JavaPlugin {
 		System.out.println("[Fusion] " + s);
 
 	}
+
 }

@@ -16,7 +16,7 @@ import fusion.utils.command.CommandArgs;
 
 public class EventModeCommands {
 	
-	@Command(name = "eventmode", aliases = { "event" }, description = "Allows admins to configure event mode", usage = "/eventmode <args>", permission = "fusion.eventmode")
+	@Command(name = "eventmode", description = "Allows admins to configure event mode", usage = "/eventmode <args>", permission = "fusion.eventmode")
 	public void eventModeCommand(CommandArgs args) {
 		
 		String kitList = "";
@@ -44,7 +44,7 @@ public class EventModeCommands {
 		Chat.getInstance().messagePlayer(args.getSender(), "&eTime running: &6" + (timeLastStarted == 0L ? "N/A" : convertTimeToString(System.currentTimeMillis() - timeLastStarted)));
 	}
 	
-	@Command(name = "eventmode.toggle", aliases = { "event.toggle" }, description = "Allows admins to toggle event mode", usage = "/eventmode toggle", permission = "fusion.eventmode")
+	@Command(name = "eventmode.toggle", description = "Allows admins to toggle event mode", usage = "/eventmode toggle", permission = "fusion.eventmode")
 	public void eventModeToggle(CommandArgs args) {
 		
 		Fusion.getInstance().getEventModeHandler().setInEventMode(!Fusion.getInstance().getEventModeHandler().isInEventMode());
@@ -57,7 +57,7 @@ public class EventModeCommands {
 		
 	}
 	
-	@Command(name = "eventmode.togglepvp", aliases = { "event.togglepvp" }, description = "Allows admins to toggle pvp globally", usage = "/eventmode togglepvp", permission = "fusion.eventmode")
+	@Command(name = "eventmode.togglepvp", description = "Allows admins to toggle pvp globally", usage = "/eventmode togglepvp", permission = "fusion.eventmode")
 	public void eventModeTogglePVP(CommandArgs args) {
 		
 		Fusion.getInstance().getEventModeHandler().setPVPEnabled(!Fusion.getInstance().getEventModeHandler().isPVPEnabled());
@@ -70,7 +70,7 @@ public class EventModeCommands {
 		
 	}
 	
-	@Command(name = "eventmode.addkit", aliases = { "event.addkit" }, description = "Allows admins to allow a kit in event mode", usage = "/eventmode addkit <kit>", permission = "fusion.eventmode")
+	@Command(name = "eventmode.addkit", description = "Allows admins to allow a kit in event mode", usage = "/eventmode addkit <kit>", permission = "fusion.eventmode")
 	public void eventmodeKitAdd(CommandArgs args) {
 		
 		if (args.length() == 0) return;
@@ -99,7 +99,7 @@ public class EventModeCommands {
 		
 	}
 	
-	@Command(name = "eventmode.removekit", aliases = { "event.removekit" }, description = "Allows admins to block a kit in event mode", usage = "/eventmode removekit <kit>", permission = "fusion.eventmode")
+	@Command(name = "eventmode.removekit", description = "Allows admins to block a kit in event mode", usage = "/eventmode removekit <kit>", permission = "fusion.eventmode")
 	public void eventmodeKitRemove(CommandArgs args) {
 		
 		if (args.length() == 0) return;
@@ -128,7 +128,7 @@ public class EventModeCommands {
 		
 	}
 	
-	@Command(name = "eventmode.createkit", aliases = { "event.createkit" }, description = "Allows admins to create a custom kit in event mode", usage = "/eventmode createkit <kit>", permission = "fusion.eventmode")
+	@Command(name = "eventmode.createkit", description = "Allows admins to create a custom kit in event mode", usage = "/eventmode createkit <kit>", permission = "fusion.eventmode")
 	public void eventmodeKitCreate(CommandArgs args) {
 		
 		if (args.length() == 0) return;
@@ -144,7 +144,7 @@ public class EventModeCommands {
 		
 	}
 	
-	@Command(name = "eventmode.deletekit", aliases = { "event.deletekit" }, description = "Allows admins to delete a custom kit in event mode", usage = "/eventmode deletekit <kit>", permission = "fusion.eventmode")
+	@Command(name = "eventmode.deletekit", description = "Allows admins to delete a custom kit in event mode", usage = "/eventmode deletekit <kit>", permission = "fusion.eventmode")
 	public void eventmodeKitDelete(CommandArgs args) {
 		
 		if (args.length() == 0) return;
@@ -160,7 +160,7 @@ public class EventModeCommands {
 		
 	}
 	
-	@Command(name = "eventmode.applykit", aliases = { "event.applykit" }, description = "Allows admins to apply a custom kit in event mode", usage = "/eventmode applykit <kit> <user>", permission = "fusion.eventmode")
+	@Command(name = "eventmode.applykit", description = "Allows admins to apply a custom kit in event mode", usage = "/eventmode applykit <kit> <user>", permission = "fusion.eventmode")
 	public void eventmodeKitApply(CommandArgs args) {
 		
 		if (args.length() < 2) return;
@@ -193,7 +193,7 @@ public class EventModeCommands {
 		
 	}
 	
-	@Command(name = "eventmode.listkits", aliases = { "event.listkits", "event.kitlist" }, description = "Allows admins to list all custom kits in event mode", usage = "/eventmode listkits", permission = "fusion.eventmode")
+	@Command(name = "eventmode.listkits", aliases = { "eventmode.kitlist" }, description = "Allows admins to list all custom kits in event mode", usage = "/eventmode listkits", permission = "fusion.eventmode")
 	public void eventmodeKitList(CommandArgs args) {
 		
 		String kitList = "";
@@ -210,7 +210,7 @@ public class EventModeCommands {
 		
 	}
 	
-	@Command(name = "eventmode.help", aliases = { "event.help" }, description = "Event mode help menu", usage = "/eventmode help", permission = "fusion.eventmode")
+	@Command(name = "eventmode.help", description = "Event mode help menu", usage = "/eventmode help", permission = "fusion.eventmode")
 	public void eventmodeKitHelp(CommandArgs args) {
 		
 		Chat.getInstance().messagePlayer(args.getSender(), "&e/event toggle - Toggles server wide event mode");
