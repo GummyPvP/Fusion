@@ -38,6 +38,8 @@ public class Chat {
 	
 	public void broadcastMessage(String message) {
 		
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', CHAT_PREFIX + BASE_COLOR + message));
+		
 		for (Player online : Bukkit.getOnlinePlayers()) {
 			
 			online.sendMessage(ChatColor.translateAlternateColorCodes('&', CHAT_PREFIX + BASE_COLOR + message));

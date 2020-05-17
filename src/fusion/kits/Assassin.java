@@ -31,14 +31,14 @@ public class Assassin extends Kit {
 	@Override
 	public List<ItemStack> getItems() {
 		ItemStack sword = new ItemBuilder(Material.DIAMOND_SWORD).name("&aHidden Blade").lore("Was difficult to get through U.S. customs :(").build();
-		ItemStack assassin = new ItemBuilder(Material.IRON_BARS).name("&aClick to go invisible and assassinate someone").build();
+		ItemStack assassin = new ItemBuilder(Material.GLOWSTONE_DUST).name("&aClick to go invisible and assassinate someone").build();
 		
 		return Arrays.asList(sword, assassin);
 	}
 
 	@Override
 	public ItemStack[] getArmor() {
-		return new ItemStack[] { new ItemStack(Material.GOLDEN_HELMET), new ItemStack(Material.CHAINMAIL_CHESTPLATE), new ItemStack(Material.GOLDEN_LEGGINGS), new ItemStack(Material.IRON_BOOTS) };
+		return new ItemStack[] { new ItemStack(Material.CHAINMAIL_HELMET), new ItemStack(Material.CHAINMAIL_CHESTPLATE), new ItemStack(Material.CHAINMAIL_LEGGINGS), new ItemStack(Material.IRON_BOOTS) };
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class Assassin extends Kit {
 
 	@Override
 	public double getCost() {
-		return 1250.0;
+		return 1500.0;
 	}
 
 }

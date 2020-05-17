@@ -32,6 +32,7 @@ import fusion.event.cmds.EventCommands;
 import fusion.event.util.EventHandler;
 import fusion.kits.Anchor;
 import fusion.kits.Archer;
+import fusion.kits.Assassin;
 import fusion.kits.Endermage;
 import fusion.kits.Fisherman;
 import fusion.kits.Gladiator;
@@ -51,7 +52,6 @@ import fusion.kits.Spiderman;
 import fusion.kits.Stalker;
 import fusion.kits.Stomper;
 import fusion.kits.Switcher;
-import fusion.kits.Tarzan;
 import fusion.kits.Thor;
 import fusion.kits.Turtle;
 import fusion.kits.Vampire;
@@ -59,6 +59,7 @@ import fusion.kits.Vigilante;
 import fusion.kits.Viper;
 import fusion.kits.Wimp;
 import fusion.kits.listeners.AnchorEvent;
+import fusion.kits.listeners.AssassinEvent;
 import fusion.kits.listeners.EndermageEvent;
 import fusion.kits.listeners.FishEvent;
 import fusion.kits.listeners.GladiatorEvent;
@@ -75,7 +76,6 @@ import fusion.kits.listeners.SpidermanEvent;
 import fusion.kits.listeners.StalkerEvent;
 import fusion.kits.listeners.StomperEvent;
 import fusion.kits.listeners.SwitchEvent;
-import fusion.kits.listeners.TarzanEvent;
 import fusion.kits.listeners.ThorEvent;
 import fusion.kits.listeners.TurtleEvent;
 import fusion.kits.listeners.VampireEvent;
@@ -185,7 +185,7 @@ public class Fusion extends JavaPlugin {
 				new TabComplete(), new ChunkUnload(), new ChunkLoad(), new PlayerInteractEntity(), new SwitchEvent(), new CommandPreprocess(), new SnailEvent(), new NinjaEvent(), new SharkEvent(),
 				new GladiatorEvent(), new PlayerMove(), new WimpEvent(),
 				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent(), new KangarooEvent(), new EndermageEvent(), new WeatherChange(), 
-				new MonkEvent(), new HulkEvent(), new PhantomEvent(), new StalkerEvent(), new PlayerInteractSign(), new AnchorEvent(), new SpidermanEvent(), new NeoEvent());
+				new MonkEvent(), new HulkEvent(), new PhantomEvent(), new StalkerEvent(), new PlayerInteractSign(), new AnchorEvent(), new SpidermanEvent(), new NeoEvent(), new AssassinEvent());
 
 		log("Listeners loaded");
 
@@ -199,7 +199,7 @@ public class Fusion extends JavaPlugin {
 		loadKits(new PVP(), new Archer(), new Fisherman(), new Stomper(), new Viper(), new Heavy(), new Thor(),
 				new Switcher(), new Sanic(), new Shark(), new Ninja(), new Snail(), new Gladiator(),
 				new Wimp(), new SpellCaster(), new Vampire(), new Turtle(), new Vigilante(), new Kangaroo(), 
-				new Endermage(), new Monk(), new Hulk(), new Phantom(), new Stalker(), new Anchor(), new Spiderman(), new Neo());
+				new Endermage(), new Monk(), new Hulk(), new Phantom(), new Stalker(), new Anchor(), new Spiderman(), new Neo(), new Assassin());
 
 		log("Kits loaded");
 

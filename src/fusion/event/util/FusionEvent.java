@@ -8,6 +8,7 @@ import org.bukkit.scheduler.BukkitTask;
 import fusion.main.Fusion;
 import fusion.utils.Utils;
 import fusion.utils.chat.Chat;
+import fusion.utils.spawn.Spawn;
 
 public abstract class FusionEvent {
 	
@@ -26,11 +27,15 @@ public abstract class FusionEvent {
 	public abstract boolean isStarted();
 	
 	public void addPlayer(Player player) {
+		
+		if (isStarted()) return;
+		
 		getPlayers().add(player);
 		messageParticipants("&e" + player.getName() + " &ahas joined the event! &6(" + getPlayers().size() + "/" + (getMaximumPlayerCount() == -1 ? Utils.getInfinitySymbol() : getMaximumPlayerCount()) + ")");
 	}
 	
 	public void removePlayer(Player player) {
+		
 		getPlayers().remove(player);
 		
 		if (!isStarted()) {
@@ -49,8 +54,14 @@ public abstract class FusionEvent {
 	public abstract void start();
 
 	public void end() {
+		
+		for (Player player : getPlayers()) {
+			Spawn.getInstance().forceTP(player);
+		}
+		
 		getPlayers().clear();
 		Fusion.getInstance().getEventHandler().setCurrentEvent(null);
+		setStarted(false);
 	}
 	
 }

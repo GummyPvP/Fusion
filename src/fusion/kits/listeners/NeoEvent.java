@@ -34,7 +34,7 @@ public class NeoEvent implements Listener {
 		
 		Arrow arrow = (Arrow) damaged.getWorld().spawnEntity(damaged.getLocation(), EntityType.ARROW);
 		Vector velocity = shooter.getLocation().toVector().subtract(arrow.getLocation().toVector()).normalize();
-		arrow.setVelocity(arrow.getVelocity().add(velocity).multiply(20));
+		arrow.setVelocity(arrow.getVelocity().add(velocity).multiply(10));
 		
 		event.setCancelled(true);
 		

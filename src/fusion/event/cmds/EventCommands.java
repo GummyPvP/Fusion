@@ -1,6 +1,10 @@
 package fusion.event.cmds;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import fusion.event.util.FusionEvent;
+import fusion.kits.utils.Kit;
 import fusion.main.Fusion;
 import fusion.utils.chat.Chat;
 import fusion.utils.command.Command;
@@ -10,6 +14,35 @@ public class EventCommands {
 	
 	@Command(name = "event", description = "Access event commands", usage = "/event", permission = "fusion.event")
 	public void eventCommand(CommandArgs args) {
+		
+		Chat.getInstance().messagePlayer(args.getSender(), "&e/event start <event name> - starts the event");
+		Chat.getInstance().messagePlayer(args.getSender(), "&e/event cancel - cancels the event");
+		Chat.getInstance().messagePlayer(args.getSender(), "&e/event list - list all events");
+		Chat.getInstance().messagePlayer(args.getSender(), "&e/event join - join the event");
+		Chat.getInstance().messagePlayer(args.getSender(), "&e/event leave - leave the event");
+		
+	}
+	
+	@Command(name = "event.list", description = "List all available events", usage = "/event list", permission = "fusion.event")
+	public void eventListCommand(CommandArgs args) {
+		
+		String eventList = "";
+		
+		StringBuilder events = new StringBuilder();
+
+		for (FusionEvent event : Fusion.getInstance().getEventHandler().getEvents()) {
+			
+			if (event == null) continue;
+			
+			events.append(event.getName()).append(", ");
+			
+		}
+		
+		Pattern pattern = Pattern.compile(", $");
+		Matcher matcher = pattern.matcher(events.toString());
+		eventList = matcher.replaceAll("");
+		
+		Chat.getInstance().messagePlayer(args.getSender(), "&eList of events: &a" + eventList);
 		
 	}
 	

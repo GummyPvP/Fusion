@@ -6,7 +6,7 @@ import fusion.utils.chat.Chat;
 
 public class AnnouncementTask extends BukkitRunnable {
 	
-	int timer = 10;
+	int timer = 60;
 	
 	FusionEvent event;
 	

@@ -21,6 +21,8 @@ public class WeatherChange implements Listener {
 		
 		e.getWorld().setThundering(false);
 		
+		//e.getWorld().setStorm(false);
+		
 	}
 
 }

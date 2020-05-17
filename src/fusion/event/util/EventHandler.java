@@ -1,8 +1,10 @@
 package fusion.event.util;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import fusion.event.events.Anvil;
 import fusion.event.events.LMS;
 import fusion.main.Fusion;
 import fusion.utils.chat.Chat;
@@ -22,6 +24,7 @@ public class EventHandler {
 	
 	private void populateEvents() {
 		allEvents.put("lms", new LMS());
+		allEvents.put("anvil", new Anvil());
 	}
 	
 	public FusionEvent getEvent(String name) {
@@ -38,6 +41,10 @@ public class EventHandler {
 	
 	public AnnouncementTask getAnnouncementTask() {
 		return task;
+	}
+	
+	public Collection<FusionEvent> getEvents() {
+		return allEvents.values();
 	}
 	
 	public void runEvent(FusionEvent event) {

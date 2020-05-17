@@ -3,6 +3,7 @@ package fusion.listeners;
 import java.io.IOException;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,13 +27,17 @@ public class PlayerJoin implements Listener {
 
 		Player player = e.getPlayer();
 		
+		if (!player.isOp() && player.getGameMode() != GameMode.SURVIVAL) {
+			player.setGameMode(GameMode.SURVIVAL);
+		}
+		
 		mKitUser user = mKitUser.getInstance(player);
 		
 		try {
 			user.load();
 		} catch (IOException exception) {
 			exception.printStackTrace();
-			player.kickPlayer("Your profile did not load correctly, please rejoin. If problem persists, contact a staff member via the forums.");
+			player.kickPlayer("Your profile did not load correctly, please rejoin. If problem persists, contact a staff member via the forums or Discord.");
 		}
 
 		Utils.giveDefaultItems(player);

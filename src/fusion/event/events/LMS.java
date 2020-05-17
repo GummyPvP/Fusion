@@ -1,5 +1,6 @@
 package fusion.event.events;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,8 +8,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -28,6 +31,8 @@ public class LMS extends FusionEvent implements Listener {
 	
 	private boolean started;
 	
+	private boolean spawnInvincibility;
+	
 	private static final int TICKS_FOR_TIMER = 20;
 	
 	private Location spawn;
@@ -35,7 +40,8 @@ public class LMS extends FusionEvent implements Listener {
 	public LMS() {
 		started = false;
 		players = new HashSet<Player>();
-		spawn = new Location(Bukkit.getWorld("world"), -34, 72, -62);
+		spawn = new Location(Bukkit.getWorld("world"), 229, 128, 209);
+		spawnInvincibility = true;
 	}
 	
 	@Override
@@ -86,14 +92,24 @@ public class LMS extends FusionEvent implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(this, Fusion.getInstance());
 		
 		for (Player player : getPlayers()) {
+			mKitUser.getInstance(player).clearKit();
 			player.teleport(spawn);
 			KitManager.getInstance().valueOf("PVP").apply(player);
 		}
 		
 		taskTimer = Bukkit.getScheduler().runTaskTimer(Fusion.getInstance(), new Runnable() {
 			
+			int invincibleTime = 5;
+			
 			public void run() {
+				if (invincibleTime <= 0) {
+					spawnInvincibility = false;
+					return;
+				}
 				
+				messageParticipants("&aYou have " + invincibleTime + " seconds of spawn protection remaining!");
+				
+				invincibleTime--;
 			}
 			
 		}, 0, TICKS_FOR_TIMER);
@@ -123,6 +139,26 @@ public class LMS extends FusionEvent implements Listener {
 	@EventHandler
 	public void onKick(PlayerKickEvent event) {
 		handlePlayer(event.getPlayer(), "&e" + event.getPlayer().getName() + " &awas kicked and has lost the LMS event! &6&l(%d remain)");
+	}
+	
+	@EventHandler (priority = EventPriority.LOWEST, ignoreCancelled = true)
+	public void onDamage(EntityDamageByEntityEvent event) {
+		
+		if (!(event.getEntity() instanceof Player)) return;
+		
+		Player player = (Player) event.getEntity();
+		
+		if (!getPlayers().contains(player)) return;
+		
+		if (spawnInvincibility) {
+			event.setCancelled(true);
+			return;
+		}
+		
+		if (event.isCancelled()) {
+			event.setCancelled(false);
+		}
+		
 	}
 	
 	private void handlePlayer(Player player, String message) {
