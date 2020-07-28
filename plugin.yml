@@ -4,5 +4,5 @@ main: fusion.main.Fusion
 description: "\u00A7eImplements the functions for KitPVP, including cosmetic features. \u00A76This plugin was developed with the cooperation of several beginning developers, all with vastly differing skill-sets and abilities. \u00A7cWithout the help from the following authors, this project would not be the same."
 author: Jeremy Gooch (Lemonbus)
 authors: [Database, Dreadmore, Koala]
-softdepends: [MVdWPlaceholderAPI]
+softdepends: [PlaceholderAPI]
 api-version: 1.15

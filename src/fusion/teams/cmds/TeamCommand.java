@@ -175,7 +175,7 @@ public class TeamCommand {
 
 				if (user.getTeam() == null) {
 
-					Chat.getInstance().messagePlayer(player, "&cYou currently do have a team!");
+					Chat.getInstance().messagePlayer(player, "&cYou currently do not have a team!");
 
 					return;
 				}

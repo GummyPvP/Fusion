@@ -100,7 +100,7 @@ public class KitGUI {
 
 		List<Kit> checkedKits = KitManager.getInstance().getKits().subList(page * 36,
 				(page * 36) + ensureKits(KitManager.getInstance().getKits().size() - (page * 36)));
-
+		
 		try {
 
 			List<Kit> futureCheck = KitManager.getInstance().getKits().subList((page + 1) * 36,
