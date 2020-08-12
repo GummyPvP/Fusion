@@ -12,15 +12,23 @@ public class ListPlayers {
 	@Command(name = "list", description = "List currently online players", usage = "/list",aliases = { "online", "who" })
 	public void listPlayersCommand(CommandArgs args) {
 		
-		String playerList = "";
+		String opsList = "";
+		String memberList = "";
 		
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			
 			if (args.isPlayer() && (!args.getPlayer().canSee(player))) continue;
 			
-			playerList += (player.isOp() ? "&c" : "&7") + player.getName() + "&8, ";
+			if (player.isOp()) {
+				opsList += "&c" + player.getName() + "&8, ";
+				continue;
+			}
+			
+			memberList += "&7" + player.getName() + "&8, ";
 			
 		}
+		
+		String playerList = opsList + memberList;
 		
 		playerList = playerList.replaceAll(", $", "");
 		
