@@ -15,9 +15,13 @@ public class ListPlayers {
 		String opsList = "";
 		String memberList = "";
 		
+		int playerCounter = 0;
+		
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			
 			if (args.isPlayer() && (!args.getPlayer().canSee(player))) continue;
+			
+			playerCounter++;
 			
 			if (player.isOp()) {
 				opsList += "&c" + player.getName() + "&8, ";
@@ -32,7 +36,7 @@ public class ListPlayers {
 		
 		playerList = playerList.replaceAll(", $", "");
 		
-		args.getSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Online players &8(&e" + Bukkit.getOnlinePlayers().size() + "&6/&e" + Bukkit.getMaxPlayers() + "&8)"));
+		args.getSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Online players &8(&e" + playerCounter + "&6/&e" + Bukkit.getMaxPlayers() + "&8)"));
 		args.getSender().sendMessage(ChatColor.translateAlternateColorCodes('&', playerList.trim()));
 		
 	}
