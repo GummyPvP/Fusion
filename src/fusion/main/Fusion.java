@@ -20,6 +20,7 @@ import fusion.cmds.EcoSet;
 import fusion.cmds.EventModeCommands;
 import fusion.cmds.Help;
 import fusion.cmds.KitCommand;
+import fusion.cmds.ListPlayers;
 import fusion.cmds.Pay;
 import fusion.cmds.SetSpawn;
 import fusion.cmds.SetVigilante;
@@ -209,7 +210,7 @@ public class Fusion extends JavaPlugin {
 		loadCommands(new KitCommand(), new WarpCreate(), new WarpList(), new SetSpawn(), new SpawnCommand(),
 				new RegionCreate(), new RegionList(), new SetFlag(), new WarpDelete(), new RegionDelete(),
 				new Balance(), new CombatLogCommand(), new ClearKit(), new CandyManCommands(), new EcoSet(), new EcoGive(), new Pay(), 
-				new TeamCommand(), new Stats(), new Help(), new SetVigilante(), new SetDuelSpawn(), new EventModeCommands(), new EventCommands(), new TestCommand());
+				new TeamCommand(), new Stats(), new Help(), new SetVigilante(), new SetDuelSpawn(), new EventModeCommands(), new EventCommands(), new TestCommand(), new ListPlayers());
 
 		log("Commands loaded");
 
