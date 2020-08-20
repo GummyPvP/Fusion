@@ -9,7 +9,7 @@ import fusion.utils.command.CommandArgs;
 
 public class ListPlayers {
 	
-	@Command(name = "list", description = "List currently online players", usage = "/list",aliases = { "online", "who" })
+	@Command(name = "list", description = "List currently online players", usage = "/list", aliases = { "online", "who" })
 	public void listPlayersCommand(CommandArgs args) {
 		
 		String opsList = "";

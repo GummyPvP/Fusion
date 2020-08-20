@@ -134,7 +134,10 @@ import fusion.utils.protection.BlockDecay;
 import fusion.utils.protection.BlockIgnite;
 import fusion.utils.protection.BlockPlace;
 import fusion.utils.protection.ContainerOpen;
+import fusion.utils.protection.HangingBreak;
+import fusion.utils.protection.HangingPlace;
 import fusion.utils.protection.PlayerDamage;
+import fusion.utils.protection.RedstoneInteract;
 import fusion.utils.protection.WaterPlace;
 import fusion.utils.spawn.Spawn;
 import fusion.utils.warps.WarpCreate;
@@ -203,7 +206,7 @@ public class Fusion extends JavaPlugin {
 				new TabComplete(), new ChunkUnload(), new ChunkLoad(), new PlayerInteractEntity(), new SwitchEvent(), new CommandPreprocess(), new SnailEvent(), new NinjaEvent(), new SharkEvent(),
 				new GladiatorEvent(), new PlayerMove(), new WimpEvent(),
 				new SpellCasterEvent(), new TurtleEvent(), new VampireEvent(), new VigilanteEvent(), new KangarooEvent(), new EndermageEvent(), new WeatherChange(), 
-				new MonkEvent(), new HulkEvent(), new PhantomEvent(), new StalkerEvent(), new PlayerInteractSign(), new AnchorEvent(), new SpidermanEvent(), new NeoEvent(), new AssassinEvent());
+				new MonkEvent(), new HulkEvent(), new PhantomEvent(), new StalkerEvent(), new PlayerInteractSign(), new AnchorEvent(), new SpidermanEvent(), new NeoEvent(), new AssassinEvent(), new HangingPlace(), new HangingBreak(), new RedstoneInteract());
 
 		log("Listeners loaded");
 
